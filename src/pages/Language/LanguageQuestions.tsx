@@ -8,11 +8,18 @@ import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 
 interface Question {
   id: number;
-  type: "mcq";
-  question: string;
-  options: string[];
-  answer: string[];
-  hint?: string;
+  type: "readingMultipleChoice";
+  group: string;
+  subject: string;
+  category: string;
+  level: "Easy" | "Medium" | "Advance";
+  metadata: {
+    description?: string;
+    question: string;
+    options: string[];
+    correctAnswer: string[];
+    hint?: string;
+  };
 }
 
 interface LanguagePageProps {
@@ -36,40 +43,79 @@ export default function LanguageQuestions({
       setLoading(false);
     } else {
       setTimeout(() => {
-        const sampleData: Question[] = [
-          {
-            id: 0,
-            type: "mcq",
-            question: "Which fruit is red?",
-            options: ["Apple", "Banana", "Mango", "Orange"],
-            answer: ["Apple"],
-            hint: "It is the most common red fruit.",
-          },
-          {
-            id: 1,
-            type: "mcq",
-            question: "Which planet is known as the Red Planet?",
-            options: ["Earth", "Mars", "Jupiter", "Venus"],
-            answer: ["Mars"],
-            hint: "It is the 4th planet from the Sun.",
-          },
-          {
-            id: 2,
-            type: "mcq",
-            question: "Which language is used for web development?",
-            options: ["Python", "C++", "JavaScript", "Assembly"],
-            answer: ["JavaScript"],
-            hint: "It runs in browsers.",
-          },
-          {
-            id: 3,
-            type: "mcq",
-            question: "Which one is a mammal?",
-            options: ["Shark", "Frog", "Dolphin", "Snake"],
-            answer: ["Dolphin"],
-            hint: "Lives in water but not a fish.",
-          },
-        ];
+       const sampleData: Question[] = [
+  {
+    id: 4,
+    type: "readingMultipleChoice",
+    group: "1",
+    subject: "Language",
+    category: "English",
+    level: "Easy",
+    metadata: {
+      question: "Which of the following is a vowel in English?",
+      options: ["B", "C", "A", "D"],
+      correctAnswer: ["A"],
+      hint: "Think about letters that are not consonants.",
+    },
+  },
+  {
+    id: 5,
+    type: "readingMultipleChoice",
+    group: "2",
+    subject: "Language",
+    category: "Spanish",
+    level: "Medium",
+    metadata: {
+      question: "What does 'Hola' mean in Spanish?",
+      options: ["Goodbye", "Hello", "Thanks", "Yes"],
+      correctAnswer: ["Hello"],
+      hint: "It’s a common greeting.",
+    },
+  },
+  {
+    id: 6,
+    type: "readingMultipleChoice",
+    group: "3",
+    subject: "Language",
+    category: "French",
+    level: "Easy",
+    metadata: {
+      question: "What is the French word for 'apple'?",
+      options: ["Pomme", "Poire", "Orange", "Banane"],
+      correctAnswer: ["Pomme"],
+      hint: "Sounds like 'Pom'.",
+    },
+  },
+  {
+    id: 7,
+    type: "readingMultipleChoice",
+    group: "4",
+    subject: "Language",
+    category: "German",
+    level: "Advance",
+    metadata: {
+      description: "In German, nouns are always capitalized.",
+      question: "Which of the following is correctly written in German?",
+      options: ["hund", "Katze", "apfel", "vogel"],
+      correctAnswer: ["Katze"],
+      hint: "Nouns always start with a capital letter.",
+    },
+  },
+  {
+    id: 8,
+    type: "readingMultipleChoice",
+    group: "5",
+    subject: "Language",
+    category: "Bangla",
+    level: "Medium",
+    metadata: {
+      question: "What is the Bangla word for 'Book'?",
+      options: ["Kagoj", "Boi", "Khata", "Lekha"],
+      correctAnswer: ["Boi"],
+      hint: "It’s the common word used in schools.",
+    },
+  },
+];
         setData(sampleData);
         setLoading(false);
       }, 1000);
@@ -98,7 +144,7 @@ export default function LanguageQuestions({
     if (!selected) return;
 
     setStatus(
-      currentQuestion.answer
+      currentQuestion.metadata.correctAnswer
         .map((a) => a.toLowerCase())
         .includes(selected.toLowerCase())
         ? "match"
@@ -166,18 +212,19 @@ export default function LanguageQuestions({
         <div className="bg-white mt-10 shadow-lg rounded-2xl p-6 flex flex-col gap-6">
           {/* Question */}
           <p className="text-xl font-semibold text-gray-700">
-            Q{currentIndex + 1}. {currentQuestion.question}
+            Q{currentIndex + 1}. {currentQuestion.metadata.question}
           </p>
 
           {/* MCQ Options */}
           <div className="grid grid-cols-2 gap-4">
-            {currentQuestion.options.map((opt) => {
+            {currentQuestion.metadata.options.map((opt) => {
               const isSelected = selected === opt;
               const isCorrect =
-                showSolution && currentQuestion.answer.includes(opt);
+                showSolution &&
+                currentQuestion.metadata.correctAnswer.includes(opt);
               const isWrong =
                 showSolution &&
-                !currentQuestion.answer.includes(opt) &&
+                !currentQuestion.metadata.correctAnswer.includes(opt) &&
                 isSelected;
 
               return (
@@ -214,14 +261,14 @@ export default function LanguageQuestions({
 
           {/* Show result */}
           {summary && <Check summary={summary} />}
-          {showHint && <Hint hint={currentQuestion.hint || ""} />}
+          {showHint && <Hint hint={currentQuestion.metadata.hint || ""} />}
 
           {/* Show Solution */}
           {showSolution && (
             <div className="mt-4 p-4 border rounded-lg bg-gray-50 text-gray-800">
               <p className="font-semibold">✅ Correct Answer:</p>
               <ul className="list-disc list-inside">
-                {currentQuestion.answer.map((ans, idx) => (
+                {currentQuestion.metadata.correctAnswer.map((ans, idx) => (
                   <li key={idx}>{ans}</li>
                 ))}
               </ul>

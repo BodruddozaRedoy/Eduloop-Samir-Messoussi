@@ -9,83 +9,112 @@ import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 interface Question {
   id: number;
   type: "mcq" | "fill" | "verb" | "short";
-  question: string;
-  options: string[];
-  answer: string[];
-  hint?: string;
+  group?: string;
+  subject?: string;
+  category?: string;
+  level?: string;
+  metadata: {
+    question: string;
+    options?: string[];
+    correctAnswer: string[];
+    hint?: string;
+    description?: string;
+  };
 }
 
-interface LanguagePageProps {
-  data?: Question[];
-}
-
-export default function VocabularyQuestions({
-  data: initialData = [],
-}: LanguagePageProps) {
-  const [data, setData] = useState<Question[]>(initialData);
+export default function VocabularyQuestions() {
+  const [data, setData] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<{ [id: number]: string | string[] }>(
-    {}
-  );
+  const [answers, setAnswers] = useState<{ [id: number]: string | string[] }>({});
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (initialData.length > 0) {
-      setData(initialData);
-      setLoading(false);
-    } else {
-      setTimeout(() => {
-        const sampleData: Question[] = [
-          {
-            id: 0,
-            type: "mcq",
-            question: "Which fruit is red?",
-            options: ["Apple", "Banana", "Mango", "Orange"],
-            answer: ["Apple"],
-            hint: "It is the most common red fruit you eat daily.",
-          },
-          {
-            id: 1,
-            type: "fill",
-            question: "Fill in the blank: The capital of Bangladesh is _____.",
-            options: [],
-            answer: ["Dhaka"],
-            hint: "It starts with 'D'.",
-          },
-          {
-            id: 2,
-            type: "verb",
-            question: "Right form of verb: He ____ (go) to school every day.",
-            options: [],
-            answer: ["goes"],
-            hint: "Think about present simple tense.",
-          },
-          {
-            id: 3,
-            type: "short",
-            question: "Write two programming languages you know:",
-            options: [],
-            answer: ["JavaScript", "Python"],
-            hint: "Think about web or general purpose languages.",
-          },
-        ];
-        setData(sampleData);
-        setLoading(false);
-      }, 1000);
-    }
-  }, [initialData]);
+    const fakeData: Question[] = [
+      {
+        id: 1,
+        type: "mcq",
+        group: "1",
+        subject: "Reading",
+        category: "Environment",
+        level: "Easy",
+        metadata: {
+          description: "Mangrove forests grow along coastlines and protect the land from big waves and storms.",
+          question: "Why do communities plant more mangroves?",
+          options: [
+            "To protect the coast and the environment.",
+            "Animals will lose their homes.",
+            "More storms will stop.",
+            "Communities will be safer."
+          ],
+          correctAnswer: ["To protect the coast and the environment."],
+          hint: "Think about the role mangroves play in protecting both land and animals."
+        }
+      },
+      {
+        id: 2,
+        type: "fill",
+        group: "1",
+        subject: "Geography",
+        category: "Capital",
+        level: "Easy",
+        metadata: {
+          question: "The capital of Bangladesh is _____.",
+          correctAnswer: ["Dhaka"],
+          hint: "It starts with 'D'."
+        }
+      },
+      {
+        id: 3,
+        type: "verb",
+        group: "1",
+        subject: "Grammar",
+        category: "Verb",
+        level: "Medium",
+        metadata: {
+          question: "Right form of verb: She ____ (run) fast every morning.",
+          correctAnswer: ["runs"],
+          hint: "Think about present simple tense."
+        }
+      },
+      {
+        id: 4,
+        type: "short",
+        group: "1",
+        subject: "Programming",
+        category: "Languages",
+        level: "Medium",
+        metadata: {
+          question: "Write two programming languages you know:",
+          correctAnswer: ["JavaScript", "Python"],
+          hint: "Think about web or general purpose languages."
+        }
+      },
+      {
+        id: 5,
+        type: "mcq",
+        group: "2",
+        subject: "Science",
+        category: "Plants",
+        level: "Easy",
+        metadata: {
+          question: "Which of these is a flowering plant?",
+          options: ["Rose", "Fern", "Moss", "Lichen"],
+          correctAnswer: ["Rose"],
+          hint: "It produces flowers."
+        }
+      }
+    ];
+    setData(fakeData);
+    setLoading(false);
+  }, []);
 
   if (loading)
-    return (
-      <div className="text-center text-xl mt-10">Loading questions...</div>
-    );
+    return <div className="text-center text-xl mt-10">Loading questions...</div>;
   if (data.length === 0)
-    return (
-      <div className="text-center text-xl mt-10">No questions available</div>
-    );
+    return <div className="text-center text-xl mt-10">No questions available</div>;
 
   const currentQuestion = data[currentIndex];
   const selected = answers[currentQuestion.id] || "";
@@ -100,13 +129,13 @@ export default function VocabularyQuestions({
     if (!selected) return;
 
     if (Array.isArray(selected)) {
-      const correct = currentQuestion.answer.every((ans) =>
+      const correct = currentQuestion.metadata.correctAnswer.every((ans) =>
         selected.some((s) => s.toLowerCase() === ans.toLowerCase())
       );
       setStatus(correct ? "match" : "wrong");
     } else {
       setStatus(
-        currentQuestion.answer
+        currentQuestion.metadata.correctAnswer
           .map((a) => a.toLowerCase())
           .includes((selected as string).toLowerCase())
           ? "match"
@@ -141,74 +170,41 @@ export default function VocabularyQuestions({
 
   const summary =
     status === "match"
-      ? {
-          text: "✅ Correct!",
-          color: "text-green-600",
-          bgColor: "bg-green-100",
-          borderColor: "border-green-600",
-        }
+      ? { text: "✅ Correct!", color: "text-green-600", bgColor: "bg-green-100", borderColor: "border-green-600" }
       : status === "wrong"
-      ? {
-          text: "❌ Wrong answer!",
-          color: "text-red-600",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
+      ? { text: "❌ Wrong answer!", color: "text-red-600", bgColor: "bg-red-100", borderColor: "border-red-600" }
       : null;
 
   return (
     <div className="p-10">
-      {/* Back button */}
-      <Button
-        onClick={goPrev}
-        disabled={isFirst}
-        className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-      >
+      <Button onClick={goPrev} disabled={isFirst} className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
         <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
           <IoMdArrowRoundBack size={50} className="text-5xl" />
         </div>
         Back
       </Button>
 
-      {/* Main container */}
       <div className="w-full flex flex-col gap-6">
-        {/* Question card */}
         <div className="bg-white mt-10 shadow-lg rounded-2xl p-6 flex flex-col gap-6">
-          {/* Question text */}
           <p className="text-xl font-semibold text-gray-700">
-            Q{currentIndex + 1}. {currentQuestion.question}
+            Q{currentIndex + 1}. {currentQuestion.metadata.question}
           </p>
 
-          {/* MCQ Options */}
           {currentQuestion.type === "mcq" && (
             <div className="grid grid-cols-2 gap-4">
-              {currentQuestion.options.map((opt) => {
+              {currentQuestion.metadata.options?.map((opt) => {
                 const isSelected = selected === opt;
-                const isCorrect =
-                  showSolution && currentQuestion.answer.includes(opt);
-                const isWrong =
-                  showSolution &&
-                  !currentQuestion.answer.includes(opt) &&
-                  isSelected;
+                const isCorrect = showSolution && currentQuestion.metadata.correctAnswer.includes(opt);
+                const isWrong = showSolution && !currentQuestion.metadata.correctAnswer.includes(opt) && isSelected;
 
                 return (
                   <Button
                     key={opt}
                     onClick={() => selectOption(opt)}
                     className={`w-full px-4 py-4 rounded-lg border text-gray-700 font-medium
-                      ${
-                        isSelected
-                          ? "bg-blue-100 border-blue-400"
-                          : "bg-white border-gray-300"
-                      }
-                      ${
-                        isCorrect
-                          ? "bg-green-100 border-green-500 text-green-700"
-                          : ""
-                      }
-                      ${
-                        isWrong ? "bg-red-100 border-red-500 text-red-700" : ""
-                      }`}
+                      ${isSelected ? "bg-blue-100 border-blue-400" : "bg-white border-gray-300"}
+                      ${isCorrect ? "bg-green-100 border-green-500 text-green-700" : ""}
+                      ${isWrong ? "bg-red-100 border-red-500 text-red-700" : ""}`}
                   >
                     {opt}
                   </Button>
@@ -217,9 +213,7 @@ export default function VocabularyQuestions({
             </div>
           )}
 
-          {/* Fill / Verb */}
-          {(currentQuestion.type === "fill" ||
-            currentQuestion.type === "verb") && (
+          {(currentQuestion.type === "fill" || currentQuestion.type === "verb") && (
             <input
               type="text"
               value={selected as string}
@@ -229,7 +223,6 @@ export default function VocabularyQuestions({
             />
           )}
 
-          {/* Short Question */}
           {currentQuestion.type === "short" && (
             <div className="flex flex-col gap-4">
               {[0, 1].map((i) => (
@@ -238,9 +231,7 @@ export default function VocabularyQuestions({
                   type="text"
                   value={Array.isArray(selected) ? selected[i] || "" : ""}
                   onChange={(e) => {
-                    const updated = Array.isArray(selected)
-                      ? [...selected]
-                      : [];
+                    const updated = Array.isArray(selected) ? [...selected] : [];
                     updated[i] = e.target.value;
                     selectOption(updated);
                   }}
@@ -251,44 +242,31 @@ export default function VocabularyQuestions({
             </div>
           )}
 
-          {/* Controllers */}
           <div className="flex gap-4 justify-start mt-4">
-            <Controllers
-              handleCheck={handleCheck}
-              handleShowSolution={handleShowSolution}
-              handleShowHint={handleShowHint}
-            />
+            <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
           </div>
 
-          {/* Show result */}
           {summary && <Check summary={summary} />}
-          {showHint && <Hint hint={currentQuestion.hint || ""} />}
+          {showHint && <Hint hint={currentQuestion.metadata.hint || ""} />}
 
-          {/* Show Solution */}
           {showSolution && (
             <div className="mt-4 p-4 border rounded-lg bg-gray-50 text-gray-800">
               <p className="font-semibold">✅ Correct Answer:</p>
               <ul className="list-disc list-inside">
-                {currentQuestion.answer.map((ans, idx) => (
+                {currentQuestion.metadata.correctAnswer.map((ans, idx) => (
                   <li key={idx}>{ans}</li>
                 ))}
               </ul>
             </div>
           )}
 
-          {/* Navigation */}
           <div className="flex items-center justify-between mt-6">
             <div>
               <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
                 <ChevronLeft className="mr-2" /> Switch Category
               </Button>
             </div>
-
-            <Button
-              onClick={goNext}
-              disabled={isLast}
-              className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-            >
+            <Button onClick={goNext} disabled={isLast} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
               Next
               <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
                 <IoMdArrowRoundForward size={50} className="text-5xl" />

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ArrTypeFourteen({ data, hint }: any) {
+export default function ArrTypeFourteen() {
   return (
     <div>ArrTypeFourteen</div>
   )

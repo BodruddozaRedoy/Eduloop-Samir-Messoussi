@@ -2,11 +2,119 @@ import type { Question } from "@/types/ArithmeticType";
 
 export const QUESTIONS_DATA: any[] = [
   {
-    id: 12,
-    type: "math12",
+    id: 17,
+    type: "math17",
     group: "4",
     subject: "Arithmetic",
     category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "What time is it?",
+      data: [
+        {
+          id: 1,
+          boxTime: { hour: 4, minute: 0 }, // Fixed box time
+          difference: 8, // 8 hours later
+          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
+        },
+        {
+          id: 2,
+          boxTime: { hour: 4, minute: 0 }, // Fixed box time
+          difference: 8, // 8 hours later
+          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
+        },
+      ],
+      hint: "Count the hours forward from the clock time until you reach the given time.",
+    },
+  },
+  {
+    id: 16,
+    type: "math16_2",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "What time is it?",
+      data: [
+        {
+          id: 1,
+          boxTime: { hour: 4, minute: 0 }, // Fixed box time
+          difference: 8, // 8 hours later
+          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
+        },
+        {
+          id: 2,
+          boxTime: { hour: 4, minute: 0 }, // Fixed box time
+          difference: 8, // 8 hours later
+          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
+        },
+      ],
+      hint: "Count the hours forward from the clock time until you reach the given time.",
+    },
+  },
+  {
+    id: 15,
+    type: "math16",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "How many hours later?",
+      data: [
+        {
+          id: 1,
+          clock: { hour: 9, minute: 0 },
+          boxTime: { hour: 12, minute: 0 },
+          answer: 3,
+        },
+        {
+          id: 2,
+          clock: { hour: 5, minute: 0 },
+          boxTime: { hour: 2, minute: 0 },
+          answer: 9,
+        },
+      ],
+      hint: "Count the hours forward from the clock time until you reach the given time.",
+    },
+  },
+  {
+    id: 14,
+    type: "math15",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "What time is it?",
+      data: [
+        {
+          id: 1,
+          clocks: [
+            { value: { hour: 7, minute: 0 }, correct: { hour: 7, minute: 0 } },
+            { user: true, correct: { hour: 8, minute: 0 } },
+            { value: { hour: 9, minute: 0 }, correct: { hour: 9, minute: 0 } },
+          ],
+        },
+        {
+          id: 2,
+          clocks: [
+            { value: { hour: 3, minute: 0 }, correct: { hour: 3, minute: 0 } },
+            { user: true, correct: { hour: 4, minute: 0 } },
+            { value: { hour: 5, minute: 0 }, correct: { hour: 5, minute: 0 } },
+          ],
+        },
+      ],
+      hint: "Look at the pattern of hours. The missing clock should be between the given ones.",
+    },
+  },
+  {
+    id: 13,
+    type: "math14",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Advance",
     level: "Easy",
     metadata: {
       question: "Which sums are associated with it?",
@@ -40,7 +148,67 @@ export const QUESTIONS_DATA: any[] = [
     },
   },
   {
+    id: 12,
+    type: "math13",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Easy",
+    metadata: {
+      question: "Which sums are associated with it?",
+      data: [
+        { id: 1, question: "5 - 3 =", answer: 2, type: "subtraction" },
+        { id: 2, question: "7 - 3 =", answer: 4, type: "subtraction" },
+        { id: 3, question: "8 - 6 =", answer: 2, type: "subtraction" },
+        { id: 4, question: "6 - 4 =", answer: 2, type: "subtraction" },
+        { id: 5, question: "8 - 4 =", answer: 4, type: "subtraction" },
+        { id: 6, question: "9 - 6 =", answer: 3, type: "subtraction" },
+        { id: 7, question: "9 - 3 =", answer: 6, type: "subtraction" },
+        { id: 8, question: "6 - 3 =", answer: 3, type: "subtraction" },
+        { id: 9, question: "7 - 3 =", answer: 4, type: "subtraction" },
+        { id: 10, question: "9 - 7 =", answer: 2, type: "subtraction" },
+      ],
+      hint: "Try counting the dots on the abacus for each number to find the answer.",
+    },
+  },
+  {
     id: 11,
+    type: "math12",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Easy",
+    metadata: {
+      question: "Make splits with the numbers Consider 3 sums for each split",
+
+      data: {
+        numbers: [8, 2, 6, 9, 5, 4, 10, 6, 4], //these number will be the reference numbers of the data numbers
+        query: [
+          {
+            id: 1,
+            top: 8,
+            bottoms: [2, 6],
+            answers: ["2 + 6 = 8", "6 + 2 = 8", "8 - 2 = 6", "8 - 6 = 2"],
+          },
+          {
+            id: 2,
+            top: 9,
+            bottoms: [5, 4],
+            answers: ["5 + 4 = 9", "4 + 5 = 9", "9 - 5 = 4", "9 - 4 = 5"],
+          },
+          {
+            id: 3,
+            top: 10,
+            bottoms: [6, 4],
+            answers: ["4 + 6 = 10", "6 + 4 = 10", "10 - 4 = 6", "10 - 6 = 4"],
+          },
+        ],
+      },
+      hint: "Only find those numbers sum, that is matched with the box numbers.",
+    },
+  },
+  {
+    id: 10,
     type: "math11",
     group: "4",
     subject: "Arithmetic",
@@ -51,34 +219,50 @@ export const QUESTIONS_DATA: any[] = [
       data: [
         {
           id: 1,
-          top: 5,
-          bottoms: [2, null],
-          answers: ["2 + 3 = 5", "3 + 2 = 5", "5 - 2 = 3", "5 - 3 = 2"],
+          numbers: [5, 2, 3],
+          answers: [
+            { a: 2, op: "+", b: 3, result: 5 },
+            { a: 3, op: "+", b: 2, result: 5 },
+            { a: 5, op: "-", b: 2, result: 3 },
+            { a: 5, op: "-", b: 3, result: 2 },
+          ],
         },
         {
           id: 2,
-          top: 7,
-          bottoms: [2, 5],
-          answers: ["2 + 5 = 7", "5 + 2 = 7", "7 - 2 = 5", "7 - 5 = 2"],
+          numbers: [],
+          answers: [
+            { a: 4, op: "+", b: 2, result: 6 },
+            { a: 2, op: "+", b: 4, result: 6 },
+            { a: 6, op: "-", b: 4, result: 2 },
+            { a: 6, op: "-", b: 2, result: 4 },
+          ],
         },
         {
           id: 3,
-          bottoms: [4, 5],
-          top: null,
-          answers: ["4 + 5 = 9", "5 + 4 = 9", "9 - 4 = 5", "9 - 5 = 4"],
+          numbers: [9, 7, 2],
+          answers: [
+            { a: 7, op: "+", b: 2, result: 9 },
+            { a: 2, op: "+", b: 7, result: 9 },
+            { a: 9, op: "-", b: 7, result: 2 },
+            { a: 9, op: "-", b: 2, result: 7 },
+          ],
         },
         {
           id: 4,
-          top: 8,
-          bottoms: [2, 6],
-          answers: ["2 + 6 = 8", "6 + 2 = 8", "8 - 2 = 6", "8 - 6 = 2"],
+          numbers: [8, 5, 3],
+          answers: [
+            { a: 5, op: "+", b: 3, result: 8 },
+            { a: 3, op: "+", b: 5, result: 8 },
+            { a: 8, op: "-", b: 5, result: 3 },
+            { a: 8, op: "-", b: 3, result: 5 },
+          ],
         },
       ],
-      hint: "Only find those numbers sum, that is matched with the box numbers.",
+      hint: "Make addition and subtraction using those 3 numbers in the boxes.",
     },
   },
   {
-    id: 10,
+    id: 9,
     type: "math10",
     group: "4",
     subject: "Arithmetic",
@@ -109,59 +293,9 @@ export const QUESTIONS_DATA: any[] = [
       hint: "Only find those numbers sum, that is matched with the box numbers.",
     },
   },
+
   {
-    id: 9,
-    type: "math9",
-    group: "4",
-    subject: "Arithmetic",
-    category: "Basic",
-    level: "Easy",
-    metadata: {
-      question: "Guess the numbers that is multiplication of the top number",
-      method: "multiplication",
-      data: [
-        {
-          id: 1,
-          result: 12,
-          answer: [
-            [3, 4],
-            [6, 2],
-            [4, 3],
-          ],
-        },
-        {
-          id: 2,
-          result: 20,
-          answer: [
-            [10, 2],
-            [5, 4],
-            [20, 1],
-          ],
-        },
-        {
-          id: 3,
-          result: 50,
-          answer: [
-            [25, 2],
-            [10, 5],
-            [50, 1],
-          ],
-        },
-        {
-          id: 4,
-          result: 60,
-          answer: [
-            [30, 2],
-            [20, 3],
-            [15, 4],
-          ],
-        },
-      ],
-      hint: "Follow this: 3 * ? = 12, 6 * ? = 12, 4 + ? = 12",
-    },
-  },
-  {
-    id: 8,
+    id: 7,
     type: "math8",
     group: "4",
     subject: "Arithmetic",
@@ -211,25 +345,25 @@ export const QUESTIONS_DATA: any[] = [
       hint: "Follow this: 5 + ? = 10, 8 + ? = 10, 6 + ? = 10",
     },
   },
-  {
-    id: 7,
-    type: "math7",
-    group: "4",
-    subject: "Arithmetic",
-    category: "Basic",
-    level: "Easy",
-    metadata: {
-      question: "Guess the number that is multiplication of the top number",
-      method: "multiplication",
-      data: [
-        { id: 1, result: 10, option: 2, answer: 8 },
-        { id: 2, result: 20, option: 10, answer: 10 },
-        { id: 3, result: 50, option: 25, answer: 25 },
-        { id: 4, result: 60, option: 20, answer: 15 },
-      ],
-      hint: "Follow this: 2 * ? = 10",
-    },
-  },
+  // {
+  //   id: 7,
+  //   type: "math7",
+  //   group: "4",
+  //   subject: "Arithmetic",
+  //   category: "Basic",
+  //   level: "Easy",
+  //   metadata: {
+  //     question: "Guess the number that is multiplication of the top number",
+  //     method: "multiplication",
+  //     data: [
+  //       { id: 1, result: 10, option: 2, answer: 8 },
+  //       { id: 2, result: 20, option: 10, answer: 10 },
+  //       { id: 3, result: 50, option: 25, answer: 25 },
+  //       { id: 4, result: 60, option: 20, answer: 15 },
+  //     ],
+  //     hint: "Follow this: 2 * ? = 10",
+  //   },
+  // },
   {
     id: 6,
     type: "math6",
