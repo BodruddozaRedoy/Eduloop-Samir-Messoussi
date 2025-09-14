@@ -237,7 +237,7 @@ function ArrTypeFourteenV2() {
     });
     setInputs(filled);
     setChecked(true);
-    setStatus("match");
+    // setStatus("match");
   };
 
   const summary =

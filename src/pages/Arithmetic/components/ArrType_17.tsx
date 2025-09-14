@@ -343,7 +343,7 @@ export function ArrTypeSeventeenMethodtwo({
     setInputs(expectedRows.map((row) => row.map((n) => String(n))));
     setCorrectMap(expectedRows.map((row) => row.map(() => true)));
     setChecked(true);
-    setStatus("match");
+    // setStatus("match");
     setLastAction("solution"); // summary must not show after solution
   };
 
