@@ -9,6 +9,12 @@ export default function ResultPage() {
     const total = results.right.length + results.wrong.length
     const scoreText = `${results.right.length}/${total || 0}`
 
+
+    const handleFinish = () => {
+        reset()
+        localStorage.removeItem("question")
+    }
+
     const List = ({ items, color }: { items: TrackedItem[]; color: 'green' | 'red' }) => {
         if (items.length === 0) {
             return (
@@ -53,7 +59,7 @@ export default function ResultPage() {
                         <Button onClick={() => reset()} className='bg-orange-300 py-5 px-10'>Try Again</Button>
                     </Link>
                     <Link to={"/"}>
-                        <Button onClick={() => reset()} className='bg-green-300 py-5 px-10'>Finish</Button>
+                        <Button onClick={handleFinish} className='bg-green-300 py-5 px-10'>Finish</Button>
                     </Link>
                 </div>
             </div>
