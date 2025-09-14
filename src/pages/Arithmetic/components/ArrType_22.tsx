@@ -127,6 +127,7 @@ export default function ArrType_22() {
       : status === "wrong"
       ? {
           text: "❌ Some answers are wrong. Check again.",
+          
           color: "text-red-700",
           bgColor: "bg-red-100",
           borderColor: "border-red-600",
