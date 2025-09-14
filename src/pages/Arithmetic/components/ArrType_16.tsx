@@ -53,11 +53,9 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
   const handleShowHint = () => setShowHint((v) => !v);
 
   const handleShowSolution = () => {
-    // Show solution without modifying userAnswers
     setShowSolution(true);
     setValidation(Array(problems.length).fill(true));
-    setStatus(null);
-    setWrongAnswers([]);
+    setStatus("match");
   };
 
   const summary =
@@ -102,7 +100,7 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
                     className={`w-24 sm:w-28 h-12 text-center text-xl font-semibold border-b-2 border-dashed focus:outline-none ${inputClass}`}
                     value={showSolution ? p.answer : isNaN(userAnswers[idx]) ? "" : userAnswers[idx]}
                     onChange={(e) => handleInputChange(idx, e.target.value)}
-                    readOnly={showSolution} // Sudhu dekhanor jonno
+                    readOnly={showSolution} // sudhu solution dekhano jonne
                   />
                 </div>
               );
@@ -111,11 +109,14 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
         </div>
       </div>
 
-      <Controllers
-        handleCheck={handleCheck}
-        handleShowSolution={handleShowSolution}
-        handleShowHint={handleShowHint}
-      />
+      <div className="mt-6 flex justify-start">
+        <Controllers
+          handleCheck={handleCheck}
+          handleShowSolution={handleShowSolution}
+          handleShowHint={handleShowHint}
+        />
+      </div>
+
       {showHint && <Hint hint={hint} />}
       <Check summary={summary} />
     </>
