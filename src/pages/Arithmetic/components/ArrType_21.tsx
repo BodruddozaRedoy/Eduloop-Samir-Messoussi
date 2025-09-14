@@ -5,42 +5,12 @@ import React, { useState } from "react";
 
 // Time conversion data
 const problemsJSON = [
-  {
-    id: 1,
-    time24: "13:15",
-    time12: "1:15",
-    period: "P.M.",
-    daypart: "afternoon",
-  },
-  {
-    id: 2,
-    time24: "19:45",
-    time12: "7:45",
-    period: "P.M.",
-    daypart: "evening",
-  },
+  { id: 1, time24: "13:15", time12: "1:15", period: "P.M.", daypart: "afternoon" },
+  { id: 2, time24: "19:45", time12: "7:45", period: "P.M.", daypart: "evening" },
   { id: 3, time24: "21:30", time12: "9:30", period: "P.M.", daypart: "night" },
-  {
-    id: 4,
-    time24: "16:45",
-    time12: "4:45",
-    period: "P.M.",
-    daypart: "afternoon",
-  },
-  {
-    id: 5,
-    time24: "15:15",
-    time12: "3:15",
-    period: "P.M.",
-    daypart: "afternoon",
-  },
-  {
-    id: 6,
-    time24: "19:15",
-    time12: "7:15",
-    period: "P.M.",
-    daypart: "evening",
-  },
+  { id: 4, time24: "16:45", time12: "4:45", period: "P.M.", daypart: "afternoon" },
+  { id: 5, time24: "15:15", time12: "3:15", period: "P.M.", daypart: "afternoon" },
+  { id: 6, time24: "19:15", time12: "7:15", period: "P.M.", daypart: "evening" },
 ];
 
 const ArrType_21 = ({ hint }) => {
@@ -52,6 +22,7 @@ const ArrType_21 = ({ hint }) => {
   );
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState(null);
+  const [showSolution, setShowSolution] = useState(false);
 
   const handleInputChange = (idx, field, value) => {
     const newAnswers = [...answers];
@@ -71,14 +42,8 @@ const ArrType_21 = ({ hint }) => {
   };
 
   const handleShowSolution = () => {
-    setAnswers(
-      problemsJSON.map((p) => ({
-        time: p.time12 + " " + p.period,
-        part: p.daypart,
-      }))
-    );
+    setShowSolution(true);
     setValidation(Array(problemsJSON.length).fill(true));
-    setStatus("match");
   };
 
   const handleShowHint = () => setShowHint((v) => !v);
@@ -111,32 +76,24 @@ const ArrType_21 = ({ hint }) => {
                 <span className="text-sm">It is</span>
                 <input
                   type="text"
-                  className={`flex-1 p-1 text-sm border-dotted border-b outline-none 
-                    ${
-                      validation[idx] === false
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                  value={answers[idx].time}
-                  onChange={(e) =>
-                    handleInputChange(idx, "time", e.target.value)
-                  }
+                  className={`flex-1 p-1 text-sm border-dotted border-b outline-none ${
+                    validation[idx] === false ? "border-red-500" : "border-gray-300"
+                  }`}
+                  value={showSolution ? `${p.time12} ${p.period}` : answers[idx].time}
+                  onChange={(e) => handleInputChange(idx, "time", e.target.value)}
+                  readOnly={showSolution}
                 />
               </div>
               <div className="flex items-center gap-1 mt-1">
                 <span className="text-sm">in the</span>
                 <input
                   type="text"
-                  className={`flex-1 p-1 text-sm  border-dotted border-b outline-none 
-                    ${
-                      validation[idx] === false
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                  value={answers[idx].part}
-                  onChange={(e) =>
-                    handleInputChange(idx, "part", e.target.value)
-                  }
+                  className={`flex-1 p-1 text-sm border-dotted border-b outline-none ${
+                    validation[idx] === false ? "border-red-500" : "border-gray-300"
+                  }`}
+                  value={showSolution ? p.daypart : answers[idx].part}
+                  onChange={(e) => handleInputChange(idx, "part", e.target.value)}
+                  readOnly={showSolution}
                 />
               </div>
             </div>
