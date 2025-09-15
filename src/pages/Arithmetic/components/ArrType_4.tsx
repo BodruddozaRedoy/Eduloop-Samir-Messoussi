@@ -1,101 +1,124 @@
-"use client";
+"use client"
 
-import { useState, useMemo } from "react";
-import Controllers from "@/components/common/Controllers";
-import Check from "@/components/common/Check";
-import Hint from "@/components/common/Hint";
-import useResultTracker from "@/hooks/useResultTracker";
-import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useState, useMemo, useEffect, useCallback } from "react"
+import Check from "@/components/common/Check"
+import Hint from "@/components/common/Hint"
+import useResultTracker from "@/hooks/useResultTracker"
+import { useQuestionMeta } from "@/context/QuestionMetaContext"
+import { useQuestionControls } from "@/context/QuestionControlsContext"
 
 type Item = {
-  id: number;
-  number: number;
-  firstNumber: number;
-  lastNumber: number;
-};
+  id: number
+  number: number
+  firstNumber: number
+  lastNumber: number
+}
 
 interface Props {
-  data: Item[];
-  hint?: string;
+  data: Item[]
+  hint?: string
 }
 
 export default function ArrType_4({ data, hint }: Props) {
-  const [answers, setAnswers] = useState<{ [key: number]: { first?: string; last?: string } }>({});
-  const [results, setResults] = useState<{ [key: number]: { first?: "correct" | "wrong"; last?: "correct" | "wrong" } }>({});
-  const [checked, setChecked] = useState(false);
-  const [showHint, setShowHint] = useState(false);
+  const [answers, setAnswers] = useState<{ [key: number]: { first?: string; last?: string } }>({})
+  const [results, setResults] = useState<{
+    [key: number]: { first?: "correct" | "wrong"; last?: "correct" | "wrong" }
+  }>({})
+  const [checked, setChecked] = useState(false)
+  const [showHint, setShowHint] = useState(false)
 
-  const handleShowHint = () => setShowHint((v) => !v);
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), [])
 
-  const handleChange = (id: number, field: "first" | "last", value: string) => {
+  const handleChange = useCallback((id: number, field: "first" | "last", value: string) => {
     setAnswers((prev) => ({
       ...prev,
       [id]: { ...prev[id], [field]: value },
-    }));
-    if (checked) setChecked(false); // reset feedback when editing
-  };
+    }))
+    if (checked) setChecked(false) // reset feedback when editing
+  }, [checked])
 
-  const { addResult } = useResultTracker();
-  const { id: qId, title: qTitle } = useQuestionMeta();
+  const { addResult } = useResultTracker()
+  const { id: qId, title: qTitle } = useQuestionMeta()
 
-  const handleCheck = () => {
-    const newResults: typeof results = {};
+  const handleCheck = useCallback(() => {
+    const newResults: typeof results = {}
     data.forEach((d) => {
-      const userFirst = answers[d.id]?.first;
-      const userLast = answers[d.id]?.last;
+      const userFirst = answers[d.id]?.first
+      const userLast = answers[d.id]?.last
 
       newResults[d.id] = {
         first: userFirst === String(d.firstNumber) ? "correct" : "wrong",
         last: userLast === String(d.lastNumber) ? "correct" : "wrong",
-      };
-    });
-    setResults(newResults);
-    const all = Object.values(newResults).flatMap((r) => [r.first, r.last]);
-    const allCorrect = all.length > 0 && all.every((r) => r === "correct");
-    addResult({ id: qId, title: qTitle }, allCorrect);
-    setChecked(true);
-  };
+      }
+    })
+    setResults(newResults)
+    const all = Object.values(newResults).flatMap((r) => [r.first, r.last])
+    const allCorrect = all.length > 0 && all.every((r) => r === "correct")
+    addResult({ id: qId, title: qTitle }, allCorrect)
+    setChecked(true)
+  }, [answers, data, addResult, qId, qTitle])
 
-  const handleShowSolution = () => {
-    const newAnswers: typeof answers = {};
-    const newResults: typeof results = {};
+  const handleShowSolution = useCallback(() => {
+    const newAnswers: typeof answers = {}
+    const newResults: typeof results = {}
     data.forEach((d) => {
-      newAnswers[d.id] = { first: String(d.firstNumber), last: String(d.lastNumber) };
-      newResults[d.id] = { first: "correct", last: "correct" };
-    });
-    setAnswers(newAnswers);
-    setResults(newResults);
-    setChecked(false); // 👈 no summary after solution
-  };
+      newAnswers[d.id] = { first: String(d.firstNumber), last: String(d.lastNumber) }
+      newResults[d.id] = { first: "correct", last: "correct" }
+    })
+    setAnswers(newAnswers)
+    setResults(newResults)
+    setChecked(false) // 👈 no summary after solution
+  }, [data])
 
   // ✅ Summary (same logic as other components)
   const summary = useMemo(() => {
-    if (!checked) return null;
+    if (!checked) return null
 
-    const allResults = Object.values(results).flatMap((r) => [r.first, r.last]);
-    if (allResults.length === 0) return null;
+    const allResults = Object.values(results).flatMap((r) => [r.first, r.last])
+    if (!allResults.length) return null
 
-    const allCorrect = allResults.every((r) => r === "correct");
-    const anyWrong = allResults.some((r) => r === "wrong");
-
-    if (allCorrect) {
+    if (allResults.every((r) => r === "correct")) {
       return {
         text: "🎉 Correct! Good Job",
         color: "text-green-600",
         bgColor: "bg-green-100",
         borderColor: "border-green-600",
-      };
+      }
     }
-    if (anyWrong) {
+    if (allResults.some((r) => r === "wrong")) {
       return {
         text: "❌ Oops! Some answers are wrong",
         color: "text-red-600",
         bgColor: "bg-red-100",
         borderColor: "border-red-600",
-      };
+      }
     }
-    return null;
-  }, [results, checked]);
+    return null
+  }, [results, checked])
+
+  const { setControls } = useQuestionControls()
+
+  // ✅ memoize controls object
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  )
+
+  useEffect(() => {
+    setControls((prev) => {
+      const changed = Object.keys(controls).some(
+        (k) => (controls as any)[k] !== (prev as any)[k]
+      )
+      return changed ? controls : prev
+    })
+  }, [controls, setControls])
 
   return (
     <div>
@@ -139,9 +162,6 @@ export default function ArrType_4({ data, hint }: Props) {
       ))}
 
       {/* Controls */}
-      <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} /> {/* ✅ Only shows after Check */}
     </div>
-  );
+  )
 }

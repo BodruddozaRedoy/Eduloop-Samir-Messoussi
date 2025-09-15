@@ -2,9 +2,10 @@
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
 /** ─────────────────────────────────────────────────────────
  * Wrapper: choose which variant to render
@@ -256,6 +257,8 @@ function ArrTypeFourteenV2() {
           borderColor: "border-red-600",
         }
       : null;
+
+      
 
   return (
     <div className="space-y-8">

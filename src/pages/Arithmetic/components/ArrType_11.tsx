@@ -1,9 +1,10 @@
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
 const data = [
   {
@@ -12,11 +13,7 @@ const data = [
     rows: [
       {
         header: 2,
-        cells: [
-          { value: 5, correct: 5 },
-          { correct: 6 },
-          { correct: 7 },
-        ],
+        cells: [{ value: 5, correct: 5 }, { correct: 6 }, { correct: 7 }],
       },
       {
         header: 3,
@@ -30,11 +27,7 @@ const data = [
     rows: [
       {
         header: 4,
-        cells: [
-          { value: 6, correct: 6 },
-          { correct: 9 },
-          { correct: 11 },
-        ],
+        cells: [{ value: 6, correct: 6 }, { correct: 9 }, { correct: 11 }],
       },
       {
         header: 6,
@@ -46,30 +39,28 @@ const data = [
 
 const hint = "Use row header + column header to calculate the answer.";
 
-export default function ArrType_11() {
+export default function ArrType_11({data, hint}:any) {
   const [userAnswers, setUserAnswers] = useState<{ [key: string]: string }>({});
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [checked, setChecked] = useState(false);
 
-  const handleShowHint = () => setShowHint((v) => !v);
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  const handleInputChange = (
-    puzzleId: number,
-    rowIndex: number,
-    colIndex: number,
-    value: string
-  ) => {
-    setUserAnswers((prev) => ({
-      ...prev,
-      [`${puzzleId}-${rowIndex}-${colIndex}`]: value,
-    }));
-  };
+  const handleInputChange = useCallback(
+    (puzzleId: number, rowIndex: number, colIndex: number, value: string) => {
+      setUserAnswers((prev) => ({
+        ...prev,
+        [`${puzzleId}-${rowIndex}-${colIndex}`]: value,
+      }));
+    },
+    []
+  );
 
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
 
-  const handleCheck = () => {
+  const handleCheck = useCallback(() => {
     let allCorrect = true;
 
     data.forEach((d) => {
@@ -88,9 +79,9 @@ export default function ArrType_11() {
     setStatus(allCorrect ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, allCorrect);
     setChecked(true);
-  };
+  }, [userAnswers, addResult, qId, qTitle]);
 
-  const handleShowSolution = () => {
+  const handleShowSolution = useCallback(() => {
     const filled: { [key: string]: string } = {};
     data.forEach((d) => {
       d.rows.forEach((r, rowIndex) => {
@@ -102,24 +93,50 @@ export default function ArrType_11() {
       });
     });
     setUserAnswers(filled);
-  };
+  }, []);
 
-  const summary =
-    status === "match"
-      ? {
-          text: "🎉 All Correct! Great job",
-          color: "text-green-600",
-          bgColor: "bg-green-100",
-          borderColor: "border-green-600",
-        }
-      : status === "wrong"
-      ? {
-          text: "❌ Some answers are wrong. Check again.",
-          color: "text-red-600",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
-      : null;
+  const summary = useMemo(() => {
+    if (status === "match") {
+      return {
+        text: "🎉 All Correct! Great job",
+        color: "text-green-600",
+        bgColor: "bg-green-100",
+        borderColor: "border-green-600",
+      };
+    }
+    if (status === "wrong") {
+      return {
+        text: "❌ Some answers are wrong. Check again.",
+        color: "text-red-600",
+        bgColor: "bg-red-100",
+        borderColor: "border-red-600",
+      };
+    }
+    return null;
+  }, [status]);
+
+  const { setControls } = useQuestionControls();
+
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  );
+
+  useEffect(() => {
+    setControls((prev) => {
+      const changed = Object.keys(controls).some(
+        (k) => (controls as any)[k] !== (prev as any)[k]
+      );
+      return changed ? controls : prev;
+    });
+  }, [controls, setControls]);
 
   return (
     <div>
@@ -176,7 +193,12 @@ export default function ArrType_11() {
                             type="text"
                             value={userValue || ""}
                             onChange={(e) =>
-                              handleInputChange(d.id, rowIndex, colIndex, e.target.value)
+                              handleInputChange(
+                                d.id,
+                                rowIndex,
+                                colIndex,
+                                e.target.value
+                              )
                             }
                             className={`w-full h-full text-center outline-none ${cellClass}`}
                             disabled={status === "match"}
@@ -193,7 +215,7 @@ export default function ArrType_11() {
       </div>
 
       {/* controllers */}
-      <div>
+      {/* <div>
         <Controllers
           handleCheck={handleCheck}
           handleShowSolution={handleShowSolution}
@@ -201,7 +223,7 @@ export default function ArrType_11() {
         />
         {showHint && <Hint hint={hint} />}
         <Check summary={summary} />
-      </div>
+      </div> */}
     </div>
   );
 }

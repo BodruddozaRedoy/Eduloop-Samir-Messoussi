@@ -5,9 +5,10 @@
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
 
 /* ======================================================================
@@ -364,6 +365,21 @@ export function ArrTypeSeventeenMethodtwo({
           }
       : null;
 
+      const { setControls } = useQuestionControls()
+
+      const handleShowHint = () => setShowHint(v => !v)
+
+  useEffect(() => {
+        setControls({
+            handleCheck,
+            handleShowHint,
+            handleShowSolution,
+            hint:"not set",
+            showHint,
+            summary,
+        })
+    }, [handleShowSolution, handleShowHint, handleCheck, showHint, summary, setControls])
+
   return (
     <div className="">
       <h2 className="text-lg font-semibold">Question 1</h2>
@@ -396,7 +412,7 @@ export function ArrTypeSeventeenMethodtwo({
         })}
       </div>
 
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <Controllers
           handleCheck={handleCheck}
           handleShowSolution={() => handleShowSolution()}
@@ -404,7 +420,7 @@ export function ArrTypeSeventeenMethodtwo({
         />
         {showHint && <Hint hint={hintM2} />}
         <Check summary={summary} />
-      </div>
+      </div> */}
     </div>
   );
 }

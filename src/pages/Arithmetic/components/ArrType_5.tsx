@@ -1,106 +1,128 @@
-"use client";
+"use client"
 
-import { useState, useMemo } from "react";
-import Controllers from "@/components/common/Controllers";
-import Check from "@/components/common/Check";
-import Hint from "@/components/common/Hint";
-import useResultTracker from "@/hooks/useResultTracker";
-import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useState, useMemo, useEffect, useCallback } from "react"
+import Check from "@/components/common/Check"
+import Hint from "@/components/common/Hint"
+import useResultTracker from "@/hooks/useResultTracker"
+import { useQuestionMeta } from "@/context/QuestionMetaContext"
+import { useQuestionControls } from "@/context/QuestionControlsContext"
 
 type Item = {
-  id: number;
-  result: number;
-  option: number;
-  answer: number; // keep for reference / solution
-};
+  id: number
+  result: number
+  option: number
+  answer: number // keep for reference / solution
+}
 
 interface Props {
-  data: Item[];
-  method: "addition" | "multiplication";
+  data: Item[]
+  method: "addition" | "multiplication"
   hint: string
 }
 
-export default function ArrType_5({ data, method,hint }: Props) {
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [results, setResults] = useState<{ [key: number]: "correct" | "wrong" | null }>({});
-  const [checked, setChecked] = useState(false);
+export default function ArrType_5({ data, method, hint }: Props) {
+  const [answers, setAnswers] = useState<{ [key: number]: string }>({})
+  const [results, setResults] = useState<{ [key: number]: "correct" | "wrong" | null }>({})
+  const [checked, setChecked] = useState(false)
   const [showHint, setShowHint] = useState(false)
-  const handleShowHint = () => setShowHint(!showHint)
 
-  const handleChange = (id: number, value: string) => {
-    setAnswers((prev) => ({ ...prev, [id]: value }));
-    if (checked) setChecked(false); // reset feedback when editing
-  };
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), [])
+
+  const handleChange = useCallback((id: number, value: string) => {
+    setAnswers((prev) => ({ ...prev, [id]: value }))
+    if (checked) setChecked(false) // reset feedback when editing
+  }, [checked])
 
   // calculate expected answer dynamically
-  const calculateAnswer = (d: Item) => {
+  const calculateAnswer = useCallback((d: Item) => {
     if (method === "addition") {
-      return d.result - d.option;
+      return d.result - d.option
     }
     if (method === "multiplication") {
-      return d.result / d.option;
+      return d.result / d.option
     }
-    return d.answer;
-  };
+    return d.answer
+  }, [method])
 
-  const { addResult } = useResultTracker();
-  const { id: qId, title: qTitle } = useQuestionMeta();
+  const { addResult } = useResultTracker()
+  const { id: qId, title: qTitle } = useQuestionMeta()
 
-  const handleCheck = () => {
-    const newResults: typeof results = {};
+  const handleCheck = useCallback(() => {
+    const newResults: typeof results = {}
     data.forEach((d) => {
-      const expected = calculateAnswer(d);
-      const userVal = answers[d.id];
-      newResults[d.id] = userVal === String(expected) ? "correct" : "wrong";
-    });
-    setResults(newResults);
-    const vals = Object.values(newResults);
-    const allCorrect = vals.length > 0 && vals.every((r) => r === "correct");
-    addResult({ id: qId, title: qTitle }, allCorrect);
-    setChecked(true);
-  };
+      const expected = calculateAnswer(d)
+      const userVal = answers[d.id]
+      newResults[d.id] = userVal === String(expected) ? "correct" : "wrong"
+    })
+    setResults(newResults)
+    const vals = Object.values(newResults)
+    const allCorrect = vals.length > 0 && vals.every((r) => r === "correct")
+    addResult({ id: qId, title: qTitle }, allCorrect)
+    setChecked(true)
+  }, [answers, data, calculateAnswer, addResult, qId, qTitle])
 
-  const handleShowSolution = () => {
-    const newAnswers: typeof answers = {};
-    const newResults: typeof results = {};
+  const handleShowSolution = useCallback(() => {
+    const newAnswers: typeof answers = {}
+    const newResults: typeof results = {}
     data.forEach((d) => {
-      const expected = calculateAnswer(d);
-      newAnswers[d.id] = String(expected);
-      newResults[d.id] = "correct";
-    });
-    setAnswers(newAnswers);
-    setResults(newResults);
-    setChecked(false); // 👈 don't show summary after solution
-  };
+      const expected = calculateAnswer(d)
+      newAnswers[d.id] = String(expected)
+      newResults[d.id] = "correct"
+    })
+    setAnswers(newAnswers)
+    setResults(newResults)
+    setChecked(false) // 👈 don't show summary after solution
+  }, [data, calculateAnswer])
 
   // ✅ Summary only when "Check" is clicked
   const summary = useMemo(() => {
-    if (!checked) return null;
+    if (!checked) return null
 
-    const vals = Object.values(results);
-    if (vals.length === 0) return null;
+    const vals = Object.values(results)
+    if (!vals.length) return null
 
-    const allCorrect = vals.every((r) => r === "correct");
-    const anyWrong = vals.some((r) => r === "wrong");
-
-    if (allCorrect) {
+    if (vals.every((r) => r === "correct")) {
       return {
         text: "🎉 Correct! Good Job",
         color: "text-green-600",
         bgColor: "bg-green-100",
         borderColor: "border-green-600",
-      };
+      }
     }
-    if (anyWrong) {
+    if (vals.some((r) => r === "wrong")) {
       return {
         text: "❌ Oops! Some answers are wrong",
         color: "text-red-600",
         bgColor: "bg-red-100",
         borderColor: "border-red-600",
-      };
+      }
     }
-    return null;
-  }, [results, checked]);
+    return null
+  }, [results, checked])
+
+  const { setControls } = useQuestionControls()
+
+  // ✅ memoize controls object
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  )
+
+  useEffect(() => {
+    setControls((prev) => {
+      const changed = Object.keys(controls).some(
+        (k) => (controls as any)[k] !== (prev as any)[k]
+      )
+      return changed ? controls : prev
+    })
+  }, [controls, setControls])
 
   return (
     <div>
@@ -134,9 +156,6 @@ export default function ArrType_5({ data, method,hint }: Props) {
       </div>
 
       {/* Controls */}
-      <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} /> {/* ✅ shows only after Check */}
     </div>
-  );
+  )
 }
