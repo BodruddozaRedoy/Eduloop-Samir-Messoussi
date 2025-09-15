@@ -11,11 +11,13 @@ function MathInput({
   onChange,
   invalid,
   correct,
+  style,
 }: {
   value: string;
   onChange: (v: string) => void;
   invalid?: boolean;
   correct?: boolean;
+  style?: React.CSSProperties;
 }) {
   return (
     <input
@@ -24,10 +26,10 @@ function MathInput({
       autoComplete="off"
       value={value}
       onChange={(e) => onChange(e.target.value.replace(/[^0-9\+\-\*\/]/g, ""))}
+      style={style}
       className={`h-12 w-40 px-3 text-lg font-semibold outline-none
       text-center font-mono tabular-nums rounded-lg
       border-2 border-dashed
-      bg-[url('/images/union.png')] bg-cover bg-center
       ${
         invalid
           ? "border-rose-500 text-rose-700"
@@ -117,7 +119,8 @@ const DUMMY_DATA: Row[] = [
   },
 ];
 
-const HINT_TEXT = "Split the second number into tens and ones, then multiply each by the first number and add the results.";
+const HINT_TEXT =
+  "Split the second number into tens and ones, then multiply each by the first number and add the results.";
 
 export default function ArrType_24() {
   type Status = "idle" | "match" | "wrong";
@@ -268,21 +271,26 @@ export default function ArrType_24() {
               key={r.id}
               className="relative flex flex-col items-center p-6 space-y-4 rounded-2xl bg-amber-50/60 shadow-md"
             >
-              {/* First Row - Sum input, now with the background image */}
-              <div className="relative z-10">
+              {/* First Row - Sum input with centered bg */}
+              <div className="relative w-full flex justify-center">
                 <MathInput
                   value={st.sumVal}
                   onChange={(v) => setVal(r.id, "sum", v)}
                   invalid={isInvalid && st.sumVal !== r.expectedSum}
                   correct={st.checked && st.sumVal === r.expectedSum}
+                  style={{
+                    backgroundImage: "url('/images/union.png')",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    height: "100px",
+                  }}
                 />
               </div>
 
               {/* Second Row - Expression and Result input */}
-              <div className="flex items-center space-x-2 z-10">
-                <span className="text-2xl font-semibold text-slate-800">
-                  {r.expression}
-                </span>
+              <div className="flex items-center ">
+                <span className="text-2xl font-semibold text-slate-800">{r.expression}</span>
                 <MathInput
                   value={st.resultVal}
                   onChange={(v) => setVal(r.id, "result", v)}
@@ -293,26 +301,18 @@ export default function ArrType_24() {
 
               {/* Third Row - Split inputs */}
               <div className="flex items-center space-x-6 z-10">
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="relative">
-                    <NumberSplitInput
-                      value={st.splitVal[0]}
-                      onChange={(v) => setVal(r.id, "split0", v)}
-                      invalid={isInvalid && st.splitVal[0] !== r.expectedSplit[0]}
-                      correct={st.checked && st.splitVal[0] === r.expectedSplit[0]}
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="relative">
-                    <NumberSplitInput
-                      value={st.splitVal[1]}
-                      onChange={(v) => setVal(r.id, "split1", v)}
-                      invalid={isInvalid && st.splitVal[1] !== r.expectedSplit[1]}
-                      correct={st.checked && st.splitVal[1] === r.expectedSplit[1]}
-                    />
-                  </div>
-                </div>
+                <NumberSplitInput
+                  value={st.splitVal[0]}
+                  onChange={(v) => setVal(r.id, "split0", v)}
+                  invalid={isInvalid && st.splitVal[0] !== r.expectedSplit[0]}
+                  correct={st.checked && st.splitVal[0] === r.expectedSplit[0]}
+                />
+                <NumberSplitInput
+                  value={st.splitVal[1]}
+                  onChange={(v) => setVal(r.id, "split1", v)}
+                  invalid={isInvalid && st.splitVal[1] !== r.expectedSplit[1]}
+                  correct={st.checked && st.splitVal[1] === r.expectedSplit[1]}
+                />
               </div>
             </div>
           );
@@ -321,8 +321,6 @@ export default function ArrType_24() {
 
       {/* Controls */}
       <div className="flex flex-col items-start space-y-4 w-full max-w-xl mt-8">
-
-        <div className="flex flex-"></div>
         <Controllers
           handleCheck={handleCheckAll}
           handleShowSolution={handleShowSolution}
