@@ -5,6 +5,23 @@ import { useState } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 
+/* ---- FractionCard Component ---- */
+function FractionCard({
+  numerator,
+  denominator,
+}: {
+  numerator: number;
+  denominator: number;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center h-32 w-28 rounded-xl border-2 border-orange-500 bg-amber-50 p-4">
+      <span className="text-3xl font-semibold text-gray-800">{numerator}</span>
+      <div className="w-16 h-px bg-gray-800 my-1" />
+      <span className="text-3xl font-semibold text-gray-800">{denominator}</span>
+    </div>
+  );
+}
+
 /* ---- AnswerInput Component ---- */
 function AnswerInput({
   value,
@@ -24,8 +41,8 @@ function AnswerInput({
       autoComplete="off"
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={`h-12 w-24 bg-white px-3 text-lg font-semibold outline-none
-      text-center font-mono tabular-nums rounded-lg border-2
+      className={`h-40 w-28 rounded-xl border-2 bg-white px-3 text-lg font-semibold outline-none
+      text-center font-mono tabular-nums
       ${
         invalid
           ? "border-rose-500 text-rose-700"
@@ -37,69 +54,29 @@ function AnswerInput({
   );
 }
 
-/* ---- FractionCard Component ---- */
-function FractionCard({ numerator, denominator }: { numerator: number; denominator: number }) {
-  return (
-    <div className="flex flex-col items-center justify-center h-28 w-24 rounded-lg border-2 border-orange-500 bg-amber-50/60 p-2">
-      <span className="text-2xl font-semibold text-slate-800">{numerator}</span>
-      <div className="w-12 h-px bg-slate-800" />
-      <span className="text-2xl font-semibold text-slate-800">{denominator}</span>
-    </div>
-  );
-}
-
-/* ---- ArrType_27 Component ---- */
-type ProblemSet = {
+/* ---- ArrType_32 Component ---- */
+type Problem = {
   id: number;
   fractions: { num: number; den: number }[];
   expectedOrder: string[];
 };
 
-// Dummy data for all problem sets
-const DUMMY_DATA: ProblemSet[] = [
-  {
-    id: 1,
-    fractions: [{ num: 3, den: 6 }, { num: 1, den: 5 }, { num: 3, den: 4 }],
-    expectedOrder: ["1/5", "3/6", "3/4"],
-  },
-  {
-    id: 2,
-    fractions: [{ num: 1, den: 2 }, { num: 7, den: 8 }, { num: 2, den: 5 }],
-    expectedOrder: ["2/5", "1/2", "7/8"],
-  },
-  {
-    id: 3,
-    fractions: [{ num: 9, den: 10 }, { num: 2, den: 4 }, { num: 3, den: 8 }],
-    expectedOrder: ["3/8", "2/4", "9/10"],
-  },
-  {
-    id: 4,
-    fractions: [{ num: 3, den: 6 }, { num: 1, den: 5 }, { num: 3, den: 4 }],
-    expectedOrder: ["1/5", "3/6", "3/4"],
-  },
-  {
-    id: 5,
-    fractions: [{ num: 1, den: 2 }, { num: 7, den: 8 }, { num: 2, den: 5 }],
-    expectedOrder: ["2/5", "1/2", "7/8"],
-  },
-  {
-    id: 6,
-    fractions: [{ num: 9, den: 10 }, { num: 2, den: 4 }, { num: 3, den: 8 }],
-    expectedOrder: ["3/8", "2/4", "9/10"],
-  },
-];
+// Dummy data for a single problem set
+const DUMMY_DATA: Problem = {
+  id: 1,
+  fractions: [{ num: 3, den: 6 }, { num: 1, den: 5 }, { num: 3, den: 4 }],
+  expectedOrder: ["1/5", "3/6", "3/4"],
+};
 
-const HINT_TEXT = "Convert each fraction to a decimal to compare their values, then order them from smallest to largest.";
+const HINT_TEXT =
+  "Convert each fraction to a decimal to compare their values, then order them from smallest to largest.";
 
-export default function ArrType_27() {
+export default function ArrType_32() {
   type Status = "idle" | "match" | "wrong";
 
-  const [state, setState] = useState<
-    Record<number, { vals: string[]; checked: boolean }>
-  >(() => {
-    const init: Record<number, { vals: string[]; checked: boolean }> = {};
-    DUMMY_DATA.forEach((p) => (init[p.id] = { vals: ["", "", ""], checked: false }));
-    return init;
+  const [state, setState] = useState({
+    vals: ["", "", ""],
+    checked: false,
   });
 
   const [status, setStatus] = useState<Status>("idle");
@@ -107,47 +84,32 @@ export default function ArrType_27() {
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
 
-  const setVal = (id: number, idx: number, v: string) => {
+  const setVal = (idx: number, v: string) => {
     setState((s) => {
-      const next = { ...s };
-      const current = next[id];
-      const nextVals = [...current.vals];
+      const nextVals = [...s.vals];
       nextVals[idx] = v;
-      next[id] = { ...current, vals: nextVals };
-      return next;
+      return { ...s, vals: nextVals };
     });
   };
 
-  const handleCheckAll = () => {
-    let anyWrong = false;
-    let allFilledAndCorrect = true;
+  const handleCheck = () => {
+    const isCorrect = DUMMY_DATA.expectedOrder.every(
+      (expected, idx) => state.vals[idx].trim() === expected
+    );
 
-    setState((s) => {
-      const next = { ...s };
-      DUMMY_DATA.forEach((p) => {
-        const current = next[p.id];
-        const isCorrect = p.expectedOrder.every((expected, idx) => current.vals[idx].trim() === expected);
+    const allFilled = state.vals.every((v) => v.trim() !== "");
 
-        if (!isCorrect) anyWrong = true;
-        if (current.vals.some((v) => v.trim() === "")) allFilledAndCorrect = false;
+    setState((s) => ({ ...s, checked: true }));
 
-        next[p.id] = { ...current, checked: true };
-      });
-      return next;
-    });
-
-    const ok = !anyWrong && allFilledAndCorrect;
+    const ok = isCorrect && allFilled;
     setStatus(ok ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, ok);
   };
 
   const handleShowSolution = () => {
-    setState((s) => {
-      const next = { ...s };
-      DUMMY_DATA.forEach((p) => {
-        next[p.id] = { vals: p.expectedOrder, checked: true };
-      });
-      return next;
+    setState({
+      vals: DUMMY_DATA.expectedOrder,
+      checked: true,
     });
     setStatus("match");
   };
@@ -186,42 +148,32 @@ export default function ArrType_27() {
         <p className="text-slate-600 text-lg">From small to large.</p>
       </div>
 
-      {/* Problem Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-8 w-full max-w-4xl">
-        {DUMMY_DATA.map((p) => {
-          const current = state[p.id];
-          const isCorrect = isSolved || (current.checked && p.expectedOrder.every((expected, idx) => current.vals[idx].trim() === expected));
-          const isInvalid = current.checked && !isCorrect;
-
-          return (
-            <div key={p.id} className="flex flex-col items-center space-y-8">
-              {/* Fraction Cards */}
-              <div className="flex space-x-4">
-                {p.fractions.map((f, idx) => (
-                  <FractionCard key={idx} numerator={f.num} denominator={f.den} />
-                ))}
-              </div>
-              {/* Answer Inputs */}
-              <div className="flex space-x-4">
-                {p.expectedOrder.map((exp, idx) => (
-                  <AnswerInput
-                    key={idx}
-                    value={current.vals[idx]}
-                    onChange={(v) => setVal(p.id, idx, v)}
-                    invalid={isInvalid && current.vals[idx].trim() !== exp}
-                    correct={isCorrect}
-                  />
-                ))}
-              </div>
-            </div>
-          );
-        })}
+      {/* Problem */}
+      <div className="flex flex-col items-center space-y-12">
+        {/* Fraction Cards */}
+        <div className="flex space-x-6 mt-6">
+          {DUMMY_DATA.fractions.map((f, idx) => (
+            <FractionCard key={idx} numerator={f.num} denominator={f.den} />
+          ))}
+        </div>
+        {/* Answer Inputs */}
+        <div className="flex space-x-6 mt-8">
+          {DUMMY_DATA.expectedOrder.map((exp, idx) => (
+            <AnswerInput
+              key={idx}
+              value={state.vals[idx]}
+              onChange={(v) => setVal(idx, v)}
+              invalid={state.checked && state.vals[idx].trim() !== exp}
+              correct={isSolved || (state.checked && state.vals[idx].trim() === exp)}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Controls */}
       <div className="flex flex-col items-start space-y-4 w-full max-w-xl mt-8">
         <Controllers
-          handleCheck={handleCheckAll}
+          handleCheck={handleCheck}
           handleShowSolution={handleShowSolution}
           handleShowHint={() => setShowHint((v) => !v)}
         />
