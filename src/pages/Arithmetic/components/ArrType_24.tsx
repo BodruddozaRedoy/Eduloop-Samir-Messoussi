@@ -303,6 +303,8 @@ export default function ArrType_24() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
+                    paddingBottom:"20px"
+                    
                   }}
                 />
               </div>
