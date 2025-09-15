@@ -186,15 +186,15 @@ export default function ArrType_26() {
   const isSolved = status === "match";
 
   return (
-    <div className="flex flex-col items-center justify-start space-y-8  px-4 py-8">
+    <div className="flex flex-col items-start justify-start w-full px-4 py-8">
       {/* Header */}
-      <div className=" ">
+      <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Question 1</h2>
         <p className="text-slate-600 text-lg">Take the whole out.</p>
       </div>
 
       {/* Grid of problems */}
-      <div className="grid grid-cols-4 gap-x-8 gap-y-12">
+      <div className="grid grid-cols-4 gap-x-8 gap-y-12 w-full">
         {DUMMY_DATA.map((p) => {
           const isCorrect = isSolved || (state[p.id].checked && state[p.id].val.trim() === p.expected);
           const isInvalid = state[p.id].checked && !isCorrect;
@@ -213,15 +213,15 @@ export default function ArrType_26() {
       </div>
 
       {/* Controls */}
- <div className="flex flex-col items-start space-y-4 w-full max-w-xl mt-8">
-  <Controllers
-    handleCheck={handleCheckAll}
-    handleShowSolution={handleShowSolution}
-    handleShowHint={() => setShowHint((v) => !v)}
-  />
-  {showHint && <Hint hint={HINT_TEXT} />}
-  <Check summary={summary} />
-</div>
+      <div className="flex flex-col items-start space-y-4 w-full mt-8">
+        <Controllers
+          handleCheck={handleCheckAll}
+          handleShowSolution={handleShowSolution}
+          handleShowHint={() => setShowHint((v) => !v)}
+        />
+        {showHint && <Hint hint={HINT_TEXT} />}
+        <Check summary={summary} />
+      </div>
     </div>
   );
 }
