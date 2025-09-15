@@ -29,7 +29,7 @@ function MathInput({
       style={style}
       className={`h-12 w-40 px-3 text-lg font-semibold outline-none
       text-center font-mono tabular-nums rounded-lg
-      border-2 border-dashed
+      
       ${
         invalid
           ? "border-rose-500 text-rose-700"
@@ -61,7 +61,7 @@ function NumberSplitInput({
       value={value}
       onChange={(e) => onChange(e.target.value.replace(/[^0-9]/g, ""))}
       className={`h-12 w-20 bg-white px-3 text-lg font-semibold outline-none
-      text-center font-mono tabular-nums rounded-lg
+      text-center font-mono tabular-nums mb-10 rounded-lg
       border-2 border-dashed ${
         invalid
           ? "border-rose-500 text-rose-700"
@@ -109,6 +109,26 @@ const DUMMY_DATA: Row[] = [
   },
   {
     id: 3,
+    expression: "4 × 57 =",
+    expectedSplit: ["50", "7"],
+    expectedSum: "200 + 28",
+    mainExpression: "4 × 57",
+    expectedResult: "228",
+    firstSplit: "200",
+    secondSplit: "28",
+  },
+  {
+    id: 4,
+    expression: "4 × 57 =",
+    expectedSplit: ["50", "7"],
+    expectedSum: "200 + 28",
+    mainExpression: "4 × 57",
+    expectedResult: "228",
+    firstSplit: "200",
+    secondSplit: "28",
+  },
+  {
+    id: 5,
     expression: "4 × 57 =",
     expectedSplit: ["50", "7"],
     expectedSum: "200 + 28",
@@ -283,7 +303,6 @@ export default function ArrType_24() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    height: "100px",
                   }}
                 />
               </div>
