@@ -2,24 +2,11 @@ import React, { useState } from "react";
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
+
 import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
-const problemsJSON = [
-  { id: 1, question: "3 + 7 + 2 =", answer: 12 },
-  { id: 2, question: "1 + 5 + 9 =", answer: 15 },
-  { id: 3, question: "4 + 3 + 6 =", answer: 13 },
-  { id: 4, question: "5 + 5 + 4 =", answer: 14 },
-  { id: 5, question: "8 + 3 + 2 =", answer: 13 },
-  { id: 6, question: "6 + 6 + 4 =", answer: 16 },
-];
-
-type Problem = { id: number; question: string; answer: number };
-
-const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: string }) => {
-  const [problems] = useState(data);
-  const [userAnswers, setUserAnswers] = useState(Array(problems.length).fill(NaN));
-  const [validation, setValidation] = useState<(boolean | null)[]>(Array(problems.length).fill(null));
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
   const [showHint, setShowHint] = useState(false);
@@ -28,14 +15,6 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
 
-  const handleInputChange = (index: number, value: string) => {
-    const newAnswers = [...userAnswers];
-    newAnswers[index] = value === "" ? NaN : parseInt(value);
-    setUserAnswers(newAnswers);
-    if (status) setStatus(null);
-  };
-
-  const handleCheck = () => {
     const newValidation = problems.map((p, i) => p.answer === userAnswers[i]);
     const allCorrect = newValidation.every(Boolean);
 
@@ -48,18 +27,19 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
     setWrongAnswers(wrong);
 
     addResult({ id: qId, title: qTitle }, allCorrect);
-  };
 
-  const handleShowHint = () => setShowHint((v) => !v);
 
-  const handleShowSolution = () => {
+  const handleShowHint = useCallback(() => {
+    setShowHint((v) => !v);
+  }, []);
+
+  const handleShowSolution = useCallback(() => {
     setShowSolution(true);
     setValidation(Array(problems.length).fill(true));
-    setStatus("match");
-  };
 
-  const summary =
-    status === "match"
+
+  const summary = useMemo(() => {
+    return status === "match"
       ? {
           text: "🎉 Correct! Good Job",
           color: "text-green-600",
@@ -77,10 +57,22 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
           borderColor: "border-red-600",
         }
       : null;
+  }, [status]);
+
+  useEffect(() => {
+    setControls({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    });
+  }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center font-sans text-gray-800">
+      <div className="flex flex-col items-center justify-center font-sans text-gray-800 relative">
         <div className="w-full rounded-xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-16 mb-4">
             {problems.map((p, idx) => {
@@ -109,16 +101,7 @@ const ArrType_16 = ({ data = problemsJSON, hint }: { data?: Problem[]; hint: str
         </div>
       </div>
 
-      <div className="mt-6 flex justify-start">
-        <Controllers
-          handleCheck={handleCheck}
-          handleShowSolution={handleShowSolution}
-          handleShowHint={handleShowHint}
-        />
-      </div>
 
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />
     </>
   );
 };

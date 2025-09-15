@@ -1,11 +1,10 @@
-import Check from "@/components/common/Check"
-import Controllers from "@/components/common/Controllers"
-import Hint from "@/components/common/Hint"
+ 
 import { Button } from "@/components/ui/button"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import useResultTracker from "@/hooks/useResultTracker"
 import { useQuestionMeta } from "@/context/QuestionMetaContext"
 import { IoMdArrowRoundForward } from "react-icons/io"
+import { useQuestionControls } from "@/context/QuestionControlsContext"
 
 interface RowProps {
     maxLength?: number
@@ -29,6 +28,7 @@ export default function ArrType_1({
     const [values, setValues] = useState<Record<string, string>>({})
     const [checked, setChecked] = useState(false)
     const [showHint, setShowHint] = useState(false)
+    const { setControls } = useQuestionControls()
 
     const handleShowHint = () => setShowHint((v) => !v)
 
@@ -129,6 +129,17 @@ export default function ArrType_1({
         // setChecked(true) // trigger green borders + summary
     }
 
+    useEffect(() => {
+        setControls({
+            handleCheck,
+            handleShowHint,
+            handleShowSolution,
+            hint,
+            showHint,
+            summary,
+        })
+    }, [handleShowSolution, handleShowHint, handleCheck, hint, showHint, summary, setControls])
+
     return (
         <>
             <div>
@@ -181,10 +192,7 @@ export default function ArrType_1({
                     </div>
                 </div>
             </div>
-
-            <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint}/>
-            {showHint && <Hint hint={hint} />}
-            <Check summary={summary} />
+            {/* Controllers/Hint/Check moved to ArithmeticPage */}
         </>
     )
 }
