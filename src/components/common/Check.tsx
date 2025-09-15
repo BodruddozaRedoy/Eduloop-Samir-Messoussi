@@ -1,5 +1,6 @@
 import type { Summary } from "@/pages/Reading/components/ReadingMultipleChoice"
 
+
 export default function Check({ summary }: {summary: Summary | null}) {
     return (
         <div >
