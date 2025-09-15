@@ -30,13 +30,7 @@ function DashedInput({
       />
       <div
         className={`absolute bottom-0 left-0 right-0 h-0.5 border-b-2 border-dashed
-          ${
-            invalid
-              ? "border-rose-500"
-              : correct
-              ? "border-emerald-600"
-              : "border-slate-400"
-          }`}
+          ${invalid ? "border-rose-500" : correct ? "border-emerald-600" : "border-slate-400"}`}
       />
     </div>
   );
@@ -130,20 +124,25 @@ export default function ArrType_26() {
 
   const handleCheckAll = () => {
     let anyWrong = false;
-    let allFilledAndCorrect = true;
+    let allFilled = true;
 
     setState((s) => {
       const next = { ...s };
       DUMMY_DATA.forEach((p) => {
-        const isCorrect = next[p.id].val.trim() === p.expected;
+        // Automatic calculation validation
+        const userVal = next[p.id].val.trim();
+        const correctVal = Math.floor(p.numerator / p.denominator).toString();
+        const isCorrect = userVal === correctVal;
+
         if (!isCorrect) anyWrong = true;
-        if (next[p.id].val.trim() === "") allFilledAndCorrect = false;
+        if (userVal === "") allFilled = false;
+
         next[p.id] = { ...next[p.id], checked: true };
       });
       return next;
     });
 
-    const ok = !anyWrong && allFilledAndCorrect;
+    const ok = !anyWrong && allFilled;
     setStatus(ok ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, ok);
   };
@@ -152,35 +151,19 @@ export default function ArrType_26() {
     setState((s) => {
       const next = { ...s };
       DUMMY_DATA.forEach((p) => {
-        next[p.id] = { val: p.expected, checked: true };
+        const correctVal = Math.floor(p.numerator / p.denominator).toString();
+        next[p.id] = { val: correctVal, checked: true };
       });
       return next;
     });
     setStatus("match");
   };
 
-  interface Summary {
-    text: string;
-    color: string;
-    bgColor: string;
-    borderColor: string;
-  }
-
-  const summary: Summary | null =
+  const summary =
     status === "match"
-      ? {
-          text: "🎉 Correct! Great job.",
-          color: "text-green-700",
-          bgColor: "bg-green-100",
-          borderColor: "border-green-600",
-        }
+      ? { text: "🎉 Correct! Great job.", color: "text-green-700", bgColor: "bg-green-100", borderColor: "border-green-600" }
       : status === "wrong"
-      ? {
-          text: "❌ Some answers are wrong. Check again.",
-          color: "text-red-700",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
+      ? { text: "❌ Some answers are wrong. Check again.", color: "text-red-700", bgColor: "bg-red-100", borderColor: "border-red-600" }
       : null;
 
   const isSolved = status === "match";
@@ -196,8 +179,10 @@ export default function ArrType_26() {
       {/* Grid of problems */}
       <div className="grid grid-cols-4 gap-x-8 gap-y-12 w-full">
         {DUMMY_DATA.map((p) => {
-          const isCorrect = isSolved || (state[p.id].checked && state[p.id].val.trim() === p.expected);
+          const correctVal = Math.floor(p.numerator / p.denominator).toString();
+          const isCorrect = isSolved || (state[p.id].checked && state[p.id].val === correctVal);
           const isInvalid = state[p.id].checked && !isCorrect;
+
           return (
             <FractionProblem
               key={p.id}
