@@ -1,12 +1,13 @@
 import { Link } from "react-router";
+import frontBg from '../../../public/images/front_bg.jpg'
 
 const WelcomePage = () => {
   return (
     <div
-      className="text-xl text-white  flex items-center justify-center bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: "url('/images/welcomePage.png')" }}
+      className="text-xl text-white h-screen flex items-center justify-center bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('../../../public/images/front_bg.jpg')" }}
     >
-      <div className="text-center px-4">
+      <div className="text-center px-4 z-10 backdrop-blur-2xl w-full h-full flex items-center justify-center flex-col gap-5">
         <p className="text-3xl md:text-5xl lg:text-7xl font-bold lg:w-[1025px] mx-auto">
           Welcome to Extra Handen’s <br />
           <span>AI tool</span>

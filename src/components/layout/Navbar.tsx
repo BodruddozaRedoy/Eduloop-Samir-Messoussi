@@ -4,7 +4,7 @@ import { LuBellDot } from 'react-icons/lu'
 
 export default function Navbar() {
   return (
-    <div className='flex items-center justify-between py-2 bg-white border-b border-white/20 rounded-[30px] mb-5 text-white px-10'>
+    <div className='flex items-center justify-between py-2 bg-white border-b border-white/20 rounded-[30px] mb-3 text-white px-10'>
         {/* logo  */}
         <div className='w-30'>
             <img className='w-full' src="https://res.cloudinary.com/dcrs7po93/image/upload/v1756934007/Logo_ajwbhb.png" alt="" /> 

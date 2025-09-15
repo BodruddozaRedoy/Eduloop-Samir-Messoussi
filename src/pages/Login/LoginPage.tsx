@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
                     {/* Logo */}
                     <div className="">
                         <img
-                            src="/images/Logo.png"
+                            src="https://res.cloudinary.com/dcrs7po93/image/upload/v1756934007/Logo_ajwbhb.png"
                             alt="Logo"
                             className="mx-auto h-20"
                         />
