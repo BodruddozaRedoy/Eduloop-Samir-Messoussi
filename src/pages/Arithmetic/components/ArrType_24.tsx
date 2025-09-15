@@ -29,7 +29,6 @@ function MathInput({
       style={style}
       className={`h-12 w-40 px-3 text-lg font-semibold outline-none
       text-center font-mono tabular-nums rounded-lg
-      
       ${
         invalid
           ? "border-rose-500 text-rose-700"
@@ -85,84 +84,23 @@ type Row = {
   secondSplit: string;
 };
 
-// Dummy data from the image
+// Dummy data
 const DUMMY_DATA: Row[] = [
-  {
-    id: 1,
-    expression: "6 × 37 =",
-    expectedSplit: ["30", "7"],
-    expectedSum: "180 + 42",
-    mainExpression: "6 × 37",
-    expectedResult: "222",
-    firstSplit: "180",
-    secondSplit: "42",
-  },
-  {
-    id: 2,
-    expression: "7 × 28 =",
-    expectedSplit: ["20", "8"],
-    expectedSum: "140 + 56",
-    mainExpression: "7 × 28",
-    expectedResult: "196",
-    firstSplit: "140",
-    secondSplit: "56",
-  },
-  {
-    id: 3,
-    expression: "4 × 57 =",
-    expectedSplit: ["50", "7"],
-    expectedSum: "200 + 28",
-    mainExpression: "4 × 57",
-    expectedResult: "228",
-    firstSplit: "200",
-    secondSplit: "28",
-  },
-  {
-    id: 4,
-    expression: "4 × 57 =",
-    expectedSplit: ["50", "7"],
-    expectedSum: "200 + 28",
-    mainExpression: "4 × 57",
-    expectedResult: "228",
-    firstSplit: "200",
-    secondSplit: "28",
-  },
-  {
-    id: 5,
-    expression: "4 × 57 =",
-    expectedSplit: ["50", "7"],
-    expectedSum: "200 + 28",
-    mainExpression: "4 × 57",
-    expectedResult: "228",
-    firstSplit: "200",
-    secondSplit: "28",
-  },
+  { id: 1, expression: "6 × 37 =", expectedSplit: ["30", "7"], expectedSum: "180 + 42", mainExpression: "6 × 37", expectedResult: "222", firstSplit: "180", secondSplit: "42" },
+  { id: 2, expression: "7 × 28 =", expectedSplit: ["20", "8"], expectedSum: "140 + 56", mainExpression: "7 × 28", expectedResult: "196", firstSplit: "140", secondSplit: "56" },
+  { id: 3, expression: "4 × 57 =", expectedSplit: ["50", "7"], expectedSum: "200 + 28", mainExpression: "4 × 57", expectedResult: "228", firstSplit: "200", secondSplit: "28" },
+  { id: 4, expression: "4 × 57 =", expectedSplit: ["50", "7"], expectedSum: "200 + 28", mainExpression: "4 × 57", expectedResult: "228", firstSplit: "200", secondSplit: "28" },
+  { id: 5, expression: "4 × 57 =", expectedSplit: ["50", "7"], expectedSum: "200 + 28", mainExpression: "4 × 57", expectedResult: "228", firstSplit: "200", secondSplit: "28" },
 ];
 
-const HINT_TEXT =
-  "Split the second number into tens and ones, then multiply each by the first number and add the results.";
+const HINT_TEXT = "Split the second number into tens and ones, then multiply each by the first number and add the results.";
 
 export default function ArrType_24() {
   type Status = "idle" | "match" | "wrong";
 
-  const [state, setState] = useState<
-    Record<
-      number,
-      {
-        sumVal: string;
-        splitVal: [string, string];
-        resultVal: string;
-        checked: boolean;
-      }
-    >
-  >(() => {
-    const init: Record<
-      number,
-      { sumVal: string; splitVal: [string, string]; resultVal: string; checked: boolean }
-    > = {};
-    DUMMY_DATA.forEach(
-      (r) => (init[r.id] = { sumVal: "", splitVal: ["", ""], resultVal: "", checked: false })
-    );
+  const [state, setState] = useState<Record<number, { sumVal: string; splitVal: [string, string]; resultVal: string; checked: boolean }>>(() => {
+    const init: Record<number, { sumVal: string; splitVal: [string, string]; resultVal: string; checked: boolean }> = {};
+    DUMMY_DATA.forEach(r => (init[r.id] = { sumVal: "", splitVal: ["", ""], resultVal: "", checked: false }));
     return init;
   });
 
@@ -175,15 +113,12 @@ export default function ArrType_24() {
     setState((s) => {
       const next = { ...s };
       const current = next[id];
-      if (type === "sum") {
-        next[id] = { ...current, sumVal: v };
-      } else if (type.startsWith("split")) {
+      if (type === "sum") next[id] = { ...current, sumVal: v };
+      else if (type.startsWith("split")) {
         const splitVals = [...current.splitVal] as [string, string];
         splitVals[type === "split0" ? 0 : 1] = v;
         next[id] = { ...current, splitVal: splitVals };
-      } else if (type === "result") {
-        next[id] = { ...current, resultVal: v };
-      }
+      } else if (type === "result") next[id] = { ...current, resultVal: v };
       return next;
     });
   };
@@ -208,18 +143,16 @@ export default function ArrType_24() {
           current.splitVal[0].trim() === "" ||
           current.splitVal[1].trim() === "" ||
           current.resultVal.trim() === ""
-        ) {
+        )
           allFilledAndCorrect = false;
-        }
 
         next[r.id] = { ...current, checked: true };
       }
       return next;
     });
 
-    const ok = !anyWrong && allFilledAndCorrect;
-    setStatus(ok ? "match" : "wrong");
-    addResult({ id: qId, title: qTitle }, ok);
+    setStatus(!anyWrong && allFilledAndCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, !anyWrong && allFilledAndCorrect);
   };
 
   const handleShowSolution = () => {
@@ -247,19 +180,9 @@ export default function ArrType_24() {
 
   const summary: Summary | null =
     status === "match"
-      ? {
-          text: "🎉 Correct! Great job.",
-          color: "text-green-700",
-          bgColor: "bg-green-100",
-          borderColor: "border-green-600",
-        }
+      ? { text: "🎉 Correct! Great job.", color: "text-green-700", bgColor: "bg-green-100", borderColor: "border-green-600" }
       : status === "wrong"
-      ? {
-          text: "❌ Some answers are wrong. Check again.",
-          color: "text-red-700",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
+      ? { text: "❌ Some answers are wrong. Check again.", color: "text-red-700", bgColor: "bg-red-100", borderColor: "border-red-600" }
       : null;
 
   return (
@@ -274,8 +197,8 @@ export default function ArrType_24() {
         </p>
       </div>
 
-      {/* Questions */}
-      <div className="flex flex-wrap justify-start gap-12 ">
+      {/* Questions Grid */}
+      <div className="grid gap-8 w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
         {DUMMY_DATA.map((r) => {
           const st = state[r.id];
           const isCorrect =
@@ -287,11 +210,8 @@ export default function ArrType_24() {
           const isInvalid = st.checked && !isCorrect;
 
           return (
-            <div
-              key={r.id}
-              className="relative flex flex-col items-center p-6 space-y-4 rounded-2xl bg-amber-50/60 shadow-md"
-            >
-              {/* First Row - Sum input with centered bg */}
+            <div key={r.id} className="flex flex-col items-center p-6 space-y-4 rounded-2xl bg-amber-50/60 shadow-md">
+              {/* Sum input with centered bg */}
               <div className="relative w-full flex justify-center">
                 <MathInput
                   value={st.sumVal}
@@ -303,14 +223,13 @@ export default function ArrType_24() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    paddingBottom:"20px"
-                    
+                    paddingBottom: "20px",
                   }}
                 />
               </div>
 
-              {/* Second Row - Expression and Result input */}
-              <div className="flex items-center ">
+              {/* Expression and Result input */}
+              <div className="flex items-center">
                 <span className="text-2xl font-semibold text-slate-800">{r.expression}</span>
                 <MathInput
                   value={st.resultVal}
@@ -320,7 +239,7 @@ export default function ArrType_24() {
                 />
               </div>
 
-              {/* Third Row - Split inputs */}
+              {/* Split inputs */}
               <div className="flex items-center space-x-6 z-10">
                 <NumberSplitInput
                   value={st.splitVal[0]}
@@ -342,11 +261,7 @@ export default function ArrType_24() {
 
       {/* Controls */}
       <div className="flex flex-col items-start space-y-4 w-full max-w-xl mt-8">
-        <Controllers
-          handleCheck={handleCheckAll}
-          handleShowSolution={handleShowSolution}
-          handleShowHint={() => setShowHint((v) => !v)}
-        />
+        <Controllers handleCheck={handleCheckAll} handleShowSolution={handleShowSolution} handleShowHint={() => setShowHint((v) => !v)} />
         {showHint && <Hint hint={HINT_TEXT} />}
         <Check summary={summary} />
       </div>
