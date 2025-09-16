@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Controllers from "@/components/common/Controllers";
 import Check from "@/components/common/Check";
 import Hint from "@/components/common/Hint";
 import { IoMdArrowRoundForward } from "react-icons/io";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
 type Mode = "connectThenType" | "preConnected" | "preFilledBoxes";
 type PresetPair = { dotIndex: number; lineNum: number };
@@ -28,7 +31,7 @@ const BRAND = "#ff6900";
 const TICK_GAP = 17;
 const SNAP_RADIUS = 8;
 
-export default function ArrTypeTwo({
+export default function ArrType_2({
   mode,
   presetLineNums = [],
   presetBoxNumbers = [12, 50, 97, 3, 88],
@@ -43,7 +46,7 @@ export default function ArrTypeTwo({
   const [checked, setChecked] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
-  const handleShowHint = () => setShowHint((v) => !v);
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
@@ -97,7 +100,10 @@ export default function ArrTypeTwo({
     setActiveDot(null);
   };
 
-  const handleCheck = () => {
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+  const handleCheck = useCallback(() => {
     const newResults: Record<number, "correct" | "wrong" | null> = {};
     if (mode === "preFilledBoxes") {
       presetBoxNumbers.slice(0, dotCount).forEach((targetNum, dotIndex) => {
@@ -113,8 +119,11 @@ export default function ArrTypeTwo({
       }
     }
     setResults(newResults);
+    const vals = Object.values(newResults);
+    const allCorrect = vals.length > 0 && vals.every((r) => r === "correct");
+    addResult({ id: qId, title: qTitle }, allCorrect);
     setChecked(true);
-  };
+  }, [mode, presetBoxNumbers, dotCount, connections, typed, addResult, qId, qTitle]);
 
   // Preset connections for preConnected mode
   useEffect(() => {
@@ -144,7 +153,7 @@ export default function ArrTypeTwo({
     };
   }, [mode, presetLineNums]);
 
-  const handleShowSolution = () => {
+  const handleShowSolution = useCallback(() => {
     if (mode === "preFilledBoxes") {
       const container = containerRef.current?.getBoundingClientRect();
       if (!container) return;
@@ -178,7 +187,7 @@ export default function ArrTypeTwo({
       setResults(solved);
     }
     setChecked(false); // 👈 no summary after solution
-  };
+  }, [mode, dotCount, presetBoxNumbers, connections]);
 
   // ✅ Summary (only after Check)
   const summary = useMemo(() => {
@@ -207,6 +216,21 @@ export default function ArrTypeTwo({
     }
     return null;
   }, [results, checked]);
+
+  const { setControls } = useQuestionControls();
+
+  const controls = useMemo(() => ({
+    handleCheck,
+    handleShowHint,
+    handleShowSolution,
+    hint,
+    showHint,
+    summary,
+  }), [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
+
+  useEffect(() => {
+    setControls(controls);
+  }, [controls, setControls]);
 
   return (
     <>
@@ -290,10 +314,9 @@ export default function ArrTypeTwo({
                     setResults((prev) => ({ ...prev, [dotIndex]: null }));
                   }}
                   className={`border-2 size-15 text-3xl font-bold text-center appearance-none focus:outline-none
-                    ${
-                      results[dotIndex] === "correct" && checked
-                        ? "border-green-500"
-                        : results[dotIndex] === "wrong" && checked
+                    ${results[dotIndex] === "correct" && checked
+                      ? "border-green-500"
+                      : results[dotIndex] === "wrong" && checked
                         ? "border-red-500"
                         : "border-primary"
                     }`}
@@ -329,9 +352,9 @@ export default function ArrTypeTwo({
       </div>
 
       {/* Controls */}
-      <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
+      {/* <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
       {showHint && <Hint hint={hint} />}
-      <Check summary={summary} /> {/* ✅ only shows after Check */}
+      <Check summary={summary} />  */}
     </>
   );
 }

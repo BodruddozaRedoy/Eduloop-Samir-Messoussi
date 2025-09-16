@@ -4,7 +4,10 @@ import Hint from "@/components/common/Hint";
 import Controllers from "@/components/common/Controllers";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
+import { IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { Link } from "react-router";
+import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
+import useResultTracker from "@/hooks/useResultTracker";
 
 interface Question {
   id: number;
@@ -36,6 +39,14 @@ export default function LanguageQuestions({
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [loading, setLoading] = useState(true);
+  // Hooks must be called unconditionally on every render
+  const { addResult } = useResultTracker();
+  const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
+
+  useEffect(() => {
+    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    return () => off();
+  }, []);
 
   useEffect(() => {
     if (initialData.length > 0) {
@@ -142,14 +153,11 @@ export default function LanguageQuestions({
 
   const handleCheck = () => {
     if (!selected) return;
-
-    setStatus(
-      currentQuestion.metadata.correctAnswer
-        .map((a) => a.toLowerCase())
-        .includes(selected.toLowerCase())
-        ? "match"
-        : "wrong"
-    );
+    const ok = currentQuestion.metadata.correctAnswer
+      .map((a) => a.toLowerCase())
+      .includes(selected.toLowerCase());
+    setStatus(ok ? "match" : "wrong");
+    addResult({ id: currentQuestion.id, title: currentQuestion.metadata.question }, ok);
   };
 
   const handleShowSolution = () => {
@@ -282,17 +290,26 @@ export default function LanguageQuestions({
                 <ChevronLeft className="mr-2" /> Switch Category
               </Button>
             </div>
-
-            <Button
-              onClick={goNext}
-              disabled={isLast}
-              className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              Next
-              <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
-                <IoMdArrowRoundForward size={50} className="text-5xl" />
-              </div>
-            </Button>
+            <div className="space-x-5">
+              <Button
+                onClick={goNext}
+                disabled={isLast}
+                className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Next
+                <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
+                  <IoMdArrowRoundForward size={50} className="text-5xl" />
+                </div>
+              </Button>
+              <Link to={"/result"} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+                <Button disabled={!hasResults} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
+                  Result
+                  <div className="size-10 bg-white rounded-2xl flex items-center justify-center ml-2">
+                    <IoMdCheckmarkCircleOutline size={60} className="text-green-500" />
+                  </div>
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

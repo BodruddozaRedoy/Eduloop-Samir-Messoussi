@@ -4,12 +4,14 @@ import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import { useState } from "react";
+import useResultTracker from "@/hooks/useResultTracker";
 import type { Summary } from "./ReadingMultipleChoice";
 interface ReadingShortQuestionProps {
   question: string;
   correctAnswer: string;
   description: string;
   hint: string;
+  qid?: number;
 }
 
 const ReadingShortQuestion = ({
@@ -17,6 +19,7 @@ const ReadingShortQuestion = ({
   correctAnswer,
   description,
   hint,
+  qid,
 }: ReadingShortQuestionProps) => {
   const [inputValue, setInputValue] = useState("");
   // const [result, setResult] = useState<null | boolean>(null);
@@ -32,12 +35,16 @@ const ReadingShortQuestion = ({
 
 
 
+  const { addResult } = useResultTracker();
+
   const handleCheck = () => {
     if (!inputValue.trim()) return;
     // setResult(
     //   inputValue.trim().toLowerCase() === correctAnswer.toLowerCase()
     // );
-    setStatus(inputValue.trim().toLowerCase() === correctAnswer.toLowerCase() ? "match" : "wrong")
+    const ok = inputValue.trim().toLowerCase() === correctAnswer.toLowerCase();
+    setStatus(ok ? "match" : "wrong")
+    if (qid != null) addResult({ id: qid, title: question }, ok)
   };
 
   const handleShowSolution = () => {

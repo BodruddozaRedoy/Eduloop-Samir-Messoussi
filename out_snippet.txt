@@ -1,0 +1,10 @@
+interface ReadingQuizProps {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  description: string;
+  hint: string; // ✅ added
+}
+
+export interface Summary {
+  text: string

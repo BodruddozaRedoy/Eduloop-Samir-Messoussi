@@ -1,9 +1,16 @@
 import React from 'react'
 import { Button } from '../ui/button'
 
-export default function Controllers({handleCheck, handleShowSolution, handleShowHint}:any) {
+type ControllersProps = {
+  handleCheck: () => void
+  handleShowSolution: () => void
+  handleShowHint: () => void
+}
+
+export default function Controllers({ handleCheck, handleShowSolution, handleShowHint }: ControllersProps) {
+
     return (
-        <div className='flex items-center justify-between mt-10'>
+        <div className='flex items-center justify-between mt-5 '>
             <div className='flex items-center gap-3'>
                 <Button onClick={handleCheck} className='bg-[#dbeafe] hover:bg-[#dbeafe]/70 text-black border'>Check</Button>
                 <Button onClick={handleShowHint} className='bg-[#ffedd5] hover:bg-[#ffedd5]/70 text-black border'>Hint</Button>

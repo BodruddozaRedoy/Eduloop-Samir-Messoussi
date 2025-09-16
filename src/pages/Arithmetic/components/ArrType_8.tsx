@@ -1,36 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import Check from "@/components/common/Check";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
+type Q8Answer = { a: number; op: "+" | "-"; b: number; result: number };
+type Q8Item = { id: number; numbers: number[]; answers: Q8Answer[] };
 
-export default function ArrTypeEight({data,hint}:any) {
+export default function ArrType_8({ data, hint }: { data: Q8Item[]; hint: string }) {
   const [showHint, setShowHint] = useState(false);
   const [userAnswers, setUserAnswers] = useState<{ [key: string]: string }>({});
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
   const [validation, setValidation] = useState<{ [key: string]: boolean | null }>({});
 
-  const handleShowHint = () => setShowHint((v) => !v);
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  const handleInputChange = (
-    qid: number,
-    index: number,
-    field: "a" | "b" | "result",
-    value: string
-  ) => {
-    setUserAnswers((prev) => ({
-      ...prev,
-      [`${qid}-${index}-${field}`]: value,
-    }));
-  };
+  const handleInputChange = useCallback(
+    (qid: number, index: number, field: "a" | "b" | "result", value: string) => {
+      setUserAnswers((prev) => ({
+        ...prev,
+        [`${qid}-${index}-${field}`]: value,
+      }));
+    },
+    []
+  );
 
-  const handleCheck = () => {
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+  const handleCheck = useCallback(() => {
     let allCorrect = true;
     let newValidation: { [key: string]: boolean } = {};
 
-    data.forEach((d:any) => {
-      d.answers.forEach((a:any, i:any) => {
+    data.forEach((d) => {
+      d.answers.forEach((a, i) => {
         const ua = parseInt(userAnswers[`${d.id}-${i}-a`] ?? "", 10);
         const ub = parseInt(userAnswers[`${d.id}-${i}-b`] ?? "", 10);
         const ur = parseInt(userAnswers[`${d.id}-${i}-result`] ?? "", 10);
@@ -52,36 +58,64 @@ export default function ArrTypeEight({data,hint}:any) {
 
     setValidation(newValidation);
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, allCorrect);
     setShowSolution(false);
-  };
+  }, [data, userAnswers, addResult, qId, qTitle]);
 
-  const handleShowSolution = () => {
+  const handleShowSolution = useCallback(() => {
     setShowSolution(true);
     setStatus(null);
     setValidation({});
-  };
+  }, []);
 
-  const summary =
-    status === "match"
-      ? {
-        text: "🎉 All Correct! Great job",
-        color: "text-green-600",
-        bgColor: "bg-green-100",
-        borderColor: "border-green-600",
-      }
-      : status === "wrong"
+  const summary = useMemo(
+    () =>
+      status === "match"
         ? {
-          text: "❌ Some answers are wrong. Check again.",
-          color: "text-red-600",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
-        : null;
+            text: "🎉 All Correct! Great job",
+            color: "text-green-600",
+            bgColor: "bg-green-100",
+            borderColor: "border-green-600",
+          }
+        : status === "wrong"
+        ? {
+            text: "❌ Some answers are wrong. Check again.",
+            color: "text-red-600",
+            bgColor: "bg-red-100",
+            borderColor: "border-red-600",
+          }
+        : null,
+    [status]
+  );
+
+  const { setControls } = useQuestionControls();
+
+  // ✅ stable controls object
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  );
+
+  useEffect(() => {
+    setControls((prev) => {
+      const changed = Object.keys(controls).some(
+        (k) => (controls as any)[k] !== (prev as any)[k]
+      );
+      return changed ? controls : prev;
+    });
+  }, [controls, setControls]);
 
   return (
     <div>
       <div className="flex items-start justify-center gap-20">
-        {data?.map((d:any, i:any) => (
+        {data?.map((d, i) => (
           <div key={d.id}>
             {/* numbers box */}
             <div>
@@ -116,14 +150,14 @@ export default function ArrTypeEight({data,hint}:any) {
             </div>
             {/* answers inputs */}
             <div>
-              {d.answers?.map((a:any, idx:any) => {
+              {d.answers?.map((a, idx) => {
                 const isCorrect = validation[`${d.id}-${idx}`];
                 const inputClass =
                   isCorrect === true
                     ? "border-green-600 text-green-600"
                     : isCorrect === false
-                      ? "border-red-600 text-red-600"
-                      : "border-primary";
+                    ? "border-red-600 text-red-600"
+                    : "border-primary";
 
                 return (
                   <div key={idx} className="mt-5 flex items-center gap-1">
@@ -169,7 +203,7 @@ export default function ArrTypeEight({data,hint}:any) {
         ))}
       </div>
       {/* controllers */}
-      <div>
+      {/* <div>
         <Controllers
           handleCheck={handleCheck}
           handleShowSolution={handleShowSolution}
@@ -177,7 +211,7 @@ export default function ArrTypeEight({data,hint}:any) {
         />
         {showHint && <Hint hint={hint} />}
         <Check summary={summary} />
-      </div>
+      </div> */}
     </div>
   );
 }

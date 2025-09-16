@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   IoIosArrowForward,
   IoMdArrowRoundBack,
   IoMdArrowRoundForward,
+  IoMdCheckmarkCircleOutline,
 } from "react-icons/io";
 import ReadingFillBlanks from "./components/ReadingFillBlanks";
 import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
 import ReadingShortQuestion from "./components/ReadingShortQuestion";
+import { Link } from "react-router";
+import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
 
 const QUESTIONS_DATA = [
   {
@@ -66,6 +69,7 @@ const QUESTIONS_DATA = [
 
 export default function ReadingPage() {
   const [question, setQuestion] = useState(0);
+  const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
 
   const isFirst = question === 0;
   const isLast = question === QUESTIONS_DATA.length - 1;
@@ -74,6 +78,11 @@ export default function ReadingPage() {
   const handlePrev = () => setQuestion((prev) => Math.max(prev - 1, 0));
   const handleNext = () =>
     setQuestion((prev) => Math.min(prev + 1, QUESTIONS_DATA.length - 1));
+
+  useEffect(() => {
+    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    return () => off();
+  }, []);
 
   // Render by type
   const content = useMemo(() => {
@@ -84,6 +93,7 @@ export default function ReadingPage() {
         return (
           <ReadingMultipleChoice
             key={q.id}
+            qid={q.id}
             question={q.metadata.question}
             options={q.metadata.options ?? []}
             correctAnswer={q.metadata.correctAnswer}
@@ -96,6 +106,7 @@ export default function ReadingPage() {
         return (
           <ReadingShortQuestion
             key={q.id}
+            qid={q.id}
             question={q.metadata.question}
             correctAnswer={q.metadata.correctAnswer}
             description={q.metadata.description}
@@ -107,6 +118,7 @@ export default function ReadingPage() {
         return (
           <ReadingFillBlanks
             key={q.id}
+            qid={q.id}
             question={q.metadata.question}
             correctAnswer={q.metadata.correctAnswer}
             description={q.metadata.description}
@@ -191,17 +203,26 @@ export default function ReadingPage() {
               <ChevronLeft className="mr-2" /> Switch Category
             </Button>
           </div>
-
-          <Button
-            onClick={handleNext}
-            disabled={isLast}
-            className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            Next
-            <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
-              <IoMdArrowRoundForward size={50} className="text-5xl" />
-            </div>
-          </Button>
+          <div className="space-x-5">
+            <Button
+              onClick={handleNext}
+              disabled={isLast}
+              className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              Next
+              <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
+                <IoMdArrowRoundForward size={50} className="text-5xl" />
+              </div>
+            </Button>
+            <Link to="/result" onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+              <Button disabled={!hasResults} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
+                Result
+                <div className="size-10 bg-white rounded-2xl flex items-center justify-center ml-2">
+                  <IoMdCheckmarkCircleOutline size={60} className="text-green-500" />
+                </div>
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </>

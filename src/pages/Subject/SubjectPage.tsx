@@ -10,15 +10,16 @@ interface Subject {
     title: string;
     subtitle: string;
     color: string;
+    link: string;
 }
 
 // Categories array
 const subjects: Subject[] = [
-    { id: "arithmetic", title: "Arithmetic", subtitle: "Start practicing arithmetic instantly.", color: "#a855f7" },
-    { id: "grammar", title: "Grammar", subtitle: "Start practicing grammar instantly.", color: "#ef4444" },
-    { id: "orthography", title: "Orthography", subtitle: "Start practicing orthography instantly.", color: "#3b82f6" },
-    { id: "reading", title: "Reading", subtitle: "Start practicing reading instantly.", color: "#22c55e" },
-    { id: "vocabulary", title: "Vocabulary", subtitle: "Start practicing vocabulary instantly.", color: "#f97316" },
+    { id: "arithmetic", link: "/arithmetic", title: "Arithmetic", subtitle: "Start practicing arithmetic instantly.", color: "#a855f7" },
+    { id: "grammar", link: "/", title: "Grammar", subtitle: "Start practicing grammar instantly.", color: "#ef4444" },
+    { id: "orthography", link: "/", title: "Orthography", subtitle: "Start practicing orthography instantly.", color: "#3b82f6" },
+    { id: "reading", link: "/", title: "Reading", subtitle: "Start practicing reading instantly.", color: "#22c55e" },
+    { id: "vocabulary", link: "/", title: "Vocabulary", subtitle: "Start practicing vocabulary instantly.", color: "#f97316" },
 
 ];
 
@@ -37,7 +38,7 @@ const SubjectPage: React.FC = () => {
                         <div className='size-10 bg-white text-black rounded-2xl flex items-center justify-center'>
                             <IoMdArrowRoundBack size={50} className='text-5xl' />
                         </div>
-                        Back Subject 
+                        Back Subject
                     </Button>
                 </Link>
 
@@ -54,6 +55,7 @@ const SubjectPage: React.FC = () => {
                             title={sub.title}
                             subtitle={sub.subtitle}
                             color={sub.color}
+                            link={sub.link}
                         />
                     ))}
                 </div>

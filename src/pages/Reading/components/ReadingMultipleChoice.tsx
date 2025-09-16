@@ -3,6 +3,7 @@ import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import { useState } from "react";
+import useResultTracker from "@/hooks/useResultTracker";
 interface ReadingQuizProps {
   question: string;
   options: string[];
@@ -18,13 +19,15 @@ export interface Summary {
   borderColor: string;
 }
 
-export default function ReadingQuiz({
-  question,
-  options,
-  correctAnswer,
-  description,
-  hint,
-}: ReadingQuizProps) {
+export default function ReadingQuiz(props: any) {
+  const { question, options, correctAnswer, description, hint, qid } = props as {
+    question: string;
+    options: string[];
+    correctAnswer: string;
+    description: string;
+    hint: string;
+    qid?: number;
+  };
   // const [answers, setAnswers] = useState<{ [id: number]: string[] }>({})
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
   // const [showSolution, setShowSolution] = useState(false)
@@ -33,13 +36,17 @@ export default function ReadingQuiz({
   // const [showHint, setShowHint] = useState(false)
 
   const [selected, setSelected] = useState<string | null>(null);
+  const { addResult } = useResultTracker();
   const [result, setResult] = useState<null | boolean>(null);
   const [showHint, setShowHint] = useState(false); // ✅ state for hint
 
   const handleCheck = () => {
     if (selected) {
-      setResult(selected === correctAnswer);
-      setStatus(selected === correctAnswer ? "match" : "wrong");
+      const ok = selected === correctAnswer;
+      setResult(ok);
+      setStatus(ok ? "match" : "wrong");
+      const id = qid ?? Array.from(question).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      addResult({ id, title: question }, ok);
     }
   };
 

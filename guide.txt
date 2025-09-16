@@ -1,0 +1,3 @@
+1. Need to create file by serial wise.
+2. Then add object at Questions component by serial wise of id and change the type name match by component name
+3. Then add case at QuestionRendered component match with the object type name in case field and also change the component name you have created

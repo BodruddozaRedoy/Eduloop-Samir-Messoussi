@@ -1,44 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import { useQuestionControls } from "@/context/QuestionControlsContext";
 
-const hint =
-  "Count the hours forward from the clock time until you reach the given time.";
+type ClockVal = { hour: number; minute: number };
+type TypeOne = { id: number; clock: ClockVal; boxTime: ClockVal; answer: number };
+type TypeTwo = {
+  id: number;
+  boxTime: ClockVal;
+  difference: number;
+  correct: ClockVal;
+};
 
-// ✅ Type 1: User types difference
-const dataOne = [
-  {
-    id: 1,
-    clock: { hour: 9, minute: 0 },
-    boxTime: { hour: 12, minute: 0 },
-    answer: 3,
-  },
-  {
-    id: 2,
-    clock: { hour: 5, minute: 0 },
-    boxTime: { hour: 2, minute: 0 },
-    answer: 9,
-  },
-];
+const hint = "Count the hours forward from the clock time until you reach the given time.";
 
-// ✅ Type 2: User sets time on clock
-const dataTwo = [
-  {
-    id: 1,
-    boxTime: { hour: 4, minute: 0 }, // Fixed box time
-    difference: 8, // 8 hours later
-    correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
-  },
-  {
-    id: 2,
-    boxTime: { hour: 4, minute: 0 }, // Fixed box time
-    difference: 8, // 8 hours later
-    correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
-  },
-];
-
-export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
+export default function ArrType_13({
+  dataOne,
+  dataTwo,
+}: {
+  dataOne?: TypeOne[];
+  dataTwo?: TypeTwo[];
+}) {
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
   const [clockAnswers, setClockAnswers] = useState<{
     [key: number]: { hour: number; minute: number };
@@ -47,41 +32,42 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
   const [showHint, setShowHint] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  const handleInputChange = (id: number, value: string) => {
+  const handleInputChange = useCallback((id: number, value: string) => {
     setUserAnswers((prev) => ({ ...prev, [id]: value }));
-  };
+  }, []);
 
-  const handleClockChange = (id: number, hour: number, minute: number) => {
-    setClockAnswers((prev) => ({ ...prev, [id]: { hour, minute } }));
-  };
+  const handleClockChange = useCallback(
+    (id: number, hour: number, minute: number) => {
+      setClockAnswers((prev) => ({ ...prev, [id]: { hour, minute } }));
+    },
+    []
+  );
 
-  const handleCheck = () => {
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+  const handleCheck = useCallback(() => {
     let allCorrect = true;
 
-    // check type 1
     dataOne?.forEach((item) => {
       if (Number(userAnswers[item.id]) !== item.answer) {
         allCorrect = false;
       }
     });
 
-    // check type 2
     dataTwo?.forEach((item) => {
       const ans = clockAnswers[item.id];
-      if (
-        !ans ||
-        ans.hour !== item.correct.hour ||
-        ans.minute !== item.correct.minute
-      ) {
+      if (!ans || ans.hour !== item.correct.hour || ans.minute !== item.correct.minute) {
         allCorrect = false;
       }
     });
 
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, allCorrect);
     setChecked(true);
-  };
+  }, [dataOne, dataTwo, userAnswers, clockAnswers, addResult, qId, qTitle]);
 
-  const handleShowSolution = () => {
+  const handleShowSolution = useCallback(() => {
     const filled: { [key: number]: string } = {};
     dataOne?.forEach((item) => {
       filled[item.id] = String(item.answer);
@@ -96,26 +82,52 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
 
     setStatus("match");
     setChecked(true);
-  };
+  }, [dataOne, dataTwo]);
 
-  const handleShowHint = () => setShowHint((v) => !v);
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  const summary =
-    status === "match"
-      ? {
-          text: "🎉 All Correct! Great job",
-          color: "text-green-600",
-          bgColor: "bg-green-100",
-          borderColor: "border-green-600",
-        }
-      : status === "wrong"
-      ? {
-          text: "❌ Some answers are wrong. Check again.",
-          color: "text-red-600",
-          bgColor: "bg-red-100",
-          borderColor: "border-red-600",
-        }
-      : null;
+  const summary = useMemo(() => {
+    if (status === "match") {
+      return {
+        text: "🎉 All Correct! Great job",
+        color: "text-green-600",
+        bgColor: "bg-green-100",
+        borderColor: "border-green-600",
+      };
+    }
+    if (status === "wrong") {
+      return {
+        text: "❌ Some answers are wrong. Check again.",
+        color: "text-red-600",
+        bgColor: "bg-red-100",
+        borderColor: "border-red-600",
+      };
+    }
+    return null;
+  }, [status]);
+
+  const { setControls } = useQuestionControls();
+
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  );
+
+  useEffect(() => {
+    setControls((prev) => {
+      const changed = Object.keys(controls).some(
+        (k) => (controls as any)[k] !== (prev as any)[k]
+      );
+      return changed ? controls : prev;
+    });
+  }, [controls, setControls]);
 
   // ⏰ Clock component
   const Clock = ({
@@ -134,22 +146,19 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
     return (
       <div
         className={`relative w-32 h-32 border-2 rounded-full flex items-center justify-center bg-slate-50
-          ${
-            highlight === "correct"
-              ? "border-green-600 ring-4 ring-green-400"
-              : highlight === "wrong"
-              ? "border-red-600 ring-4 ring-red-400"
-              : "border-green-600"
+          ${highlight === "correct"
+            ? "border-green-600 ring-4 ring-green-400"
+            : highlight === "wrong"
+            ? "border-red-600 ring-4 ring-red-400"
+            : "border-green-600"
           }`}
       >
         {!hideHands && (
           <>
-            {/* Hour hand */}
             <div
               className="absolute bottom-1/2 left-1/2 w-1 h-10 bg-gray-700 origin-bottom"
               style={{ transform: `translateX(-50%) rotate(${hourDeg}deg)` }}
             />
-            {/* Minute hand */}
             <div
               className="absolute bottom-1/2 left-1/2 w-0.5 h-14 bg-red-500 origin-bottom"
               style={{ transform: `translateX(-50%) rotate(${minuteDeg}deg)` }}
@@ -227,15 +236,12 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
           const user = clockAnswers[item.id];
           let highlight: "correct" | "wrong" | undefined;
           if (checked) {
-            if (
+            highlight =
               user &&
               user.hour === item.correct.hour &&
               user.minute === item.correct.minute
-            ) {
-              highlight = "correct";
-            } else {
-              highlight = "wrong";
-            }
+                ? "correct"
+                : "wrong";
           }
 
           return (
@@ -281,7 +287,7 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
       </div>
 
       {/* Controllers */}
-      <div>
+      {/* <div>
         <Controllers
           handleCheck={handleCheck}
           handleShowSolution={handleShowSolution}
@@ -289,7 +295,7 @@ export default function ArrTypeThirteen({dataOne, dataTwo}:any) {
         />
         {showHint && <Hint hint={hint} />}
         <Check summary={summary} />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import GroupPage from '@/pages/Group/GroupPage'
 import LanguagePage from '@/pages/Language/LanguagePage'
 import LoginPage from '@/pages/Login/LoginPage'
 import ReadingPage from '@/pages/Reading/ReadingPage'
+import ResultPage from '@/pages/Result/ResultPage'
 import SpellingPage from '@/pages/Spelling/SpellingPage'
 import SubjectPage from '@/pages/Subject/SubjectPage'
 import SubjectCategoryPage from '@/pages/SubjectCategory/SubjectCategoryPage'
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
             {
                 path: "/language",
                 Component: LanguagePage
+            },
+            {
+                path: "/result",
+                Component: ResultPage
             }
 
         ]

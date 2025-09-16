@@ -164,7 +164,7 @@ export type GenericMathQuestion = {
   metadata: {
     question: string
     // The concrete structure varies by component; keep it flexible
-    data: any[]
+    data: unknown[]
     hint: string
   }
 }

@@ -6,6 +6,7 @@ interface SubjectCardProps {
     title: string;
     subtitle: string;
     color: string;
+    link:string;
 }
 
 export const SubjectCard: React.FC<SubjectCardProps> = ({ id, title, subtitle, color }) => {

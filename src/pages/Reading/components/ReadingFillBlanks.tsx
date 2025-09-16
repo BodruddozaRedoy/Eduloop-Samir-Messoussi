@@ -3,6 +3,7 @@ import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import { useState } from "react";
+import useResultTracker from "@/hooks/useResultTracker";
 import type { Summary } from "./ReadingMultipleChoice";
 
 interface FillBlanksProps {
@@ -10,6 +11,7 @@ interface FillBlanksProps {
   correctAnswer: string;
   description: string;
   hint: string;
+  qid?: number;
 }
 
 export default function ReadingFillBlanks({
@@ -17,6 +19,7 @@ export default function ReadingFillBlanks({
   correctAnswer,
   description,
   hint,
+  qid,
 }: FillBlanksProps) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showHint, setShowHint] = useState(false);
@@ -31,12 +34,15 @@ export default function ReadingFillBlanks({
 
 
 
+  const { addResult } = useResultTracker();
+
   const handleCheck = () => {
     if (userAnswer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
-
       setStatus("match")
+      if (qid != null) addResult({ id: qid, title: question }, true)
     } else {
       setStatus("wrong")
+      if (qid != null) addResult({ id: qid, title: question }, false)
     }
   };
 
