@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
+import useCategories from "@/hooks/useCategories";
 import React, { useState, useEffect } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface Group {
     id: number;
@@ -11,20 +12,10 @@ interface Group {
 
 const GroupPage: React.FC = () => {
     const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
-    const [cardData, setCardData] = useState<Group[]>([]);
+    const { group } = useCategories()
+    const navigate = useNavigate()
 
-    const dummyData: Group[] = [
-        { id: 4, ageRange: "0-4" },
-        { id: 5, ageRange: "5-6" },
-        { id: 6, ageRange: "7-8" },
-        { id: 7, ageRange: "9-10" },
-        { id: 8, ageRange: "11-12" },
-    ];
-
-    useEffect(() => {
-        setCardData(dummyData);
-    }, []);
-
+    console.log(group)
     return (
         <div className="relative   flex flex-col justify-start pt-10 px-4 md:px-10">
             {/* Header Section */}
@@ -44,11 +35,10 @@ const GroupPage: React.FC = () => {
 
             {/* Cards Section */}
             <div className="grid grid-cols-1  md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {cardData.map((card) => (
-                    <Link
-                        to={`/group/${card.id}/subject`}
+                {group?.map((card) => (
+                    <div
                         key={card.id}
-                        onClick={() => setSelectedGroup(card.id)}
+                        onClick={() => { setSelectedGroup(card.id); navigate(`/group/subject?groupId=${card.slug}`) }}
                         className={`
               flex flex-col bg-white   p-6 rounded-2xl border-2   cursor-pointer transition-all duration-300
               hover:shadow-xl hover:-translate-y-1 hover:bg-[#FFF0ED]
@@ -59,13 +49,20 @@ const GroupPage: React.FC = () => {
             `}
                     >
                         <div className="inline-block bg-[#D95B43] w-26 text-white text-sm font-bold px-4 py-1 rounded-full mb-2">
-                            Group {card.id}
+                            {card.name}
                         </div>
                         <p className="text-gray-800 font-semibold text-base mb-1">
-                            Best for {card.ageRange} years learners
+                            Best for {" "}
+                            {card.slug === "group-4" && "0-4"}
+                            {card.slug === "group-5" && "5-6"}
+                            {card.slug === "group-6" && "7-8"}
+                            {card.slug === "group-7" && "8-9"}
+                            {card.slug === "group-8" && "10-12"}
+                            {" "}
+                            years learners
                         </p>
                         <p className="text-slate-400 text-sm">Tap to continue</p>
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>

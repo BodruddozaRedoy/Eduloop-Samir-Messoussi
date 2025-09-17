@@ -95,8 +95,6 @@ function ArrTypeFourteenV1({
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
 
-  const { addResult } = useResultTracker();
-  const { id: qId, title: qTitle } = useQuestionMeta();
   const { setControls } = useQuestionControls();
 
   const keyFor = useCallback((col: number, row: number) => `${col}-${row}`, []);
@@ -255,8 +253,6 @@ function ArrTypeFourteenV2({
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
 
-  const { addResult } = useResultTracker();
-  const { id: qId, title: qTitle } = useQuestionMeta();
   const { setControls } = useQuestionControls();
 
   const keyFor = useCallback(

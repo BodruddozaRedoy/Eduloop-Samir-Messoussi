@@ -30,11 +30,11 @@ export const router = createBrowserRouter([
                 Component: GroupPage,
             },
             {
-                path: "/group/:groupId/subject",
+                path: "/group/subject",
                 Component: SubjectPage
             },
             {
-                path: "/group/:id/subject/:subjectName",
+                path: "/group/subject/subject-category",
                 Component: SubjectCategoryPage
             },
             {

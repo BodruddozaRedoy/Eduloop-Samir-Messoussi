@@ -1,431 +1,100 @@
-import { useMemo } from "react"
-import ArrType_1 from "./ArrType_1"
-import ArrType_10 from "./ArrType_10"
-import ArrType_11 from "./ArrType_11"
-import ArrType_12 from "./ArrType_12"
-import ArrType_13 from "./ArrType_13"
-import ArrType_14 from "./ArrType_14"
-import ArrType_15 from "./ArrType_15"
-import ArrType_16 from "./ArrType_16"
-import ArrType_17 from "./ArrType_17"
-import ArrType_18 from "./ArrType_18"
-import ArrType_19 from "./ArrType_19"
-import ArrType_2 from "./ArrType_2"
-import ArrType_20 from "./ArrType_20"
-import ArrType_21 from "./ArrType_21"
-import ArrType_22 from "./ArrType_22"
-import ArrType_23 from "./ArrType_23"
-import ArrType_24 from "./ArrType_24"
-import ArrType_25 from "./ArrType_25"
-import ArrType_26 from "./ArrType_26"
-import ArrType_27 from "./ArrType_27"
+import React, { Suspense, useMemo } from "react";
+import { QuestionMetaProvider } from "@/context/QuestionMetaContext";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
-import ArrType_3 from "./ArrType_3"
-import ArrType_4 from "./ArrType_4"
-import ArrType_5 from "./ArrType_5"
-import ArrType_6 from "./ArrType_6"
-import ArrType_7 from "./ArrType_7"
-import ArrType_8 from "./ArrType_8"
-import ArrType_9 from "./ArrType_9"
-
-import ArrType_28 from "./ArrType_28"
-import ArrType_29 from "./ArrType_29"
-import ArrType_30 from "./ArrType_30"
-import { QuestionMetaProvider } from "@/context/QuestionMetaContext"
-import ArrType_31 from "./ArrType_31"
-import ArrType_32 from "./ArrType_32"
-import ArrType_33 from "./ArrType_33"
-import ArrType_34 from "./ArrType_34"
-import ArrType_35 from "./ArrType_35"
-
+// Map question types → lazy-loaded components
+const componentMap: Record<string, React.LazyExoticComponent<any>> = {
+  type1: React.lazy(() => import("./ArrType_1")),
+  type2_1: React.lazy(() => import("./ArrType_2")),
+  type2_2: React.lazy(() => import("./ArrType_2")),
+  type3: React.lazy(() => import("./ArrType_3")),
+  type4: React.lazy(() => import("./ArrType_4")),
+  type5_1: React.lazy(() => import("./ArrType_5")),
+  type5_2: React.lazy(() => import("./ArrType_5")),
+  type6_1: React.lazy(() => import("./ArrType_6")),
+  type6_2: React.lazy(() => import("./ArrType_6")),
+  type7: React.lazy(() => import("./ArrType_7")),
+  type8: React.lazy(() => import("./ArrType_8")),
+  type9: React.lazy(() => import("./ArrType_9")),
+  type10: React.lazy(() => import("./ArrType_10")),
+  type11: React.lazy(() => import("./ArrType_11")),
+  type12: React.lazy(() => import("./ArrType_12")),
+  type13_1: React.lazy(() => import("./ArrType_13")),
+  type13_2: React.lazy(() => import("./ArrType_13")),
+  type14_1: React.lazy(() => import("./ArrType_14")),
+  type14_2: React.lazy(() => import("./ArrType_14")),
+  type15: React.lazy(() => import("./ArrType_15")),
+  type16: React.lazy(() => import("./ArrType_16")),
+  type17: React.lazy(() => import("./ArrType_17")),
+  type18: React.lazy(() => import("./ArrType_18")),
+  type19: React.lazy(() => import("./ArrType_19")),
+  type20: React.lazy(() => import("./ArrType_20")),
+  type21: React.lazy(() => import("./ArrType_21")),
+  type22: React.lazy(() => import("./ArrType_22")),
+  type23: React.lazy(() => import("./ArrType_23")),
+  type24: React.lazy(() => import("./ArrType_24")),
+  type25: React.lazy(() => import("./ArrType_25")),
+  type26: React.lazy(() => import("./ArrType_26")),
+  type27: React.lazy(() => import("./ArrType_27")),
+  type28: React.lazy(() => import("./ArrType_28")),
+  type29: React.lazy(() => import("./ArrType_29")),
+  type30: React.lazy(() => import("./ArrType_30")),
+  type31: React.lazy(() => import("./ArrType_31")),
+  type32: React.lazy(() => import("./ArrType_32")),
+  type33: React.lazy(() => import("./ArrType_33")),
+  type34: React.lazy(() => import("./ArrType_34")),
+  type35: React.lazy(() => import("./ArrType_35")),
+  type36: React.lazy(() => import("./ArrType_36")),
+  type37: React.lazy(() => import("./ArrType_37")),
+  type38: React.lazy(() => import("./ArrType_38")),
+  type39: React.lazy(() => import("./ArrType_39")),
+  type40: React.lazy(() => import("./ArrType_40")),
+  type41: React.lazy(() => import("./ArrType_41")),
+  type42: React.lazy(() => import("./ArrType_42")),
+  type43: React.lazy(() => import("./ArrType_43")),
+  type44: React.lazy(() => import("./ArrType_44")),
+  type45: React.lazy(() => import("./ArrType_45")),
+  type46: React.lazy(() => import("./ArrType_46")),
+  type47: React.lazy(() => import("./ArrType_47")),
+  type48: React.lazy(() => import("./ArrType_48")),
+  type49: React.lazy(() => import("./ArrType_49")),
+  type50: React.lazy(() => import("./ArrType_50")),
+  type51: React.lazy(() => import("./ArrType_51")),
+  type52: React.lazy(() => import("./ArrType_52")),
+  type53: React.lazy(() => import("./ArrType_53")),
+  type54: React.lazy(() => import("./ArrType_54")),
+  type55: React.lazy(() => import("./ArrType_55")),
+  type56: React.lazy(() => import("./ArrType_56")),
+  type57: React.lazy(() => import("./ArrType_57")),
+  type58: React.lazy(() => import("./ArrType_58")),
+  type59: React.lazy(() => import("./ArrType_59")),
+  type60: React.lazy(() => import("./ArrType_60")),
+  type61: React.lazy(() => import("./ArrType_61")),
+  type62: React.lazy(() => import("./ArrType_62")),
+  type63: React.lazy(() => import("./ArrType_63")),
+  type64: React.lazy(() => import("./ArrType_64")),
+  type65: React.lazy(() => import("./ArrType_65")),
+  type66: React.lazy(() => import("./ArrType_66")),
+  type67: React.lazy(() => import("./ArrType_67")),
+  type68: React.lazy(() => import("./ArrType_68")),
+  type69: React.lazy(() => import("./ArrType_69")),
+  type70: React.lazy(() => import("./ArrType_70")),
+};
 
 export default function QuestionRenderer({ q }: { q: any }) {
-    return useMemo(() => {
-        if (!q) return null
+  return useMemo(() => {
+    if (!q) return null;
 
-        const metaTitle = q?.metadata?.question ?? String(q?.type ?? q?.id)
-        const provider = (child: React.ReactNode) => (
-            <QuestionMetaProvider value={{ id: q.id, title: metaTitle }}>
-                {child}
-            </QuestionMetaProvider>
-        )
+    const metaTitle = q?.metadata?.question ?? String(q?.type ?? q?.id);
+    const SelectedComponent = componentMap[q.type];
+    if (!SelectedComponent) return null;
 
-        switch (q.type) {
-            case "type1": {
-                const { answer1, steps, count, defaultValue } = q.metadata
-                return provider(
-                    <ArrType_1
-                        key={q.id}
-                        hint={q.metadata.hint}
-                        rows={[
-                            {
-                                start: answer1 ?? 10,
-                                step: steps ?? 10,
-                                maxLength: count ?? 10,
-                                prefilledCount: defaultValue ?? 2,
-                                inputMaxLength: 3,
-                            },
-                        ]}
-                    />
-                )
-            }
-            case "type2_1": {
-                const opts = q.metadata.options ?? []
-                const presetLineNums = opts.map((lineNum: number, i: number) => ({
-                    dotIndex: i,
-                    lineNum,
-                }))
-                return provider(
-                    <ArrType_2
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        mode={q.metadata?.mode}
-                        presetLineNums={presetLineNums}
-                        dotCount={opts.length}
-                    />
-                )
-            }
-            case "type2_2": {
-                const opts = q.metadata.options ?? []
-                return provider(
-                    <ArrType_2
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        mode={q.metadata?.mode}
-                        presetBoxNumbers={opts}
-                        dotCount={opts.length}
-                    />
-                )
-            }
-            case "type3": {
-                return provider(<ArrType_3 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
-            }
-            case "type4": {
-                return provider(<ArrType_4  hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
-            }
-            case "type5_1": {
-                return provider(
-                    <ArrType_5
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        method={q.metadata.method}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type5_2": {
-                return provider(
-                    <ArrType_5
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        method={q.metadata.method}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type6_1": {
-                return provider(
-                    <ArrType_6
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        method={q.metadata.method}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type6_2": {
-                return provider(
-                    <ArrType_6
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        method={q.metadata.method}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type7": {
-                return provider(
-                    <ArrType_7
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type8": {
-                return provider(
-                    <ArrType_8
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type9": {
-                return provider(
-                    <ArrType_9
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type10": {
-                return provider(
-                    <ArrType_10
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type11": {
-                return provider(
-                    <ArrType_11
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type12": {
-                return provider(
-                    <ArrType_12
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type13_1": {
-                return provider(
-                    <ArrType_13
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        dataOne={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type13_2": {
-                return provider(
-                    <ArrType_13
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        dataTwo={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type14_1": {
-                return provider(
-                    <ArrType_14
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type14_2": {
-                return provider(
-                    <ArrType_14
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type15": {
-                return provider(
-                    <ArrType_15
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type16": {
-                return provider(
-                    <ArrType_16
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type17": {
-                return provider(
-                    <ArrType_17
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type18": {
-                return provider(
-                    <ArrType_18
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type19": {
-                return provider(
-                    <ArrType_19
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type20": {
-                return provider(
-                    <ArrType_20
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type21": {
-                return provider(
-                    <ArrType_21
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type22": {
-                return provider(
-                    <ArrType_22
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type23": {
-                return provider(
-                    <ArrType_23
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type24": {
-                return provider(
-                    <ArrType_24
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type25": {
-                return provider(
-                    <ArrType_25
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type26": {
-                return provider(
-                    <ArrType_26
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type27": {
-                return provider(
-                    <ArrType_27
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type28": {
-
-                return provider(
-                    <ArrType_28
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type29": {
-                return provider(
-                    <ArrType_29
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type30": {
-                return provider(
-                    <ArrType_30
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type31": {
-                return provider(
-                    <ArrType_31
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type32": {
-                return provider(
-                    <ArrType_32
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type33": {
-                return provider(
-                    <ArrType_33
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type34": {
-                return provider(
-                    <ArrType_34
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-            case "type35": {
-                return provider(
-                    <ArrType_35
-                        hint={q.metadata.hint}
-                        key={q.id}
-                        data={q.metadata.data ?? []}
-                    />
-                )
-            }
-
-            default:
-                return null
-        }
-    }, [q])
+    return (
+      <QuestionMetaProvider value={{ id: q.id, title: metaTitle }}>
+        <Suspense fallback={<LoadingScreen/>}>
+          <SelectedComponent key={q.id} {...q.metadata} hint={q.metadata.hint} />
+        </Suspense>
+      </QuestionMetaProvider>
+    );
+  }, [q]);
 }

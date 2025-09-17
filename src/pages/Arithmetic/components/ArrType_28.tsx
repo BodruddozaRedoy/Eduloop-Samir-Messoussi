@@ -1,7 +1,4 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
@@ -31,7 +28,13 @@ function DashedInput({
       />
       <div
         className={`absolute bottom-0 left-0 right-0 h-0.5 border-b-2 border-dashed
-          ${invalid ? "border-rose-500" : correct ? "border-emerald-600" : "border-slate-400"}`}
+          ${
+            invalid
+              ? "border-rose-500"
+              : correct
+              ? "border-emerald-600"
+              : "border-slate-400"
+          }`}
       />
     </div>
   );
@@ -60,9 +63,13 @@ function FractionProblem({
     <div className="flex flex-col items-center space-y-4">
       <div className="flex items-center space-x-2">
         <div className="flex flex-col items-center">
-          <span className={`text-2xl font-semibold ${fractionColor}`}>{numerator}</span>
+          <span className={`text-2xl font-semibold ${fractionColor}`}>
+            {numerator}
+          </span>
           <div className="w-6 h-px bg-slate-400" />
-          <span className={`text-2xl font-semibold ${fractionColor}`}>{denominator}</span>
+          <span className={`text-2xl font-semibold ${fractionColor}`}>
+            {denominator}
+          </span>
         </div>
         <span className={`text-2xl font-semibold ${equalsColor}`}>=</span>
         <DashedInput
@@ -105,7 +112,9 @@ export default function ArrType_28({ hint }: { hint: string }) {
   ];
 
   type Status = "idle" | "match" | "wrong";
-  const [state, setState] = useState<Record<number, { val: string; checked: boolean }>>(() => {
+  const [state, setState] = useState<
+    Record<number, { val: string; checked: boolean }>
+  >(() => {
     const init: Record<number, { val: string; checked: boolean }> = {};
     DUMMY_DATA.forEach((p) => (init[p.id] = { val: "", checked: false }));
     return init;
@@ -115,12 +124,12 @@ export default function ArrType_28({ hint }: { hint: string }) {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
 
-  const setVal = (id: number, v: string) => {
+  const setVal = useCallback((id: number, v: string) => {
     setState((s) => ({ ...s, [id]: { ...s[id], val: v, checked: false } }));
     setStatus("idle");
-  };
+  }, []);
 
-  const handleCheckAll = () => {
+  const handleCheckAll = useCallback(() => {
     let anyWrong = false;
     setState((s) => {
       const next = { ...s };
@@ -133,9 +142,9 @@ export default function ArrType_28({ hint }: { hint: string }) {
       addResult({ id: qId, title: qTitle }, !anyWrong);
       return next;
     });
-  };
+  }, [addResult, qId, qTitle]);
 
-  const handleShowSolution = () => {
+  const handleShowSolution = useCallback(() => {
     setState((s) => {
       const next = { ...s };
       DUMMY_DATA.forEach((p) => {
@@ -145,7 +154,7 @@ export default function ArrType_28({ hint }: { hint: string }) {
     });
     setStatus("match");
     setShowSolution(true);
-  };
+  }, []);
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
@@ -165,7 +174,15 @@ export default function ArrType_28({ hint }: { hint: string }) {
       showHint,
       summary,
     });
-  }, [setControls, handleCheckAll, handleShowSolution, handleShowHint, hint, showHint, summary]);
+  }, [
+    setControls,
+    handleCheckAll,
+    handleShowHint,
+    handleShowSolution,
+    hint,
+    showHint,
+    summary,
+  ]);
 
   const isSolved = status === "match";
 
@@ -173,7 +190,8 @@ export default function ArrType_28({ hint }: { hint: string }) {
     <div className="flex flex-col items-start justify-start w-full px-4 py-8 gap-8">
       <div className="grid grid-cols-4 gap-x-8 gap-y-12 w-full">
         {DUMMY_DATA.map((p) => {
-          const isCorrect = isSolved || (state[p.id].checked && state[p.id].val === p.expected);
+          const isCorrect =
+            isSolved || (state[p.id].checked && state[p.id].val === p.expected);
           const isInvalid = state[p.id].checked && !isCorrect;
 
           return (
@@ -189,8 +207,6 @@ export default function ArrType_28({ hint }: { hint: string }) {
           );
         })}
       </div>
-
-  
     </div>
   );
 }

@@ -1,26 +1,27 @@
 import { Button } from '@/components/ui/button';
+import useCategories from '@/hooks/useCategories';
 import React, { useState, useMemo } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Link } from 'react-router';
+import { Link, useLocation, useSearchParams } from 'react-router';
 
 // NOTE: The CategoryCard component and type definitions from your code
 // are used here without change. They are assumed to be in the same file.
 
 // Type definitions
 type Category = {
-    title: string;
+    name: string;
     description: string;
 };
 
 type CategoryCardProps = {
-    title: string;
+    name: string;
     description: string;
     isSelected: boolean;
     onToggle: () => void;
 };
 
 // Reusable Category Card
-const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelected, onToggle, }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({ name, isSelected, onToggle, }) => {
     const borderColor = isSelected ? 'border-orange-500' : 'border-gray-200';
     const shadow = isSelected ? 'shadow-lg' : 'shadow-sm';
     const bgColor = isSelected ? 'bg-orange-50' : 'bg-white';
@@ -36,9 +37,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelec
                     onChange={onToggle}
                     className="w-5 h-5 rounded border-gray-400 text-orange-600 focus:ring-orange-500"
                 />
-                <h3 className="font-bold text-gray-800 text-lg">{title}</h3>
+                <h3 className="font-bold text-gray-800 text-lg">{name}</h3>
             </div>
-            <p className="text-gray-500 text-sm">{description}</p>
+            <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
         </label>
     );
 };
@@ -46,42 +47,27 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelec
 
 // Main Component - Updated to match the new design
 const SubjectCategoryPage: React.FC = () => {
-    const [selected, setSelected] = useState<Record<string, boolean>>({
-        'Nouns': true,
-    });
+    const [searchParams] = useSearchParams()
+    const groupId = searchParams.get("groupId")
+    const subject = searchParams.get("subject")
+    console.log(subject)
 
-    const mainCategories: Category[] = [
-        { title: 'Nouns', description: 'Tap to start a new, non-repeating practice set.' },
-        { title: 'Verbs', description: 'Tap to start a new, non-repeating practice set.' },
-        { title: 'Adjectives', description: 'Tap to start a new, non-repeating practice set.' },
-        { title: 'Adverbs', description: 'Tap to start a new, non-repeating practice set.' },
-        { title: 'Articles', description: 'Tap to start a new, non-repeating practice set.' },
-        { title: 'Plurals', description: 'Tap to start a new, non-repeating practice set.' },
-    ];
+    const { group } = useCategories()
 
-    const allCategoryTitles = useMemo(() => mainCategories.map(c => c.title), []);
-    const areAllSelected = useMemo(
-        () => allCategoryTitles.every(title => selected[title]),
-        [selected, allCategoryTitles]
-    );
+    const categories = group?.find(prev => prev.slug === groupId)?.subjects.find(prev => prev.slug == subject)?.categories
 
-    const handleToggle = (title: string) => {
-        setSelected(prev => ({ ...prev, [title]: !prev[title] }));
-    };
+    // const categories = pathname.state.categories
+    console.log("categories",categories)
 
-    const handleSelectAll = () => {
-        const nextState = !areAllSelected;
-        const newSelectedState: Record<string, boolean> = {};
-        allCategoryTitles.forEach(t => (newSelectedState[t] = nextState));
-        setSelected(newSelectedState);
-    };
+
+
 
     return (
 
         <div className=''>
 
             <Link
-                to="/"
+                to="/group"
                 className="inline-block rounded-2xl">
                 <Button
                     className='rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed'
@@ -89,7 +75,7 @@ const SubjectCategoryPage: React.FC = () => {
                     <div className='size-10 bg-white text-black rounded-2xl flex items-center justify-center'>
                         <IoMdArrowRoundBack size={50} className='text-5xl' />
                     </div>
-                    Back
+                    Back Group
                 </Button>
             </Link>
 
@@ -107,13 +93,13 @@ const SubjectCategoryPage: React.FC = () => {
 
                     {/* Main Categories Grid */}
                     <main className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-6">
-                        {mainCategories.map(category => (
+                        {categories?.map(category => (
                             <CategoryCard
-                                key={category.title}
-                                title={category.title}
-                                description={category.description}
-                                isSelected={!!selected[category.title]}
-                                onToggle={() => handleToggle(category.title)}
+                                key={category.id}
+                                name={category.name}
+                            // description={category.description}
+                            // isSelected={!!selected[category.title]}
+                            // onToggle={() => handleToggle(category.title)}
                             />
                         ))}
                     </main>
@@ -124,8 +110,8 @@ const SubjectCategoryPage: React.FC = () => {
                         <label className="flex items-start gap-4 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={areAllSelected}
-                                onChange={handleSelectAll}
+                                // checked={areAllSelected}
+                                // onChange={handleSelectAll}
                                 className="w-5 h-5 mt-1 rounded border-gray-400 text-orange-600 focus:ring-orange-500 flex-shrink-0"
                             />
                             <div>
