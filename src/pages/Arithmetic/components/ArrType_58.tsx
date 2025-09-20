@@ -54,7 +54,22 @@ export default function ArrType_51({ hint }: { hint: string }) {
   const { id: qId, title: qTitle } = useQuestionMeta();
   const { setControls } = useQuestionControls();
 
-  
+  const handleInputChange = useCallback(
+    (problemIdx: number, inputIdx: number, field: "value" | "calc", value: string) => {
+      setAnswers((prev) => {
+        const newAnswers = [...prev];
+        newAnswers[problemIdx][inputIdx] = {
+          ...newAnswers[problemIdx][inputIdx],
+          [field]: value,
+        };
+        return newAnswers;
+      });
+      setStatus(null);
+      setValidation(problemsJSON.map((p) => p.answers.map(() => ({ value: null, calc: null }))));
+    },
+    []
+  );
+
   const handleCheck = useCallback(() => {
     let allCorrect = true;
     const newValidation = problemsJSON.map((p, problemIdx) => {
