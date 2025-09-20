@@ -34,14 +34,14 @@ const problemsJSON = [
     id: 4,
     type: "triangle",
     text: "De oppervlakte is",
-    image: "/public/images/trivuj.png", // Corrected path
+    image: "/public/images/juyelTri.png", // Corrected path
     answer_cm2: "24",
   },
   {
     id: 5,
     type: "trapezoid",
     text: "De oppervlakte is",
-     image: "/public/images/coturvuj.png", // Corrected path
+     image: "/public/images/JuyelCotur.png", // Corrected path
     answer_cm2: "10",
   },
 ];
