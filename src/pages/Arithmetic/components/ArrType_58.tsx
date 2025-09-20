@@ -1,7 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
+import  { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
