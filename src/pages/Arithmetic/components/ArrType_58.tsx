@@ -125,6 +125,12 @@ export default function ArrType_51({ hint }: { hint: string }) {
     });
   }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
 
+  const getInputClass = (isCorrect: boolean | null) => {
+    if (showSolution) return "text-green-600";
+    if (isCorrect === true) return "text-green-600";
+    if (isCorrect === false) return "text-red-600";
+    return "text-gray-700";
+  };
 
   const getAnswerValue = (problemIdx: number, inputIdx: number, field: "value" | "calc") => {
     if (showSolution) {
