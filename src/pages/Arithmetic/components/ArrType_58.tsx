@@ -37,9 +37,15 @@ const problemsJSON = [
 ];
 
 export default function ArrType_51({ hint }: { hint: string }) {
-  const [answers, setAnswers] = useState(
-    problemsJSON.map((p) => p.answers.map(() => ({ value: "", calc: "" })))
+  const initialAnswers = useMemo(
+    () =>
+      problemsJSON.map((p) =>
+        p.answers.map(() => ({ value: "", calc: "" }))
+      ),
+    []
   );
+
+  const [answers, setAnswers] = useState(initialAnswers);
   const [validation, setValidation] = useState(
     problemsJSON.map((p) => p.answers.map(() => ({ value: null, calc: null })))
   );
@@ -62,6 +68,7 @@ export default function ArrType_51({ hint }: { hint: string }) {
         return newAnswers;
       });
       setStatus(null);
+      setValidation(problemsJSON.map((p) => p.answers.map(() => ({ value: null, calc: null }))));
     },
     []
   );
@@ -90,7 +97,7 @@ export default function ArrType_51({ hint }: { hint: string }) {
   }, [answers, addResult, qId, qTitle]);
 
   const handleShowSolution = useCallback(() => {
-    const filledAnswers = problemsJSON.map((p) => p.answers);
+    const filledAnswers = problemsJSON.map((p) => p.answers.map(ans => ({ value: ans.value, calc: ans.calc })));
     const newValidation = problemsJSON.map((p) => p.answers.map(() => ({ value: true, calc: true })));
     setAnswers(filledAnswers);
     setValidation(newValidation);
@@ -119,6 +126,7 @@ export default function ArrType_51({ hint }: { hint: string }) {
   }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
 
   const getInputClass = (isCorrect: boolean | null) => {
+    if (showSolution) return "text-green-600";
     if (isCorrect === true) return "text-green-600";
     if (isCorrect === false) return "text-red-600";
     return "text-gray-700";
@@ -155,13 +163,21 @@ export default function ArrType_51({ hint }: { hint: string }) {
           </div>
           {problemsJSON[0].answers.map((answer, idx) => (
             <div key={idx} className="relative p-2 bg-white text-center border-r border-orange-300">
-              <span className={`text-sm text-center font-semibold ${getInputClass(validation[0][idx]?.value)}`}>
-                {getAnswerValue(0, idx, "value")}
-              </span>
+              <input
+                type="text"
+                className={`w-full text-sm text-center bg-transparent border-b border-dotted outline-none font-semibold ${getInputClass(validation[0][idx]?.value)}`}
+                value={getAnswerValue(0, idx, "value")}
+                onChange={(e) => handleInputChange(0, idx, "value", e.target.value)}
+                readOnly={isInputReadOnly}
+              />
               <br />
-              <span className={`text-xs text-center border-b border-dotted ${getInputClass(validation[0][idx]?.calc)}`}>
-                {getAnswerValue(0, idx, "calc")}
-              </span>
+              <input
+                type="text"
+                className={`w-full text-xs text-center bg-transparent border-b border-dotted outline-none ${getInputClass(validation[0][idx]?.calc)}`}
+                value={getAnswerValue(0, idx, "calc")}
+                onChange={(e) => handleInputChange(0, idx, "calc", e.target.value)}
+                readOnly={isInputReadOnly}
+              />
             </div>
           ))}
 
@@ -183,25 +199,27 @@ export default function ArrType_51({ hint }: { hint: string }) {
           </div>
           {problemsJSON[1].answers.map((answer, idx) => (
             <div key={idx} className="relative p-2 bg-white text-center border-r border-orange-300">
-              <span className={`text-sm text-center font-semibold ${getInputClass(validation[1][idx]?.value)}`}>
-                {getAnswerValue(1, idx, "value")}
-              </span>
+              <input
+                type="text"
+                className={`w-full text-sm text-center bg-transparent border-b border-dotted outline-none font-semibold ${getInputClass(validation[1][idx]?.value)}`}
+                value={getAnswerValue(1, idx, "value")}
+                onChange={(e) => handleInputChange(1, idx, "value", e.target.value)}
+                readOnly={isInputReadOnly}
+              />
               <br />
-              <span className={`text-xs text-center border-b border-dotted ${getInputClass(validation[1][idx]?.calc)}`}>
-                {getAnswerValue(1, idx, "calc")}
-              </span>
+              <input
+                type="text"
+                className={`w-full text-xs text-center bg-transparent border-b border-dotted outline-none ${getInputClass(validation[1][idx]?.calc)}`}
+                value={getAnswerValue(1, idx, "calc")}
+                onChange={(e) => handleInputChange(1, idx, "calc", e.target.value)}
+                readOnly={isInputReadOnly}
+              />
             </div>
           ))}
         </div>
       </div>
 
-      <Controllers
-        handleCheck={handleCheck}
-        handleShowSolution={handleShowSolution}
-        handleShowHint={handleShowHint}
-      />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />
+   
     </div>
   );
 }
