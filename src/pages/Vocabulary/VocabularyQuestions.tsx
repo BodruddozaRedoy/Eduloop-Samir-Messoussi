@@ -33,7 +33,7 @@ interface Question {
   };
 }
 
-export default function AllQuestionTypes() {
+export default function VocabularyQuestions() {
   const [data, setData] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<{ [id: string]: string | string[] }>({});
