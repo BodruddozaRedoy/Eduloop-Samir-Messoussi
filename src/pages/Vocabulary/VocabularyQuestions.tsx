@@ -4,117 +4,127 @@ import Hint from "@/components/common/Hint";
 import Controllers from "@/components/common/Controllers";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheckmarkCircleOutline } from "react-icons/io";
+import {
+  IoMdArrowRoundBack,
+  IoMdArrowRoundForward,
+  IoMdCheckmarkCircleOutline,
+} from "react-icons/io";
 import { Link } from "react-router";
-import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
+import {
+  hasAnyResults,
+  onResultsUpdated,
+  type TrackedResults,
+} from "@/hooks/useResultTracker";
 import useResultTracker from "@/hooks/useResultTracker";
 
 interface Question {
-  id: number;
-  type: "mcq" | "fill" | "verb" | "short";
-  group?: string;
-  subject?: string;
-  category?: string;
-  level?: string;
-  metadata: {
-    question: string;
-    options?: string[];
-    correctAnswer: string[];
-    hint?: string;
-    description?: string;
+  "id": string;
+  "type": "mcq" | "fill_blank" | "short";
+  "group"?: string;
+  "subject"?: string;
+  "category"?: string;
+  "level"?: string;
+  "metadata": {
+    "question": string;
+    "options"?: string[];
+    "correctAnswer": string[];
+    "hint"?: string;
+    "description"?: string;
   };
 }
 
-export default function VocabularyQuestions() {
+export default function AllQuestionTypes() {
   const [data, setData] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<{ [id: number]: string | string[] }>({});
+  const [answers, setAnswers] = useState<{ [id: string]: string | string[] }>({});
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [loading, setLoading] = useState(true);
-  // Hooks must be called unconditionally on every render
+
   const { addResult } = useResultTracker();
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
 
   useEffect(() => {
-    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    const off = onResultsUpdated((_r: TrackedResults) =>
+      setHasResults(hasAnyResults())
+    );
     return () => off();
   }, []);
 
   useEffect(() => {
     const fakeData: Question[] = [
       {
-        id: 1,
-        type: "mcq",
-        group: "1",
-        subject: "Reading",
-        category: "Environment",
-        level: "Easy",
-        metadata: {
-          description: "Mangrove forests grow along coastlines and protect the land from big waves and storms.",
-          question: "Why do communities plant more mangroves?",
-          options: [
+        "id": "1",
+        "type": "mcq",
+        "group": "1",
+        "subject": "Science",
+        "category": "Plants",
+        "level": "easy",
+        "metadata": {
+          "question": "Which of these is a flowering plant?",
+          "options": ["Rose", "Fern", "Moss", "Lichen"],
+          "correctAnswer": ["Rose"],
+          "hint": "It produces flowers."
+        }
+      },
+      {
+        "id": "2",
+        "type": "fill_blank",
+        "group": "1",
+        "subject": "Geography",
+        "category": "Capital",
+        "level": "Easy",
+        "metadata": {
+          "question": "The capital of Bangladesh is _____.",
+          "correctAnswer": ["Dhaka"],
+          "hint": "It starts with 'D'."
+        }
+      },
+      {
+        "id": "3",
+        "type": "short",
+        "group": "1",
+        "subject": "Programming",
+        "category": "Languages",
+        "level": "Medium",
+        "metadata": {
+          "question": "Write two programming languages you know:",
+          "correctAnswer": ["JavaScript", "Python"],
+          "hint": "Think about web or general-purpose languages."
+        }
+      },
+      {
+        "id": "4",
+        "type": "mcq",
+        "group": "2",
+        "subject": "Reading",
+        "category": "Environment",
+        "level": "Easy",
+        "metadata": {
+          "description": "Mangrove forests grow along coastlines and protect the land from big waves and storms.",
+          "question": "Why do communities plant more mangroves?",
+          "options": [
             "To protect the coast and the environment.",
             "Animals will lose their homes.",
             "More storms will stop.",
             "Communities will be safer."
           ],
-          correctAnswer: ["To protect the coast and the environment."],
-          hint: "Think about the role mangroves play in protecting both land and animals."
+          "correctAnswer": ["To protect the coast and the environment."],
+          "hint": "Think about the role mangroves play in protecting both land and animals."
         }
       },
       {
-        id: 2,
-        type: "fill",
-        group: "1",
-        subject: "Geography",
-        category: "Capital",
-        level: "Easy",
-        metadata: {
-          question: "The capital of Bangladesh is _____.",
-          correctAnswer: ["Dhaka"],
-          hint: "It starts with 'D'."
-        }
-      },
-      {
-        id: 3,
-        type: "verb",
-        group: "1",
-        subject: "Grammar",
-        category: "Verb",
-        level: "Medium",
-        metadata: {
-          question: "Right form of verb: She ____ (run) fast every morning.",
-          correctAnswer: ["runs"],
-          hint: "Think about present simple tense."
-        }
-      },
-      {
-        id: 4,
-        type: "short",
-        group: "1",
-        subject: "Programming",
-        category: "Languages",
-        level: "Medium",
-        metadata: {
-          question: "Write two programming languages you know:",
-          correctAnswer: ["JavaScript", "Python"],
-          hint: "Think about web or general purpose languages."
-        }
-      },
-      {
-        id: 5,
-        type: "mcq",
-        group: "2",
-        subject: "Science",
-        category: "Plants",
-        level: "Easy",
-        metadata: {
-          question: "Which of these is a flowering plant?",
-          options: ["Rose", "Fern", "Moss", "Lichen"],
-          correctAnswer: ["Rose"],
-          hint: "It produces flowers."
+        "id": "5",
+        "type": "short",
+        "group": "2",
+        "subject": "Grammar",
+        "category": "Verb",
+        "level": "Medium",
+        "metadata": {
+          "question": "Write two irregular verbs you know:",
+          "correctAnswer": ["Go", "Eat"],
+          "hint": "Think of verbs that change form in past tense."
         }
       }
     ];
@@ -122,16 +132,14 @@ export default function VocabularyQuestions() {
     setLoading(false);
   }, []);
 
-  if (loading)
-    return <div className="text-center text-xl mt-10">Loading questions...</div>;
-  if (data.length === 0)
-    return <div className="text-center text-xl mt-10">No questions available</div>;
+  if (loading) return <div className="text-center text-xl mt-10">Loading questions...</div>;
+  if (data.length === 0) return <div className="text-center text-xl mt-10">No questions available</div>;
 
   const currentQuestion = data[currentIndex];
-  const selected = answers[currentQuestion.id] || "";
+  const selected = answers[currentQuestion["id"]] || "";
 
   const selectOption = (value: string | string[]) => {
-    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+    setAnswers((prev) => ({ ...prev, [currentQuestion["id"]]: value }));
     setShowSolution(false);
     setStatus("");
   };
@@ -140,41 +148,25 @@ export default function VocabularyQuestions() {
     if (!selected) return;
 
     if (Array.isArray(selected)) {
-      const correct = currentQuestion.metadata.correctAnswer.every((ans) =>
+      const correct = currentQuestion["metadata"]["correctAnswer"].every((ans) =>
         selected.some((s) => s.toLowerCase() === ans.toLowerCase())
       );
       setStatus(correct ? "match" : "wrong");
-      addResult({ id: currentQuestion.id, title: currentQuestion.metadata.question }, correct);
+      addResult({ id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] }, correct);
     } else {
       const ok =
-        currentQuestion.metadata.correctAnswer
+        currentQuestion["metadata"]["correctAnswer"]
           .map((a) => a.toLowerCase())
-          .includes((selected as string).toLowerCase())
+          .includes((selected as string).toLowerCase());
       setStatus(ok ? "match" : "wrong");
-      addResult({ id: currentQuestion.id, title: currentQuestion.metadata.question }, ok);
+      addResult({ id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] }, ok);
     }
   };
 
-  const handleShowSolution = () => {
-    setShowSolution(true);
-    setStatus("");
-  };
-
+  const handleShowSolution = () => { setShowSolution(true); setStatus(""); };
   const handleShowHint = () => setShowHint(!showHint);
-
-  const goNext = () => {
-    if (currentIndex < data.length - 1) setCurrentIndex(currentIndex + 1);
-    setShowSolution(false);
-    setShowHint(false);
-    setStatus("");
-  };
-
-  const goPrev = () => {
-    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
-    setShowSolution(false);
-    setShowHint(false);
-    setStatus("");
-  };
+  const goNext = () => { if (currentIndex < data.length - 1) setCurrentIndex(currentIndex + 1); setShowSolution(false); setShowHint(false); setStatus(""); };
+  const goPrev = () => { if (currentIndex > 0) setCurrentIndex(currentIndex - 1); setShowSolution(false); setShowHint(false); setStatus(""); };
 
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === data.length - 1;
@@ -198,16 +190,15 @@ export default function VocabularyQuestions() {
       <div className="w-full flex flex-col gap-6">
         <div className="bg-white mt-10 shadow-lg rounded-2xl p-6 flex flex-col gap-6">
           <p className="text-xl font-semibold text-gray-700">
-            Q{currentIndex + 1}. {currentQuestion.metadata.question}
+            Q{currentIndex + 1}. {currentQuestion["metadata"]["question"]}
           </p>
 
-          {currentQuestion.type === "mcq" && (
+          {currentQuestion["type"] === "mcq" && (
             <div className="grid grid-cols-2 gap-4">
-              {currentQuestion.metadata.options?.map((opt) => {
+              {currentQuestion["metadata"]["options"]?.map((opt) => {
                 const isSelected = selected === opt;
-                const isCorrect = showSolution && currentQuestion.metadata.correctAnswer.includes(opt);
-                const isWrong = showSolution && !currentQuestion.metadata.correctAnswer.includes(opt) && isSelected;
-
+                const isCorrect = showSolution && currentQuestion["metadata"]["correctAnswer"].includes(opt);
+                const isWrong = showSolution && !currentQuestion["metadata"]["correctAnswer"].includes(opt) && isSelected;
                 return (
                   <Button
                     key={opt}
@@ -224,29 +215,29 @@ export default function VocabularyQuestions() {
             </div>
           )}
 
-          {(currentQuestion.type === "fill" || currentQuestion.type === "verb") && (
+          {currentQuestion["type"] === "fill_blank" && (
             <input
               type="text"
               value={selected as string}
               onChange={(e) => selectOption(e.target.value)}
-              placeholder="Please write your answer..."
+              placeholder="Write your answer..."
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           )}
 
-          {currentQuestion.type === "short" && (
+          {currentQuestion["type"] === "short" && (
             <div className="flex flex-col gap-4">
-              {[0, 1].map((i) => (
+              {currentQuestion["metadata"]["correctAnswer"].map((_, idx) => (
                 <input
-                  key={i}
+                  key={idx}
                   type="text"
-                  value={Array.isArray(selected) ? selected[i] || "" : ""}
+                  value={Array.isArray(selected) ? selected[idx] || "" : ""}
                   onChange={(e) => {
                     const updated = Array.isArray(selected) ? [...selected] : [];
-                    updated[i] = e.target.value;
+                    updated[idx] = e.target.value;
                     selectOption(updated);
                   }}
-                  placeholder={`Please write the answer ${i + 1}`}
+                  placeholder={`Answer ${idx + 1}`}
                   className="w-full border-b-2 border-gray-400 focus:border-blue-500 outline-none px-2 py-2"
                 />
               ))}
@@ -258,13 +249,13 @@ export default function VocabularyQuestions() {
           </div>
 
           {summary && <Check summary={summary} />}
-          {showHint && <Hint hint={currentQuestion.metadata.hint || ""} />}
+          {showHint && <Hint hint={currentQuestion["metadata"]["hint"] || ""} />}
 
           {showSolution && (
             <div className="mt-4 p-4 border rounded-lg bg-gray-50 text-gray-800">
               <p className="font-semibold">✅ Correct Answer:</p>
               <ul className="list-disc list-inside">
-                {currentQuestion.metadata.correctAnswer.map((ans, idx) => (
+                {currentQuestion["metadata"]["correctAnswer"].map((ans, idx) => (
                   <li key={idx}>{ans}</li>
                 ))}
               </ul>

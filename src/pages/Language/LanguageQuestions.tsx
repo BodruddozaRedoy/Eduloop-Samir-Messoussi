@@ -4,160 +4,141 @@ import Hint from "@/components/common/Hint";
 import Controllers from "@/components/common/Controllers";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheckmarkCircleOutline } from "react-icons/io";
+import {
+  IoMdArrowRoundBack,
+  IoMdArrowRoundForward,
+  IoMdCheckmarkCircleOutline,
+} from "react-icons/io";
 import { Link } from "react-router";
-import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
+import {
+  hasAnyResults,
+  onResultsUpdated,
+  type TrackedResults,
+} from "@/hooks/useResultTracker";
 import useResultTracker from "@/hooks/useResultTracker";
 
-interface Question {
-  id: number;
-  type: "readingMultipleChoice";
-  group: string;
-  subject: string;
-  category: string;
-  level: "Easy" | "Medium" | "Advance";
-  metadata: {
-    description?: string;
-    question: string;
-    options: string[];
-    correctAnswer: string[];
-    hint?: string;
-  };
-}
+// ✅ JSON data with all keys as strings
+const sampleData = [
+  {
+    "id": "4",
+    "type": "readingmultiplechoice",
+    "group": "1",
+    "subject": "language",
+    "category": "english",
+    "level": "easy",
+    "metadata": {
+      "question": "Which of the following is a vowel in English?",
+      "options": ["B", "C", "A", "D"],
+      "correctanswer": ["A"],
+      "hint": "Think about letters that are not consonants."
+    }
+  },
+  {
+    "id": "5",
+    "type": "readingmultiplechoice",
+    "group": "2",
+    "subject": "language",
+    "category": "spanish",
+    "level": "medium",
+    "metadata": {
+      "question": "What does 'Hola' mean in Spanish?",
+      "options": ["Goodbye", "Hello", "Thanks", "Yes"],
+      "correctanswer": ["Hello"],
+      "hint": "It’s a common greeting."
+    }
+  },
+  {
+    "id": "6",
+    "type": "readingmultiplechoice",
+    "group": "3",
+    "subject": "language",
+    "category": "french",
+    "level": "easy",
+    "metadata": {
+      "question": "What is the French word for 'apple'?",
+      "options": ["Pomme", "Poire", "Orange", "Banane"],
+      "correctanswer": ["Pomme"],
+      "hint": "Sounds like 'Pom'."
+    }
+  },
+  {
+    "id": "7",
+    "type": "readingmultiplechoice",
+    "group": "4",
+    "subject": "language",
+    "category": "german",
+    "level": "advance",
+    "metadata": {
+      "description": "In German, nouns are always capitalized.",
+      "question": "Which of the following is correctly written in German?",
+      "options": ["hund", "Katze", "apfel", "vogel"],
+      "correctanswer": ["Katze"],
+      "hint": "Nouns always start with a capital letter."
+    }
+  },
+  {
+    "id": "8",
+    "type": "readingmultiplechoice",
+    "group": "5",
+    "subject": "language",
+    "category": "bangla",
+    "level": "medium",
+    "metadata": {
+      "question": "What is the Bangla word for 'Book'?",
+      "options": ["Kagoj", "Boi", "Khata", "Lekha"],
+      "correctanswer": ["Boi"],
+      "hint": "It’s the common word used in schools."
+    }
+  }
+];
 
-interface LanguagePageProps {
-  data?: Question[];
-}
-
-export default function LanguageQuestions({
-  data: initialData = [],
-}: LanguagePageProps) {
-  const [data, setData] = useState<Question[]>(initialData);
+export default function LanguageQuestions() {
+  const [data, setData] = useState(sampleData);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<{ [id: number]: string }>({});
+  const [answers, setAnswers] = useState<{ [id: string]: string }>({});
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  const [loading, setLoading] = useState(true);
-  // Hooks must be called unconditionally on every render
+  const [loading, setLoading] = useState(false); // already have inline data
   const { addResult } = useResultTracker();
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
 
   useEffect(() => {
-    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    const off = onResultsUpdated((_r: TrackedResults) =>
+      setHasResults(hasAnyResults())
+    );
     return () => off();
   }, []);
-
-  useEffect(() => {
-    if (initialData.length > 0) {
-      setData(initialData);
-      setLoading(false);
-    } else {
-      setTimeout(() => {
-       const sampleData: Question[] = [
-  {
-    id: 4,
-    type: "readingMultipleChoice",
-    group: "1",
-    subject: "Language",
-    category: "English",
-    level: "Easy",
-    metadata: {
-      question: "Which of the following is a vowel in English?",
-      options: ["B", "C", "A", "D"],
-      correctAnswer: ["A"],
-      hint: "Think about letters that are not consonants.",
-    },
-  },
-  {
-    id: 5,
-    type: "readingMultipleChoice",
-    group: "2",
-    subject: "Language",
-    category: "Spanish",
-    level: "Medium",
-    metadata: {
-      question: "What does 'Hola' mean in Spanish?",
-      options: ["Goodbye", "Hello", "Thanks", "Yes"],
-      correctAnswer: ["Hello"],
-      hint: "It’s a common greeting.",
-    },
-  },
-  {
-    id: 6,
-    type: "readingMultipleChoice",
-    group: "3",
-    subject: "Language",
-    category: "French",
-    level: "Easy",
-    metadata: {
-      question: "What is the French word for 'apple'?",
-      options: ["Pomme", "Poire", "Orange", "Banane"],
-      correctAnswer: ["Pomme"],
-      hint: "Sounds like 'Pom'.",
-    },
-  },
-  {
-    id: 7,
-    type: "readingMultipleChoice",
-    group: "4",
-    subject: "Language",
-    category: "German",
-    level: "Advance",
-    metadata: {
-      description: "In German, nouns are always capitalized.",
-      question: "Which of the following is correctly written in German?",
-      options: ["hund", "Katze", "apfel", "vogel"],
-      correctAnswer: ["Katze"],
-      hint: "Nouns always start with a capital letter.",
-    },
-  },
-  {
-    id: 8,
-    type: "readingMultipleChoice",
-    group: "5",
-    subject: "Language",
-    category: "Bangla",
-    level: "Medium",
-    metadata: {
-      question: "What is the Bangla word for 'Book'?",
-      options: ["Kagoj", "Boi", "Khata", "Lekha"],
-      correctAnswer: ["Boi"],
-      hint: "It’s the common word used in schools.",
-    },
-  },
-];
-        setData(sampleData);
-        setLoading(false);
-      }, 1000);
-    }
-  }, [initialData]);
 
   if (loading)
     return (
       <div className="text-center text-xl mt-10">Loading questions...</div>
     );
+
   if (data.length === 0)
     return (
       <div className="text-center text-xl mt-10">No questions available</div>
     );
 
   const currentQuestion = data[currentIndex];
-  const selected = answers[currentQuestion.id] || "";
+  const selected = answers[currentQuestion["id"]] || "";
 
   const selectOption = (value: string) => {
-    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+    setAnswers((prev) => ({ ...prev, [currentQuestion["id"]]: value }));
     setShowSolution(false);
     setStatus("");
   };
 
   const handleCheck = () => {
     if (!selected) return;
-    const ok = currentQuestion.metadata.correctAnswer
-      .map((a) => a.toLowerCase())
+    const ok = currentQuestion["metadata"]["correctanswer"]
+      .map((a: string) => a.toLowerCase())
       .includes(selected.toLowerCase());
     setStatus(ok ? "match" : "wrong");
-    addResult({ id: currentQuestion.id, title: currentQuestion.metadata.question }, ok);
+    addResult(
+      { id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] },
+      ok
+    );
   };
 
   const handleShowSolution = () => {
@@ -220,19 +201,19 @@ export default function LanguageQuestions({
         <div className="bg-white mt-10 shadow-lg rounded-2xl p-6 flex flex-col gap-6">
           {/* Question */}
           <p className="text-xl font-semibold text-gray-700">
-            Q{currentIndex + 1}. {currentQuestion.metadata.question}
+            Q{currentIndex + 1}. {currentQuestion["metadata"]["question"]}
           </p>
 
-          {/* MCQ Options */}
+          {/* Options */}
           <div className="grid grid-cols-2 gap-4">
-            {currentQuestion.metadata.options.map((opt) => {
+            {currentQuestion["metadata"]["options"].map((opt: string) => {
               const isSelected = selected === opt;
               const isCorrect =
                 showSolution &&
-                currentQuestion.metadata.correctAnswer.includes(opt);
+                currentQuestion["metadata"]["correctanswer"].includes(opt);
               const isWrong =
                 showSolution &&
-                !currentQuestion.metadata.correctAnswer.includes(opt) &&
+                !currentQuestion["metadata"]["correctanswer"].includes(opt) &&
                 isSelected;
 
               return (
@@ -267,18 +248,20 @@ export default function LanguageQuestions({
             />
           </div>
 
-          {/* Show result */}
+          {/* Result */}
           {summary && <Check summary={summary} />}
-          {showHint && <Hint hint={currentQuestion.metadata.hint || ""} />}
+          {showHint && <Hint hint={currentQuestion["metadata"]["hint"] || ""} />}
 
-          {/* Show Solution */}
+          {/* Solution */}
           {showSolution && (
             <div className="mt-4 p-4 border rounded-lg bg-gray-50 text-gray-800">
               <p className="font-semibold">✅ Correct Answer:</p>
               <ul className="list-disc list-inside">
-                {currentQuestion.metadata.correctAnswer.map((ans, idx) => (
-                  <li key={idx}>{ans}</li>
-                ))}
+                {currentQuestion["metadata"]["correctanswer"].map(
+                  (ans: string, idx: number) => (
+                    <li key={idx}>{ans}</li>
+                  )
+                )}
               </ul>
             </div>
           )}
@@ -301,11 +284,22 @@ export default function LanguageQuestions({
                   <IoMdArrowRoundForward size={50} className="text-5xl" />
                 </div>
               </Button>
-              <Link to={"/result"} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
-                <Button disabled={!hasResults} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
+              <Link
+                to={"/result"}
+                onClick={(e) => {
+                  if (!hasResults) e.preventDefault();
+                }}
+              >
+                <Button
+                  disabled={!hasResults}
+                  className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   Result
                   <div className="size-10 bg-white rounded-2xl flex items-center justify-center ml-2">
-                    <IoMdCheckmarkCircleOutline size={60} className="text-green-500" />
+                    <IoMdCheckmarkCircleOutline
+                      size={60}
+                      className="text-green-500"
+                    />
                   </div>
                 </Button>
               </Link>
