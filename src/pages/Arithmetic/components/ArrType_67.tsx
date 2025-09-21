@@ -9,49 +9,46 @@ import useResultTracker from "@/hooks/useResultTracker";
 const problemsJSON = [
   {
     id: 1,
-    number: "23,45",
+    number: "2 3,4 5 l",
+    digits: ["2", "3", "4", "5"],
     digitValues: [
-      { text: "0,005 l =", answer: "5 cl" },
-      { text: "0,4 l =", answer: "40 cl" },
-      { text: "3 l =", answer: "300 cl" },
-      { text: "20 l =", answer: "2000 cl" },
-    ],
-    arrows: [
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
+      { text: "0,005 l", answer: "5 cl" },
+      { text: "0,4 l", answer: "40 cl" },
+      { text: "3 l", answer: "300 cl" },
+      { text: "20 l", answer: "2000 cl" },
     ],
   },
   {
     id: 2,
-    number: "1,588",
+    number: "1 5,8 8 l",
+    digits: ["1", "5", "8", "8"],
     digitValues: [
-      { text: "0,009 l =", answer: "9 ml" },
-      { text: "0,08 l =", answer: "80 ml" },
-      { text: "0,5 l =", answer: "500 ml" },
-      { text: "1 l =", answer: "1000 ml" },
-    ],
-    arrows: [
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
-      { from: 10, to: 10 },
+      { text: "0,009 l", answer: "9 ml" },
+      { text: "0,08 l", answer: "80 ml" },
+      { text: "0,5 l", answer: "500 ml" },
+      { text: "1 l", answer: "1000 ml" },
     ],
   },
 ];
 
-const renderArrow = (from, to, text, isCorrect) => (
-  <div className="relative" style={{ width: 150, height: 20 }}>
-    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-px bg-gray-400"></div>
-    <div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-1 bg-white text-sm"
-      style={{ color: isCorrect ? "green" : "red" }}
-    >
-      {text}
+const renderDigitWithLine = (digit, index, numDigits) => {
+  const isLast = index === numDigits - 1;
+  const lineStyle = {
+    top: '100%',
+    left: '50%',
+    width: '1px',
+    height: '2rem',
+    backgroundColor: '#9ca3af',
+    transform: 'translateX(-50%)',
+  };
+
+  return (
+    <div key={index} className="relative flex flex-col items-center">
+      <span className="text-3xl font-semibold">{digit}</span>
+      <div className="absolute top-full w-px h-8 bg-gray-400"></div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function ArrType_45({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
@@ -69,7 +66,7 @@ export default function ArrType_45({ hint }: { hint: string }) {
   const { setControls } = useQuestionControls();
 
   const handleInputChange = useCallback(
-    (problemIdx: number, inputIdx: number, value: string) => {
+    (problemIdx, inputIdx, value) => {
       setAnswers((prev) => {
         const newAnswers = [...prev];
         newAnswers[problemIdx][inputIdx] = value;
@@ -142,7 +139,7 @@ export default function ArrType_45({ hint }: { hint: string }) {
     }
     return answers[problemIdx][inputIdx];
   };
-  
+
   const isInputReadOnly = showSolution;
 
   return (
@@ -150,19 +147,32 @@ export default function ArrType_45({ hint }: { hint: string }) {
       <div className="text-xl font-semibold text-gray-800">Question 1</div>
       <div className="text-gray-600">What is each digit worth? Fill in.</div>
 
-      <div className="flex justify-center gap-20 px-6 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 px-6 py-8">
         {problemsJSON.map((problem, problemIdx) => (
           <div key={problem.id} className="flex flex-col items-center">
-            <div className="relative w-full">
-              <span className="text-3xl font-medium">{problem.number} l</span>
+            <div className="flex items-start justify-center relative w-full mb-8">
+              <span className="text-3xl font-medium whitespace-pre">{problem.number}</span>
+              <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                {/* Lines and arrows */}
+                {problem.digits.map((digit, index) => {
+                  const x1 = index * 20 + 20; // Adjust based on font size and spacing
+                  const y1 = 40;
+                  const x2 = 180; // Adjust for horizontal position
+                  const y2 = 80 + index * 40; // Adjust for vertical spacing
+                  return (
+                    <g key={index}>
+                      <line x1={`${x1}%`} y1="100%" x2={`${x1}%`} y2="120%" stroke="red" strokeWidth="2"/>
+                      <path d={`M ${x1}% 120 L 120 ${y2}`} stroke="red" strokeWidth="2" fill="none"/>
+                      <polygon points="120,80 125,75 115,75" fill="red"/>
+                    </g>
+                  );
+                })}
+              </svg>
             </div>
-            
+
             <div className="mt-8 space-y-4">
               {problem.digitValues.map((val, inputIdx) => (
                 <div key={inputIdx} className="flex items-center space-x-2">
-                  <div className="relative w-32">
-                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-px bg-gray-400"></div>
-                  </div>
                   <span className="whitespace-nowrap">{val.text}</span>
                   <input
                     type="text"
