@@ -55,78 +55,60 @@ export default function VocabularyQuestions() {
   useEffect(() => {
     const fakeData: Question[] = [
       {
-        "id": "1",
+        "id": 5,
+        "group": "group-5",
+        "subject": "language",
+        "category": "Woordsoorten",
+        "subcategory": "werkwoord",
+        "level": "medium",
         "type": "mcq",
-        "group": "1",
-        "subject": "Science",
-        "category": "Plants",
+        "metadata": {
+            "question": "Welk woord is het werkwoord in de volgende zin: 'Lisa speelt in de tuin.'?",
+            "options": [
+                "Lisa",
+                "speelt",
+                "in",
+                "tuin"
+            ],
+            "correctAnswer": [
+                "speelt"
+            ],
+            "hint": "Een werkwoord is iets wat je doet."
+        }
+    },
+      {
+        "id": 6,
+        "group": "group-5",
+        "subject": "language",
+        "category": "Leestekens",
+        "subcategory": "punt",
         "level": "easy",
-        "metadata": {
-          "question": "Which of these is a flowering plant?",
-          "options": ["Rose", "Fern", "Moss", "Lichen"],
-          "correctAnswer": ["Rose"],
-          "hint": "It produces flowers."
-        }
-      },
-      {
-        "id": "2",
         "type": "fill_blank",
-        "group": "1",
-        "subject": "Geography",
-        "category": "Capital",
-        "level": "Easy",
         "metadata": {
-          "question": "The capital of Bangladesh is _____.",
-          "correctAnswer": ["Dhaka"],
-          "hint": "It starts with 'D'."
+            "question": "Vul het juiste leesteken in: Het is vandaag een mooie dag_",
+            "correctAnswer": [
+                "."
+            ],
+            "hint": "Aan het eind van een zin gebruik je dit leesteken."
         }
-      },
-      {
-        "id": "3",
+    },
+       {
+        "id": 9,
+        "group": "group-5",
+        "subject": "language",
+        "category": "Grammaticale kennis",
+        "subcategory": "onderwerp",
+        "level": "advanced",
         "type": "short",
-        "group": "1",
-        "subject": "Programming",
-        "category": "Languages",
-        "level": "Medium",
         "metadata": {
-          "question": "Write two programming languages you know:",
-          "correctAnswer": ["JavaScript", "Python"],
-          "hint": "Think about web or general-purpose languages."
+            "question": "Wat is het onderwerp in de volgende zin: 'De kat jaagt op de muis in de tuin'?",
+            "correctAnswer": [
+                "De kat"
+            ],
+            "hint": "Het onderwerp is degene die de actie uitvoert in de zin."
         }
-      },
-      {
-        "id": "4",
-        "type": "mcq",
-        "group": "2",
-        "subject": "Reading",
-        "category": "Environment",
-        "level": "Easy",
-        "metadata": {
-          "description": "Mangrove forests grow along coastlines and protect the land from big waves and storms.",
-          "question": "Why do communities plant more mangroves?",
-          "options": [
-            "To protect the coast and the environment.",
-            "Animals will lose their homes.",
-            "More storms will stop.",
-            "Communities will be safer."
-          ],
-          "correctAnswer": ["To protect the coast and the environment."],
-          "hint": "Think about the role mangroves play in protecting both land and animals."
-        }
-      },
-      {
-        "id": "5",
-        "type": "short",
-        "group": "2",
-        "subject": "Grammar",
-        "category": "Verb",
-        "level": "Medium",
-        "metadata": {
-          "question": "Write two irregular verbs you know:",
-          "correctAnswer": ["Go", "Eat"],
-          "hint": "Think of verbs that change form in past tense."
-        }
-      }
+    },
+      
     ];
     setData(fakeData);
     setLoading(false);
@@ -152,14 +134,19 @@ export default function VocabularyQuestions() {
         selected.some((s) => s.toLowerCase() === ans.toLowerCase())
       );
       setStatus(correct ? "match" : "wrong");
-      addResult({ id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] }, correct);
+      addResult(
+        { id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] },
+        correct
+      );
     } else {
-      const ok =
-        currentQuestion["metadata"]["correctAnswer"]
-          .map((a) => a.toLowerCase())
-          .includes((selected as string).toLowerCase());
+      const ok = currentQuestion["metadata"]["correctAnswer"]
+        .map((a) => a.toLowerCase())
+        .includes((selected as string).toLowerCase());
       setStatus(ok ? "match" : "wrong");
-      addResult({ id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] }, ok);
+      addResult(
+        { id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] },
+        ok
+      );
     }
   };
 
@@ -197,8 +184,8 @@ export default function VocabularyQuestions() {
             <div className="grid grid-cols-2 gap-4">
               {currentQuestion["metadata"]["options"]?.map((opt) => {
                 const isSelected = selected === opt;
-                const isCorrect = showSolution && currentQuestion["metadata"]["correctAnswer"].includes(opt);
-                const isWrong = showSolution && !currentQuestion["metadata"]["correctAnswer"].includes(opt) && isSelected;
+                const isCorrect = showSolution && currentQuestion["metadata"]["correctAnswer"].some(ans => ans.toLowerCase() === opt.toLowerCase());
+                const isWrong = showSolution && !currentQuestion["metadata"]["correctAnswer"].some(ans => ans.toLowerCase() === opt.toLowerCase()) && isSelected;
                 return (
                   <Button
                     key={opt}
