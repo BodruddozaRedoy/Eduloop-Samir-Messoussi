@@ -38,7 +38,7 @@ const problemsJSON = [
   }),
 ];
 
-export default function ArrType_44({ hint }: { hint: string }) {
+export default function ArrType_63({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({ minus: "", plus: "" }))
   );
