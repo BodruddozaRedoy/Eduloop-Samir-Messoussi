@@ -102,7 +102,7 @@ const under1000 = (n: number) =>
 const eqArr = (a: number[], b: number[]) =>
   a.length === b.length && a.every((v, i) => v === b[i]);
 
-/* ----------------------------- Page ----------------------------- */
+/* ----------------------------- Page -------------------------------- */
 export default function ArrType_23() {
   const title = "Question 1";
   const instruction = "Make 6 numbers under 1000 with these digits. For example,";
