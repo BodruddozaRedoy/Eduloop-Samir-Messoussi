@@ -8,402 +8,402 @@
         {
           "id": 1,
           "name": "Rekenen",
-          "slug": "Rekenen",
+          "slug": "arithmetic",
           "categories": [
             {
-      "id": 1,
-      "name": "Blok 1",
-      "slug": "blok-1",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 1",
-          "slug": "les-1"
-        },
-        {
-          "id": 2,
-          "name": "Les 3",
-          "slug": "les-3"
-        },
-        {
-          "id": 3,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 4,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 5,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 6,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 7,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 8,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 9,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Blok 2",
-      "slug": "blok-2",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Blok 3",
-      "slug": "blok-3",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Blok 4",
-      "slug": "blok-4",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Blok 5",
-      "slug": "blok-5",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Blok 6",
-      "slug": "blok-6",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Blok 7",
-      "slug": "blok-7",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Blok 8",
-      "slug": "blok-8",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Blok 9",
-      "slug": "blok-9",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    }
+              "id": 1,
+              "name": "Blok 1",
+              "slug": "blok-1",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 1",
+                  "slug": "les-1"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 3",
+                  "slug": "les-3"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 8,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 9,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Blok 2",
+              "slug": "blok-2",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Blok 3",
+              "slug": "blok-3",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Blok 4",
+              "slug": "blok-4",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "Blok 5",
+              "slug": "blok-5",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "Blok 6",
+              "slug": "blok-6",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "Blok 7",
+              "slug": "blok-7",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "Blok 8",
+              "slug": "blok-8",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "Blok 9",
+              "slug": "blok-9",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            }
           ]
         },
         {
           "id": 2,
           "name": "Taal",
-          "slug": "taal",
+          "slug": "language",
           "categories": [
             {
               "id": 1,
@@ -537,7 +537,7 @@
         {
           "id": 4,
           "name": "Woordenschat",
-          "slug": "woordenschat",
+          "slug": "vocabulary",
           "categories": [
             {
               "id": 1,
@@ -586,7 +586,7 @@
         {
           "id": 5,
           "name": "Begrijpend Lezen",
-          "slug": "begrijpend-lezen",
+          "slug": "reading",
           "categories": [
             {
               "id": 1,
@@ -702,397 +702,397 @@
         {
           "id": 1,
           "name": "Rekenen",
-          "slug": "Rekenen",
+          "slug": "arithmetic",
           "categories": [
             {
-      "id": 1,
-      "name": "Blok 1",
-      "slug": "blok-1",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 6",
-          "slug": "les-6"
-        },
-        {
-          "id": 3,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 4,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 5,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 6,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 7,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 8,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Blok 2",
-      "slug": "blok-2",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Blok 3",
-      "slug": "blok-3",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Blok 4",
-      "slug": "blok-4",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Blok 5",
-      "slug": "blok-5",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Blok 6",
-      "slug": "blok-6",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Blok 7",
-      "slug": "blok-7",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Blok 8",
-      "slug": "blok-8",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Blok 9",
-      "slug": "blok-9",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    }
+              "id": 1,
+              "name": "Blok 1",
+              "slug": "blok-1",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 6",
+                  "slug": "les-6"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 8,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Blok 2",
+              "slug": "blok-2",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Blok 3",
+              "slug": "blok-3",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Blok 4",
+              "slug": "blok-4",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "Blok 5",
+              "slug": "blok-5",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "Blok 6",
+              "slug": "blok-6",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "Blok 7",
+              "slug": "blok-7",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "Blok 8",
+              "slug": "blok-8",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "Blok 9",
+              "slug": "blok-9",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            }
           ]
         },
         {
           "id": 2,
           "name": "Taal",
-          "slug": "taal",
+          "slug": "language",
           "categories": [
             {
               "id": 1,
@@ -1316,7 +1316,7 @@
         {
           "id": 4,
           "name": "Woordenschat",
-          "slug": "woordenschat",
+          "slug": "vocabulary",
           "categories": [
             {
               "id": 1,
@@ -1365,7 +1365,7 @@
         {
           "id": 5,
           "name": "Begrijpend Lezen",
-          "slug": "begrijpend-lezen",
+          "slug": "reading",
           "categories": [
             {
               "id": 1,
@@ -1481,407 +1481,407 @@
         {
           "id": 1,
           "name": "Rekenen",
-          "slug": "Rekenen",
+          "slug": "arithmetic",
           "categories": [
             {
-      "id": 1,
-      "name": "Blok 1",
-      "slug": "blok-1",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 1",
-          "slug": "les-1"
-        },
-        {
-          "id": 2,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 3,
-          "name": "Les 6",
-          "slug": "les-6"
-        },
-        {
-          "id": 4,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 5,
-          "name": "Les 11",
-          "slug": "les-11"
-        },
-        {
-          "id": 6,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 7,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 8,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 9,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 10,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Blok 2",
-      "slug": "blok-2",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Blok 3",
-      "slug": "blok-3",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Blok 4",
-      "slug": "blok-4",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Blok 5",
-      "slug": "blok-5",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Blok 6",
-      "slug": "blok-6",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Blok 7",
-      "slug": "blok-7",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Blok 8",
-      "slug": "blok-8",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Blok 9",
-      "slug": "blok-9",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    }
+              "id": 1,
+              "name": "Blok 1",
+              "slug": "blok-1",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 1",
+                  "slug": "les-1"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 6",
+                  "slug": "les-6"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 11",
+                  "slug": "les-11"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 8,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 9,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 10,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Blok 2",
+              "slug": "blok-2",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Blok 3",
+              "slug": "blok-3",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Blok 4",
+              "slug": "blok-4",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "Blok 5",
+              "slug": "blok-5",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "Blok 6",
+              "slug": "blok-6",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "Blok 7",
+              "slug": "blok-7",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "Blok 8",
+              "slug": "blok-8",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "Blok 9",
+              "slug": "blok-9",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            }
           ]
         },
         {
           "id": 2,
           "name": "Taal",
-          "slug": "taal",
+          "slug": "language",
           "categories": [
             {
               "id": 1,
@@ -2105,7 +2105,7 @@
         {
           "id": 4,
           "name": "Woordenschat",
-          "slug": "woordenschat",
+          "slug": "vocabulary",
           "categories": [
             {
               "id": 1,
@@ -2166,392 +2166,392 @@
         {
           "id": 1,
           "name": "Rekenen",
-          "slug": "Rekenen",
+          "slug": "arithmetic",
           "categories": [
             {
-      "id": 1,
-      "name": "Blok 1",
-      "slug": "blok-1",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Blok 2",
-      "slug": "blok-2",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Blok 3",
-      "slug": "blok-3",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Blok 4",
-      "slug": "blok-4",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Blok 5",
-      "slug": "blok-5",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Blok 6",
-      "slug": "blok-6",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Blok 7",
-      "slug": "blok-7",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Blok 8",
-      "slug": "blok-8",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Blok 9",
-      "slug": "blok-9",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    }
+              "id": 1,
+              "name": "Blok 1",
+              "slug": "blok-1",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Blok 2",
+              "slug": "blok-2",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Blok 3",
+              "slug": "blok-3",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Blok 4",
+              "slug": "blok-4",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "Blok 5",
+              "slug": "blok-5",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "Blok 6",
+              "slug": "blok-6",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "Blok 7",
+              "slug": "blok-7",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "Blok 8",
+              "slug": "blok-8",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "Blok 9",
+              "slug": "blok-9",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            }
           ]
         },
         {
           "id": 2,
           "name": "Taal",
-          "slug": "taal",
+          "slug": "language",
           "categories": [
             {
               "id": 1,
@@ -2845,7 +2845,7 @@
         {
           "id": 4,
           "name": "Woordenschat",
-          "slug": "woordenschat",
+          "slug": "vocabulary",
           "categories": [
             {
               "id": 1,
@@ -2919,7 +2919,7 @@
         {
           "id": 5,
           "name": "Begrijpend Lezen",
-          "slug": "begrijpend-lezen",
+          "slug": "reading",
           "categories": [
             {
               "id": 1,
@@ -3000,392 +3000,392 @@
         {
           "id": 1,
           "name": "Rekenen",
-          "slug": "Rekenen",
+          "slug": "arithmetic",
           "categories": [
             {
-      "id": 1,
-      "name": "Blok 1",
-      "slug": "blok-1",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Blok 2",
-      "slug": "blok-2",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Blok 3",
-      "slug": "blok-3",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Blok 4",
-      "slug": "blok-4",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Blok 5",
-      "slug": "blok-5",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Blok 6",
-      "slug": "blok-6",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Blok 7",
-      "slug": "blok-7",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Blok 8",
-      "slug": "blok-8",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Blok 9",
-      "slug": "blok-9",
-      "subcategories": [
-        {
-          "id": 1,
-          "name": "Les 5",
-          "slug": "les-5"
-        },
-        {
-          "id": 2,
-          "name": "Les 10",
-          "slug": "les-10"
-        },
-        {
-          "id": 3,
-          "name": "Les 15",
-          "slug": "les-15"
-        },
-        {
-          "id": 4,
-          "name": "Les 16",
-          "slug": "les-16"
-        },
-        {
-          "id": 5,
-          "name": "Les 17",
-          "slug": "les-17"
-        },
-        {
-          "id": 6,
-          "name": "Les 18",
-          "slug": "les-18"
-        },
-        {
-          "id": 7,
-          "name": "Les 19",
-          "slug": "les-19"
-        }
-      ]
-    }
+              "id": 1,
+              "name": "Blok 1",
+              "slug": "blok-1",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Blok 2",
+              "slug": "blok-2",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Blok 3",
+              "slug": "blok-3",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Blok 4",
+              "slug": "blok-4",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "Blok 5",
+              "slug": "blok-5",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "Blok 6",
+              "slug": "blok-6",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "Blok 7",
+              "slug": "blok-7",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "Blok 8",
+              "slug": "blok-8",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "Blok 9",
+              "slug": "blok-9",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "Les 5",
+                  "slug": "les-5"
+                },
+                {
+                  "id": 2,
+                  "name": "Les 10",
+                  "slug": "les-10"
+                },
+                {
+                  "id": 3,
+                  "name": "Les 15",
+                  "slug": "les-15"
+                },
+                {
+                  "id": 4,
+                  "name": "Les 16",
+                  "slug": "les-16"
+                },
+                {
+                  "id": 5,
+                  "name": "Les 17",
+                  "slug": "les-17"
+                },
+                {
+                  "id": 6,
+                  "name": "Les 18",
+                  "slug": "les-18"
+                },
+                {
+                  "id": 7,
+                  "name": "Les 19",
+                  "slug": "les-19"
+                }
+              ]
+            }
           ]
         },
         {
           "id": 2,
           "name": "Taal",
-          "slug": "taal",
+          "slug": "language",
           "categories": [
             {
               "id": 1,
@@ -3679,7 +3679,7 @@
         {
           "id": 4,
           "name": "Woordenschat",
-          "slug": "woordenschat",
+          "slug": "vocabulary",
           "categories": [
             {
               "id": 1,
@@ -3748,7 +3748,7 @@
         {
           "id": 5,
           "name": "Begrijpend Lezen",
-          "slug": "begrijpend-lezen",
+          "slug": "reading",
           "categories": [
             {
               "id": 1,

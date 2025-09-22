@@ -10,14 +10,14 @@ interface SubjectCardProps {
     // link:string;
 }
 
-export const SubjectCard: React.FC<SubjectCardProps> = ({ id, name, slug, groupId }) => {
+export const SubjectCard: React.FC<SubjectCardProps> = ({ id, name, slug, groupId }:any) => {
     const [checked, setChecked] = useState(false);
     
     const navigate = useNavigate()
     console.log(groupId)
 
     return (
-        <div onClick={() => navigate(`/group/subject/subject-category?groupId=${groupId}&subject=${slug}`)}>
+        <div onClick={() => navigate(`/group/subject/category?group=${groupId}&subject=${slug}`)}>
             <div className="flex flex-col p-12 rounded-2xl border-2 shadow-md border-[#FFF7ED] hover:shadow-xl hover:-translate-y-1 hover:border-[#E16641] transition-transform cursor-pointer bg-white ">
                 <div className="flex items-center mb-2">
                     {/* Custom checkbox */}

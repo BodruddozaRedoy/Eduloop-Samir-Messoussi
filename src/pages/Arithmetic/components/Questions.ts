@@ -1046,13 +1046,14 @@ export const QUESTIONS_DATA = [
     level: "Medium",
     metadata: {
       question: "What time is it?",
+      method: 2,
       data: [
         { left: 13, op: "+", rows: 4 },
         { left: 15, op: "+", rows: 4 },
         { left: 19, op: "-", rows: 4 },
         { left: 18, op: "-", rows: 4 },
       ],
-      hint: "Try to add or subtract the numbers step by step.",
+      hint: "Think about the operation, fill both blanks so the equation is true.",
     },
   },
   {
@@ -1091,14 +1092,14 @@ export const QUESTIONS_DATA = [
           { left: 8, operator: "-", right: 5, answer: 3 },
         ],
       ],
-      hint: "Try to add the numbers step by step.",
+      hint: "Try to add or subtract the numbers step by step.",
     },
   },
   {
     id: 16,
     type: "type13_2",
-    group: "4",
-    subject: "Arithmetic",
+    group: "group-4",
+    subject: "arithmetic",
     category: "Basic",
     level: "Medium",
     metadata: {

@@ -9,7 +9,7 @@ export default function Navbar() {
         {/* logo  */}
         <div className='w-30'>
             <Link to={"/"}>
-            <img className='w-full' src="https://res.cloudinary.com/dcrs7po93/image/upload/v1756934007/Logo_ajwbhb.png" alt="" /> 
+            <img className='w-15 h-15 ' src="https://res.cloudinary.com/dcrs7po93/image/upload/v1756934007/Logo_ajwbhb.png" alt="" /> 
             </Link>
         </div>
         <div className='flex items-center gap-3'>

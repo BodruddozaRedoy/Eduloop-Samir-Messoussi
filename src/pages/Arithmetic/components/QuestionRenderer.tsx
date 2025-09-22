@@ -1,77 +1,76 @@
-import { useMemo } from "react"
-import ArrType_1 from "./ArrType_1"
-import ArrType_10 from "./ArrType_10"
-import ArrType_11 from "./ArrType_11"
-import ArrType_12 from "./ArrType_12"
-import ArrType_13 from "./ArrType_13"
-import ArrType_14 from "./ArrType_14"
-import ArrType_15 from "./ArrType_15"
-import ArrType_16 from "./ArrType_16"
-import ArrType_17 from "./ArrType_17"
-import ArrType_18 from "./ArrType_18"
-import ArrType_19 from "./ArrType_19"
-import ArrType_2 from "./ArrType_2"
-import ArrType_20 from "./ArrType_20"
-import ArrType_21 from "./ArrType_21"
-import ArrType_22 from "./ArrType_22"
-import ArrType_23 from "./ArrType_23"
-import ArrType_24 from "./ArrType_24"
-import ArrType_25 from "./ArrType_25"
-import ArrType_26 from "./ArrType_26"
-import ArrType_27 from "./ArrType_27"
-
-import ArrType_3 from "./ArrType_3"
-import ArrType_4 from "./ArrType_4"
-import ArrType_5 from "./ArrType_5"
-import ArrType_6 from "./ArrType_6"
-import ArrType_7 from "./ArrType_7"
-import ArrType_8 from "./ArrType_8"
-import ArrType_9 from "./ArrType_9"
-
-import ArrType_28 from "./ArrType_28"
-import ArrType_29 from "./ArrType_29"
-import ArrType_30 from "./ArrType_30"
-import { QuestionMetaProvider } from "@/context/QuestionMetaContext"
-import ArrType_31 from "./ArrType_31"
-import ArrType_32 from "./ArrType_32"
-import ArrType_33 from "./ArrType_33"
-import ArrType_34 from "./ArrType_34"
-import ArrType_35 from "./ArrType_35"
-import ArrType_36 from "./ArrType_36"
-import ArrType_37 from "./ArrType_37"
-import ArrType_38 from "./ArrType_38"
-import ArrType_39 from "./ArrType_39"
-import ArrType_40 from "./ArrType_40"
-import ArrType_41 from "./ArrType_41"
-import ArrType_42 from "./ArrType_42"
-import ArrType_43 from "./ArrType_43"
-import ArrType_44 from "./ArrType_44"
-import ArrType_45 from "./ArrType_45"
-import ArrType_46 from "./ArrType_46"
-import ArrType_47 from "./ArrType_47"
-import ArrType_48 from "./ArrType_48"
-import ArrType_49 from "./ArrType_49"
-import ArrType_50 from "./ArrType_50"
-import ArrType_51 from "./ArrType_51"
-import ArrType_52 from "./ArrType_52"
-import ArrType_53 from "./ArrType_53"
-import ArrType_54 from "./ArrType_54"
-import ArrType_55 from "./ArrType_55"
-import ArrType_56 from "./ArrType_56"
-import ArrType_57 from "./ArrType_57"
-import ArrType_58 from "./ArrType_58"
-import ArrType_59 from "./ArrType_59"
-import ArrType_60 from "./ArrType_60"
-import ArrType_61 from "./ArrType_61"
-import ArrType_62 from "./ArrType_62"
-import ArrType_63 from "./ArrType_63"
-import ArrType_64 from "./ArrType_64"
-import ArrType_65 from "./ArrType_65"
-import ArrType_66 from "./ArrType_66"
-import ArrType_67 from "./ArrType_67"
-import ArrType_68 from "./ArrType_68"
-import ArrType_69 from "./ArrType_69"
-import ArrType_70 from "./ArrType_70"
+import LoadingScreen from "@/components/common/LoadingScreen";
+import { QuestionMetaProvider } from "@/context/QuestionMetaContext";
+import { lazy, Suspense, useMemo } from "react"
+const ArrType_1 = lazy(() => import("./ArrType_1"));
+const ArrType_2 = lazy(() => import("./ArrType_2"));
+const ArrType_3 = lazy(() => import("./ArrType_3"));
+const ArrType_4 = lazy(() => import("./ArrType_4"));
+const ArrType_5 = lazy(() => import("./ArrType_5"));
+const ArrType_6 = lazy(() => import("./ArrType_6"));
+const ArrType_7 = lazy(() => import("./ArrType_7"));
+const ArrType_8 = lazy(() => import("./ArrType_8"));
+const ArrType_9 = lazy(() => import("./ArrType_9"));
+const ArrType_10 = lazy(() => import("./ArrType_10"));
+const ArrType_11 = lazy(() => import("./ArrType_11"));
+const ArrType_12 = lazy(() => import("./ArrType_12"));
+const ArrType_13 = lazy(() => import("./ArrType_13"));
+const ArrType_14 = lazy(() => import("./ArrType_14"));
+const ArrType_15 = lazy(() => import("./ArrType_15"));
+const ArrType_16 = lazy(() => import("./ArrType_16"));
+const ArrType_17 = lazy(() => import("./ArrType_17"));
+const ArrType_18 = lazy(() => import("./ArrType_18"));
+const ArrType_19 = lazy(() => import("./ArrType_19"));
+const ArrType_20 = lazy(() => import("./ArrType_20"));
+const ArrType_21 = lazy(() => import("./ArrType_21"));
+const ArrType_22 = lazy(() => import("./ArrType_22"));
+const ArrType_23 = lazy(() => import("./ArrType_23"));
+const ArrType_24 = lazy(() => import("./ArrType_24"));
+const ArrType_25 = lazy(() => import("./ArrType_25"));
+const ArrType_26 = lazy(() => import("./ArrType_26"));
+const ArrType_27 = lazy(() => import("./ArrType_27"));
+const ArrType_28 = lazy(() => import("./ArrType_28"));
+const ArrType_29 = lazy(() => import("./ArrType_29"));
+const ArrType_30 = lazy(() => import("./ArrType_30"));
+const ArrType_31 = lazy(() => import("./ArrType_31"));
+const ArrType_32 = lazy(() => import("./ArrType_32"));
+const ArrType_33 = lazy(() => import("./ArrType_33"));
+const ArrType_34 = lazy(() => import("./ArrType_34"));
+const ArrType_35 = lazy(() => import("./ArrType_35"));
+const ArrType_36 = lazy(() => import("./ArrType_36"));
+const ArrType_37 = lazy(() => import("./ArrType_37"));
+const ArrType_38 = lazy(() => import("./ArrType_38"));
+const ArrType_39 = lazy(() => import("./ArrType_39"));
+const ArrType_40 = lazy(() => import("./ArrType_40"));
+const ArrType_41 = lazy(() => import("./ArrType_41"));
+const ArrType_42 = lazy(() => import("./ArrType_42"));
+const ArrType_43 = lazy(() => import("./ArrType_43"));
+const ArrType_44 = lazy(() => import("./ArrType_44"));
+const ArrType_45 = lazy(() => import("./ArrType_45"));
+const ArrType_46 = lazy(() => import("./ArrType_46"));
+const ArrType_47 = lazy(() => import("./ArrType_47"));
+const ArrType_48 = lazy(() => import("./ArrType_48"));
+const ArrType_49 = lazy(() => import("./ArrType_49"));
+const ArrType_50 = lazy(() => import("./ArrType_50"));
+const ArrType_51 = lazy(() => import("./ArrType_51"));
+const ArrType_52 = lazy(() => import("./ArrType_52"));
+const ArrType_53 = lazy(() => import("./ArrType_53"));
+const ArrType_54 = lazy(() => import("./ArrType_54"));
+const ArrType_55 = lazy(() => import("./ArrType_55"));
+const ArrType_56 = lazy(() => import("./ArrType_56"));
+const ArrType_57 = lazy(() => import("./ArrType_57"));
+const ArrType_58 = lazy(() => import("./ArrType_58"));
+const ArrType_59 = lazy(() => import("./ArrType_59"));
+const ArrType_60 = lazy(() => import("./ArrType_60"));
+const ArrType_61 = lazy(() => import("./ArrType_61"));
+const ArrType_62 = lazy(() => import("./ArrType_62"));
+const ArrType_63 = lazy(() => import("./ArrType_63"));
+const ArrType_64 = lazy(() => import("./ArrType_64"));
+const ArrType_65 = lazy(() => import("./ArrType_65"));
+const ArrType_66 = lazy(() => import("./ArrType_66"));
+const ArrType_67 = lazy(() => import("./ArrType_67"));
+const ArrType_68 = lazy(() => import("./ArrType_68"));
+const ArrType_69 = lazy(() => import("./ArrType_69"));
+const ArrType_70 = lazy(() => import("./ArrType_70"));
 
 
 
@@ -86,489 +85,558 @@ export default function QuestionRenderer({ q }: { q: any }) {
       </QuestionMetaProvider>
     )
 
-    switch (q.type) {
+        switch (q.type) {
       case "type1": {
-        const { answer1, steps, count, defaultValue } = q.metadata
+        const { answer1, steps, count, defaultValue } = q.metadata;
         return provider(
-          <ArrType_1
-            key={q.id}
-            hint={q.metadata.hint}
-            rows={[
-              {
-                start: answer1 ?? 10,
-                step: steps ?? 10,
-                maxLength: count ?? 10,
-                prefilledCount: defaultValue ?? 2,
-                inputMaxLength: 3,
-              },
-            ]}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_1
+              key={q.id}
+              hint={q.metadata.hint}
+              rows={[
+                {
+                  start: answer1 ?? 10,
+                  step: steps ?? 10,
+                  maxLength: count ?? 10,
+                  prefilledCount: defaultValue ?? 2,
+                  inputMaxLength: 3,
+                },
+              ]}
+            />
+          </Suspense>
+        );
       }
       case "type2_1": {
-        const opts = q.metadata.options ?? []
+        const opts = q.metadata.options ?? [];
         const presetLineNums = opts.map((lineNum: number, i: number) => ({
           dotIndex: i,
           lineNum,
-        }))
+        }));
         return provider(
-          <ArrType_2
-            hint={q.metadata.hint}
-            key={q.id}
-            mode={q.metadata?.mode}
-            presetLineNums={presetLineNums}
-            dotCount={opts.length}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_2
+              key={q.id}
+              hint={q.metadata.hint}
+              mode={q.metadata?.mode}
+              presetLineNums={presetLineNums}
+              dotCount={opts.length}
+            />
+          </Suspense>
+        );
       }
       case "type2_2": {
-        const opts = q.metadata.options ?? []
+        const opts = q.metadata.options ?? [];
         return provider(
-          <ArrType_2
-            hint={q.metadata.hint}
-            key={q.id}
-            mode={q.metadata?.mode}
-            presetBoxNumbers={opts}
-            dotCount={opts.length}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_2
+              key={q.id}
+              hint={q.metadata.hint}
+              mode={q.metadata?.mode}
+              presetBoxNumbers={opts}
+              dotCount={opts.length}
+            />
+          </Suspense>
+        );
       }
       case "type3": {
-        return provider(<ArrType_3 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_3 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type4": {
-        return provider(<ArrType_4 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
-      }
-      case "type5_1": {
         return provider(
-          <ArrType_5
-            hint={q.metadata.hint}
-            key={q.id}
-            method={q.metadata.method}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_4 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
+      case "type5_1":
       case "type5_2": {
         return provider(
-          <ArrType_5
-            hint={q.metadata.hint}
-            key={q.id}
-            method={q.metadata.method}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_5
+              key={q.id}
+              hint={q.metadata.hint}
+              method={q.metadata.method}
+              data={q.metadata.data ?? []}
+            />
+          </Suspense>
+        );
       }
-      case "type6_1": {
-        return provider(
-          <ArrType_6
-            hint={q.metadata.hint}
-            key={q.id}
-            method={q.metadata.method}
-            data={q.metadata.data ?? []}
-          />
-        )
-      }
+      case "type6_1":
       case "type6_2": {
         return provider(
-          <ArrType_6
-            hint={q.metadata.hint}
-            key={q.id}
-            method={q.metadata.method}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_6
+              key={q.id}
+              hint={q.metadata.hint}
+              method={q.metadata.method}
+              data={q.metadata.data ?? []}
+            />
+          </Suspense>
+        );
       }
       case "type7": {
         return provider(
-          <ArrType_7
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_7 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type8": {
         return provider(
-          <ArrType_8
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_8 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type9": {
         return provider(
-          <ArrType_9
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_9 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type10": {
         return provider(
-          <ArrType_10
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_10 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type11": {
         return provider(
-          <ArrType_11
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_11 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type12": {
         return provider(
-          <ArrType_12
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_12 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type13_1": {
         return provider(
-          <ArrType_13
-            hint={q.metadata.hint}
-            key={q.id}
-            dataOne={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_13 key={q.id} hint={q.metadata.hint} dataOne={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type13_2": {
         return provider(
-          <ArrType_13
-            hint={q.metadata.hint}
-            key={q.id}
-            dataTwo={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_13 key={q.id} hint={q.metadata.hint} dataTwo={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
-      case "type14_1": {
-        return provider(
-          <ArrType_14
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
-      }
+      case "type14_1":
       case "type14_2": {
         return provider(
-          <ArrType_14
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_14 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type15": {
         return provider(
-          <ArrType_15
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_15 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type16": {
         return provider(
-          <ArrType_16
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_16 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type17": {
         return provider(
-          <ArrType_17
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_17 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type18": {
         return provider(
-          <ArrType_18
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_18 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type19": {
         return provider(
-          <ArrType_19
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_19 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type20": {
         return provider(
-          <ArrType_20
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_20 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type21": {
         return provider(
-          <ArrType_21
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_21 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type22": {
         return provider(
-          <ArrType_22
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_22 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type23": {
         return provider(
-          <ArrType_23
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_23 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type24": {
         return provider(
-          <ArrType_24
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_24 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type25": {
         return provider(
-          <ArrType_25
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_25 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type26": {
         return provider(
-          <ArrType_26
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_26 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type27": {
         return provider(
-          <ArrType_27
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_27 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type28": {
-
         return provider(
-          <ArrType_28
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_28 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type29": {
         return provider(
-          <ArrType_29
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_29 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type30": {
         return provider(
-          <ArrType_30
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_30 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type31": {
         return provider(
-          <ArrType_31
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_31 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type32": {
         return provider(
-          <ArrType_32
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_32 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type33": {
         return provider(
-          <ArrType_33
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_33 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type34": {
         return provider(
-          <ArrType_34
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_34 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type35": {
         return provider(
-          <ArrType_35
-            hint={q.metadata.hint}
-            key={q.id}
-            data={q.metadata.data ?? []}
-          />
-        )
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_35 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
-
       case "type36": {
-        return provider(<ArrType_36 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_36 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type37": {
-        return provider(<ArrType_37 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_37 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type38": {
-        return provider(<ArrType_38 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_38 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type39": {
-        return provider(<ArrType_39 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_39 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type40": {
-        return provider(<ArrType_40 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_40 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type41": {
-        return provider(<ArrType_41 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_41 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type42": {
-        return provider(<ArrType_42 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_42 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type43": {
-        return provider(<ArrType_43 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_43 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type44": {
-        return provider(<ArrType_44 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_44 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type45": {
-        return provider(<ArrType_45 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_45 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type46": {
-        return provider(<ArrType_46 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_46 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type47": {
-        return provider(<ArrType_47 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_47 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type48": {
-        return provider(<ArrType_48 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_48 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type49": {
-        return provider(<ArrType_49 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_49 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type50": {
-        return provider(<ArrType_50 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_50 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type51": {
-        return provider(<ArrType_51 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_51 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type52": {
-        return provider(<ArrType_52 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_52 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type53": {
-        return provider(<ArrType_53 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_53 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type54": {
-        return provider(<ArrType_54 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_54 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type55": {
-        return provider(<ArrType_55 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_55 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type56": {
-        return provider(<ArrType_56 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_56 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type57": {
-        return provider(<ArrType_57 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_57 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type58": {
-        return provider(<ArrType_58 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_58 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type59": {
-        return provider(<ArrType_59 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_59 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type60": {
-        return provider(<ArrType_60 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_60 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type61": {
-        return provider(<ArrType_61 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_61 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type62": {
-        return provider(<ArrType_62 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_62 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type63": {
-        return provider(<ArrType_63 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_63 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type64": {
-        return provider(<ArrType_64 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_64 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type65": {
-        return provider(<ArrType_65 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_65 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type66": {
-        return provider(<ArrType_66 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_66 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type67": {
-        return provider(<ArrType_67 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_67 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type68": {
-        return provider(<ArrType_68 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_68 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type69": {
-        return provider(<ArrType_69 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_69 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
       case "type70": {
-        return provider(<ArrType_70 hint={q.metadata.hint} key={q.id} data={q.metadata.data ?? []} />)
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_70 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
       }
-
-
       default:
-        return null
+        return null;
     }
+
   }, [q])
 }
