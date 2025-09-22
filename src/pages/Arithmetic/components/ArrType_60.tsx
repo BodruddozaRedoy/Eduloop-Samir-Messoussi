@@ -6,110 +6,6 @@ import React, {
   useState,
 } from "react";
 
-/* ---------------- Gauge (expects KG 0..1000) ---------------- */
-type KiloGramMeterProps = { value: number; size?: number; sweep?: number };
-
-const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
-const map = (v: number, inMin: number, inMax: number, outMin: number, outMax: number) =>
-  ((v - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
-
-const KiloGramMeter: React.FC<KiloGramMeterProps> = ({ value, size = 220, sweep = 270 }) => {
-  const min = 0, max = 1000, tickEvery = 100; // all in KILOGRAMS
-  const v = clamp(Number.isFinite(value) ? value : 0, min, max);
-
-  const start = -sweep / 2, end = sweep / 2;
-  const needleDeg = map(v, min, max, start, end);
-
-  const cx = size / 2, cy = size / 2;
-  const rOuter = Math.round(size * 0.39);
-  const rFace = rOuter - 6;
-  const rNeedle = rFace - 18;
-  const tickOuter = rOuter - 4;
-  const tickInnerMinor = tickOuter - 10;
-  const tickInnerMajor = tickOuter - 18;
-
-  const ticks = useMemo(() => {
-    const arr: number[] = [];
-    for (let t = min; t <= max; t += tickEvery) arr.push(t);
-    if (arr[arr.length - 1] !== max) arr.push(max);
-    return arr;
-  }, []);
-
-  const toRad = (degFromRight: number) => (degFromRight * Math.PI) / 180;
-  const cartDeg = (needleAngleDeg: number) => needleAngleDeg - 90;
-
-  return (
-    <div className="inline-flex flex-col items-center gap-3">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-        <circle cx={cx} cy={cy} r={rOuter} className="fill-white stroke-gray-400" strokeWidth={8} />
-        <circle cx={cx} cy={cy} r={rFace} className="fill-white" />
-
-        <g>
-          {ticks.map((t, i) => {
-            const a = map(t, min, max, start, end);
-            const rad = toRad(cartDeg(a));
-            const major = (t - min) % 200 === 0;
-
-            const x1 = cx + (major ? tickInnerMajor : tickInnerMinor) * Math.cos(rad);
-            const y1 = cy + (major ? tickInnerMajor : tickInnerMinor) * Math.sin(rad);
-            const x2 = cx + tickOuter * Math.cos(rad);
-            const y2 = cy + tickOuter * Math.sin(rad);
-
-            const showLabel = t === min || t === max;
-            const lx = cx + (tickInnerMajor - 22) * Math.cos(rad);
-            const ly = cy + (tickInnerMajor - 22) * Math.sin(rad);
-
-            return (
-              <g key={i}>
-                <line
-                  x1={x1}
-                  y1={y1}
-                  x2={x2}
-                  y2={y2}
-                  stroke="#2e2e2e"
-                  strokeWidth={major ? 3 : 2}
-                  strokeLinecap="round"
-                />
-                {showLabel && (
-                  <text
-                    x={lx}
-                    y={ly}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    className="fill-gray-700 text-[10px] select-none"
-                  >
-                    {t}
-                  </text>
-                )}
-              </g>
-            );
-          })}
-        </g>
-
-        <g
-          style={{
-            transform: `rotate(${needleDeg}deg)`,
-            transformOrigin: `${cx}px ${cy}px`,
-            transition: "transform 220ms ease-out",
-          }}
-        >
-          <line
-            x1={cx}
-            y1={cy}
-            x2={cx}
-            y2={cy - rNeedle}
-            className="stroke-red-500"
-            strokeWidth={6}
-            strokeLinecap="round"
-          />
-        </g>
-
-        <circle cx={cx} cy={cy} r={12} className="fill-gray-600" />
-      </svg>
-    </div>
-  );
-};
-
 /* ---------------- Component (data & input in KG) ---------------- */
 type Props = { data?: number[]; hint?: string };
 type Status = "idle" | "match" | "wrong";
@@ -267,3 +163,129 @@ const ArrType_60: React.FC<Props> = ({ data, hint }) => {
 };
 
 export default ArrType_60;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------- Gauge (expects KG 0..1000) ---------------- */
+type KiloGramMeterProps = { value: number; size?: number; sweep?: number };
+
+const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
+const map = (v: number, inMin: number, inMax: number, outMin: number, outMax: number) =>
+  ((v - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+
+const KiloGramMeter: React.FC<KiloGramMeterProps> = ({ value, size = 220, sweep = 270 }) => {
+  const min = 0, max = 1000, tickEvery = 100; // all in KILOGRAMS
+  const v = clamp(Number.isFinite(value) ? value : 0, min, max);
+
+  const start = -sweep / 2, end = sweep / 2;
+  const needleDeg = map(v, min, max, start, end);
+
+  const cx = size / 2, cy = size / 2;
+  const rOuter = Math.round(size * 0.39);
+  const rFace = rOuter - 6;
+  const rNeedle = rFace - 18;
+  const tickOuter = rOuter - 4;
+  const tickInnerMinor = tickOuter - 10;
+  const tickInnerMajor = tickOuter - 18;
+
+  const ticks = useMemo(() => {
+    const arr: number[] = [];
+    for (let t = min; t <= max; t += tickEvery) arr.push(t);
+    if (arr[arr.length - 1] !== max) arr.push(max);
+    return arr;
+  }, []);
+
+  const toRad = (degFromRight: number) => (degFromRight * Math.PI) / 180;
+  const cartDeg = (needleAngleDeg: number) => needleAngleDeg - 90;
+
+  return (
+    <div className="inline-flex flex-col items-center gap-3">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={cx} cy={cy} r={rOuter} className="fill-white stroke-gray-400" strokeWidth={8} />
+        <circle cx={cx} cy={cy} r={rFace} className="fill-white" />
+
+        <g>
+          {ticks.map((t, i) => {
+            const a = map(t, min, max, start, end);
+            const rad = toRad(cartDeg(a));
+            const major = (t - min) % 200 === 0;
+
+            const x1 = cx + (major ? tickInnerMajor : tickInnerMinor) * Math.cos(rad);
+            const y1 = cy + (major ? tickInnerMajor : tickInnerMinor) * Math.sin(rad);
+            const x2 = cx + tickOuter * Math.cos(rad);
+            const y2 = cy + tickOuter * Math.sin(rad);
+
+            const showLabel = t === min || t === max;
+            const lx = cx + (tickInnerMajor - 22) * Math.cos(rad);
+            const ly = cy + (tickInnerMajor - 22) * Math.sin(rad);
+
+            return (
+              <g key={i}>
+                <line
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="#2e2e2e"
+                  strokeWidth={major ? 3 : 2}
+                  strokeLinecap="round"
+                />
+                {showLabel && (
+                  <text
+                    x={lx}
+                    y={ly}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    className="fill-gray-700 text-[10px] select-none"
+                  >
+                    {t}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+        </g>
+
+        <g
+          style={{
+            transform: `rotate(${needleDeg}deg)`,
+            transformOrigin: `${cx}px ${cy}px`,
+            transition: "transform 220ms ease-out",
+          }}
+        >
+          <line
+            x1={cx}
+            y1={cy}
+            x2={cx}
+            y2={cy - rNeedle}
+            className="stroke-red-500"
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+        </g>
+
+        <circle cx={cx} cy={cy} r={12} className="fill-gray-600" />
+      </svg>
+    </div>
+  );
+};
