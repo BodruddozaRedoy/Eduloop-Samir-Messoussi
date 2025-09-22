@@ -33,7 +33,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_51({ hint }: { hint: string }) {
+export default function ArrType_58({ hint }: { hint: string }) {
   const initialAnswers = useMemo(
     () =>
       problemsJSON.map((p) =>
