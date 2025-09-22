@@ -6,141 +6,222 @@ import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
 
-// Multiplication problems data
-const problemsJSON = [
-  {
-    id: 1,
-    factor1: 6,
-    factor2: 37,
-    breakdown1: 30,
-    breakdown2: 7,
-    partialProduct1: 180, // 6 * 30
-    partialProduct2: 42, // 6 * 7
-    product: 222, // 180 + 42
-  },
-  {
-    id: 2,
-    factor1: 7,
-    factor2: 28,
-    breakdown1: 20,
-    breakdown2: 8,
-    partialProduct1: 140, // 7 * 20
-    partialProduct2: 56, // 7 * 8
-    product: 196, // 140 + 56
-  },
-  {
-    id: 3,
-    factor1: 4,
-    factor2: 57,
-    breakdown1: 50,
-    breakdown2: 7,
-    partialProduct1: 200, // 4 * 50
-    partialProduct2: 28, // 4 * 7
-    product: 228, // 200 + 28
-  },
-];
+/* -------------------- Local data (no props yet) -------------------- */
+const data = [{ digits: [4, 0, 2, 9] }];
+const hint = "👉 Try combining the given digits to make 3-digit numbers under 1000.";
 
-export default function ArrType_23({ hint }: { hint: string }) {
-  const [answers, setAnswers] = useState(
-    Array(problemsJSON.length).fill({
-      partial1: "",
-      partial2: "",
-      product: "",
-      breakdown1: "",
-      breakdown2: "",
-    })
+/* --------------------------- UI bits --------------------------- */
+const DigitBox = ({ value }: { value: number | string }) => (
+  <div className="flex h-12 w-12 items-center justify-center border-2 border-orange-500 bg-white text-lg font-semibold text-slate-800">
+    {value}
+  </div>
+);
+
+const GreenPill = ({ value }: { value: number | string }) => (
+  <div className="rounded-sm border-2 border-emerald-600 bg-white px-3 py-2 text-sm font-semibold text-emerald-700 font-mono tabular-nums">
+    {value}
+  </div>
+);
+
+const AmberStrip: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="inline-flex flex-wrap gap-3 rounded-2xl bg-amber-50/60 p-4">
+    {children}
+  </div>
+);
+
+type BoxState = "idle" | "ok" | "err";
+
+const PillInput = ({
+  value,
+  onChange,
+  state = "idle",
+  placeholder = "",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  state?: BoxState;
+  placeholder?: string;
+}) => {
+  const base =
+    "w-20 rounded-sm border-2 bg-white px-3 py-2 text-center font-mono text-sm font-semibold tabular-nums outline-none";
+  const color =
+    state === "ok"
+      ? "border-emerald-600 text-emerald-700 focus:ring-2 focus:ring-emerald-300"
+      : state === "err"
+      ? "border-red-500 text-red-700 focus:ring-2 focus:ring-red-300"
+      : "border-orange-400 text-slate-700 focus:ring-2 focus:ring-orange-300";
+  return (
+    <input
+      value={value}
+      onChange={(e) => onChange(e.target.value.replace(/[^\d]/g, ""))}
+      placeholder={placeholder}
+      inputMode="numeric"
+      className={`${base} ${color}`}
+    />
   );
-  const [validation, setValidation] = useState<(boolean | null)[]>(
-    Array(problemsJSON.length * 5).fill(null)
-  );
-  const [status, setStatus] = useState<"match" | "wrong" | null>(null);
-  const [showSolution, setShowSolution] = useState(false);
+};
+
+/* ---------------------- helper: make examples ---------------------- */
+function makeThreeDigitExamples(
+  digits: (number | string)[],
+  count = 6
+): number[] {
+  const nums = digits.map(Number);
+  const out: number[] = [];
+  const seen = new Set<number>();
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 0) continue;
+    for (let j = 0; j < nums.length; j++) {
+      if (j === i) continue;
+      for (let k = 0; k < nums.length; k++) {
+        if (k === i || k === j) continue;
+        const n = nums[i] * 100 + nums[j] * 10 + nums[k];
+        if (!seen.has(n)) {
+          seen.add(n);
+          out.push(n);
+          if (out.length >= count) return out;
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/* ------------------------- validation utils ------------------------- */
+const digs = (n: number) => n.toString().split("").map(Number);
+const onlyFrom = (n: number, allowed: number[]) =>
+  digs(n).every((d) => allowed.includes(d));
+const noLeadingZero = (n: number) =>
+  n.toString().length === 1 || n.toString()[0] !== "0";
+const distinct = (n: number) => {
+  const ds = digs(n);
+  return new Set(ds).size === ds.length;
+};
+const under1000 = (n: number) =>
+  n >= 0 && n < 1000 && n.toString().length <= 3;
+const eqArr = (a: number[], b: number[]) =>
+  a.length === b.length && a.every((v, i) => v === b[i]);
+
+/* ----------------------------- Page -------------------------------- */
+export default function ArrType_23() {
+  const title = "Question 1";
+  const instruction = "Make 6 numbers under 1000 with these digits. For example,";
+  const secondLine = "Arrange in order from smallest to largest";
+
+  const digits = data[0].digits.map(Number);
+  const REQUIRED = 6;
   const [showHint, setShowHint] = useState(false);
 
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
   const { setControls } = useQuestionControls();
 
-  // Input handler
-  const handleInputChange = useCallback(
-    (
-      idx: number,
-      field: "partial1" | "partial2" | "product" | "breakdown1" | "breakdown2",
-      value: string
-    ) => {
-      setAnswers((prev) => {
-        const next = [...prev];
-        next[idx] = { ...next[idx], [field]: value };
-        return next;
-      });
-      setStatus(null);
-    },
-    []
+  // Demo solution for "Show Solution"
+  const sample = useMemo(() => makeThreeDigitExamples(digits, REQUIRED), [
+    digits,
+  ]);
+  const sampleSorted = useMemo(() => [...sample].sort((a, b) => a - b), [
+    sample,
+  ]);
+
+  // Inputs
+  const [rowCreate, setRowCreate] = useState<string[]>(
+    Array(REQUIRED).fill("")
+  );
+  const [rowArrange, setRowArrange] = useState<string[]>(
+    Array(REQUIRED).fill("")
   );
 
-  // Check
-  const handleCheck = useCallback(() => {
-    let allCorrect = true;
-    const newValidation: (boolean | null)[] = [];
+  // Per-box correctness styling (set on Check)
+  const [stateCreate, setStateCreate] = useState<BoxState[]>(
+    Array(REQUIRED).fill("idle")
+  );
+  const [stateArrange, setStateArrange] = useState<BoxState[]>(
+    Array(REQUIRED).fill("idle")
+  );
 
-    problemsJSON.forEach((p, i) => {
-      const isBreakdown1Correct = parseInt(answers[i].breakdown1) === p.breakdown1;
-      const isBreakdown2Correct = parseInt(answers[i].breakdown2) === p.breakdown2;
-      const isPartial1Correct = parseInt(answers[i].partial1) === p.partialProduct1;
-      const isPartial2Correct = parseInt(answers[i].partial2) === p.partialProduct2;
-      const isProductCorrect = parseInt(answers[i].product) === p.product;
+  // Status drives your summary
+  const [status, setStatus] = useState<"idle" | "match" | "wrong">("idle");
 
-      newValidation.push(
-        isPartial1Correct,
-        isPartial2Correct,
-        isProductCorrect,
-        isBreakdown1Correct,
-        isBreakdown2Correct
-      );
+  const summary =
+    status === "match"
+      ? {
+          text: "🎉 All Correct! Great job",
+          color: "text-green-600",
+          bgColor: "bg-green-100",
+          borderColor: "border-green-600",
+        }
+      : status === "wrong"
+      ? {
+          text: "❌ Some answers are wrong. Check again.",
+          color: "text-red-600",
+          bgColor: "bg-red-100",
+          borderColor: "border-red-600",
+        }
+      : null;
 
-      if (
-        !isPartial1Correct ||
-        !isPartial2Correct ||
-        !isProductCorrect ||
-        !isBreakdown1Correct ||
-        !isBreakdown2Correct
-      ) {
-        allCorrect = false;
-      }
-    });
+  const parseRow = (arr: string[]) =>
+    arr.map((s) => Number(s)).filter((n) => !Number.isNaN(n));
 
-    setValidation(newValidation);
-    setStatus(allCorrect ? "match" : "wrong");
-    addResult({ id: qId, title: qTitle }, allCorrect);
-  }, [answers, addResult, qId, qTitle]);
-
-  // Show Solution
-  const handleShowSolution = useCallback(() => {
-    const filledAnswers = problemsJSON.map((p) => ({
-      partial1: p.partialProduct1.toString(),
-      partial2: p.partialProduct2.toString(),
-      product: p.product.toString(),
-      breakdown1: p.breakdown1.toString(),
-      breakdown2: p.breakdown2.toString(),
-    }));
-    setAnswers(filledAnswers);
-    setValidation(Array(problemsJSON.length * 5).fill(true));
-    setShowSolution(true);
+  const handleShowSolution = () => {
+    setRowCreate(sample.map(String));
+    setRowArrange(sampleSorted.map(String));
+    setStateCreate(Array(REQUIRED).fill("ok"));
+    setStateArrange(Array(REQUIRED).fill("ok"));
     setStatus("match");
-  }, []);
+    setShowSolution(true);
+  };
 
-  // Hint toggle
+  const handleCheck = () => {
+    const nextCreate: BoxState[] = Array(REQUIRED).fill("err");
+    const nextArrange: BoxState[] = Array(REQUIRED).fill("err");
+    const numsCreate = rowCreate.map((s) => Number(s));
+    const numsArrange = rowArrange.map((s) => Number(s));
+
+    let allCreateValid = true;
+    for (let i = 0; i < REQUIRED; i++) {
+      const n = numsCreate[i];
+      const s = rowCreate[i].trim();
+      const valid =
+        s !== "" && // Check if the field is not empty
+        Number.isFinite(n) &&
+        under1000(n) &&
+        noLeadingZero(n) &&
+        onlyFrom(n, digits) &&
+        distinct(n);
+      nextCreate[i] = valid ? "ok" : "err";
+      if (!valid) allCreateValid = false;
+    }
+
+    if (!allCreateValid) {
+      setStateCreate(nextCreate);
+      setStateArrange(Array(REQUIRED).fill("idle"));
+      setStatus("wrong");
+      return;
+    }
+
+    const userNums = numsCreate as number[];
+    const wantSorted = [...userNums].sort((a, b) => a - b);
+
+    let allArrangeValid = true;
+    for (let i = 0; i < REQUIRED; i++) {
+      const n = numsArrange[i];
+      const s = rowArrange[i].trim();
+      const ok = s !== "" && Number.isFinite(n) && n === wantSorted[i];
+      nextArrange[i] = ok ? "ok" : "err";
+      if (!ok) allArrangeValid = false;
+    }
+
+    setStateCreate(nextCreate);
+    setStateArrange(nextArrange);
+    setStatus(allArrangeValid ? "match" : "wrong");
+
+    const overallCorrect = allCreateValid && allArrangeValid;
+    addResult({ id: qId, title: qTitle }, overallCorrect);
+  };
+
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  // Summary
-  const summary = useMemo(() => {
-    if (!status) return null;
-    return status === "match"
-      ? { text: "🎉 Correct! Good Job", color: "text-green-600" }
-      : { text: "❌ Some answers are wrong", color: "text-red-600" };
-  }, [status]);
-
-  // Controls sync
   useEffect(() => {
     setControls({
       handleCheck,
@@ -150,109 +231,72 @@ export default function ArrType_23({ hint }: { hint: string }) {
       showHint,
       summary,
     });
-  }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
+  }, [
+    setControls,
+    handleCheck,
+    handleShowHint,
+    handleShowSolution,
+    hint,
+    showHint,
+    summary,
+  ]);
 
   return (
-    <div className="flex flex-col space-y-6">
-      <div className="flex flex-wrap justify-center gap-10 px-6 py-8">
-        {problemsJSON.map((p, idx) => (
-          <div key={p.id} className="flex flex-col items-center relative p-4">
-            {/* Top bubble for partial products */}
-            <div
-              className={``}
-              style={{
-                backgroundImage: `url(/images/union.png)`,
-                backgroundSize: "100% 100%",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                minWidth: "200px",
-                minHeight: "60px",
-                justifyContent: "center",
-                paddingTop: "0px",
-                
-              }}
-            >
-              <input
-                type="number"
-                className="w-16  p-0.5 text-center bg-transparent border-b border-dashed border-gray-400 outline-none text-gray-800 font-semibold"
-                value={showSolution ? p.partialProduct1 : answers[idx].partial1}
-                onChange={(e) => handleInputChange(idx, "partial1", e.target.value)}
-                readOnly={showSolution}
-              />
-              <span className="mx-2 font-bold text-gray-600">+</span>
-              <input
-                type="number"
-                className="w-16 p-0.5 text-center bg-transparent border-b border-dashed border-gray-400 outline-none text-gray-800 font-semibold"
-                value={showSolution ? p.partialProduct2 : answers[idx].partial2}
-                onChange={(e) => handleInputChange(idx, "partial2", e.target.value)}
-                readOnly={showSolution}
-              />
-            </div>
-       
+    <div className="">
+      {/* Header */}
+      <h2 className="text-lg font-semibold">{title}</h2>
+      <p className="text-sm text-slate-600">{instruction}</p>
 
-            {/* Main multiplication line */}
-            <div className="flex flex-col items-center mt-[10px] text-xl font-semibold">
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-800">{p.factor1}</span>
-                <span className="text-gray-500">x</span>
-                <span className="text-gray-800">{p.factor2}</span>
-                <span className="text-gray-500">=</span>
-                <input
-                  type="number"
-                  className="w-24 p-0.5 text-center bg-transparent border-b border-dashed border-gray-400 outline-none text-gray-800 font-semibold"
-                  value={showSolution ? p.product : answers[idx].product}
-                  onChange={(e) => handleInputChange(idx, "product", e.target.value)}
-                  readOnly={showSolution}
-                />
-              </div>
-
-              {/* SVG for the V-shaped arrow */}
-              <div
-                className={`relative `}
-                style={{ height: "40px", width: "100px", left: "20px" }} // Adjusted width and added 'left' to position it under factor2
-              >
-                <svg
-                  className={`absolute top-0 right-4 -translate-x-1/2 transition-opacity duration-500`}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    viewBox: "0 0 100 80", // Adjusted viewBox to fit the new width
-                    opacity: status !== null || showSolution ? 1 : 0,
-                  }}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M 50 0 L 0 80 M 50 0 L 100 80"
-                    stroke="#FF0000" // Red color for the line
-                    strokeWidth="2"
-                    fill="transparent"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            {/* Breakdown inputs (now placed relative to the main problem) */}
-            <div className="flex  gap-5 relative w-full left-0">
-              <input
-                type="number"
-                className={`w-10 p-0.5 text-center bg-transparent border-b border-dashed border-gray-400 outline-none font-medium text-gray-800`}
-                value={showSolution ? p.breakdown1 : answers[idx].breakdown1}
-                onChange={(e) => handleInputChange(idx, "breakdown1", e.target.value)}
-                readOnly={showSolution}
-              />
-              <input
-                type="number"
-                className={`w-10 p-0.5 text-center bg-transparent border-b border-dashed right-20  border-gray-400 outline-none font-medium text-gray-800`}
-                value={showSolution ? p.breakdown2 : answers[idx].breakdown2}
-                onChange={(e) => handleInputChange(idx, "breakdown2", e.target.value)}
-                readOnly={showSolution}
-              />
-            </div>
-          </div>
+      {/* Digits row */}
+      <div className="flex gap-4 pt-2">
+        {digits.map((d, i) => (
+          <DigitBox key={i} value={d} />
         ))}
       </div>
 
-      
+      {/* Row 1: user creates numbers */}
+      <AmberStrip>
+        {rowCreate.map((val, i) => (
+          <PillInput
+            key={`c-${i}`}
+            value={val}
+            state={stateCreate[i]}
+            onChange={(v) =>
+              setRowCreate((prev) => {
+                const next = [...prev];
+                next[i] = v;
+                return next;
+              })
+            }
+            placeholder="---"
+          />
+        ))}
+      </AmberStrip>
+
+      {/* Row 2: arrange ascending */}
+      <div className="pt-1">
+        <p className="mb-2 text-sm text-slate-600">
+          Arrange in order from smallest to largest
+        </p>
+        <AmberStrip>
+          {rowArrange.map((val, i) => (
+            <PillInput
+              key={`s-${i}`}
+              value={val}
+              state={stateArrange[i]}
+              onChange={(v) =>
+                setRowArrange((prev) => {
+                  const next = [...prev];
+                  next[i] = v;
+                  return next;
+                })
+              }
+              placeholder="---"
+            />
+          ))}
+        </AmberStrip>
+      </div>
+
     </div>
   );
 }
