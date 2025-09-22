@@ -56,7 +56,7 @@ const DEFAULT_HINT_V2 = "Think about the operation, fill both blanks so the equa
  * - Passes data & hint down to the selected child
  * ───────────────────────────────────────────────────────── */
 export default function ArrType_14({
-  method = 1,
+  method,
   dataV1 = DEFAULT_V1_DATA,
   dataV2 = DEFAULT_V2_COLS,
   hintV1 = DEFAULT_HINT_V1,
