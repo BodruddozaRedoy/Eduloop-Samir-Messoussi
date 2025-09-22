@@ -60,7 +60,7 @@ const renderFractionText = (fractionText: string) => {
 };
 
 
-export default function ArrType_39({ hint }: { hint: string }) {
+export default function ArrType_47({ hint }: { hint: string }) {
   const [selectedAnswers, setSelectedAnswers] = useState(
     Array(problemsJSON.length).fill(null)
   );
