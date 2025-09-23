@@ -48,7 +48,17 @@ export default function ArrType_77({ hint }: { hint: string }) {
 
 
 
-
+  const handleInputChange = useCallback(
+    (problemIdx: number, field: string, value: string) => {
+      setAnswers((prev) => {
+        const newAnswers = [...prev];
+        newAnswers[problemIdx] = { ...newAnswers[problemIdx], [field]: value };
+        return newAnswers;
+      });
+      setStatus(null);
+    },
+    []
+  );
 
   const handleCheck = useCallback(() => {
     let allCorrect = true;
