@@ -50,6 +50,11 @@ export default function ArrType_76({ hint }: { hint: string }) {
       return isCorrect;
     });
 
+    setValidation(newValidation);
+    setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, allCorrect);
+  }, [answers, addResult, qId, qTitle]);
+
 
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
