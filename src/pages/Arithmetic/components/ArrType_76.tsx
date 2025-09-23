@@ -61,7 +61,16 @@ export default function ArrType_76({ hint }: { hint: string }) {
       : { text: "❌ Some answers are wrong", color: "text-red-600" };
   }, [status]);
 
-
+  useEffect(() => {
+    setControls({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    });
+  }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
 
   const getInputClass = (isCorrect: boolean | null) => {
     if (isCorrect === true) return "text-green-600";
