@@ -46,7 +46,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_58({ hint }: { hint: string }) {
+export default function ArrType_77({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({
       departureTime: "",
