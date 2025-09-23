@@ -32,10 +32,21 @@ const problemsJSON = [
     },
     inputField: "departureTime",
   },
-
+  {
+    id: 3,
+    departureDate: "12-09-2024",
+    departureTime: "21:45",
+    arrivalDate: "13-09-2024",
+    arrivalTime: "17:10",
+    travelTime: {
+      hours: "19",
+      minutes: "25",
+    },
+    inputField: "arrivalTime",
+  },
 ];
 
-export default function ArrType_77({ hint }: { hint: string }) {
+export default function ArrType_58({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({
       departureTime: "",
@@ -44,8 +55,12 @@ export default function ArrType_77({ hint }: { hint: string }) {
       travelMinutes: "",
     }))
   );
-
-
+  const [validation, setValidation] = useState<(boolean | null)[]>(
+    Array(problemsJSON.length).fill(null)
+  );
+  const [status, setStatus] = useState<"match" | "wrong" | null>(null);
+  const [showSolution, setShowSolution] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
