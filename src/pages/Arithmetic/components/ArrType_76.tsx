@@ -19,7 +19,9 @@ export default function ArrType_76({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => "")
   );
-
+  const [validation, setValidation] = useState<(boolean | null)[]>(
+    problemsJSON.map(() => null)
+  );
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
