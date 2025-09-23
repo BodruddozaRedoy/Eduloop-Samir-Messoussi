@@ -46,7 +46,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_53({ hint }: { hint: string }) {
+export default function ArrType_72({ hint }: { hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({ partialSum: "", helpSum1: "", helpSum2: "", weeks: "" }))
   );
@@ -277,6 +277,7 @@ export default function ArrType_53({ hint }: { hint: string }) {
               
               {/* Partial Sum */}
               {renderPartialSum(p, problemIdx)}
+              
 
               {/* Help Sums */}
               <div className="p-2 bg-white text-sm text-center border-r border-orange-300 border-t border-orange-300">
