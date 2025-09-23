@@ -34,7 +34,7 @@ const SubjectPage: React.FC = () => {
     const {group} = useCategories()
     const groupData = group?.find(prev => prev.slug.includes("group-4"))
     const [params] = useSearchParams()
-    const groupId = params.get("groupId")
+    const groupId = params.get("group")
     
     // const groupData = pathname?.state?.subjects
     console.log(groupData)

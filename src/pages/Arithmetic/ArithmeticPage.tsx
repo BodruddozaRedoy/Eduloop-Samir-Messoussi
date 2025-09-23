@@ -4,7 +4,7 @@ import { IoIosArrowForward, IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheck
 import { BadgeCheck, ChevronLeft } from "lucide-react"
 import QuestionRenderer from "./components/QuestionRenderer"
 import { QUESTIONS_DATA } from "./components/Questions"
-import { Link } from "react-router"
+import { Link, useSearchParams } from "react-router"
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker"
 import Controllers from "@/components/common/Controllers"
 import Hint from "@/components/common/Hint"
@@ -56,6 +56,11 @@ export default function ArithmeticPage() {
     const pillBase = "py-2 px-5 rounded-lg font-semibold"
     const active = "bg-primary text-white"
     const inactive = "bg-transparent text-black"
+
+    const [searchParams] = useSearchParams()
+    const subject = searchParams.get("subject")
+    const group = searchParams.get("group")
+
 
     return (
         <QuestionControlsProvider>
@@ -129,11 +134,11 @@ export default function ArithmeticPage() {
 
 
                     <div className="flex items-center gap-5 mt-5">
-                        <div>
+                        <Link to={`/group/subject/category?group=${group}&subject=${subject}`}>
                             <Button className=" py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
                                 <ChevronLeft className="mr-2" /> Switch Category
                             </Button>
-                        </div>
+                        </Link>
                         <Button
                             onClick={handleNext}
                             disabled={isLast}
@@ -144,7 +149,7 @@ export default function ArithmeticPage() {
                                 <IoMdArrowRoundForward size={50} className="text-5xl" />
                             </div>
                         </Button>
-                        <Link to={"/result"} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+                        <Link to={`/result?group=${group}&subject=${subject}`} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
                             <Button
                                 disabled={!hasResults}
                                 className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
