@@ -12,7 +12,11 @@ const problemsJSON = [
   { id: 4, fraction: "2/75", answer: "0.027" },
   { id: 5, fraction: "6/25", answer: "0.24" },
 
- 
+  { id: 6, fraction: "6/9", answer: "0.667" },
+  { id: 7, fraction: "5/6", answer: "0.833" },
+  { id: 8, fraction: "3 1/6", answer: "3.167" },
+  { id: 9, fraction: "2/75", answer: "0.027" },
+  { id: 10, fraction: "6/25", answer: "0.24" },
 ];
 
 export default function ArrType_76({ hint }: { hint: string }) {
