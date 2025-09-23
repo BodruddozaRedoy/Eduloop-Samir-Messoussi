@@ -55,7 +55,13 @@ export default function ArrType_76({ hint }: { hint: string }) {
     addResult({ id: qId, title: qTitle }, allCorrect);
   }, [answers, addResult, qId, qTitle]);
 
-
+  const handleShowSolution = useCallback(() => {
+    const filledAnswers = problemsJSON.map((p) => p.answer);
+    setAnswers(filledAnswers);
+    setValidation(problemsJSON.map(() => true));
+    setShowSolution(true);
+    setStatus("match");
+  }, []);
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
