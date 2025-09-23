@@ -47,6 +47,9 @@ export default function ArrType_77({ hint }: { hint: string }) {
 
 
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+  const { setControls } = useQuestionControls();
 
   const handleInputChange = useCallback(
     (problemIdx: number, field: string, value: string) => {
