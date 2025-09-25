@@ -159,6 +159,7 @@ export default function ArrType_23() {
           borderColor: "border-red-600",
         }
       : null;
+      const [showSolution, setShowSolution] = useState(false);
 
   const parseRow = (arr: string[]) =>
     arr.map((s) => Number(s)).filter((n) => !Number.isNaN(n));
@@ -168,7 +169,7 @@ export default function ArrType_23() {
     setRowArrange(sampleSorted.map(String));
     setStateCreate(Array(REQUIRED).fill("ok"));
     setStateArrange(Array(REQUIRED).fill("ok"));
-    setStatus("match");
+    // setStatus("match");
     setShowSolution(true);
   };
 
@@ -232,13 +233,13 @@ export default function ArrType_23() {
       summary,
     });
   }, [
-    setControls,
-    handleCheck,
-    handleShowHint,
-    handleShowSolution,
-    hint,
-    showHint,
-    summary,
+    // setControls,
+    // handleCheck,
+    // handleShowHint,
+    // handleShowSolution,
+    // hint,
+    // showHint,
+    // summary,
   ]);
 
   return (
