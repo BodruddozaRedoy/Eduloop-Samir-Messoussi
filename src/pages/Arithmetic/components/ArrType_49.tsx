@@ -28,7 +28,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_49({ hint }: { hint: string }) {
+export default function ArrType_49({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map((p) => p.problemRows.map(() => ({ estimate: "", answer: "" })))
   );
@@ -125,8 +125,6 @@ export default function ArrType_49({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Estimate first, then place the comma.</div>
 
       <div className="grid grid-cols-2 gap-x-12 gap-y-8 px-6 py-8">
         {problemsJSON.map((problem, problemIdx) => (

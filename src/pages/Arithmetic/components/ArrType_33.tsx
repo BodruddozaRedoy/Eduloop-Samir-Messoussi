@@ -11,22 +11,22 @@ const problemsJSON = [
   {
     id: 1,
     leftText: "20% is $50.",
-    correctMatch: 3, 
+    correctMatch: 3,
   },
   {
     id: 2,
     leftText: "50% is $1700.",
-    correctMatch: 0, 
+    correctMatch: 0,
   },
   {
     id: 3,
     leftText: "10% is $350.",
-    correctMatch: 2, 
+    correctMatch: 2,
   },
   {
     id: 4,
     leftText: "40% is $56.",
-    correctMatch: 1, 
+    correctMatch: 1,
   },
 ];
 
@@ -45,7 +45,7 @@ const areEqualSets = (a, b) => {
   return true;
 };
 
-export default function ArrType_33({ hint }: { hint: string }) {
+export default function ArrType_33({ hint, data: problemsJSON }: { data: any, hint: string }) {
   const [connections, setConnections] = useState([]);
   const [selectedDot, setSelectedDot] = useState(null);
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
@@ -197,11 +197,10 @@ export default function ArrType_33({ hint }: { hint: string }) {
               <p className="text-md text-gray-800">{p.leftText}</p>
               <div
                 ref={(el) => (leftRefs.current[idx] = el)}
-                className={`w-4 h-4 rounded-full border-2 cursor-pointer ${
-                  selectedDot?.side === "left" && selectedDot.index === idx
+                className={`w-4 h-4 rounded-full border-2 cursor-pointer ${selectedDot?.side === "left" && selectedDot.index === idx
                     ? "bg-blue-500 border-blue-500"
                     : "bg-orange-500 border-orange-500"
-                }`}
+                  }`}
                 onClick={() => handleDotClick("left", idx)}
               />
             </div>
@@ -217,11 +216,10 @@ export default function ArrType_33({ hint }: { hint: string }) {
             <div key={idx} className="flex items-center space-x-4">
               <div
                 ref={(el) => (rightRefs.current[idx] = el)}
-                className={`w-4 h-4 rounded-full border-2 cursor-pointer ${
-                  selectedDot?.side === "right" && selectedDot.index === idx
+                className={`w-4 h-4 rounded-full border-2 cursor-pointer ${selectedDot?.side === "right" && selectedDot.index === idx
                     ? "bg-blue-500 border-blue-500"
                     : "bg-orange-500 border-orange-500"
-                }`}
+                  }`}
                 onClick={() => handleDotClick("right", idx)}
               />
               <p className="text-md text-gray-800">{text}</p>
@@ -230,7 +228,7 @@ export default function ArrType_33({ hint }: { hint: string }) {
         </div>
       </div>
 
-  
+
     </div>
   );
 }

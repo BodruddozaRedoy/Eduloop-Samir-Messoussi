@@ -17,11 +17,7 @@ const SPLIT_ROWS: SplitRow[] = [
   { amount: 749, hundreds: 7, tens: 4, ones: 9 },
 ];
 
-const COMBINE_ROWS: CombineRow[] = [
-  { hundreds: 7, tens: 4, ones: 9, amount: 749 },
-  { hundreds: 7, tens: 4, ones: 9, amount: 749 },
-  { hundreds: 7, tens: 4, ones: 9, amount: 749 },
-];
+const COMBINE_ROWS: CombineRow[] = [];
 
 const DEFAULT_HINT =
   "Use 100-euro notes, 10-euro notes, and 1-euro coins. Example: 7×100 + 4×10 + 9×1 = 749.";
@@ -46,7 +42,7 @@ const onlyNum = (s: string) => s.replace(/[^\d]/g, "");
 /* -----------------------------
    Component
 ------------------------------ */
-const ArrType_42: React.FC = () => {
+const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [checked, setChecked] = useState(false);
@@ -160,14 +156,6 @@ const ArrType_42: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Heading */}
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">
-          How many 100 euro and 10 euro notes and 1 euro coins?
-        </p>
-      </div>
-
       {/* Two tables */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Left: Splits */}
@@ -238,7 +226,7 @@ const ArrType_42: React.FC = () => {
         </div>
 
         {/* Right: Combine */}
-        <div>
+        {/* <div>
           <p className="mb-2 text-sm text-slate-700">Voeg samen.</p>
           <div className="overflow-x-auto rounded-lg p-2">
             <table className="w-full border-collapse text-sm">
@@ -304,7 +292,7 @@ const ArrType_42: React.FC = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* No local Hint/Check/Controllers — global UI uses the exposed controls */}
     </div>

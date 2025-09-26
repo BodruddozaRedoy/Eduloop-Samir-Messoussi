@@ -47,8 +47,8 @@ const DEFAULT_V2_COLS: ColSpec[] = [
   { left: 18, op: "-", rows: 4 },
 ];
 
-const DEFAULT_HINT_V1 = "Try to add or subtract the numbers step by step.";
-const DEFAULT_HINT_V2 = "Think about the operation, fill both blanks so the equation is true.";
+// const DEFAULT_HINT_V1 = "Try to add or subtract the numbers step by step.";
+// const DEFAULT_HINT_V2 = "Think about the operation, fill both blanks so the equation is true.";
 
 /* ─────────────────────────────────────────────────────────
  * PARENT: choose which variant to render (method = 1 or 2)
@@ -57,10 +57,10 @@ const DEFAULT_HINT_V2 = "Think about the operation, fill both blanks so the equa
  * ───────────────────────────────────────────────────────── */
 export default function ArrType_14({
   method,
-  dataV1 = DEFAULT_V1_DATA,
-  dataV2 = DEFAULT_V2_COLS,
-  hintV1 = DEFAULT_HINT_V1,
-  hintV2 = DEFAULT_HINT_V2,
+  data:dataV1,
+  data:dataV2,
+  hint:hintV1,
+  hint:hintV2
 }: {
   method?: 1 | 2;
   /** Data for Method 1 (grid of single-answer equations) */

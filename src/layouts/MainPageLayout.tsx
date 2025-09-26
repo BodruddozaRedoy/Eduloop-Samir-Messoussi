@@ -1,6 +1,6 @@
 import Navbar from '@/components/layout/Navbar'
 import { Outlet, useLocation } from 'react-router'
-import bg from '@/assets/images/bg.jpg'
+// import bg from '@/assets/images/bg.jpg'
 import Footer from '@/components/layout/Footer'
 
 export default function MainPageLayout() {
@@ -8,7 +8,7 @@ export default function MainPageLayout() {
     return (
         <div
             style={{
-                background: `url(${bg})`,
+                // background: `url(${bg})`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",

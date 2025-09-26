@@ -268,7 +268,7 @@ export default function QuestionRenderer({ q }: { q: any }) {
       case "type14_2": {
         return provider(
           <Suspense fallback={<LoadingScreen />}>
-            <ArrType_14 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+            <ArrType_14 key={q.id} hint={q.metadata.hint} method={q.metadata.method} data={q.metadata.data ?? []} />
           </Suspense>
         );
       }

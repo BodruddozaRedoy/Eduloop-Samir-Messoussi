@@ -19,12 +19,12 @@ const problemsJSON = [
   { id: 9, question: "7 x 6 = _", answer: 42 },
 ];
 
-export default function ArrType_19({ hint, data:problemsJSON }: { hint: string, data:any }) {
+export default function ArrType_19({ hint, data }: { hint: string, data:any }) {
   const [answers, setAnswers] = useState<(string | number)[]>(
-    Array(problemsJSON.length).fill("")
+    Array(data.length).fill("")
   );
   const [validation, setValidation] = useState<(boolean | null)[]>(
-    Array(problemsJSON.length).fill(null)
+    Array(data.length).fill(null)
   );
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
@@ -44,7 +44,7 @@ export default function ArrType_19({ hint, data:problemsJSON }: { hint: string, 
   }, []);
 
   const handleCheck = useCallback(() => {
-    const newValidation = problemsJSON.map((p, i) => p.answer === answers[i]);
+    const newValidation = data?.map((p, i) => p.answer === answers[i]);
     const allCorrect = newValidation.every(Boolean);
     setValidation(newValidation);
     setStatus(allCorrect ? "match" : "wrong");
@@ -52,8 +52,8 @@ export default function ArrType_19({ hint, data:problemsJSON }: { hint: string, 
   }, [answers, addResult, qId, qTitle]);
 
   const handleShowSolution = useCallback(() => {
-    setAnswers(problemsJSON.map((p) => p.answer));
-    setValidation(Array(problemsJSON.length).fill(true));
+    setAnswers(data?.map((p) => p.answer));
+    setValidation(Array(data?.length).fill(true));
     setStatus("match");
     setShowSolution(true);
   }, []);
@@ -88,7 +88,7 @@ export default function ArrType_19({ hint, data:problemsJSON }: { hint: string, 
     <div className="flex flex-col">
       {/* Math problems grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full justify-items-start">
-        {problemsJSON.map((p, idx) => (
+        {data?.map((p, idx) => (
           <div
             key={p.id}
             className="flex items-center gap-2 p-2 sm:p-4 rounded bg-white"
@@ -98,12 +98,13 @@ export default function ArrType_19({ hint, data:problemsJSON }: { hint: string, 
                 <input
                   key={i}
                   type="number"
-                  className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-center rounded 
-                      bg-no-repeat bg-center`}
+                  maxLength={3}
+                  className={`sm:w-14 text-xl text-center sm:h-14 size-20 rounded 
+                      bg-no-repeat bg-center outline-none font-semibold`}
                   style={{ backgroundImage: `url("/images/math.png")` }}
                   value={
                     showSolution
-                      ? problemsJSON[idx].answer
+                      ? data[idx].answer
                       : (answers[idx] as string | number)
                   }
                   onChange={(e) => handleInputChange(idx, e.target.value)}

@@ -103,7 +103,7 @@ const eqArr = (a: number[], b: number[]) =>
   a.length === b.length && a.every((v, i) => v === b[i]);
 
 /* ----------------------------- Page -------------------------------- */
-export default function ArrType_23() {
+export default function ArrType_23({data,hint}:any) {
   const title = "Question 1";
   const instruction = "Make 6 numbers under 1000 with these digits. For example,";
   const secondLine = "Arrange in order from smallest to largest";

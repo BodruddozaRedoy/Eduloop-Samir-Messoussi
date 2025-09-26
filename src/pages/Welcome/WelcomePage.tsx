@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import frontBg from '../../../public/images/front_bg.jpg'
 
 const WelcomePage = () => {
   return (

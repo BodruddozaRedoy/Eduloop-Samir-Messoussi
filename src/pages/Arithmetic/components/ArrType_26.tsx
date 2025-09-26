@@ -61,13 +61,13 @@ function Clock({ hour, minute }: { hour: number; minute: number }) {
 
 export default function ArrType_26({
   hint:hintText,
-  data:problems
+  data
 }: {
   hint?: string;
   data:any
 }) {
   const [userInput, setUserInput] = useState<string[]>(
-    () => problems.map(() => "")
+    () => data?.map(() => "")
   );
 
   const [checked, setChecked] = useState(false);
@@ -90,7 +90,7 @@ export default function ArrType_26({
 
   const handleCheck = useCallback(() => {
     let allCorrect = true;
-    problems.forEach((p, i) => {
+    data?.forEach((p, i) => {
       const correct =
         `${p.hour.toString().padStart(2, "0")}:${p.minute
           .toString()
@@ -106,7 +106,7 @@ export default function ArrType_26({
 
   const handleShowSolution = useCallback(() => {
     setUserInput(
-      problems.map(
+      data?.map(
         (p) =>
           `${p.hour.toString().padStart(2, "0")}:${p.minute
             .toString()
@@ -151,7 +151,7 @@ export default function ArrType_26({
 
   return (
     <div className="flex flex-wrap justify-center gap-10">
-      {problems.map((p, idx) => {
+      {data?.map((p, idx) => {
         const correctTime = `${p.hour.toString().padStart(2, "0")}:${p.minute
           .toString()
           .padStart(2, "0")}`;

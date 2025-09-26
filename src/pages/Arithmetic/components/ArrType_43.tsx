@@ -38,7 +38,7 @@ const isAscending = (arr: Fraction[]) =>
 /* --------------------------------
    Component
 --------------------------------- */
-const ArrType_43: React.FC = () => {
+const ArrType_43: React.FC = ({data,hint}:any) => {
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [checked, setChecked] = useState(false);
@@ -114,10 +114,6 @@ const ArrType_43: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">From small to large. True or false?</p>
-      </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
         {data.map((g, idx) => {

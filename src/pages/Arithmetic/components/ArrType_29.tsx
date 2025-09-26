@@ -51,7 +51,7 @@ const renderFraction = (fractionString: string) => {
   );
 };
 
-export default function ArrType_24({ hint }: { hint: string }) {
+export default function ArrType_24({ hint, data:problemsJSON }: { hint: string, data:any }) {
   const [answers, setAnswers] = useState(
     Array(problemsJSON.length)
       .fill(null)

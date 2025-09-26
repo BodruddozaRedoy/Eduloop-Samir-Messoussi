@@ -86,13 +86,15 @@ function Clock({ hour, minute }: { hour: number; minute: number }) {
 
 export default function ArrType_25({
   hint: hintText = hint,
+  data
 }: {
   hint?: string;
+  data:any
 }) {
   const [userInput, setUserInput] = useState<
     { minutes: string; phrase: string; period: string }[]
   >(() =>
-    problems.map(() => ({
+    data?.map(() => ({
       minutes: "",
       phrase: "",
       period: "",
@@ -122,7 +124,7 @@ export default function ArrType_25({
 
   const handleCheck = useCallback(() => {
     let allCorrect = true;
-    problems.forEach((p, i) => {
+    data?.forEach((p, i) => {
       const ans = p.answer;
       const user = userInput[i];
       if (
@@ -139,7 +141,7 @@ export default function ArrType_25({
   }, [userInput, addResult, qId, qTitle]);
 
   const handleShowSolution = useCallback(() => {
-    setUserInput(problems.map((p) => ({ ...p.answer })));
+    setUserInput(data?.map((p) => ({ ...p.answer })));
     setChecked(true);
   }, []);
 
@@ -178,7 +180,7 @@ export default function ArrType_25({
 
   return (
     <div className="flex items-center justify-center gap-10">
-      {problems.map((p, idx) => {
+      {data?.map((p, idx) => {
         const [h, m] = (p.time ? p.time.split(":").map(Number) : [0, 0]) as [
           number,
           number
