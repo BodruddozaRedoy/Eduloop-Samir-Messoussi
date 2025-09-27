@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useLocation, useSearchParams } from 'react-router';
 import { Checkbox } from "@/components/ui/checkbox"
+import useSubCategories from '@/hooks/useSubCategories';
 
 
 
@@ -12,14 +13,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 // Main Component - Updated to match the new design
 const CategoryPage: React.FC = () => {
     const [select, setSelect] = useState<number[]>([])
-    const [selectCategory, setSelectCategory] = useState<number>()
+    const [selectCategory, setSelectCategory] = useState<number | null>(null)
     const [selectSub, setSelectSub] = useState<number[]>([])
     const [searchParams] = useSearchParams()
     const subjectId = searchParams.get("subjectId")
 
     const { categories } = useCategories(subjectId)
+    // const {subCategories} = useSubCategories(selectCategory)
 
-    // console.log("categories", categories)
+    console.log("categories", categories)
     console.log(select)
 
     const handleSelect = (id: number) => {
@@ -27,7 +29,7 @@ const CategoryPage: React.FC = () => {
     }
 
     const handleSubSelect = (id:number) => {
-
+        setSelectCategory(id)
     }
 
 
@@ -70,11 +72,22 @@ const CategoryPage: React.FC = () => {
                                 <div className="flex items-center gap-3 justify-between">
                                     <h3 className="font-bold text-gray-800 text-lg">{category?.name}</h3>
                                     <div className='flex items-center gap-2'>
-                                        <Button onClick={() => handleSubSelect()} size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select Subcategories</Button>
+                                        <Button onClick={() => handleSubSelect(category.id)} size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select Subcategories</Button>
                                         <Button onClick={() => handleSelect(category.id)} size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select</Button>
                                     </div>
                                 </div>
                                 <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
+                                    {/* subcategories  */}
+                                {
+                                    selectCategory && <div className='grid grid-cols-2'>
+                                    {category?.subcategories?.map((sub, index) => (
+                                        <div className='flex items-center gap-2'>
+                                            <Checkbox/>
+                                            <p className='font-semibold text-sm'>{sub.name}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                }
                             </div>
                         ))}
                     </main>

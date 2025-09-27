@@ -8,7 +8,8 @@ export default function useSubCategories(categoryId:number) {
     queryFn: async () => {
         const res = await AxiosPublic.get(`/subcategories/${categoryId}`)
         return res.data.results
-    }
+    },
+    enabled: !!categoryId
   })
   return {subCategories, subcategoriesLoading}
 }
