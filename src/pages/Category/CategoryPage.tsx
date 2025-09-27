@@ -3,64 +3,32 @@ import useCategories from '@/hooks/useCategories';
 import React, { useState, useMemo } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useLocation, useSearchParams } from 'react-router';
+import { Checkbox } from "@/components/ui/checkbox"
 
-// NOTE: The CategoryCard component and type definitions from your code
-// are used here without change. They are assumed to be in the same file.
 
-// Type definitions
-type Category = {
-    name: string;
-    // description: string;
-};
 
-type CategoryCardProps = {
-    name: string;
-    // description: string;
-    // isSelected: boolean;
-    // onToggle: () => void;
-};
-
-// Reusable Category Card
-const CategoryCard: React.FC<CategoryCardProps> = ({ name, group, subject, category }:any) => {
-    // const borderColor = isSelected ? 'border-orange-500' : 'border-gray-200';
-    // const shadow = isSelected ? 'shadow-lg' : 'shadow-sm';
-    // const bgColor = isSelected ? 'bg-orange-50' : 'bg-white';
-
-    return (
-        <Link to={`/group/subject/category/${subject}?group=${group}&subject=${subject}&category=${category}`}>
-            <label
-                className={`flex flex-col p-6 rounded-2xl gap-3 cursor-pointer border-2 transition-all duration-200 hover:bg-orange-50 hover:border-orange-300`}
-            >
-                <div className="flex items-center gap-3">
-                    {/* <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={onToggle}
-                    className="w-5 h-5 rounded border-gray-400 text-orange-600 focus:ring-orange-500"
-                /> */}
-                    <h3 className="font-bold text-gray-800 text-lg">{name}</h3>
-                </div>
-                <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
-            </label>
-        </Link>
-    );
-};
 
 
 // Main Component - Updated to match the new design
 const CategoryPage: React.FC = () => {
+    const [select, setSelect] = useState<number[]>([])
+    const [selectCategory, setSelectCategory] = useState<number>()
+    const [selectSub, setSelectSub] = useState<number[]>([])
     const [searchParams] = useSearchParams()
-    const group = searchParams.get("group")
-    const subject = searchParams.get("subject")
-    console.log(subject)
+    const subjectId = searchParams.get("subjectId")
 
-    const { group:groupData } = useCategories()
+    const { categories } = useCategories(subjectId)
 
-    const categories = groupData?.find(prev => prev.slug === group)?.subjects.find(prev => prev.slug == subject)?.categories
+    // console.log("categories", categories)
+    console.log(select)
 
-    // const categories = pathname.state.categories
-    console.log("categories", categories)
+    const handleSelect = (id: number) => {
+        setSelect([...select, id])
+    }
 
+    const handleSubSelect = (id:number) => {
+
+    }
 
 
 
@@ -85,7 +53,6 @@ const CategoryPage: React.FC = () => {
                 <p className="lg:text-5xl  text-2xl font-semibold lg:mt-8 mt-4 lg:mb-8 text-[#0F172A]">
                     Pick a category
                 </p>
-                <p>Choose multiple categories from {subject == 'arithmetic' && "Rekenen"} {subject == 'language' && "Taal"} {subject == 'vocabulary' && "Woordenschat"}{subject == 'reading' && "Begrijpend Lezen"}{subject == 'spelling' && "Spelling"}</p>
             </div>
 
 
@@ -96,16 +63,19 @@ const CategoryPage: React.FC = () => {
                     {/* Main Categories Grid */}
                     <main className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-6">
                         {categories?.map(category => (
-                            <CategoryCard
+                            <div
                                 key={category.id}
-                                name={category.name}
-                                group={group}
-                                subject={subject}
-                                category={category.slug}
-                            // description={category.description}
-                            // isSelected={!!selected[category.title]}
-                            // onToggle={() => handleToggle(category.title)}
-                            />
+                                className={`flex flex-col p-6 rounded-2xl gap-3 cursor-pointer border-2 transition-all duration-200`}
+                            >
+                                <div className="flex items-center gap-3 justify-between">
+                                    <h3 className="font-bold text-gray-800 text-lg">{category?.name}</h3>
+                                    <div className='flex items-center gap-2'>
+                                        <Button onClick={() => handleSubSelect()} size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select Subcategories</Button>
+                                        <Button onClick={() => handleSelect(category.id)} size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select</Button>
+                                    </div>
+                                </div>
+                                <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
+                            </div>
                         ))}
                     </main>
 
@@ -115,8 +85,6 @@ const CategoryPage: React.FC = () => {
                         <label className="flex items-start gap-4 cursor-pointer">
                             <input
                                 type="checkbox"
-                                // checked={areAllSelected}
-                                // onChange={handleSelectAll}
                                 className="w-5 h-5 mt-1 rounded border-gray-400 text-orange-600 focus:ring-orange-500 flex-shrink-0"
                             />
                             <div>
@@ -138,3 +106,29 @@ const CategoryPage: React.FC = () => {
 };
 
 export default CategoryPage;
+
+
+
+
+
+
+// Reusable Category Card
+const CategoryCard = ({ category }: any) => {
+
+    return (
+        // <Link to={`/group/subject/category/${"subject"}?group=${"group"}&subject=${"subject"}&category=${"category"}`}>
+        <label
+            className={`flex flex-col p-6 rounded-2xl gap-3 cursor-pointer border-2 transition-all duration-200 hover:bg-orange-50 hover:border-orange-300`}
+        >
+            <div className="flex items-center gap-3 justify-between">
+                <h3 className="font-bold text-gray-800 text-lg">{category?.name}</h3>
+                <div className='flex items-center gap-2'>
+                    <Button size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select Subcategories</Button>
+                    <Button size={"sm"} variant={"outline"} className='text-xs !py-0.5 px-2'>Select</Button>
+                </div>
+            </div>
+            <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
+        </label>
+        // </Link>
+    );
+};

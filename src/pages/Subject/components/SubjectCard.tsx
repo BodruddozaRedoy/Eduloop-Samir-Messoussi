@@ -10,23 +10,23 @@ interface SubjectCardProps {
     // link:string;
 }
 
-export const SubjectCard: React.FC<SubjectCardProps> = ({ id, name, slug, groupId }:any) => {
+export const SubjectCard: React.FC<SubjectCardProps> = ({ sub, groupId }:any) => {
     const [checked, setChecked] = useState(false);
     
     const navigate = useNavigate()
-    console.log(groupId)
+    console.log("groupId")
 
     return (
-        <div onClick={() => navigate(`/group/subject/category?group=${groupId}&subject=${slug}`)}>
+        <div onClick={() => navigate(`/group/subject/category?groupId=${groupId}&subjectId=${sub?.id}`)}>
             <div className="flex flex-col p-12 rounded-2xl border-2 shadow-md border-[#FFF7ED] hover:shadow-xl hover:-translate-y-1 hover:border-[#E16641] transition-transform cursor-pointer bg-white ">
                 <div className="flex items-center mb-2">
                     {/* Custom checkbox */}
                     <div className="size-7 bg-muted p-1.5 rounded">
                         <div className=" border size-full border-primary rounded"></div>
                     </div>
-                    <h3 className="font-semibold text-lg ml-3 text-gray-900">{name}</h3>
+                    <h3 className="font-semibold text-lg ml-3 text-gray-900">{sub?.name}</h3>
                 </div>
-                <p className="text-gray-500 text-sm">Start Practicing {name} Instantly</p>
+                <p className="text-gray-500 text-sm">{sub?.description}</p>
             </div>
         </div>
     );

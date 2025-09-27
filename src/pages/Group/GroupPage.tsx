@@ -1,21 +1,24 @@
 import { Button } from "@/components/ui/button";
 import useCategories from "@/hooks/useCategories";
+import useGroup from "@/hooks/useGroup";
 import React, { useState, useEffect } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router";
 
 interface Group {
     id: number;
-    ageRange: string;
-    name?: string;
+    name: string;
+    description?: string;
 }
 
 const GroupPage: React.FC = () => {
     const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
-    const { group } = useCategories()
+    // const { group } = useCategories()
+    const {data:group, groupLoading} = useGroup()
+    console.log("groups", group)
     const navigate = useNavigate()
 
-    console.log(group)
+    // console.log(group)
     return (
         <div className="relative   flex flex-col justify-start pt-10 px-4 md:px-10">
             {/* Header Section */}
@@ -38,7 +41,7 @@ const GroupPage: React.FC = () => {
                 {group?.map((card) => (
                     <div
                         key={card.id}
-                        onClick={() => { setSelectedGroup(card.id); navigate(`/group/subject?group=${card.slug}`) }}
+                        onClick={() => { setSelectedGroup(card.id); navigate(`/group/subject?groupId=${card.id}`) }}
                         className={`
               flex flex-col bg-white   p-6 rounded-2xl border-2   cursor-pointer transition-all duration-300
               hover:shadow-xl hover:-translate-y-1 hover:bg-[#FFF0ED]
@@ -49,17 +52,10 @@ const GroupPage: React.FC = () => {
             `}
                     >
                         <div className="inline-block bg-[#D95B43] w-26 text-white text-sm font-bold px-4 py-1 rounded-full mb-2">
-                            {card.name}
+                            {card.name.replace("-", " ").replace(/^./, c => c.toUpperCase())}
                         </div>
                         <p className="text-gray-800 font-semibold text-base mb-1">
-                            Best for {" "}
-                            {card.slug === "group-4" && "0-4"}
-                            {card.slug === "group-5" && "5-6"}
-                            {card.slug === "group-6" && "7-8"}
-                            {card.slug === "group-7" && "8-9"}
-                            {card.slug === "group-8" && "10-12"}
-                            {" "}
-                            years learners
+                            {card.description}
                         </p>
                         <p className="text-slate-400 text-sm">Tap to continue</p>
                     </div>

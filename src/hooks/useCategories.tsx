@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import categories from "../assets/data/category.json";
+// import categories from "../assets/data/category.json";
+import { AxiosPublic } from "@/config/axios";
 
-export default function useCategories() {
+export default function useCategories(subjectId:any) {
   const { data, isLoading } = useQuery({
     queryKey: ["Categories"],
-    queryFn: async () => categories, // directly return imported JSON
+    queryFn: async () => {
+      const res = await AxiosPublic.get(`/categories/${subjectId}/`)
+      return res.data.results
+    }, // directly return imported JSON
   });
 
-  return { group:data?.groups, isLoading };
+  return { categories:data, isLoading };
 }
