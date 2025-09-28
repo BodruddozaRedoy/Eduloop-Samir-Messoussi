@@ -167,16 +167,6 @@ const ArrType_51: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">
-          Calculating with splitting? Or estimating and calculating without commas (using a calculator)?
-          <br />
-          Choose 4 sums that you calculate with splitting. Mark them with a dot.
-          <br />
-          The other sums you calculate with estimating and calculating without commas.
-        </p>
-      </div>
 
       {/* 3 columns like the screenshots */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">

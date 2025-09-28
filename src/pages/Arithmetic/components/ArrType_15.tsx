@@ -31,13 +31,16 @@ const key = (side: "L" | "R", idx: number, part: "main" | "bA" | "bB" | "bR") =>
 const HINT_TEXT =
   "Solve the big sum. In the thought bubble, use the ones digit of the first number with the same operator and the second number (e.g., 16−4 → 6−4=2; 14+6 → 4+6=10).";
 
-export default function ArrType_15({ hint }: any) {
+export default function ArrType_15({ hint, data }: any) {
   const [inputs, setInputs] = useState<Record<string, string>>({});
   const [checked, setChecked] = useState(false);
   const [status, setStatus] = useState<"" | "match" | "wrong">("");
   const [showHint, setShowHint] = useState(false);
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
+
+  const LEFT_BLOCK = data?.slice(0, 3)
+  const RIGHT_BLOCK = data?.slice(3, 6)
 
   // refs so caret/focus never gets lost
   const refs = useRef<Record<string, HTMLInputElement | null>>({});

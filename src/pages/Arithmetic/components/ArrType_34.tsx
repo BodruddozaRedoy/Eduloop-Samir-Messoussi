@@ -37,7 +37,7 @@ type Summary =
 /* -----------------------------
    Main component
 ------------------------------ */
-const ArrType_34: React.FC = () => {
+const ArrType_34: React.FC = ({data,hint}:any) => {
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [checked, setChecked] = useState(false);

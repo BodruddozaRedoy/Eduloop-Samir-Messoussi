@@ -30,7 +30,7 @@ const problemsJSON = [
     })),
 ];
 
-export default function ArrType_44({ hint }: { hint: string }) {
+export default function ArrType_44({ hint, data:problemsJSON }: { hint: string }) {
   const [answers, setAnswers] = useState(Array(problemsJSON.length).fill(""));
   const [validation, setValidation] = useState<(boolean | null)[]>(
     Array(problemsJSON.length).fill(null)
@@ -119,8 +119,6 @@ export default function ArrType_44({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-2xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Calculate.</div>
 
       {/* Addition Problems */}
       <div className="grid grid-cols-4 gap-8">

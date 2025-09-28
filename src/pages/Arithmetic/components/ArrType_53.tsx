@@ -50,7 +50,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_53({ hint }: { hint: string }) {
+export default function ArrType_53({ hint,data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({ estimate: "", sum: "", area: "" }))
   );
@@ -151,10 +151,6 @@ export default function ArrType_53({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">
-        What is the area? Estimate first, then calculate without decimals (using that calculator) and place the decimal point afterwards.
-      </div>
 
       <div className="w-full">
         <div className="grid grid-cols-6 border-2 border-orange-300 rounded-lg overflow-hidden">

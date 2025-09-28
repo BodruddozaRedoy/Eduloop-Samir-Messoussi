@@ -28,7 +28,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_37({ hint }: { hint: string }) {
+export default function ArrType_37({ hint,data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map((p) => Array(p.numCols - 1).fill(""))
   );

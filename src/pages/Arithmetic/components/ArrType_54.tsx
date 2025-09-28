@@ -180,10 +180,6 @@ const ArrType_54: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Convert to the other size.</p>
-      </div>
 
       {/* 3 columns × 2 rows (auto wraps on small screens) */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">

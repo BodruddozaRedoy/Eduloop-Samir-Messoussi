@@ -49,9 +49,9 @@ const problemsJSON: Row[] = [
   { id: 7, text: "It is quarter to 10 in the evening.", expectedTime: "21:45" },
 ];
 
-export default function ArrType_22({ hint }: { hint: string }) {
-  const [answers, setAnswers] = useState<string[]>(Array(problemsJSON.length).fill(""));
-  const [validation, setValidation] = useState<(boolean | null)[]>(Array(problemsJSON.length).fill(null));
+export default function ArrType_22({ hint,data }: { hint: string }) {
+  const [answers, setAnswers] = useState<string[]>(Array(data?.length).fill(""));
+  const [validation, setValidation] = useState<(boolean | null)[]>(Array(data?.length).fill(null));
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
@@ -70,7 +70,7 @@ export default function ArrType_22({ hint }: { hint: string }) {
   }, []);
 
   const handleCheck = useCallback(() => {
-    const newValidation = problemsJSON.map((p, i) => p.expectedTime === answers[i].trim());
+    const newValidation = data?.map((p, i) => p.expectedTime === answers[i].trim());
     const allCorrect = newValidation.every(Boolean);
     setValidation(newValidation);
     setStatus(allCorrect ? "match" : "wrong");
@@ -78,8 +78,8 @@ export default function ArrType_22({ hint }: { hint: string }) {
   }, [answers, addResult, qId, qTitle]);
 
   const handleShowSolution = useCallback(() => {
-    setAnswers(problemsJSON.map((p) => p.expectedTime));
-    setValidation(Array(problemsJSON.length).fill(true));
+    setAnswers(data?.map((p) => p.expectedTime));
+    setValidation(Array(data?.length).fill(true));
     setStatus("match");
     setShowSolution(true);
   }, []);
@@ -108,7 +108,7 @@ export default function ArrType_22({ hint }: { hint: string }) {
     <div className="flex flex-col w-full">
       {/* Questions grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-        {problemsJSON.map((p, idx) => (
+        {data?.map((p, idx) => (
           <div
             key={p.id}
             className="rounded-xl bg-amber-50/70 p-6 flex flex-col items-center justify-between text-center min-h-[14rem] shadow"

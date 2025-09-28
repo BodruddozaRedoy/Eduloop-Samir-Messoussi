@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import useCategories from '@/hooks/useCategories';
+import useSubCategories from '@/hooks/useSubCategories';
 import React, { useState, useMemo } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useLocation, useSearchParams } from 'react-router';
@@ -32,16 +33,18 @@ const SubCategoryCard: React.FC<CategoryCardProps> = ({ name }) => {
 // Main Component - Updated to match the new design
 const SubCategoryPage: React.FC = () => {
   const [searchParams] = useSearchParams()
-  const group = searchParams.get("group")
-  const subject = searchParams.get("subject")
-  const category = searchParams.get("category")
+  // const group = searchParams.get("group")
+  // const subject = searchParams.get("subject")
+  const categoryId = searchParams.get("categoryId")
   console.log(subject)
 
-  const { group: groupData } = useCategories()
+  // const { categories } = useCategories()
 
-  const subCategories = groupData?.find(prev => prev.slug === group)?.subjects.find(prev => prev.slug == subject)?.categories.find(prev => prev.slug == category)?.subcategories
+  // const subCategories = groupData?.find(prev => prev.slug === group)?.subjects.find(prev => prev.slug == subject)?.categories.find(prev => prev.slug == category)?.subcategories
 
-  console.log("subCategories", subCategories)
+  // console.log("subCategories", categories)
+
+   const {} =useSubCategories(categoryId)
 
 
 

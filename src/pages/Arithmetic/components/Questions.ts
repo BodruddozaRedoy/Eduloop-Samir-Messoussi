@@ -1,6 +1,346 @@
 export const QUESTIONS_DATA = [
   {
     id: 35,
+    type: "type100",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type99",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type98",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type97",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type96",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type95",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type94",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type93",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type92",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type91",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type90",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type89",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type88",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type87",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type86",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type85",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type84",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type83",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type82",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
+    type: "type81",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Medium",
+    metadata: {
+      question: "Split into hundreds, tens, and units.",
+      data: [
+        { id: 1, digits: [6, 5, 3] },
+        { id: 2, digits: [2, 6, 1] },
+        { id: 3, digits: [1, 2, 8] },
+      ],
+      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+    },
+  },
+  {
+    id: 35,
     type: "type80",
     group: "4",
     subject: "Arithmetic",
@@ -456,13 +796,14 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Calculate using figures. Calculate using figures or column-wise",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { a: 382, b: 4, expected: 1528 },
+        { a: 746, b: 3, expected: 2238 },
+        { a: 609, b: 7, expected: 4263 },
+        { a: 1203, b: 8, expected: 9624 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Calculate. 1) Calculate using figures. 2) Calculate using figures or column-wise. (Example: 382 × 4 = 1528.)",
     },
   },
   {
@@ -473,13 +814,16 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Convert to the other size.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { value: 23, from: "kg", to: "g", expected: 23000 },
+        { value: 5, from: "g", to: "mg", expected: 5000 },
+        { value: 3.5, from: "kg", to: "g", expected: 3500 },
+        { value: 0.575, from: "kg", to: "g", expected: 575 },
+        { value: 1500, from: "g", to: "kg", expected: 1.5 },
+        { value: 3, from: "kg", to: "g", expected: 3000 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Use place-value: 1 kg = 1000 g and 1 g = 1000 mg. Multiply when going to a smaller unit; divide when going to a larger unit. Examples: 23 kg → 23000 g, 5 g → 5000 mg, 1500 g → 1.5 kg.",
     },
   },
   {
@@ -490,11 +834,49 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question:
+        "What is the area? Estimate first, then calculate without decimals (using that calculator) and place the decimal point afterwards.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          length: 4.2,
+          width: 3.1,
+          estimation: "4 x 3 =",
+          estimateAnswer: "12",
+          sumWithoutDecimals: "42 x 31 =",
+          sumWithoutDecimalsAnswer: "1302",
+          area: "13.02",
+        },
+        {
+          id: 2,
+          length: 4.2,
+          width: 3.1,
+          estimation: "4 x 3 =",
+          estimateAnswer: "12",
+          sumWithoutDecimals: "42 x 31 =",
+          sumWithoutDecimalsAnswer: "1302",
+          area: "13.02",
+        },
+        {
+          id: 3,
+          length: 4.2,
+          width: 3.1,
+          estimation: "4 x 3 =",
+          estimateAnswer: "12",
+          sumWithoutDecimals: "42 x 31 =",
+          sumWithoutDecimalsAnswer: "1302",
+          area: "13.02",
+        },
+        {
+          id: 4,
+          length: 4.2,
+          width: 3.1,
+          estimation: "4 x 3 =",
+          estimateAnswer: "12",
+          sumWithoutDecimals: "42 x 31 =",
+          sumWithoutDecimalsAnswer: "1302",
+          area: "13.02",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -507,11 +889,57 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question:
+        "Calculate the small sum. Think of a large sum to go with it. Create a large sum like in the example.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          type: "direct",
+          question: "7 x 4 =",
+          answer: "28",
+        },
+        {
+          id: 2,
+          type: "reverse",
+          operation: "multiplication",
+          correctFactor1: 70,
+          correctFactor2: 40,
+          answer: 2800,
+        },
+        {
+          id: 3,
+          type: "direct",
+          question: "21 : 3 =",
+          answer: "7",
+        },
+        {
+          id: 4,
+          type: "reverse",
+          operation: "division",
+          correctFactor1: 2100,
+          correctFactor2: 30,
+          answer: 70,
+        },
+        {
+          id: 5,
+          type: "direct",
+          question: "70 x 40 =",
+          answer: "2800",
+        },
+        {
+          id: 6,
+          type: "direct",
+          question: "2100 : 30 =",
+          answer: "70",
+        },
+        {
+          id: 7,
+          type: "reverse",
+          operation: "multiplication",
+          correctFactor1: 7,
+          correctFactor2: 4,
+          answer: 28,
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -524,11 +952,18 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question:
+        "Choose 4 sums that you calculate with splitting. Mark them with a dot.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { a: 4, b: 4.7, expected: 18.8 },
+        { a: 5, b: 3.2, expected: 16.0 },
+        { a: 6, b: 2.75, expected: 16.5 },
+        { a: 3, b: 8.4, expected: 25.2 },
+        { a: 9, b: 1.25, expected: 11.25 },
+        { a: 7, b: 2.3, expected: 16.1 },
+        { a: 2, b: 12.5, expected: 25.0 },
+        { a: 8, b: 3.9, expected: 31.2 },
+        { a: 10, b: 0.95, expected: 9.5 },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -542,11 +977,24 @@ export const QUESTIONS_DATA = [
     level: "Medium",
     metadata: {
       question: "Split into hundreds, tens, and units.",
-      data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
-      ],
+      data: {
+        left: [
+          { mult: 4, price: 4.6, expected: 23.0 }, // 4 × £4.60 = £23.00
+          { mult: 3, price: 7.25, expected: 21.75 }, // 3 × £7.25 = £21.75
+          { mult: 5, price: 2.99, expected: 14.95 }, // 5 × £2.99 = £14.95
+          { mult: 6, price: 1.5, expected: 9.0 }, // 6 × £1.50 = £9.00
+          { mult: 2, price: 12.2, expected: 24.4 }, // 2 × £12.20 = £24.40
+          { mult: 8, price: 0.75, expected: 6.0 }, // 8 × £0.75 = £6.00
+        ],
+        right: [
+          { mult: 4, kg: 7.8, expected: 31.2 }, // 4 × 7.8 kg = 31.2 kg
+          { mult: 3, kg: 2.55, expected: 7.65 }, // 3 × 2.55 kg = 7.65 kg
+          { mult: 5, kg: 1.2, expected: 6.0 }, // 5 × 1.2 kg = 6.0 kg
+          { mult: 2, kg: 9.75, expected: 19.5 }, // 2 × 9.75 kg = 19.5 kg
+          { mult: 7, kg: 0.35, expected: 2.45 }, // 7 × 0.35 kg = 2.45 kg
+          { mult: 8, kg: 3.9, expected: 31.2 }, // 8 × 3.9 kg = 31.2 kg
+        ],
+      },
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
   },
@@ -558,11 +1006,66 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Estimate first, then place the comma.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          problemRows: [
+            {
+              reverse: "23 x 626",
+              estimateText: "20 x 600 =",
+              estimateValue: "12000",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 6 =",
+              estimateValue: "120",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 60 =",
+              estimateValue: "12",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 60 =",
+              estimateValue: "120",
+              answer: "14398",
+            },
+          ],
+        },
+        {
+          id: 2,
+          problemRows: [
+            {
+              reverse: "23 x 626",
+              estimateText: "20 x 600 =",
+              estimateValue: "12000",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 6 =",
+              estimateValue: "120",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 60 =",
+              estimateValue: "12",
+              answer: "14398",
+            },
+            {
+              reverse: "23 x 626",
+              estimateText: "2 x 60 =",
+              estimateValue: "120",
+              answer: "14398",
+            },
+          ],
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -577,11 +1080,26 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: "left",
+          rows: [
+            { newPrice: 350, discount: 50 },
+            { newPrice: 72, discount: 20 },
+            { newPrice: 108, discount: 10 },
+            { newPrice: 60, discount: 25 },
+          ],
+        },
+        {
+          id: "right",
+          rows: [
+            { newPrice: 350, discount: 50 },
+            { newPrice: 72, discount: 20 },
+            { newPrice: 108, discount: 10 },
+            { newPrice: 60, discount: 25 },
+          ],
+        },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Use: new price = old price × (1 − discount/100). So, old price = new price ÷ (1 − discount/100). Example: £350 at 50% is £700 old price.",
     },
   },
   {
@@ -594,9 +1112,38 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          options: [
+            { text: "3/4 part of $80", value: 60 },
+            { text: "2/3 part of $60", value: 40 },
+          ],
+          correctAnswer: 0, // Index of the correct option
+        },
+        {
+          id: 2,
+          options: [
+            { text: "3/10 part of $150", value: 45 },
+            { text: "3/4 part of $48", value: 36 },
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: 3,
+          options: [
+            { text: "1/4 part of $120", value: 30 },
+            { text: "1/3 part of $150", value: 50 },
+          ],
+          correctAnswer: 1,
+        },
+        {
+          id: 4,
+          options: [
+            { text: "1/3 part of $120", value: 40 },
+            { text: "1/10 part of $350", value: 35 },
+          ],
+          correctAnswer: 0,
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -609,13 +1156,16 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Calculate.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { num: 1, den: 7, multiplier: 210 },
+        { num: 1, den: 9, multiplier: 72 },
+        { num: 1, den: 10, multiplier: 250 },
+        { num: 1, den: 7, multiplier: 210 },
+        { num: 1, den: 9, multiplier: 72 },
+        { num: 1, den: 10, multiplier: 250 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Use: (a/b) × n = (a × n) ÷ b. For unit fractions: 1/7 × 210 = 210 ÷ 7 = 30, 1/9 × 72 = 8, 1/10 × 250 = 25.",
     },
   },
   {
@@ -626,13 +1176,16 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Calculate using halving and doubling.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { a: 4, b: 35 },
+        { a: 6, b: 25 },
+        { a: 8, b: 15 },
+        { a: 12, b: 45 },
+        { a: 3, b: 40 },
+        { a: 10, b: 17 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Halve one factor and double the other to keep the product the same. Example: 4×35 → 2×70 → 140.",
     },
   },
   {
@@ -643,11 +1196,67 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "Calculate",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        // Four addition problems
+        {
+          id: "add-0",
+          num1: 474,
+          num2: 137,
+          operator: "+",
+          answer: 611,
+        },
+        {
+          id: "add-1",
+          num1: 474,
+          num2: 137,
+          operator: "+",
+          answer: 611,
+        },
+        {
+          id: "add-2",
+          num1: 474,
+          num2: 137,
+          operator: "+",
+          answer: 611,
+        },
+        {
+          id: "add-3",
+          num1: 474,
+          num2: 137,
+          operator: "+",
+          answer: 611,
+        },
+
+        // Four subtraction problems
+        {
+          id: "sub-0",
+          num1: 403,
+          num2: 189,
+          operator: "-",
+          answer: 214,
+        },
+        {
+          id: "sub-1",
+          num1: 403,
+          num2: 189,
+          operator: "-",
+          answer: 214,
+        },
+        {
+          id: "sub-2",
+          num1: 403,
+          num2: 189,
+          operator: "-",
+          answer: 214,
+        },
+        {
+          id: "sub-3",
+          num1: 403,
+          num2: 189,
+          operator: "-",
+          answer: 214,
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -660,13 +1269,42 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "From small to large. True or false?",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: "A",
+          fracs: [
+            { n: 1, d: 3 },
+            { n: 1, d: 6 },
+            { n: 3, d: 4 },
+          ],
+        },
+        {
+          id: "B",
+          fracs: [
+            { n: 5, d: 4 },
+            { n: 5, d: 3 },
+            { n: 5, d: 1 },
+          ],
+        },
+        {
+          id: "C",
+          fracs: [
+            { n: 1, d: 3 },
+            { n: 1, d: 6 },
+            { n: 3, d: 4 },
+          ],
+        },
+        {
+          id: "D",
+          fracs: [
+            { n: 1, d: 3 },
+            { n: 1, d: 6 },
+            { n: 3, d: 4 },
+          ],
+        },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "From small to large means ascending order. Convert each fraction to decimals (or common denominators) and compare: e.g., 1/6 ≈ 0.166, 1/3 ≈ 0.333, 3/4 = 0.75.",
     },
   },
   {
@@ -677,13 +1315,13 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
+      question: "How many 100 euro and 10 euro notes and 1 euro coins?",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { amount: 749, hundreds: 7, tens: 4, ones: 9 },
+        { amount: 749, hundreds: 7, tens: 4, ones: 9 },
+        { amount: 749, hundreds: 7, tens: 4, ones: 9 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Use 100-euro notes, 10-euro notes, and 1-euro coins. Example: 7×100 + 4×10 + 9×1 = 749.",
     },
   },
   {
@@ -696,9 +1334,28 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          title: "Find the way in jumps of 10.",
+          grid: [
+            [730, 500, 497, 482, 616, 542],
+            [456, 466, 366, 580, 530, 546],
+            [556, 476, 480, 508, 526, 536],
+            [650, 486, 496, 506, 516, 357],
+            [730, 500, 497, 482, 616, 542],
+          ],
+        },
+        {
+          id: 2,
+          title: "Find the way in jumps of 10.",
+          grid: [
+            [730, 500, 497, 482, 616, 542],
+            [456, 466, 366, 580, 530, 546],
+            [556, 476, 480, 508, 526, 536],
+            [650, 486, 496, 506, 516, 357],
+            [730, 500, 497, 482, 616, 542],
+          ],
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -711,13 +1368,9 @@ export const QUESTIONS_DATA = [
     category: "Basic",
     level: "Medium",
     metadata: {
-      question: "Split into hundreds, tens, and units.",
-      data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
-      ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      question: "How many metres approximately?",
+      data: [],
+      hint: "1, 2, 5 or 10?",
     },
   },
   {
@@ -730,9 +1383,18 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: "left",
+          label: "rabbit",
+          imgSrc: "/images/arr_39_human.png",
+          isCorrect: false,
+        },
+        {
+          id: "right",
+          label: "man",
+          imgSrc: "/images/arr_39_rabbit.png",
+          isCorrect: true,
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -747,9 +1409,33 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          item: "ice cream",
+          mainImage: "/images/singleIceCream.png",
+          tableImage: "/images/singleIceCream.png",
+          costPerUnit: 6,
+          answers: ["4", "6"], // Changed to just number values
+          currency: "euro", // New field for currency
+        },
+        {
+          id: 2,
+          item: "soccer ball",
+          mainImage: "/images/singleFootball.png",
+          tableImage: "/images/singleFootball.png",
+          costPerUnit: 5,
+          answers: ["10", "15"], // Changed to just number values
+          currency: "euro", // New field for currency
+        },
+        {
+          id: 3,
+          item: "book",
+          mainImage: "/images/singleBook.png",
+          tableImage: "/images/singleBook.png",
+          costPerUnit: 10,
+          answers: ["20", "30"], // Changed to just number values
+          currency: "euro", // New field for currency
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -764,9 +1450,24 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          item: "cycle",
+          topImage: "/images/cycle.png", // Image for the top of the first column
+          bottomImage: "/images/circle.png", // Image for the bottom of the first column
+          costPerUnit: 3,
+          answers: ["6", "9"], // Answers for quantity 2 and 3
+          numCols: 3, // Number of columns for quantities (1, 2, 3)
+        },
+        {
+          id: 2,
+          item: "flower",
+          topImage: "/images/flower.png", // Image for the top of the first column
+          bottomImage: "/images/circle.png", // Image for the bottom of the first column
+          costPerUnit: 5,
+          answers: ["10", "15", "20"], // Answers for quantity 2, 3, and 4
+          numCols: 4, // Number of columns for quantities (1, 2, 3, 4)
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -781,11 +1482,11 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { id: "a", price: 300, discountPct: 5 },
+        { id: "b", price: 400, discountPct: 10 },
+        { id: "c", price: 300, discountPct: 5 },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "benefit = price × (discount% ÷ 100).  new price = price − benefit.  Example: price $300 with 5% → benefit $15, new price $285.",
     },
   },
   {
@@ -798,11 +1499,28 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: "left",
+          values: [
+            { oldPrice: 700, newPrice: 350, discount: 50 },
+            { oldPrice: 90, newPrice: 72, discount: 20 },
+            { oldPrice: 120, newPrice: 108, discount: 10 },
+            { oldPrice: 80, newPrice: 60, discount: 25 },
+            { oldPrice: 150, newPrice: 90, discount: 40 },
+          ],
+        },
+        {
+          id: "right",
+          values: [
+            { oldPrice: 700, newPrice: 350, discount: 50 },
+            { oldPrice: 90, newPrice: 72, discount: 20 },
+            { oldPrice: 120, newPrice: 108, discount: 10 },
+            { oldPrice: 80, newPrice: 60, discount: 25 },
+            { oldPrice: 150, newPrice: 90, discount: 40 },
+          ],
+        },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Use: new price = old price × (1 − discount/100). So, old price = new price ÷ (1 − discount/100).",
     },
   },
   {
@@ -815,11 +1533,20 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          totalPrice: 300,
+          buyingPrice: 150,
+          discountPrice: 150,
+          discountpercentage: 50,
+        },
+        {
+          totalPrice: 600,
+          buyingPrice: 360,
+          discountPrice: 240,
+          discountpercentage: 40,
+        },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "The black bar is the buying price. Green is the remainder to reach the total. Discount = total − buying. %discount = (discount ÷ total) × 100.",
     },
   },
   {
@@ -832,9 +1559,26 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          leftText: "20% is $50.",
+          correctMatch: 3,
+        },
+        {
+          id: 2,
+          leftText: "50% is $1700.",
+          correctMatch: 0,
+        },
+        {
+          id: 3,
+          leftText: "10% is $350.",
+          correctMatch: 2,
+        },
+        {
+          id: 4,
+          leftText: "40% is $56.",
+          correctMatch: 1,
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -849,9 +1593,30 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the whole garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 2,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the whole garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 3,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the whole garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 4,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the whole garden?",
+          answer: "90 m2",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -866,9 +1631,30 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the entire garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 2,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the entire garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 3,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the entire garden?",
+          answer: "90 m2",
+        },
+        {
+          id: 4,
+          statement: "50% of the garden area is 45 m2",
+          question: "What is the area of the entire garden?",
+          answer: "90 m2",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -883,9 +1669,26 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          question: "Of the 400 bicycles, 320 are rented out.",
+          answer: "80%",
+        },
+        {
+          id: 2,
+          question: "Of the 400 bicycles, 320 are rented out.",
+          answer: "80%",
+        },
+        {
+          id: 3,
+          question: "Of the 400 bicycles, 320 are rented out.",
+          answer: "80%",
+        },
+        {
+          id: 4,
+          question: "Of the 400 bicycles, 320 are rented out.",
+          answer: "80%",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -900,9 +1703,36 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          fractions: ["3/6", "1/5", "3/4"],
+          sorted: ["1/5", "3/6", "3/4"],
+        },
+        {
+          id: 2,
+          fractions: ["1/2", "7/8", "2/5"],
+          sorted: ["2/5", "1/2", "7/8"],
+        },
+        {
+          id: 3,
+          fractions: ["9/10", "2/4", "3/8"],
+          sorted: ["3/8", "2/4", "9/10"],
+        },
+        {
+          id: 4,
+          fractions: ["3/6", "1/5", "3/4"],
+          sorted: ["1/5", "3/6", "3/4"],
+        },
+        {
+          id: 5,
+          fractions: ["1/2", "7/8", "2/5"],
+          sorted: ["2/5", "1/2", "7/8"],
+        },
+        {
+          id: 6,
+          fractions: ["9/10", "2/4", "3/8"],
+          sorted: ["3/8", "2/4", "9/10"],
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -917,9 +1747,18 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        { id: 1, numerator: 5, denominator: 3, expected: "1" },
+        { id: 2, numerator: 9, denominator: 6, expected: "1" },
+        { id: 3, numerator: 6, denominator: 3, expected: "2" },
+        { id: 4, numerator: 12, denominator: 5, expected: "2" },
+        { id: 5, numerator: 5, denominator: 3, expected: "1" },
+        { id: 6, numerator: 9, denominator: 6, expected: "1" },
+        { id: 7, numerator: 6, denominator: 3, expected: "2" },
+        { id: 8, numerator: 12, denominator: 5, expected: "2" },
+        { id: 9, numerator: 5, denominator: 3, expected: "1" },
+        { id: 10, numerator: 9, denominator: 6, expected: "1" },
+        { id: 11, numerator: 6, denominator: 3, expected: "2" },
+        { id: 12, numerator: 12, denominator: 5, expected: "2" },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -999,7 +1838,7 @@ export const QUESTIONS_DATA = [
           },
         },
       ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      hint: "Read the clock carefully. Work out how many minutes remain until the next half past.",
     },
   },
   {
@@ -1012,9 +1851,36 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          factor1: 6,
+          factor2: 37,
+          breakdown1: 30,
+          breakdown2: 7,
+          partialProduct1: 180, // 6 * 30
+          partialProduct2: 42, // 6 * 7
+          product: 222, // 180 + 42
+        },
+        {
+          id: 2,
+          factor1: 7,
+          factor2: 28,
+          breakdown1: 20,
+          breakdown2: 8,
+          partialProduct1: 140, // 7 * 20
+          partialProduct2: 56, // 7 * 8
+          product: 196, // 140 + 56
+        },
+        {
+          id: 3,
+          factor1: 4,
+          factor2: 57,
+          breakdown1: 50,
+          breakdown2: 7,
+          partialProduct1: 200, // 4 * 50
+          partialProduct2: 28, // 4 * 7
+          product: 228, // 200 + 28
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -1028,12 +1894,8 @@ export const QUESTIONS_DATA = [
     level: "Medium",
     metadata: {
       question: "Split into hundreds, tens, and units.",
-      data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
-      ],
-      hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
+      data: [{ digits: [4, 0, 2, 9] }],
+      hint: "👉 Try combining the given digits to make 3-digit numbers under 1000.",
     },
   },
   {
@@ -1046,9 +1908,41 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          text: "It is quarter to 10 in the evening.",
+          expectedTime: "21:45",
+        },
+        {
+          id: 2,
+          text: "It is 2 o'clock in the afternoon.",
+          expectedTime: "14:00",
+        },
+        {
+          id: 3,
+          text: "It is half past 2 in the night.",
+          expectedTime: "02:30",
+        },
+        {
+          id: 4,
+          text: "It is quarter to 6 in the afternoon.",
+          expectedTime: "17:45",
+        },
+        {
+          id: 5,
+          text: "It is quarter past 7 in the morning.",
+          expectedTime: "07:15",
+        },
+        {
+          id: 6,
+          text: "It is quarter to 10 in the evening.",
+          expectedTime: "21:45",
+        },
+        {
+          id: 7,
+          text: "It is quarter to 10 in the evening.",
+          expectedTime: "21:45",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -1063,9 +1957,48 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Split into hundreds, tens, and units.",
       data: [
-        { id: 1, digits: [6, 5, 3] },
-        { id: 2, digits: [2, 6, 1] },
-        { id: 3, digits: [1, 2, 8] },
+        {
+          id: 1,
+          time24: "13:15",
+          time12: "1:15",
+          period: "P.M.",
+          daypart: "afternoon",
+        },
+        {
+          id: 2,
+          time24: "19:45",
+          time12: "7:45",
+          period: "P.M.",
+          daypart: "evening",
+        },
+        {
+          id: 3,
+          time24: "21:30",
+          time12: "9:30",
+          period: "P.M.",
+          daypart: "night",
+        },
+        {
+          id: 4,
+          time24: "16:45",
+          time12: "4:45",
+          period: "P.M.",
+          daypart: "afternoon",
+        },
+        {
+          id: 5,
+          time24: "15:15",
+          time12: "3:15",
+          period: "P.M.",
+          daypart: "afternoon",
+        },
+        {
+          id: 6,
+          time24: "19:15",
+          time12: "7:15",
+          period: "P.M.",
+          daypart: "evening",
+        },
       ],
       hint: "Write each number as hundreds, tens, and ones: e.g., 653 → 600, 50, 3.",
     },
@@ -1178,11 +2111,27 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "Write down the number. Count forwards and backwards.",
       data: [
-        { label: "in increments of 1", center: 758, step: 1 },
-        { label: "in increments of 10", center: 825, step: 10 },
-        { label: "in increments of 100", center: 441, step: 100 },
+        {
+          id: "1",
+          method: 1,
+          rows: [
+            [700, 200, 800, 100, 400],
+            [640, 240, 460, 360, 100],
+            [850, 520, 720, 270, 910],
+          ],
+          order: "asc",
+        },
+        {
+          id: "2",
+          method: 2,
+          rows: [
+            { label: "in increments of 1", center: 758, step: 1 },
+            { label: "in increments of 10", center: 825, step: 10 },
+            { label: "in increments of 100", center: 441, step: 100 },
+          ],
+        },
       ],
-      hint: "Fill the boxes by counting 4 steps backward and 4 steps forward from the center using the given increment.",
+      hint: "Fill the boxes by counting in increments of 1, 10, or 100.",
     },
   },
   {
@@ -1215,20 +2164,14 @@ export const QUESTIONS_DATA = [
     metadata: {
       question: "What time is it?",
       data: [
-        {
-          id: 1,
-          boxTime: { hour: 4, minute: 0 }, // Fixed box time
-          difference: 8, // 8 hours later
-          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
-        },
-        {
-          id: 2,
-          boxTime: { hour: 4, minute: 0 }, // Fixed box time
-          difference: 8, // 8 hours later
-          correct: { hour: 12, minute: 0 }, // User must set 12 o'clock
-        },
+        { left: 16, op: "-", right: 4 },
+        { left: 18, op: "-", right: 5 },
+        { left: 19, op: "-", right: 3 },
+        { left: 11, op: "+", right: 5 },
+        { left: 14, op: "+", right: 6 },
+        { left: 12, op: "+", right: 7 },
       ],
-      hint: "Count the hours forward from the clock time until you reach the given time.",
+      hint: "Solve the big sum. In the thought bubble, use the ones digit of the first number with the same operator and the second number (e.g., 16−4 → 6−4=2; 14+6 → 4+6=10).",
     },
   },
   {

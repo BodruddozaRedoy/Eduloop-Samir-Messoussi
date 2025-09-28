@@ -52,12 +52,12 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_21({ hint }: { hint: string }) {
+export default function ArrType_21({ hint, data }: { hint: string }) {
   const [answers, setAnswers] = useState(
-    Array(problemsJSON.length).fill({ time: "", part: "" })
+    Array(data?.length).fill({ time: "", part: "" })
   );
   const [validation, setValidation] = useState<(boolean | null)[]>(
-    Array(problemsJSON.length).fill(null)
+    Array(data?.length).fill(null)
   );
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
@@ -82,7 +82,7 @@ export default function ArrType_21({ hint }: { hint: string }) {
 
   // Check
   const handleCheck = useCallback(() => {
-    const newValidation = problemsJSON.map(
+    const newValidation = data?.map(
       (p, i) =>
         p.time12 === answers[i].time.trim() &&
         p.daypart === answers[i].part.trim().toLowerCase()
@@ -95,12 +95,12 @@ export default function ArrType_21({ hint }: { hint: string }) {
 
   // Show Solution
   const handleShowSolution = useCallback(() => {
-    const filledAnswers = problemsJSON.map((p) => ({
+    const filledAnswers = data?.map((p) => ({
       time: `${p.time12} ${p.period}`,
       part: p.daypart,
     }));
     setAnswers(filledAnswers);
-    setValidation(Array(problemsJSON.length).fill(true));
+    setValidation(Array(data?.length).fill(true));
     setShowSolution(true);
     setStatus("match");
   }, []);
@@ -132,7 +132,7 @@ export default function ArrType_21({ hint }: { hint: string }) {
     <div className="flex flex-col space-y-6">
       {/* Cards */}
       <div className="flex flex-wrap justify-start gap-6 px-6">
-        {problemsJSON.map((p, idx) => (
+        {data?.map((p, idx) => (
           <div
             key={p.id}
             className="w-64 rounded-2xl bg-amber-50/60 p-6 flex flex-col items-center justify-between text-center shadow-md"
