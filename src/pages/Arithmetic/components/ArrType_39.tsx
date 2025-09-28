@@ -1,5 +1,5 @@
-import manImage from "@/assets/images/arrtype39man.png";
-import rabbitImage from "@/assets/images/arrtype39rabbit.png";
+// import manImage from "/images/arrtype39man.png";
+// import rabbitImage from "/images/arrtype39rabbit.png";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -14,8 +14,8 @@ type Item = {
 };
 
 export const DEMO_ITEMS: Item[] = [
-  { id: "left", label: "rabbit", imgSrc: rabbitImage as unknown as string, isCorrect: false },
-  { id: "right", label: "man", imgSrc: manImage as unknown as string, isCorrect: true },
+  { id: "left", label: "rabbit", imgSrc: "@/assets/ images/arrtype39rabbit.png", isCorrect: false },
+  { id: "right", label: "man", imgSrc: "@/assets/images/arrtype39man.png", isCorrect: true },
 ];
 
 const DEFAULT_HINT =

@@ -181,10 +181,6 @@ const ArrType_45: React.FC<Props> = ({ data, hint }) => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Calculate using halving and doubling.</p>
-      </div>
 
       {/* Exactly two columns, three rows each */}
       <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">

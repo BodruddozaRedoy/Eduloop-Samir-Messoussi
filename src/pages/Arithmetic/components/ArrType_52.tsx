@@ -56,7 +56,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_52({ hint }: { hint: string }) {
+export default function ArrType_52({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map((p) => {
       if (p.type === "direct") return { answer: "" };
@@ -168,11 +168,6 @@ export default function ArrType_52({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">
-        Calculate the small sum. Think of a large sum to go with it.
-        Create a large sum like in the example.
-      </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-8 px-6 py-8">
         {problemsJSON.map((p, problemIdx) => {

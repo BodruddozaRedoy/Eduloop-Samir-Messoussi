@@ -91,25 +91,25 @@ type Problem = {
   expected: string;
 };
 
-export default function ArrType_28({ hint }: { hint: string }) {
+export default function ArrType_28({ hint, data:DUMMY_DATA }: { hint: string, data:any }) {
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
   const { setControls } = useQuestionControls();
 
-  const DUMMY_DATA: Problem[] = [
-    { id: 1, numerator: 5, denominator: 3, expected: "1" },
-    { id: 2, numerator: 9, denominator: 6, expected: "1" },
-    { id: 3, numerator: 6, denominator: 3, expected: "2" },
-    { id: 4, numerator: 12, denominator: 5, expected: "2" },
-    { id: 5, numerator: 5, denominator: 3, expected: "1" },
-    { id: 6, numerator: 9, denominator: 6, expected: "1" },
-    { id: 7, numerator: 6, denominator: 3, expected: "2" },
-    { id: 8, numerator: 12, denominator: 5, expected: "2" },
-    { id: 9, numerator: 5, denominator: 3, expected: "1" },
-    { id: 10, numerator: 9, denominator: 6, expected: "1" },
-    { id: 11, numerator: 6, denominator: 3, expected: "2" },
-    { id: 12, numerator: 12, denominator: 5, expected: "2" },
-  ];
+  // const DUMMY_DATA: Problem[] = [
+  //   { id: 1, numerator: 5, denominator: 3, expected: "1" },
+  //   { id: 2, numerator: 9, denominator: 6, expected: "1" },
+  //   { id: 3, numerator: 6, denominator: 3, expected: "2" },
+  //   { id: 4, numerator: 12, denominator: 5, expected: "2" },
+  //   { id: 5, numerator: 5, denominator: 3, expected: "1" },
+  //   { id: 6, numerator: 9, denominator: 6, expected: "1" },
+  //   { id: 7, numerator: 6, denominator: 3, expected: "2" },
+  //   { id: 8, numerator: 12, denominator: 5, expected: "2" },
+  //   { id: 9, numerator: 5, denominator: 3, expected: "1" },
+  //   { id: 10, numerator: 9, denominator: 6, expected: "1" },
+  //   { id: 11, numerator: 6, denominator: 3, expected: "2" },
+  //   { id: 12, numerator: 12, denominator: 5, expected: "2" },
+  // ];
 
   type Status = "idle" | "match" | "wrong";
   const [state, setState] = useState<

@@ -163,14 +163,6 @@ const ArrType_55: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">
-          Calculate.<br />
-          1. Calculate using figures.<br />
-          2. Calculate using figures or column-wise.
-        </p>
-      </div>
 
       {/* Four mini cards, responsive */}
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">

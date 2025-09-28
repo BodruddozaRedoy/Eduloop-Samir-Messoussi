@@ -40,9 +40,9 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_24({ hint }: { hint: string }) {
+export default function ArrType_24({ hint, data }: { hint: string }) {
   const [answers, setAnswers] = useState(
-    Array(problemsJSON.length).fill({
+    Array(data?.length).fill({
       partial1: "",
       partial2: "",
       product: "",
@@ -51,7 +51,7 @@ export default function ArrType_24({ hint }: { hint: string }) {
     })
   );
   const [validation, setValidation] = useState<(boolean | null)[]>(
-    Array(problemsJSON.length * 5).fill(null)
+    Array(data?.length * 5).fill(null)
   );
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
@@ -83,7 +83,7 @@ export default function ArrType_24({ hint }: { hint: string }) {
     let allCorrect = true;
     const newValidation: (boolean | null)[] = [];
 
-    problemsJSON.forEach((p, i) => {
+    data?.forEach((p, i) => {
       const isBreakdown1Correct = parseInt(answers[i].breakdown1) === p.breakdown1;
       const isBreakdown2Correct = parseInt(answers[i].breakdown2) === p.breakdown2;
       const isPartial1Correct = parseInt(answers[i].partial1) === p.partialProduct1;
@@ -116,7 +116,7 @@ export default function ArrType_24({ hint }: { hint: string }) {
 
   // Show Solution
   const handleShowSolution = useCallback(() => {
-    const filledAnswers = problemsJSON.map((p) => ({
+    const filledAnswers = data?.map((p) => ({
       partial1: p.partialProduct1.toString(),
       partial2: p.partialProduct2.toString(),
       product: p.product.toString(),
@@ -124,7 +124,7 @@ export default function ArrType_24({ hint }: { hint: string }) {
       breakdown2: p.breakdown2.toString(),
     }));
     setAnswers(filledAnswers);
-    setValidation(Array(problemsJSON.length * 5).fill(true));
+    setValidation(Array(data?.length * 5).fill(true));
     setShowSolution(true);
     setStatus("match");
   }, []);
@@ -155,7 +155,7 @@ export default function ArrType_24({ hint }: { hint: string }) {
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex flex-wrap justify-center gap-10 px-6 py-8">
-        {problemsJSON.map((p, idx) => (
+        {data?.map((p, idx) => (
           <div key={p.id} className="flex flex-col items-center relative p-4">
             {/* Top bubble for partial products */}
             <div

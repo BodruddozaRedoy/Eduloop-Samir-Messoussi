@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 type Item = { num: number; den: number; multiplier: number };
 
 // Screenshot set (3 × 2)
-export const data: Item[] = [
+ const data: Item[] = [
   { num: 1, den: 7,  multiplier: 210 },
   { num: 1, den: 9,  multiplier: 72  },
   { num: 1, den: 10, multiplier: 250 },
@@ -16,7 +16,7 @@ export const data: Item[] = [
   { num: 1, den: 10, multiplier: 250 },
 ];
 
-export const hint =
+ const hint =
   "Use: (a/b) × n = (a × n) ÷ b. For unit fractions: 1/7 × 210 = 210 ÷ 7 = 30, 1/9 × 72 = 8, 1/10 × 250 = 25.";
 
 /* --------------------------------
@@ -53,7 +53,7 @@ const FractionCard = ({ n, d }: { n: number; d: number }) => (
 /* --------------------------------
    Component
 --------------------------------- */
-const ArrType_46: React.FC = () => {
+const ArrType_46: React.FC = ({data, hint}:any) => {
   const items = useMemo(() => data.slice(0, 6), []);
   const ROWS_PER_COL = 3;
   const columns = useMemo(
