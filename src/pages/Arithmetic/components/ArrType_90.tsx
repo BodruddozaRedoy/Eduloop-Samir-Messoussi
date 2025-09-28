@@ -1,330 +1,333 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 
-// --- Data for the Bar Chart and Quiz ---
-const chartData = {
-  swimming: 4,
-  judo: 7, 
-  'ice skating': 3,
-  football: 10,
-  gymnastics: 2,
-  dancing: 3,
+import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
+import BarChart from "./BarChart";
+
+
+const quizConfigJSON = {
+  questionTitle: "Look at the bar chart. Answer the questions.",
+
+
+  chartData: [
+    { name: "swimming", value: 4 },
+    { name: "judo", value: 7 },
+    { name: "ice skating", value: 3 },
+    { name: "football", value: 10 },
+    { name: "gymnastics", value: 2 },
+    { name: "dancing", value: 3 },
+  ],
+
+
+  questions: [
+    {
+      id: "q1",
+      text: "How many children swim?",
+      answers: [{ field: "ans0", correct: ["4"] }],
+      suffix: "children",
+    },
+    {
+      id: "q2",
+      text: "Which sport is done by the fewest children?",
+      answers: [{ field: "ans1", correct: ["gymnastics"] }],
+    },
+    {
+      id: "q3",
+      text: "How many children are in judo?",
+      answers: [{ field: "ans2", correct: ["7"] }],
+      suffix: "children",
+    },
+    
+    {
+      id: "q4",
+      text: "Which 2 sports have the same number of children?",
+      answers: [
+        { field: "ans3a", correct: ["ice skating", "dancing"] },
+        { field: "ans3b", correct: ["ice skating", "dancing"] },
+      ],
+      separator: "and",
+    },
+    {
+      id: "q5",
+      text: "Which sport do 10 children do?",
+      answers: [{ field: "ans4", correct: ["football"] }],
+    },
+  ],
 };
 
-// Correct answers for the quiz questions
-const correctAnswers = {
-  swimCount: '4',
-  fewestSport: 'gymnastics',
-  judoCount: '7',
-  sameSport1: 'ice skating',
-  sameSport2: 'dancing',
-  tenChildrenSport: 'football',
+
+const initialAnswers = {
+  ans0: "",
+  ans1: "",
+  ans2: "",
+  ans3a: "",
+  ans3b: "",
+  ans4: "",
 };
 
-// ===============================================
-// Component 1: Bar Chart Quiz Content (Core Logic)
-// ===============================================
-function BarChartQuizContent() {
-  const initialInputs = {
-    swimCount: '',
-    fewestSport: '',
-    judoCount: '',
-    sameSport1: '',
-    sameSport2: '',
-    tenChildrenSport: '',
-  };
+type AnswersState = {
+  [key: string]: string;
+};
 
-  const [inputs, setInputs] = useState(initialInputs);
-  const [validation, setValidation] = useState({}); // Stores validation status: { fieldName: true/false }
-  const [statusMessage, setStatusMessage] = useState(null); // 'correct' or 'wrong'
+export default function ArrType_90({ hint }: { hint: string }) {
+
+  const { chartData, questions, questionTitle } = useMemo(
+    () => quizConfigJSON,
+    []
+  );
+
+  const [answers, setAnswers] = useState<AnswersState>(initialAnswers);
+
+  const [validation, setValidation] = useState<{
+    [key: string]: boolean | null;
+  }>(
+    Object.keys(initialAnswers).reduce(
+      (acc, key) => ({ ...acc, [key]: null }),
+      {} as { [key: string]: boolean | null }
+    )
+  );
+  const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
-  // --- Functionality ---
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+  const { setControls } = useQuestionControls();
 
-  const handleInputChange = useCallback((field, value) => {
-    setInputs(prev => ({ ...prev, [field]: value }));
-    setValidation(prev => ({ ...prev, [field]: null })); // Reset validation on change
-    setStatusMessage(null);
+
+  const normalizeInput = (input: string) =>
+    input.toLowerCase().trim().replace(/\s/g, " ");
+
+  const handleInputChange = useCallback((field: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [field]: value }));
+    setStatus(null);
+   
+    setValidation((prev) => ({ ...prev, [field]: null }));
   }, []);
 
   const handleCheck = useCallback(() => {
     let allCorrect = true;
-    const newValidation = {};
-    
-    Object.keys(correctAnswers).forEach(field => {
-      const userAnswer = String(inputs[field]).trim().toLowerCase();
-      
-      // Logic for the two sports with the same number of children (order doesn't matter)
-      if (field === 'sameSport1' || field === 'sameSport2') {
-        const correctOptions = [correctAnswers.sameSport1.toLowerCase(), correctAnswers.sameSport2.toLowerCase()];
-        const otherInput = field === 'sameSport1' ? inputs.sameSport2 : inputs.sameSport1;
-        
-        // Is current input one of the correct sports AND not the same as the other field's current input?
-        const isCorrect = correctOptions.includes(userAnswer) && 
-                          userAnswer !== String(otherInput).trim().toLowerCase() && 
-                          String(otherInput).trim().toLowerCase() !== ''; // Must be filled to be validated
-        
-        newValidation[field] = isCorrect;
-        if (!isCorrect) allCorrect = false;
+    const newValidation: { [key: string]: boolean | null } = {};
 
+    questions.forEach((q) => {
+
+      if (q.id === "q4") {
+        const fieldA = q.answers[0].field; // ans3a
+        const fieldB = q.answers[1].field; // ans3b
+
+        const userAnsA = normalizeInput(answers[fieldA] || "");
+        const userAnsB = normalizeInput(answers[fieldB] || "");
+
+        const correctOptions = q.answers[0].correct.map(normalizeInput); // ["ice skating", "dancing"]
+
+   
+        const isQ4ACorrect = correctOptions.includes(userAnsA);
+        const isQ4BCorrect = correctOptions.includes(userAnsB);
+        const isDifferent =
+          userAnsA !== userAnsB && userAnsA.length > 0 && userAnsB.length > 0;
+        const isQ4Correct = isQ4ACorrect && isQ4BCorrect && isDifferent;
+
+        newValidation[fieldA] = isQ4Correct;
+        newValidation[fieldB] = isQ4Correct;
+
+        if (!isQ4Correct) {
+          allCorrect = false;
+        }
       } else {
-        // Standard comparison
-        const isCorrect = userAnswer === String(correctAnswers[field]).toLowerCase();
-        newValidation[field] = isCorrect;
-        if (!isCorrect) allCorrect = false;
+
+        q.answers.forEach((ans) => {
+          const userAns = normalizeInput(answers[ans.field] || "");
+          const isCorrect = ans.correct.map(normalizeInput).includes(userAns);
+
+          newValidation[ans.field] = isCorrect;
+
+          if (!isCorrect) {
+            allCorrect = false;
+          }
+        });
       }
     });
 
     setValidation(newValidation);
-    setStatusMessage(allCorrect ? 'correct' : 'wrong');
-  }, [inputs]);
+    setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, allCorrect);
+  }, [answers, addResult, qId, qTitle, questions]);
 
   const handleShowSolution = useCallback(() => {
-    setInputs(correctAnswers);
-    const solutionValidation = Object.keys(correctAnswers).reduce((acc, key) => ({ ...acc, [key]: true }), {});
+    const solutionAnswers: { [key: string]: string } = {};
+
+    questions.forEach((q) => {
+      if (q.id === "q4") {
+
+        solutionAnswers[q.answers[0].field] = "ice skating";
+        solutionAnswers[q.answers[1].field] = "dancing";
+      } else {
+
+        q.answers.forEach((ans) => {
+          solutionAnswers[ans.field] = ans.correct[0];
+        });
+      }
+    });
+
+    setAnswers(solutionAnswers);
+   
+    const solutionValidation = Object.keys(initialAnswers).reduce(
+      (acc, key) => ({ ...acc, [key]: true }),
+      {}
+    );
     setValidation(solutionValidation);
     setShowSolution(true);
-    setStatusMessage('correct');
-  }, []);
+    setStatus("match");
+  }, [questions]);
 
-  // --- Styling Helpers ---
+  const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  const getInputClass = (field) => {
-    if (showSolution) {
-      return 'text-green-600 font-semibold border-green-600';
-    }
-    
-    const status = validation[field];
-    if (status === true) {
-      return 'text-green-600 font-semibold border-green-600';
-    } else if (status === false) {
-      return 'text-red-600 font-semibold border-red-600';
-    }
-    return 'text-gray-800 border-gray-500 focus:border-blue-500';
+  const summary = useMemo(() => {
+    if (!status) return null;
+    return status === "match"
+      ? {
+          text: "🎉 Correct! Good Job",
+          color: "text-green-600",
+          bgColor: "bg-green-100",
+          borderColor: "border-green-600",
+        }
+      : {
+          text: "❌ Some answers are wrong",
+          color: "text-red-600",
+          bgColor: "bg-red-100",
+          borderColor: "border-red-600",
+        };
+  }, [status]);
+
+  useEffect(() => {
+    setControls({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    });
+  }, [
+    setControls,
+    handleCheck,
+    handleShowHint,
+    handleShowSolution,
+    hint,
+    showHint,
+    summary,
+  ]);
+
+  
+  const getValidationStatus = (field: string): boolean | null =>
+    validation[field];
+
+  const getInputClass = (isCorrect: boolean | null) => {
+    if (showSolution) return "text-green-600 font-bold border-green-400";
+    if (isCorrect === true) return "text-green-600 font-bold border-green-400";
+    if (isCorrect === false) return "text-red-600 font-bold border-red-400";
+    return "text-gray-700 font-medium border-gray-400 focus:border-blue-500";
   };
+
+  const getAnswerValue = (field: string) => answers[field] || "";
+
+  const isInputReadOnly = showSolution;
+
+  return (
+    <div className="flex flex-col space-y-8 p-6 bg-white rounded-xl shadow-lg w-full max-w-4xl mx-auto">
+      <div className="text-2xl font-extrabold text-gray-900 border-b pb-2">
+        Question 1
+      </div>
+      <div className="text-gray-600 font-medium">{questionTitle}</div>
+
+
+      <div className="py-4">
+        <BarChart data={chartData} />
+      </div>
+
+ 
+      <div className="flex flex-col space-y-4 pt-6">
+        {questions.map((q) => {
   
-  const DottedInput = ({ field, size = 'w-28' }) => (
-    <input
-      type="text"
-      className={`bg-transparent border-b border-dotted outline-none text-left inline-block ${size} p-0.5 ${getInputClass(field)}`}
-      value={inputs[field]}
-      onChange={(e) => handleInputChange(field, e.target.value)}
-      readOnly={showSolution}
-      style={{ minWidth: size === 'w-12' ? '4rem' : '7rem' }}
-    />
+          let displayQuestion;
+
+          switch (q.id) {
+            case "q1": 
+              displayQuestion = (
+                <div className="flex items-center space-x-2">
+                  <span>How many children swim?</span>{" "}
+                  {renderInput(q.answers[0].field)} <span>children</span>
+                </div>
+              );
+              break;
+            case "q2":
+              displayQuestion = (
+                <div className="flex items-center space-x-2">
+                  <span>Which sport is done by the fewest children?</span>{" "}
+                  {renderInput(q.answers[0].field)}
+                </div>
+              );
+              break;
+            case "q3": 
+              displayQuestion = (
+                <div className="flex items-center space-x-2">
+                  <span>How many children are in judo?</span>{" "}
+                  {renderInput(q.answers[0].field)} <span>children</span>
+                </div>
+              );
+              break;
+            case "q4": 
+              displayQuestion = (
+                <div className="flex flex-wrap items-center space-x-2">
+                  <span>Which 2 sports have the same number of children?</span>
+                  {renderInput(q.answers[0].field)}
+                  <span>and</span>
+                  {renderInput(q.answers[1].field)}
+                </div>
+              );
+              break;
+            case "q5": 
+              displayQuestion = (
+                <div className="flex items-center space-x-2">
+                  <span>Which sport do 10 children do?</span>{" "}
+                  {renderInput(q.answers[0].field)}
+                </div>
+              );
+              break;
+            default:
+              displayQuestion = <div>Error in question display.</div>;
+          }
+
+          return (
+            <div key={q.id} className="text-lg text-gray-800">
+              {displayQuestion}
+            </div>
+          );
+        })}
+      </div>
+
+      {showHint && (
+        <div className="mt-4 p-3 bg-yellow-50 text-yellow-700 rounded-lg border border-yellow-300">
+          <span className="font-semibold">Hint:</span> {hint}
+        </div>
+      )}
+    </div>
   );
-  
-  // --- Bar Chart Rendering ---
 
-  const BarChart = useMemo(() => {
-    const max = 12;
-    const labels = Object.keys(chartData);
-    const yAxisLabels = [12, 10, 8, 6, 4, 2, 0];
 
+  function renderInput(field: string, widthClass: string = "w-32") {
     return (
-      <div className="p-4 bg-white">
-        <div className="text-base font-semibold text-red-600 mb-4">Which sports does group 5 do?</div>
-
-        <div className="flex">
-          {/* Y-Axis (Number of Children) */}
-          <div className="flex flex-col justify-between items-center text-xs font-medium mr-2" style={{ height: '200px' }}>
-            <span className="transform -rotate-90 origin-center text-gray-600 whitespace-nowrap -ml-4">number of children</span>
-            <div className="flex flex-col justify-between h-full pt-1 pb-1 text-right">
-              {yAxisLabels.map((val) => (
-                <span key={val} className="text-gray-500 w-8">{val}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Chart Area */}
-          <div className="flex-grow">
-            <div className="relative border-l border-b border-gray-400" style={{ height: '200px' }}>
-              {/* Horizontal Grid Lines */}
-              {[2, 4, 6, 8, 10, 12].map(val => (
-                <div 
-                  key={val} 
-                  className="absolute w-full border-t border-dotted border-gray-300" 
-                  style={{ bottom: `${(val / max) * 100}%` }}
-                />
-              ))}
-              
-              {/* Bars */}
-              <div className="flex h-full items-end justify-around px-1" style={{ gap: '10px' }}>
-                {labels.map((sport) => (
-                  <div
-                    key={sport}
-                    className="relative flex flex-col items-center"
-                    style={{ width: 'calc(100% / 6 - 8px)' }} /* Calculate bar width and account for gap */
-                  >
-                    <div
-                      className="bg-blue-200 w-full rounded-t-sm"
-                      style={{ 
-                        height: `${(chartData[sport] / max) * 100}%`,
-                        backgroundColor: '#cee6f0' // Lighter blue for exact match
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* X-Axis (Sport Labels) */}
-            <div className="flex justify-around text-xs mt-1 font-medium px-1" style={{ gap: '10px' }}>
-              {labels.map((sport) => (
-                <span key={sport} className="text-center text-gray-700 whitespace-pre-wrap" style={{ width: 'calc(100% / 6 - 8px)' }}>
-                  {sport.replace(' ', '\n')}
-                </span>
-              ))}
-            </div>
-            <div className="text-xs text-center text-gray-600 mt-2">sport</div>
-          </div>
-        </div>
-      </div>
+      <input
+        type="text"
+        className={`${widthClass} p-1 text-center border-b-2 border-dotted outline-none bg-transparent transition ${getInputClass(
+          getValidationStatus(field)
+        )}`}
+        value={getAnswerValue(field)}
+        onChange={(e) => handleInputChange(field, e.target.value)}
+        readOnly={isInputReadOnly}
+        placeholder="..."
+      />
     );
-  }, []);
-
-  // --- Render Questions ---
-
-  return (
-    <div className="p-6 bg-white rounded-xl shadow-lg">
-      <h1 className="text-xl font-bold text-gray-800 mb-4">Question 1</h1>
-      <p className="text-gray-600 mb-6">Look at the bar chart. Answer the questions.</p>
-
-      {/* Bar Chart Section */}
-      <div className="mb-8 p-4 border border-gray-300 rounded-lg shadow-inner">
-        {BarChart}
-      </div>
-
-      {/* Questions Section */}
-      <div className="space-y-4 text-gray-800 text-lg font-medium pl-2">
-        <div>
-          How many children swim?
-          <DottedInput field="swimCount" size="w-12" />
-          children
-        </div>
-        <div>
-          Which sport is done by the fewest children?
-          <DottedInput field="fewestSport" />
-        </div>
-        <div>
-          How many children are in judo?
-          <DottedInput field="judoCount" size="w-12" />
-          children
-        </div>
-        <div>
-          Which 2 sports have the same number of children?
-          <DottedInput field="sameSport1" />
-          and
-          <DottedInput field="sameSport2" />
-        </div>
-        <div>
-          Which sport do 10 children do?
-          <DottedInput field="tenChildrenSport" />
-        </div>
-      </div>
-
-      {/* Controls and Status */}
-      <div className="flex justify-between items-center mt-10 border-t pt-4">
-        <div className="flex space-x-3">
-          <button
-            onClick={handleCheck}
-            disabled={showSolution}
-            className="px-5 py-2 text-sm font-semibold rounded-lg shadow-md bg-blue-100 text-blue-800 hover:bg-blue-200 disabled:opacity-50 transition"
-          >
-            Check
-          </button>
-          <button
-            className="px-5 py-2 text-sm font-semibold rounded-lg shadow-md bg-yellow-100 text-yellow-800 hover:bg-yellow-200 transition"
-          >
-            Hint
-          </button>
-          <button
-            onClick={handleShowSolution}
-            disabled={showSolution}
-            className="px-5 py-2 text-sm font-semibold rounded-lg shadow-md bg-purple-100 text-purple-800 hover:bg-purple-200 disabled:opacity-50 transition"
-          >
-            Show Solution
-          </button>
-        </div>
-
-        <button
-            className="flex items-center space-x-2 px-6 py-3 bg-orange-600 text-white font-bold rounded-full shadow-lg hover:bg-orange-700 transition"
-        >
-          <span>Next</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </button>
-      </div>
-      
-      {/* Status Message (Green/Red Box) */}
-      {statusMessage === 'correct' && (
-        <div className="mt-4 p-3 bg-green-100 text-green-700 font-bold rounded-lg border border-green-300">
-          Correct! Great job.
-        </div>
-      )}
-      {statusMessage === 'wrong' && (
-        <div className="mt-4 p-3 bg-red-100 text-red-700 font-bold rounded-lg border border-red-300">
-          Incorrect! Please recheck the highlighted answers.
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ===============================================
-// Component 2: Full Page Layout (Header/Navigation)
-// ===============================================
-export default function FullPageQuizLayout() {
-  const [difficulty, setDifficulty] = useState('advanced');
-
-  return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-8 font-sans">
-      {/* Top Header */}
-      <div className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-4">
-          <button className="flex items-center p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span className="ml-2 font-medium text-gray-700 hidden sm:inline">Back</span>
-          </button>
-          <div className="text-gray-500 font-medium text-sm md:text-base hidden sm:block">
-            Group 5 {'>'} Arithmetic {'>'} Fractions
-          </div>
-        </div>
-        
-        {/* Difficulty Selector */}
-        <div className="flex space-x-2 p-1 bg-gray-100 rounded-full">
-          {['Easy', 'Medium', 'Advanced'].map((level) => (
-            <button
-              key={level}
-              onClick={() => setDifficulty(level.toLowerCase())}
-              className={`px-4 py-1 rounded-full text-sm font-semibold transition ${
-                difficulty === level.toLowerCase()
-                  ? 'bg-blue-600 text-white shadow-md' // Selected state
-                  : 'text-gray-700 hover:bg-gray-200' // Default state
-              }`}
-            >
-              {level}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Content Area (Quiz) */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <BarChartQuizContent />
-      </div>
-
-      {/* Bottom Navigation */}
-      <div className="flex justify-start max-w-4xl mx-auto mt-8">
-        <button className="flex items-center space-x-2 px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-          </svg>
-          <span>Switch Category</span>
-        </button>
-      </div>
-    </div>
-  );
+  }
 }
