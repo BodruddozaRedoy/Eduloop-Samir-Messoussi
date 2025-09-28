@@ -65,10 +65,6 @@ export const router = createBrowserRouter([
             {
                 path: "/result",
                 Component: ResultPage
-            },
-            {
-                path: "/arithmetic",
-                Component: ArithmeticPage
             }
 
         ]
