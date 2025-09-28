@@ -19,7 +19,7 @@ const problemsJSON = [
   { id: 10, fraction: "6/25", answer: "0.24" },
 ];
 
-export default function ArrType_76({ hint }: { hint: string }) {
+export default function ArrType_76({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => "")
   );

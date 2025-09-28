@@ -17,7 +17,7 @@ const problemsJSON = [
   { id: 9, text: "9% van 1100 =", answer: "99" },
 ];
 
-export default function ArrType_75({ hint }: { hint: string }) {
+export default function ArrType_75({ hint,data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => "")
   );

@@ -64,7 +64,7 @@ const findCorrectRangeIndex = (number: number) => {
   return problemsJSON.findIndex((p) => number >= p.min && number <= p.max);
 };
 
-export default function ArrType_59({ hint }: { hint: string }) {
+export default function ArrType_59({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState<(number | null)[]>(
     unsortedNumbers.map(() => null)
   );

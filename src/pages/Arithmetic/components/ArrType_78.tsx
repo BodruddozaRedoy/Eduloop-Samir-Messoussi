@@ -26,7 +26,7 @@ const DEFAULT_HINT =
   "Read each description carefully (morning ≈ 00:00–11:59, afternoon ≈ 12:00–17:59, evening/night ≈ 18:00–23:59). Pick the matching digital time.";
 
 
-  const ArrType_78: React.FC<Props> = () => {
+  const ArrType_78: React.FC<Props> = ({data:DEFAULT_DATA, hint:DEFAULT_HINT}) => {
     return <ArrType data={DEFAULT_DATA} hint={DEFAULT_HINT} />;
   };
 
