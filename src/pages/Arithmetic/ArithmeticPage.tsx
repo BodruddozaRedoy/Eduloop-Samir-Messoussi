@@ -58,8 +58,8 @@ export default function ArithmeticPage() {
     const inactive = "bg-transparent text-black"
 
     const [searchParams] = useSearchParams()
-    const subject = searchParams.get("subject")
-    const group = searchParams.get("group")
+    const subject = searchParams.get("subjectId")
+    const group = searchParams.get("groupId")
 
 
     return (
@@ -134,7 +134,7 @@ export default function ArithmeticPage() {
 
 
                     <div className="flex items-center gap-5 mt-5">
-                        <Link to={`/group/subject/category?group=${group}&subject=${subject}`}>
+                        <Link to={`/group/subject/category?groupId=${group}&subjectId=${subject}`}>
                             <Button className=" py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
                                 <ChevronLeft className="mr-2" /> Switch Category
                             </Button>
@@ -149,7 +149,7 @@ export default function ArithmeticPage() {
                                 <IoMdArrowRoundForward size={50} className="text-5xl" />
                             </div>
                         </Button>
-                        <Link to={`/result?group=${group}&subject=${subject}`} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+                        <Link to={`/result?groupId=${group}&subjectId=${subject}`} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
                             <Button
                                 disabled={!hasResults}
                                 className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
