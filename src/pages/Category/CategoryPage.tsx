@@ -2,8 +2,9 @@ import { Button } from '@/components/ui/button';
 import useCategories from '@/hooks/useCategories';
 import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { Checkbox } from "@/components/ui/checkbox";
+import LoadingScreen from '@/components/common/LoadingScreen';
 
 const CategoryPage: React.FC = () => {
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
@@ -11,8 +12,10 @@ const CategoryPage: React.FC = () => {
     const [selectedSubs, setSelectedSubs] = useState<number[]>([]);
     const [searchParams] = useSearchParams();
     const subjectId = searchParams.get("subjectId");
+    const navigate = useNavigate()
 
     const { categories } = useCategories(subjectId);
+    console.log("categories",categories)
 
     console.log("selectedCategories", selectedCategories)
     console.log("activeCategory", activeCategory)
@@ -51,6 +54,10 @@ const CategoryPage: React.FC = () => {
             setSelectedSubs([...selectedSubs, subId]);
         }
     };
+
+    if(categories?.length < 0) return <LoadingScreen/>
+
+
 
     return (
         <div className=''>
@@ -138,7 +145,7 @@ const CategoryPage: React.FC = () => {
                     </div>
                 </label>
 
-                <button className="mt-5 w-full bg-slate-800 text-white font-bold text-lg py-2 rounded-xl shadow-lg hover:bg-slate-700 transition-colors">
+                <button disabled={!((selectedCategories.length > 0) || activeCategory || (selectedSubs.length > 0))} onClick={() => navigate(`/group/subject/category/arithmetic?subjectId=${categories?.[0].subject}&groupId=${categories?.[0].group}`)} className="mt-5 w-full bg-slate-800 text-white font-bold text-lg py-2 rounded-xl shadow-lg hover:bg-slate-700 transition-colors disabled:bg-slate-800/50 disabled:cursor-not-allowed">
                     Start Now
                 </button>
             </div>
