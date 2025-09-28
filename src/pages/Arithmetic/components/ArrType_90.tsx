@@ -1,15 +1,30 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 
+// Assuming these context/hook imports are provided by the environment
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
-import BarChart from "./BarChart";
+
+// --- TYPES AND INTERFACES ---
+
+interface BarChartData {
+  name: string;
+  value: number;
+}
+
+interface BarChartProps {
+  data: BarChartData[];
+  width?: number;
+  height?: number;
+}
+
+type AnswersState = {
+  [key: string]: string;
+};
 
 
 const quizConfigJSON = {
   questionTitle: "Look at the bar chart. Answer the questions.",
-
-
   chartData: [
     { name: "swimming", value: 4 },
     { name: "judo", value: 7 },
@@ -18,8 +33,6 @@ const quizConfigJSON = {
     { name: "gymnastics", value: 2 },
     { name: "dancing", value: 3 },
   ],
-
-
   questions: [
     {
       id: "q1",
@@ -38,7 +51,6 @@ const quizConfigJSON = {
       answers: [{ field: "ans2", correct: ["7"] }],
       suffix: "children",
     },
-    
     {
       id: "q4",
       text: "Which 2 sports have the same number of children?",
@@ -57,6 +69,107 @@ const quizConfigJSON = {
 };
 
 
+
+
+
+const BarChart = ({ data, width = 600, height = 300 }: BarChartProps) => {
+  const chartHeight = height - 50;
+  const chartWidth = width - 50;
+  const maxVal = 12;
+  const numBars = data.length;
+  const barWidth = chartWidth / (numBars * 1.5);
+  const barGap = chartWidth / (numBars * 3);
+
+  return (
+    <div className="flex justify-center items-start w-full overflow-x-auto min-w-full">
+      <svg
+        viewBox={`0 0 ${width} ${height + 20}`}
+        className="w-full max-w-2xl h-auto bg-white border border-gray-300 rounded-lg shadow-inner p-2"
+      >
+        <g className="text-gray-500 text-xs font-medium">
+          {Array.from({ length: maxVal / 2 + 1 }, (_, i) => i * 2).map((y) => {
+            const yPos = chartHeight - (y / maxVal) * chartHeight + 20;
+            return (
+              <g key={y} transform={`translate(50, 0)`}>
+                <line
+                  x1="0"
+                  y1={yPos}
+                  x2={chartWidth}
+                  y2={yPos}
+                  stroke="#e5e7eb"
+                  strokeWidth="1"
+                />
+                <text x="-15" y={yPos + 4} textAnchor="end">
+                  {y}
+                </text>
+              </g>
+            );
+          })}
+          <text
+            x="15"
+            y={height / 2}
+            transform={`rotate(-90, 15, ${height / 2})`}
+            textAnchor="middle"
+            className="text-sm font-semibold text-gray-700"
+          >
+            number of children
+          </text>
+        </g>
+
+        <g transform={`translate(50, 20)`}>
+          {data.map((d, index) => {
+            const barX = index * (barWidth + barGap) + barGap / 2;
+            const barHeight = (d.value / maxVal) * chartHeight;
+            const barY = chartHeight - barHeight;
+
+            return (
+              <g key={d.name} transform={`translate(${barX}, 0)`}>
+                <rect
+                  y={barY}
+                  width={barWidth}
+                  height={barHeight}
+                  fill="#E0F2FE"
+                  stroke="#3B82F6"
+                  strokeWidth="1"
+                  rx="4"
+                  className="transition-all duration-300 hover:fill-blue-300"
+                />
+
+                <text
+                  x={barWidth / 2}
+                  y={chartHeight + 20}
+                  textAnchor="middle"
+                  className="text-xs font-semibold"
+                >
+                  {d.name}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+        <text
+          x={chartWidth + 50}
+          y={height + 15}
+          textAnchor="end"
+          className="text-xs text-gray-500"
+        >
+          sport
+        </text>
+        <text
+          x={chartWidth / 2 + 50}
+          y={15}
+          textAnchor="middle"
+          className="text-base font-bold text-red-600"
+        >
+          Which sports does group 5 do?
+        </text>
+      </svg>
+    </div>
+  );
+};
+
+
+
 const initialAnswers = {
   ans0: "",
   ans1: "",
@@ -66,11 +179,10 @@ const initialAnswers = {
   ans4: "",
 };
 
-type AnswersState = {
-  [key: string]: string;
-};
 
-export default function ArrType_90({ hint }: { hint: string }) {
+// --- MAIN QUIZ COMPONENT ---
+
+export default function BarChartQuiz({ hint }: { hint: string }) {
 
   const { chartData, questions, questionTitle } = useMemo(
     () => quizConfigJSON,
@@ -102,7 +214,6 @@ export default function ArrType_90({ hint }: { hint: string }) {
   const handleInputChange = useCallback((field: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [field]: value }));
     setStatus(null);
-   
     setValidation((prev) => ({ ...prev, [field]: null }));
   }, []);
 
@@ -111,22 +222,21 @@ export default function ArrType_90({ hint }: { hint: string }) {
     const newValidation: { [key: string]: boolean | null } = {};
 
     questions.forEach((q) => {
-
       if (q.id === "q4") {
-        const fieldA = q.answers[0].field; // ans3a
-        const fieldB = q.answers[1].field; // ans3b
+        const fieldA = q.answers[0].field;
+        const fieldB = q.answers[1].field;
 
         const userAnsA = normalizeInput(answers[fieldA] || "");
         const userAnsB = normalizeInput(answers[fieldB] || "");
 
-        const correctOptions = q.answers[0].correct.map(normalizeInput); // ["ice skating", "dancing"]
+        const correctOptions = q.answers[0].correct.map(normalizeInput);
 
-   
         const isQ4ACorrect = correctOptions.includes(userAnsA);
         const isQ4BCorrect = correctOptions.includes(userAnsB);
         const isDifferent =
           userAnsA !== userAnsB && userAnsA.length > 0 && userAnsB.length > 0;
-        const isQ4Correct = isQ4ACorrect && isQ4BCorrect && isDifferent;
+        
+        const isQ4Correct = isQ4ACorrect && isQ4BCorrect && isDifferent; 
 
         newValidation[fieldA] = isQ4Correct;
         newValidation[fieldB] = isQ4Correct;
@@ -135,7 +245,6 @@ export default function ArrType_90({ hint }: { hint: string }) {
           allCorrect = false;
         }
       } else {
-
         q.answers.forEach((ans) => {
           const userAns = normalizeInput(answers[ans.field] || "");
           const isCorrect = ans.correct.map(normalizeInput).includes(userAns);
@@ -159,11 +268,9 @@ export default function ArrType_90({ hint }: { hint: string }) {
 
     questions.forEach((q) => {
       if (q.id === "q4") {
-
         solutionAnswers[q.answers[0].field] = "ice skating";
         solutionAnswers[q.answers[1].field] = "dancing";
       } else {
-
         q.answers.forEach((ans) => {
           solutionAnswers[ans.field] = ans.correct[0];
         });
@@ -171,7 +278,7 @@ export default function ArrType_90({ hint }: { hint: string }) {
     });
 
     setAnswers(solutionAnswers);
-   
+    
     const solutionValidation = Object.keys(initialAnswers).reduce(
       (acc, key) => ({ ...acc, [key]: true }),
       {}
@@ -234,6 +341,21 @@ export default function ArrType_90({ hint }: { hint: string }) {
 
   const isInputReadOnly = showSolution;
 
+  function renderInput(field: string, widthClass: string = "w-32") {
+    return (
+      <input
+        type="text"
+        className={`${widthClass} p-1 text-center border-b-2 border-dotted outline-none bg-transparent transition ${getInputClass(
+          getValidationStatus(field)
+        )}`}
+        value={getAnswerValue(field)}
+        onChange={(e) => handleInputChange(field, e.target.value)}
+        readOnly={isInputReadOnly}
+        placeholder="..."
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col space-y-8 p-6 bg-white rounded-xl shadow-lg w-full max-w-4xl mx-auto">
       <div className="text-2xl font-extrabold text-gray-900 border-b pb-2">
@@ -241,15 +363,13 @@ export default function ArrType_90({ hint }: { hint: string }) {
       </div>
       <div className="text-gray-600 font-medium">{questionTitle}</div>
 
-
       <div className="py-4">
         <BarChart data={chartData} />
       </div>
 
- 
+      
       <div className="flex flex-col space-y-4 pt-6">
         {questions.map((q) => {
-  
           let displayQuestion;
 
           switch (q.id) {
@@ -314,20 +434,4 @@ export default function ArrType_90({ hint }: { hint: string }) {
       )}
     </div>
   );
-
-
-  function renderInput(field: string, widthClass: string = "w-32") {
-    return (
-      <input
-        type="text"
-        className={`${widthClass} p-1 text-center border-b-2 border-dotted outline-none bg-transparent transition ${getInputClass(
-          getValidationStatus(field)
-        )}`}
-        value={getAnswerValue(field)}
-        onChange={(e) => handleInputChange(field, e.target.value)}
-        readOnly={isInputReadOnly}
-        placeholder="..."
-      />
-    );
-  }
 }
