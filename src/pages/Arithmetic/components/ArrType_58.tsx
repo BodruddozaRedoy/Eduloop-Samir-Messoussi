@@ -33,7 +33,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_58({ hint }: { hint: string }) {
+export default function ArrType_58({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const initialAnswers = useMemo(
     () =>
       problemsJSON.map((p) =>
@@ -140,9 +140,6 @@ export default function ArrType_58({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Fill in the multiplication sums in the thought bubbles. Calculate.</div>
-      
       <div className="flex justify-center px-6 py-8">
         <div className="grid grid-cols-6 gap-0 border-2 border-orange-300 rounded-lg overflow-hidden">
           {/* Header row */}

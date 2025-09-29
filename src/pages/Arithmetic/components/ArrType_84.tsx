@@ -38,7 +38,7 @@ const DEFAULT_HINT =
   "Think of a number that lies between the given two numbers.";
 
 /* ---------------- Component ---------------- */
-const ArrType_84: React.FC<Props> = ({ data, hint }) => {
+const ArrType_84: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_DATA),
   //   [data]

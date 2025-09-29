@@ -157,10 +157,6 @@ const ArrType_61: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">How much is it altogether?</p>
-      </div>
 
       {/* Two columns, responsive */}
       <div className="grid grid-cols-1 gap-y-3 gap-x-12 md:grid-cols-2">

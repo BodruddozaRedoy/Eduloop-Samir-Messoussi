@@ -365,7 +365,7 @@ const TinyNumberLine: React.FC<{
 };
 
 /* ---------------- Component ---------------- */
-const ArrType_70: React.FC<Props> = ({ data, hint }) => {
+const ArrType_70: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   const DATA = DEFAULT_DATA;
   const help = hint ?? DEFAULT_HINT;
 

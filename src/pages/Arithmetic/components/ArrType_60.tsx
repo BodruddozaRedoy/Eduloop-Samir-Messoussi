@@ -130,10 +130,6 @@ const ArrType_60: React.FC<Props> = ({ data, hint }) => {
   /* ---------------- UI ---------------- */
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">How many kilograms?</p>
-      </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {kgValues.map((kg, i) => (

@@ -21,7 +21,7 @@ const hintpass  =
 
 const ArrType_71: React.FC<Props> = ({ data, hint }) => {
   console.log("ArrType_71 rendering with data:", data ,hint);
-  return <ArrType data={demo} hint={hintpass} />;
+  return <ArrType data={data} hint={hintpass} />;
 };
 
 export default ArrType_71;

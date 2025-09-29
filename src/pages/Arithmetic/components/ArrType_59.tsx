@@ -83,6 +83,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
   );
   
 
+
   const [answers, setAnswers] = useState<(number | null)[]>(
     unsortedNumbers.map(() => null)
   );

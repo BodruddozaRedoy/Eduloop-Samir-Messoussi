@@ -51,6 +51,7 @@ const renderDigitWithLine = (digit, index, numDigits) => {
 };
 
 export default function ArrType_67({ hint }: { hint: string }) {
+
   const [answers, setAnswers] = useState(
     problemsJSON.map((p) => p.digitValues.map(() => ""))
   );

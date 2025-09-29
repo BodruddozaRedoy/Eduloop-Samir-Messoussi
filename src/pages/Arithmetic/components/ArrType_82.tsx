@@ -113,7 +113,7 @@ const FractionInput: React.FC<{
 };
 
 /* ---------------- Component ---------------- */
-const ArrType_82: React.FC<Props> = ({ data, hint }) => {
+const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_ITEMS),
   //   [data]
