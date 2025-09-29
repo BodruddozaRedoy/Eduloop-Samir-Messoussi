@@ -1,10 +1,3 @@
-import React from 'react'
-
-export default function ArrType_96() {
-  return (
-    <div>ArrType_96</div>
-  )
-}
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 
