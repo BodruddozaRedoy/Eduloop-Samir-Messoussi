@@ -17,12 +17,14 @@ const GroupPage: React.FC = () => {
     const {data:group, groupLoading} = useGroup()
     console.log("groups", group)
     const navigate = useNavigate()
+  const access_key = localStorage.getItem("access-key")
+
 
     // console.log(group)
     return (
         <div className="relative   flex flex-col justify-start pt-10 px-4 md:px-10">
             {/* Header Section */}
-            <Link to="/login" className=" w-36">
+            <Link to={access_key ? "/" : "/login"} className=" w-36">
                 <Button
                     className='rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed'
                 >
