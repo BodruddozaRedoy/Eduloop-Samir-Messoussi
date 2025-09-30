@@ -46,7 +46,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_72({ hint }: { hint: string }) {
+export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(
     problemsJSON.map(() => ({ partialSum: "", helpSum1: "", helpSum2: "", weeks: "" }))
   );

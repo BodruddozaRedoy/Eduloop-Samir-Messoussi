@@ -50,7 +50,8 @@ const renderDigitWithLine = (digit, index, numDigits) => {
   );
 };
 
-export default function ArrType_45({ hint }: { hint: string }) {
+export default function ArrType_67({ hint }: { hint: string }) {
+
   const [answers, setAnswers] = useState(
     problemsJSON.map((p) => p.digitValues.map(() => ""))
   );
@@ -188,13 +189,6 @@ export default function ArrType_45({ hint }: { hint: string }) {
         ))}
       </div>
 
-      <Controllers
-        handleCheck={handleCheck}
-        handleShowSolution={handleShowSolution}
-        handleShowHint={handleShowHint}
-      />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />
     </div>
   );
 }

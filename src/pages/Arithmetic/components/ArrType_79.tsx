@@ -23,7 +23,7 @@ const DEFAULT_HINT =
   "Tel de vier bedragen bij elkaar op. Gebruik voor het antwoord een decimale punt (bijv. € 195.05). De schatting is alleen ter oefening en wordt niet nagekeken.";
 
 
-const ArrType_79: React.FC<Props> = ({ data, hint }) => {
+const ArrType_79: React.FC<Props> = ({ data:DEFAULT_DATA, hint:DEFAULT_HINT }) => {
   return <ArrType data={DEFAULT_DATA} hint={DEFAULT_HINT} />;
 };
 

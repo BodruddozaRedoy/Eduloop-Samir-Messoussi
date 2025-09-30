@@ -28,7 +28,7 @@ const DEFAULT_HINT =
 
 
 
-  const ArrType_80: React.FC<Props> = () => {
+  const ArrType_80: React.FC<Props> = ({data:DEFAULT_DATA, hint:DEFAULT_HINT}) => {
     return <ArrType data={DEFAULT_DATA} hint={DEFAULT_HINT} />;
   };
 /* ---------------- Helpers ---------------- */

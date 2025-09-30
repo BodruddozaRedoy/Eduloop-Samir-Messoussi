@@ -487,7 +487,7 @@ interface Summary {
 }
 
 /* ---------------- Component ---------------- */
-const ArrType_81: React.FC<Props> = ({ data, hint}) => {
+const ArrType_81: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint}) => {
   // const ITEMS = useMemo<Item[]>(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_ITEMS),
   //   [data]

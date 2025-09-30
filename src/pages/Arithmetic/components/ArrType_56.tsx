@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
+// Assuming these are correctly configured external components/hooks
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
@@ -28,66 +29,103 @@ ChartJS.register(
   Legend
 );
 
-// Data for the temperature chart and questions
-const problemsJSON = [
-  {
-    id: 1,
-    question: "What was the highest temperature on Monday?",
-    answer: "20",
-  },
-  {
-    id: 2,
-    question: "On which day was the temperature highest this week?",
-    answer: "Tuesday",
-  },
-  {
-    id: 3,
-    question: "On which day was the difference between the highest and lowest temperature greatest?",
-    answer: "Wednesday",
-  },
-];
 
-const chartData = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  datasets: [
+const quizConfigJSON = {
+
+  chart: {
+    title: "Measured temperature",
+    yAxisLabel: "Temperature C°",
+   
+    datasetsConfig: [
+      {
+        label: "Lowest temperature",
+        dataKey: "lowest", 
+        borderColor: "rgb(255, 159, 64)",
+        backgroundColor: "rgba(255, 159, 64, 0.5)",
+      },
+      {
+        label: "Highest temperature",
+        dataKey: "highest", 
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  },
+  
+  // Dynamic Data Points (Readings)
+  readings: [
+    { day: "Mon", lowest: 10, highest: 20 },
+    { day: "Tue", lowest: 15, highest: 30 },
+    { day: "Wed", lowest: 5, highest: 35 },
+    { day: "Thu", lowest: 8, highest: 25 },
+    { day: "Fri", lowest: 4, highest: 15 },
+    { day: "Sat", lowest: 6, highest: 18 },
+    { day: "Sun", lowest: 10, highest: 22 },
+  ],
+  
+  // Quiz Questions and Answers
+  problems: [
     {
-      label: "Lowest temperature",
-      data: [10, 15, 5, 8, 4, 6, 10],
-      borderColor: "rgb(255, 159, 64)",
-      backgroundColor: "rgba(255, 159, 64, 0.5)",
+      id: 1,
+      question: "What was the highest temperature on Monday?",
+      answer: "20",
     },
     {
-      label: "Highest temperature",
-      data: [20, 30, 35, 25, 15, 18, 22],
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      id: 2,
+      question: "On which day was the temperature highest this week?",
+      answer: "Tuesday",
+    },
+    {
+      id: 3,
+      question: "On which day was the difference between the highest and lowest temperature greatest?",
+      answer: "Wednesday",
     },
   ],
 };
 
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "right",
-    },
-    title: {
-      display: true,
-      text: "Measured temperature",
-    },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      title: {
-        display: true,
-        text: "Temperature C°",
-      },
-    },
-  },
-};
 
 export default function ArrType_56({ hint }: { hint: string }) {
+  
+
+  const problemsJSON = useMemo(() => quizConfigJSON.problems, []);
+
+  const chartData = useMemo(() => {
+    const labels = quizConfigJSON.readings.map((r) => r.day);
+    
+    
+    const datasets = quizConfigJSON.chart.datasetsConfig.map(config => ({
+      ...config, 
+      data: quizConfigJSON.readings.map(r => r[config.dataKey]), 
+      dataKey: undefined, 
+    }));
+
+    return { labels, datasets };
+  }, []); 
+  
+
+  const chartOptions = useMemo(() => ({
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "right",
+      },
+      title: {
+        display: true,
+        text: quizConfigJSON.chart.title,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: quizConfigJSON.chart.yAxisLabel, 
+        },
+      },
+    },
+  }), []); 
+
+
   const [answers, setAnswers] = useState(Array(problemsJSON.length).fill(""));
   const [validation, setValidation] = useState<(boolean | null)[]>(Array(problemsJSON.length).fill(null));
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
@@ -117,7 +155,7 @@ export default function ArrType_56({ hint }: { hint: string }) {
     setValidation(newValidation);
     setStatus(allCorrect ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, allCorrect);
-  }, [answers, addResult, qId, qTitle]);
+  }, [answers, addResult, qId, qTitle, problemsJSON]); 
 
   const handleShowSolution = useCallback(() => {
     const filledAnswers = problemsJSON.map((p) => p.answer);
@@ -125,7 +163,7 @@ export default function ArrType_56({ hint }: { hint: string }) {
     setValidation(Array(problemsJSON.length).fill(true));
     setShowSolution(true);
     setStatus("match");
-  }, []);
+  }, [problemsJSON]);
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
@@ -157,20 +195,24 @@ export default function ArrType_56({ hint }: { hint: string }) {
 
   const isInputReadOnly = showSolution;
 
+
   return (
     <div className="flex flex-col space-y-8">
       <div className="text-xl font-semibold text-gray-800">Question 1</div>
       <div className="text-gray-600">Look at the diagram. Answer the questions.</div>
 
+    
       <div className="flex justify-center p-6 bg-white rounded-xl ">
         <div style={{ width: "600px", height: "300px" }}>
+        
           <Line data={chartData} options={chartOptions} />
         </div>
       </div>
 
+
       <div className="space-y-4 px-6">
         {problemsJSON.map((p, idx) => (
-          <div key={p.id} className="flex  space-x-2">
+          <div key={p.id} className="flex space-x-2">
             <span className="text-md text-gray-700 font-medium whitespace-nowrap">{p.question}</span>
             <input
               type="text"

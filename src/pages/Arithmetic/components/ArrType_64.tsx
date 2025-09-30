@@ -46,7 +46,7 @@ type Props = {
 /* -----------------------------
    Component (uses QuestionControlsContext)
 ------------------------------ */
-const ArrType_64: React.FC<Props> = ({ rows, hint }) => {
+const ArrType_64: React.FC<Props> = ({ data:rows, hint }:any) => {
   const data = rows?.length ? rows : demoRows;
   const hintText = hint ?? defaultHint;
 

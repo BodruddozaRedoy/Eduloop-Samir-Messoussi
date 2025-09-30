@@ -45,7 +45,7 @@ const DEFAULT_HINT =
   "Write the subtraction equation and the correct answer based on the story.";
 
 /* ---------------- Component ---------------- */
-const ArrType_86: React.FC<Props> = ({ data, hint }) => {
+const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_DATA),
   //   [data]
