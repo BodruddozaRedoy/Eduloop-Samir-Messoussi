@@ -17,7 +17,7 @@ export const SubjectCard: React.FC<SubjectCardProps> = ({ sub, groupId }:any) =>
     console.log("groupId")
 
     return (
-        <div onClick={() => navigate(`/group/subject/category?groupId=${groupId}&subjectId=${sub?.id}`)}>
+        <div onClick={() => navigate(`/category?groupId=${groupId}&subjectId=${sub?.id}`)}>
             <div className="flex flex-col p-12 rounded-2xl border-2 shadow-md border-[#FFF7ED] hover:shadow-xl hover:-translate-y-1 hover:border-[#E16641] transition-transform cursor-pointer bg-white ">
                 <div className="flex items-center mb-2">
                     {/* Custom checkbox */}

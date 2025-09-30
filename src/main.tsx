@@ -4,6 +4,7 @@ import './index.css'
 
 import { RouterProvider } from 'react-router'
 import { router } from './routes/index.routes.tsx'
+import {Toaster} from 'sonner'
 
 import {
   QueryClient,
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster richColors position='top-center'/>
     </QueryClientProvider>
   </StrictMode>,
 )

@@ -31,11 +31,11 @@ export const router = createBrowserRouter([
                 Component: GroupPage,
             },
             {
-                path: "/group/subject",
+                path: "/subject",
                 Component: SubjectPage
             },
             {
-                path: "/group/subject/category",
+                path: "/category",
                 Component: CategoryPage
             },
             {
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
                 Component: SubCategoryPage
             },
             {
-                path: "/group/subject/category/arithmetic",
+                path: "/arithmetic",
                 Component: ArithmeticPage
             },
             {

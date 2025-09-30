@@ -40,8 +40,8 @@ const GroupPage: React.FC = () => {
             <div className="grid grid-cols-1  md:grid-cols-4 lg:grid-cols-5 gap-6">
                 {group?.map((card) => (
                     <div
-                        key={card.id}
-                        onClick={() => { setSelectedGroup(card.id); navigate(`/group/subject?groupId=${card.id}`) }}
+                    key={card.id}
+                        onClick={() => { setSelectedGroup(card.id); navigate(`/subject?groupId=${card.id}`) }}
                         className={`
               flex flex-col bg-white   p-6 rounded-2xl border-2   cursor-pointer transition-all duration-300
               hover:shadow-xl hover:-translate-y-1 hover:bg-[#FFF0ED]
