@@ -9,6 +9,7 @@ export default function useCategories(subjectId:any) {
       const res = await AxiosPublic.get(`/categories/${subjectId}/`)
       return res.data.results
     }, // directly return imported JSON
+    enabled: !!subjectId
   });
 
   return { categories:data, isLoading };
