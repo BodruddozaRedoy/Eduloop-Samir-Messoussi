@@ -1,3 +1,4 @@
+
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -14,70 +15,84 @@ type IndexedToken =
   | { kind: "text"; text: string }
   | { kind: "blank"; ix: number }; // global blank index within values[]
 
-/* --------------------- Static content -------------------- */
-const LEFT: Row[] = [
-  {
-    tokens: [
-      { type: "text", text: "Which word is missing? Choose from: thousand–million–billion. The woolly mammoth went extinct " },
-      { type: "blank", accepts: ["thousand"], show: "thousand" },
-      { type: "text", text: " years ago." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "The distance from the North Pole to the South Pole is approximately 12 " },
-      { type: "blank", accepts: ["thousand"], show: "thousand" },
-      { type: "text", text: " km." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "Every year, about 13 " },
-      { type: "blank", accepts: ["million"], show: "million" },
-      { type: "text", text: " Dutch people go on holiday." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "The 8 richest people in the world have a combined wealth of over 450 " },
-      { type: "blank", accepts: ["billion"], show: "billion" },
-      { type: "text", text: " dollars." },
-    ],
-  },
-];
+type DataSet = {
+  left: Row[];
+  right: Row[];
+};
 
-const RIGHT: Row[] = [
-  {
-    tokens: [
-      { type: "text", text: "A Boeing 737 aircraft costs hundreds of " },
-      { type: "blank", accepts: ["million", "millions"], show: "millions" },
-      { type: "text", text: " of euros." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "A Porsche can cost 150 " },
-      { type: "blank", accepts: ["thousand"], show: "thousand" },
-      { type: "text", text: " euros." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "Approximately 500 " },
-      { type: "blank", accepts: ["thousand"], show: "thousand" },
-      { type: "text", text: " Dutch people go on holiday to Portugal." },
-    ],
-  },
-  {
-    tokens: [
-      { type: "text", text: "In the city of Groningen, more than 200 " },
-      { type: "blank", accepts: ["thousand"], show: "thousand" },
-      { type: "text", text: " people live." },
-    ],
-  },
-];
+type Props = {
+  data?: DataSet;
+  hint?: string;
+};
 
-const HINT_TEXT =
+/* --------------------- Default Data -------------------- */
+const DEFAULT_DATA: DataSet = {
+  left: [
+    {
+      tokens: [
+        {
+          type: "text",
+          text: "Which word is missing? Choose from: thousand–million–billion. The woolly mammoth went extinct ",
+        },
+        { type: "blank", accepts: ["thousand"], show: "thousand" },
+        { type: "text", text: " years ago." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "The distance from the North Pole to the South Pole is approximately 12 " },
+        { type: "blank", accepts: ["thousand"], show: "thousand" },
+        { type: "text", text: " km." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "Every year, about 13 " },
+        { type: "blank", accepts: ["million"], show: "million" },
+        { type: "text", text: " Dutch people go on holiday." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "The 8 richest people in the world have a combined wealth of over 450 " },
+        { type: "blank", accepts: ["billion"], show: "billion" },
+        { type: "text", text: " dollars." },
+      ],
+    },
+  ],
+  right: [
+    {
+      tokens: [
+        { type: "text", text: "A Boeing 737 aircraft costs hundreds of " },
+        { type: "blank", accepts: ["million", "millions"], show: "millions" },
+        { type: "text", text: " of euros." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "A Porsche can cost 150 " },
+        { type: "blank", accepts: ["thousand"], show: "thousand" },
+        { type: "text", text: " euros." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "Approximately 500 " },
+        { type: "blank", accepts: ["thousand"], show: "thousand" },
+        { type: "text", text: " Dutch people go on holiday to Portugal." },
+      ],
+    },
+    {
+      tokens: [
+        { type: "text", text: "In the city of Groningen, more than 200 " },
+        { type: "blank", accepts: ["thousand"], show: "thousand" },
+        { type: "text", text: " people live." },
+      ],
+    },
+  ],
+};
+
+const DEFAULT_HINT =
   "Use: thousand = 1,000; million = 1,000,000; billion = 1,000,000,000. Think about the scale—distances often use thousands, big purchases can be in millions, and huge fortunes can be in billions.";
 
 /* -------------------- Build indexed rows ------------------- */
@@ -89,7 +104,7 @@ function buildIndexed(
   const blanks: BlankDef[] = [];
   let ix = startIx;
 
-  for (const row of rows) {
+  for (const row of rows || []) {
     const line: IndexedToken[] = [];
     for (const t of row.tokens) {
       if (t.type === "text") {
@@ -109,21 +124,25 @@ function buildIndexed(
 }
 
 /* ====================== Component ====================== */
-const ArrType_73: React.FC = () => {
-  // Index all blanks once (left then right), so each blank has a unique index
+const ArrType_73: React.FC<Props> = ({ data, hint }) => {
+  // Fallback if props missing or malformed
+  const safeData: DataSet = {
+    left: Array.isArray(data?.left) ? data!.left : DEFAULT_DATA.left,
+    right: Array.isArray(data?.right) ? data!.right : DEFAULT_DATA.right,
+  };
+  const help = hint ?? DEFAULT_HINT;
+
   const { leftIndexed, rightIndexed, blanks } = useMemo(() => {
-    const left = buildIndexed(LEFT, 0);
-    const right = buildIndexed(RIGHT, left.nextIx);
+    const left = buildIndexed(safeData.left, 0);
+    const right = buildIndexed(safeData.right, left.nextIx);
     return {
       leftIndexed: left.indexed,
       rightIndexed: right.indexed,
       blanks: [...left.blanks, ...right.blanks],
     };
-  }, []);
+  }, [safeData]);
 
-  // User inputs for each blank (initially empty)
   const [values, setValues] = useState<string[]>(() => blanks.map(() => ""));
-  // Validation state: null => never checked; boolean per blank after Check
   const [ok, setOk] = useState<boolean[] | null>(null);
   const [showHint, setShowHint] = useState(false);
 
@@ -162,7 +181,7 @@ const ArrType_73: React.FC = () => {
       handleCheck: checkAll,
       handleShowSolution: showSolution,
       handleShowHint: () => setShowHint((s) => !s),
-      hint: HINT_TEXT,
+      hint: help,
       showHint,
       summary:
         ok && ok.every(Boolean)
@@ -181,7 +200,7 @@ const ArrType_73: React.FC = () => {
             }
           : null,
     });
-  }, [ok, showHint, setControls]);
+  }, [ok, showHint, setControls, help]);
 
   const inputTone = (i: number) => {
     if (!ok) return "border-slate-300 text-slate-800";
@@ -217,11 +236,6 @@ const ArrType_73: React.FC = () => {
         </p>
       </div>
 
-      {showHint && (
-        <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
-          {HINT_TEXT}
-        </div>
-      )}
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div className="space-y-5">
