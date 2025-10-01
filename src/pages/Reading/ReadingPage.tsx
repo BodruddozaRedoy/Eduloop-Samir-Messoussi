@@ -134,11 +134,13 @@ export default function ReadingPage() {
 
           {/* Breadcrumbs */}
           <div className="text-primary flex gap-3 items-center">
-            <p>Group {question.group}</p>
+            <p>{question.group}</p>
             <IoIosArrowForward />
             <p>{question.subject}</p>
             <IoIosArrowForward />
             <p>{question.category}</p>
+            <IoIosArrowForward />
+            <p>{question.subcategory}</p>
           </div>
         </div>
 
