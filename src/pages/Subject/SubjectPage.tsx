@@ -25,11 +25,11 @@ const SubjectPage: React.FC = () => {
 
     const pathname = useLocation()
     console.log(pathname)
-    const { group } = useCategories()
-    const groupData = group?.find(prev => prev.slug.includes("group-4"))
+    // const { group } = useCategories()
+    // const groupData = group?.find(prev => prev.slug.includes("group-4"))
     const [params] = useSearchParams()
 
-    const groupId = params.get("groupId")
+    const groupId = localStorage.getItem("groupId")
 
     const { subjects } = useSubject(groupId)
     console.log(subjects)

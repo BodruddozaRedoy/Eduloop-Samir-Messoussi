@@ -25,9 +25,8 @@ const CategoryPage: React.FC = () => {
     const [showDialog, setShowDialog] = useState(false);
     const [startQuiz, setStartQuiz] = useState(false);
 
-    const [searchParams] = useSearchParams();
-    const subjectId = searchParams.get("subjectId");
-    const groupId = searchParams.get("groupId");
+    const subjectId = localStorage.getItem("subjectId");
+    const groupId = localStorage.getItem("groupId");
     const navigate = useNavigate();
 
     const { categories } = useCategories(subjectId);
@@ -116,25 +115,43 @@ const CategoryPage: React.FC = () => {
 
 
     // ✅ Handle start quiz
+    // ✅ Only start fetching
     const handleStartQuiz = () => {
         setShowDialog(false);
         setStartQuiz(true);
+    };
 
-        if (isLoading) return <LoadingScreen />;
-        if (!question) return toast.error("No question found");
-        if (question) {
-            console.log("Fetched Questions:", question);
+    // ✅ React to new data
+    useEffect(() => {
+        if (!isLoading && question) {
+            console.log("Fetched Question:", question);
+
+            const routeState = {
+                question,
+                level,
+                subjectId,
+                groupId,
+                categories: selectedCategories,
+                subcategories: selectedSubs,
+            };
+
             if (categories?.[0].subject === "Begrijpend Lezen" || categories?.[0].subject === "Taal") {
-                navigate(`/reading?level=${level || null}&subjectId=${subjectId}&groupId=${groupId}`);
+                navigate(`/reading`, { state: routeState });
             } else if (categories?.[0].subject === "Rekenen") {
-                navigate(`/arithmetic?level=${level || null}&subjectId=${subjectId}&groupId=${groupId}`);
+                navigate(`/arithmetic`, { state: routeState });
             } else if (categories?.[0].subject === "Spelling") {
-                navigate(`/spelling?level=${level || null}&subjectId=${subjectId}&groupId=${groupId}`);
+                navigate(`/spelling`, { state: routeState });
             } else if (categories?.[0].subject === "Woordenschat") {
-                navigate(`/vocabulary?level=${level || null}&subjectId=${subjectId}&groupId=${groupId}`);
+                navigate(`/vocabulary`, { state: routeState });
             }
         }
-    };
+
+        if (!isLoading && startQuiz && !question) {
+            toast.error("No question found");
+        }
+    }, [isLoading, question, startQuiz]);
+
+
 
     return (
         <div className=''>

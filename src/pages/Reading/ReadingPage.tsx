@@ -10,36 +10,47 @@ import {
 import ReadingFillBlanks from "./components/ReadingFillBlanks";
 import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
 import ReadingShortQuestion from "./components/ReadingShortQuestion";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
 import { AxiosPublic } from "@/config/axios";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { toast } from "sonner";
 
 export default function ReadingPage() {
-  const [question, setQuestion] = useState<any | null>(null);
+  const location = useLocation();
+  const initialQuestion = location.state?.question; // 👈 first question from CategoryPage
+
+  const [question, setQuestion] = useState<any | null>(initialQuestion || null);
   const [loading, setLoading] = useState(false);
   const [serial, setSerial] = useState(1); // 👈 track serial number
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
-  const navigate = useNavigate()
 
-  // Fetch one question from API
+  const subjectId = localStorage.getItem("subjectId");
+  const groupId = localStorage.getItem("groupId");
+  const navigate = useNavigate();
+
+  // Fetch one new question from API
   const fetchQuestion = async () => {
+    const payload = {
+      group_id: groupId,
+      subject_id: subjectId,
+      category_ids: JSON.parse(localStorage.getItem("categories")!),
+      subcategory_ids: JSON.parse(localStorage.getItem("subcategories")!)
+    }
     try {
       setLoading(true);
-      const res = await AxiosPublic.get("/questions/"); // 👈 replace with your actual endpoint
+      const res = await AxiosPublic.get("/questions/", payload); // 👈 replace with your GET endpoint
       setQuestion(res.data);
     } catch (err) {
       console.error("Failed to load question", err);
-      toast.error("No question found")
-      // navigate("/categories")
+      toast.error("No question found");
+      navigate(`/category`);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchQuestion();
     const off = onResultsUpdated((_r: TrackedResults) =>
       setHasResults(hasAnyResults())
     );
@@ -48,21 +59,21 @@ export default function ReadingPage() {
 
   const handleNext = async () => {
     setSerial((prev) => prev + 1); // increment serial
-    await fetchQuestion(); // fetch next question
+    await fetchQuestion(); // fetch new question
   };
 
   const handlePrev = () => {
-    // optional: if you need previous question, you’ll need a cache/stack
+    // optional: if you want previous question support → you'd need a cache/stack
     setSerial((prev) => Math.max(prev - 1, 1));
   };
 
   const content = useMemo(() => {
     if (!question) return null;
     switch (question.type) {
-      case "readingMultipleChoice":
+      case "mcq":
         return (
           <ReadingMultipleChoice
-            key={serial} // 👈 use serial as key, not backend id
+            key={serial}
             qid={serial}
             question={question.metadata.question}
             options={question.metadata.options ?? []}
@@ -71,7 +82,7 @@ export default function ReadingPage() {
             hint={question.metadata.hint}
           />
         );
-      case "readingShortQuestion":
+      case "short":
         return (
           <ReadingShortQuestion
             key={serial}
@@ -82,7 +93,7 @@ export default function ReadingPage() {
             hint={question.metadata.hint}
           />
         );
-      case "readingFillBlanks":
+      case "fill_blank":
         return (
           <ReadingFillBlanks
             key={serial}
