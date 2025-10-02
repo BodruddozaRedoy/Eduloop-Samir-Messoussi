@@ -39,7 +39,7 @@ export default function ReadingPage() {
     }
     try {
       setLoading(true);
-      const res = await AxiosPublic.get("/questions/", payload); // 👈 replace with your GET endpoint
+      const res = await AxiosPublic.get("/questions/"); // 👈 replace with your GET endpoint
       setQuestion(res.data);
     } catch (err) {
       console.error("Failed to load question", err);

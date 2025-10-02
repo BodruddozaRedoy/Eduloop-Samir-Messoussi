@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const AxiosPublic = axios.create({
-    baseURL: "http://10.10.13.60/api",
+    baseURL: "https://10.10.13.60:8090/api",
     withCredentials: true
 })
 
