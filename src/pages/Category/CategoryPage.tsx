@@ -54,8 +54,10 @@ const CategoryPage: React.FC = () => {
 
             const res = await AxiosPublic.post("/questions/", payload);
             console.log("Request Payload:", payload);
-            console.log("Response:", res.data);
-            return res.data;
+            console.log("Response:", res.data?.question);
+            console.log("Session Id:", res.data?.session_id);
+            localStorage.setItem("sessionId", res.data?.session_id)
+            return res.data?.question;
         },
         enabled: startQuiz,
     });
@@ -135,7 +137,7 @@ const CategoryPage: React.FC = () => {
                 subcategories: selectedSubs,
             };
 
-            if (categories?.[0].subject === "Begrijpend Lezen" || categories?.[0].subject === "Taal") {
+            if (categories?.[0].subject === "Begrijpend Lezen" ) {
                 navigate(`/reading`, { state: routeState });
             } else if (categories?.[0].subject === "Rekenen") {
                 navigate(`/arithmetic`, { state: routeState });
@@ -143,6 +145,8 @@ const CategoryPage: React.FC = () => {
                 navigate(`/spelling`, { state: routeState });
             } else if (categories?.[0].subject === "Woordenschat") {
                 navigate(`/vocabulary`, { state: routeState });
+            }else if(categories?.[0].subject === "Taal"){
+                navigate(`/language`, { state: routeState });
             }
         }
 
