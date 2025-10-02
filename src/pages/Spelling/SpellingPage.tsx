@@ -10,8 +10,6 @@ import {
 import SpellingMultipleChoice from "./components/SpellingMultipleChoice";
 import { Link } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
-import ReadingShortQuestion from "../Reading/components/ReadingShortQuestion";
-import ReadingFillBlanks from "../Reading/components/ReadingFillBlanks";
 import SpellingShortQuestion from "./components/SpellingShortQuestion";
 import SpellingFillBlanks from "./components/SpellingFillBlanks";
 
