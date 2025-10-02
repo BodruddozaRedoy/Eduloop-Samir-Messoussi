@@ -38,12 +38,10 @@ const QUESTIONS_DATA = [
     id: 2,
     type: "spellingShortQuestion",
     group: "4",
-    subject: "Reading",
+    subject: "Spelling",
     category: "Environment",
     level: "Easy",
     metadata: {
-      description:
-        "Mangrove forests grow along coastlines and protect the land from big waves and storms. They also provide homes for fish, crabs, and many birds. Scientists say mangroves are important because they keep the coast safe and help animals survive. Communities often plant more mangroves to protect the environment.",
       question: "Why do communities plant more mangroves?",
       correctAnswer: "To protect the coast and the environment.",
       hint: "Think about the role mangroves play in protecting both land and animals.", // ✅ Added hint
@@ -53,12 +51,10 @@ const QUESTIONS_DATA = [
     id: 3,
     type: "spellingFillBlanks", // ✅ New type
     group: "5",
-    subject: "Reading",
+    subject: "Spelling",
     category: "Environment",
     level: "Medium",
     metadata: {
-      description:
-        "Mangrove forests grow along coastlines and protect the land from big waves and storms...",
       question: "Why _____ communities plant more mangroves?",
       correctAnswer: "do",
       hint: "It’s a helping verb that makes the question correct.",
