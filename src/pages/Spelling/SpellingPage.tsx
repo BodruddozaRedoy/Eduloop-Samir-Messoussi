@@ -10,6 +10,10 @@ import {
 import SpellingMultipleChoice from "./components/SpellingMultipleChoice";
 import { Link } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
+import ReadingShortQuestion from "../Reading/components/ReadingShortQuestion";
+import ReadingFillBlanks from "../Reading/components/ReadingFillBlanks";
+import SpellingShortQuestion from "./components/SpellingShortQuestion";
+import SpellingFillBlanks from "./components/SpellingFillBlanks";
 
 
 const QUESTIONS_DATA = [
@@ -32,36 +36,36 @@ const QUESTIONS_DATA = [
       hint: "Think about the correct spelling of the word.",
     },
   },
-//   {
-//     id: 2,
-//     type: "readingShortQuestion",
-//     group: "4",
-//     subject: "Reading",
-//     category: "Environment",
-//     level: "Easy",
-//     metadata: {
-//       description:
-//         "Mangrove forests grow along coastlines and protect the land from big waves and storms. They also provide homes for fish, crabs, and many birds. Scientists say mangroves are important because they keep the coast safe and help animals survive. Communities often plant more mangroves to protect the environment.",
-//       question: "Why do communities plant more mangroves?",
-//       correctAnswer: "To protect the coast and the environment.",
-//       hint: "Think about the role mangroves play in protecting both land and animals.", // ✅ Added hint
-//     },
-//   },
-//   {
-//     id: 3,
-//     type: "readingFillBlanks", // ✅ New type
-//     group: "5",
-//     subject: "Reading",
-//     category: "Environment",
-//     level: "Medium",
-//     metadata: {
-//       description:
-//         "Mangrove forests grow along coastlines and protect the land from big waves and storms...",
-//       question: "Why _____ communities plant more mangroves?",
-//       correctAnswer: "do",
-//       hint: "It’s a helping verb that makes the question correct.",
-//     },
-//   },
+  {
+    id: 2,
+    type: "spellingShortQuestion",
+    group: "4",
+    subject: "Reading",
+    category: "Environment",
+    level: "Easy",
+    metadata: {
+      description:
+        "Mangrove forests grow along coastlines and protect the land from big waves and storms. They also provide homes for fish, crabs, and many birds. Scientists say mangroves are important because they keep the coast safe and help animals survive. Communities often plant more mangroves to protect the environment.",
+      question: "Why do communities plant more mangroves?",
+      correctAnswer: "To protect the coast and the environment.",
+      hint: "Think about the role mangroves play in protecting both land and animals.", // ✅ Added hint
+    },
+  },
+  {
+    id: 3,
+    type: "spellingFillBlanks", // ✅ New type
+    group: "5",
+    subject: "Reading",
+    category: "Environment",
+    level: "Medium",
+    metadata: {
+      description:
+        "Mangrove forests grow along coastlines and protect the land from big waves and storms...",
+      question: "Why _____ communities plant more mangroves?",
+      correctAnswer: "do",
+      hint: "It’s a helping verb that makes the question correct.",
+    },
+  },
 ];
 
 export default function ReadingPage() {
@@ -98,28 +102,28 @@ export default function ReadingPage() {
           />
         );
       }
-    //   case "readingShortQuestion": {
-    //     return (
-    //       <ReadingShortQuestion
-    //         key={q.id}
-    //         question={q.metadata.question}
-    //         correctAnswer={q.metadata.correctAnswer}
-    //         description={q.metadata.description}
-    //         hint={q.metadata.hint}
-    //       />
-    //     );
-    //   }
-    //   case "readingFillBlanks": {
-    //     return (
-    //       <ReadingFillBlanks
-    //         key={q.id}
-    //         question={q.metadata.question}
-    //         correctAnswer={q.metadata.correctAnswer}
-    //         description={q.metadata.description}
-    //         hint={q.metadata.hint}
-    //       />
-    //     );
-    //   }
+      case "spellingShortQuestion": {
+        return (
+          <SpellingShortQuestion
+            key={q.id}
+            question={q.metadata.question}
+            correctAnswer={q.metadata.correctAnswer}
+            description={q.metadata.description}
+            hint={q.metadata.hint}
+          />
+        );
+      }
+      case "spellingFillBlanks": {
+        return (
+          <SpellingFillBlanks
+            key={q.id}
+            question={q.metadata.question}
+            correctAnswer={q.metadata.correctAnswer}
+            description={q.metadata.description}
+            hint={q.metadata.hint}
+          />
+        );
+      }
 
       default:
         return null;
