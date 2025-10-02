@@ -16,13 +16,16 @@ import {
   type TrackedResults,
 } from "@/hooks/useResultTracker";
 import useResultTracker from "@/hooks/useResultTracker";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosPublic } from "@/config/axios";
 
 interface Question {
-  "id": string;
+  "id": string | number;
   "type": "mcq" | "fill_blank" | "short";
   "group"?: string;
   "subject"?: string;
   "category"?: string;
+  "subcategory"?: string;
   "level"?: string;
   "metadata": {
     "question": string;
@@ -52,8 +55,17 @@ export default function LanguageQuestions() {
     return () => off();
   }, []);
 
+  const {data:qn} = useQuery({
+    queryKey: ["question"],
+    queryFn: async () => {
+      const res = await AxiosPublic.get("/questions/")
+      console.log(res)
+      return res.data
+    }
+  })
+
   useEffect(() => {
-    const fakeData: Question[] = [
+    const questionData: Question[] = [
       {
         "id": 5,
         "group": "group-5",
@@ -110,7 +122,7 @@ export default function LanguageQuestions() {
     },
       
     ];
-    setData(fakeData);
+    setData(questionData);
     setLoading(false);
   }, []);
 

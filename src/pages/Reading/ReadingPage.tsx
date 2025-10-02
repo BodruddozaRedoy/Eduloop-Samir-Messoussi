@@ -10,130 +10,108 @@ import {
 import ReadingFillBlanks from "./components/ReadingFillBlanks";
 import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
 import ReadingShortQuestion from "./components/ReadingShortQuestion";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
-
-const QUESTIONS_DATA = [
-  {
-    id: 1,
-    type: "readingMultipleChoice",
-    group: "4",
-    subject: "Reading",
-    category: "Environment",
-    level: "Easy",
-    metadata: {
-      description:
-        "Mangrove forests grow along coastlines and protect the land from big waves and storms. They also provide homes for fish, crabs, and many birds. Scientists say mangroves are important because they keep the coast safe and help animals survive. Communities often plant more mangroves to protect the environment.",
-      question: "Why do communities plant more mangroves?",
-      options: [
-        "To protect the coast and the environment.",
-        "Animals will lose their homes.",
-        "More storms will stop.",
-        "Communities will be safer.",
-      ],
-      correctAnswer: "To protect the coast and the environment.",
-      hint: "Think about the role mangroves play in protecting both land and animals.", // ✅ Added hint
-    },
-  },
-  {
-    id: 2,
-    type: "readingShortQuestion",
-    group: "4",
-    subject: "Reading",
-    category: "Environment",
-    level: "Easy",
-    metadata: {
-      description:
-        "Mangrove forests grow along coastlines and protect the land from big waves and storms. They also provide homes for fish, crabs, and many birds. Scientists say mangroves are important because they keep the coast safe and help animals survive. Communities often plant more mangroves to protect the environment.",
-      question: "Why do communities plant more mangroves?",
-      correctAnswer: "To protect the coast and the environment.",
-      hint: "Think about the role mangroves play in protecting both land and animals.", // ✅ Added hint
-    },
-  },
-  {
-    id: 3,
-    type: "readingFillBlanks", // ✅ New type
-    group: "5",
-    subject: "Reading",
-    category: "Environment",
-    level: "Medium",
-    metadata: {
-      description:
-        "Mangrove forests grow along coastlines and protect the land from big waves and storms...",
-      question: "Why _____ communities plant more mangroves?",
-      correctAnswer: "do",
-      hint: "It’s a helping verb that makes the question correct.",
-    },
-  },
-];
+import { AxiosPublic } from "@/config/axios";
+import LoadingScreen from "@/components/common/LoadingScreen";
+import { toast } from "sonner";
 
 export default function ReadingPage() {
-  const [question, setQuestion] = useState(0);
+  const location = useLocation();
+  const initialQuestion = location.state?.question; // 👈 first question from CategoryPage
+
+  const [question, setQuestion] = useState<any | null>(initialQuestion || null);
+  const [loading, setLoading] = useState(false);
+  const [serial, setSerial] = useState(1); // 👈 track serial number
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
 
-  const isFirst = question === 0;
-  const isLast = question === QUESTIONS_DATA.length - 1;
-  const q = QUESTIONS_DATA[question];
+  const subjectId = localStorage.getItem("subjectId");
+  const groupId = localStorage.getItem("groupId");
+  const navigate = useNavigate();
 
-  const handlePrev = () => setQuestion((prev) => Math.max(prev - 1, 0));
-  const handleNext = () =>
-    setQuestion((prev) => Math.min(prev + 1, QUESTIONS_DATA.length - 1));
+  // Fetch one new question from API
+  const fetchQuestion = async () => {
+    const payload = {
+      group_id: groupId,
+      subject_id: subjectId,
+      category_ids: JSON.parse(localStorage.getItem("categories")!),
+      subcategory_ids: JSON.parse(localStorage.getItem("subcategories")!)
+    }
+    try {
+      setLoading(true);
+      const res = await AxiosPublic.get("/questions/"); // 👈 replace with your GET endpoint
+      setQuestion(res.data);
+    } catch (err) {
+      console.error("Failed to load question", err);
+      toast.error("No question found");
+      navigate(`/category`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    const off = onResultsUpdated((_r: TrackedResults) =>
+      setHasResults(hasAnyResults())
+    );
     return () => off();
   }, []);
 
-  // Render by type
-  const content = useMemo(() => {
-    if (!q) return null;
+  const handleNext = async () => {
+    setSerial((prev) => prev + 1); // increment serial
+    await fetchQuestion(); // fetch new question
+  };
 
-    switch (q.type) {
-      case "readingMultipleChoice": {
+  const handlePrev = () => {
+    // optional: if you want previous question support → you'd need a cache/stack
+    setSerial((prev) => Math.max(prev - 1, 1));
+  };
+
+  const content = useMemo(() => {
+    if (!question) return null;
+    switch (question.type) {
+      case "mcq":
         return (
           <ReadingMultipleChoice
-            key={q.id}
-            qid={q.id}
-            question={q.metadata.question}
-            options={q.metadata.options ?? []}
-            correctAnswer={q.metadata.correctAnswer}
-            description={q.metadata.description}
-            hint={q.metadata.hint} // ✅ new
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
           />
         );
-      }
-      case "readingShortQuestion": {
+      case "short":
         return (
           <ReadingShortQuestion
-            key={q.id}
-            qid={q.id}
-            question={q.metadata.question}
-            correctAnswer={q.metadata.correctAnswer}
-            description={q.metadata.description}
-            hint={q.metadata.hint}
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
           />
         );
-      }
-      case "readingFillBlanks": {
+      case "fill_blank":
         return (
           <ReadingFillBlanks
-            key={q.id}
-            qid={q.id}
-            question={q.metadata.question}
-            correctAnswer={q.metadata.correctAnswer}
-            description={q.metadata.description}
-            hint={q.metadata.hint}
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
           />
         );
-      }
-
       default:
         return null;
     }
-  }, [q]);
+  }, [question, serial]);
 
-  // Difficulty pills highlight
-  const level = q?.level ?? "Easy";
+  if (loading || !question) return <LoadingScreen />;
+
+  const level = question?.level ?? "Easy";
   const pillBase = "py-2 px-5 rounded-lg font-semibold";
   const active = "bg-primary text-white";
   const inactive = "bg-transparent text-black";
@@ -145,7 +123,7 @@ export default function ReadingPage() {
         <div className="flex items-center gap-3">
           <Button
             onClick={handlePrev}
-            disabled={isFirst}
+            disabled={serial === 1}
             className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
@@ -154,49 +132,36 @@ export default function ReadingPage() {
             Back
           </Button>
 
-          {/* Breadcrumbs from data */}
+          {/* Breadcrumbs */}
           <div className="text-primary flex gap-3 items-center">
-            <p>Group {q.group}</p>
+            <p>{question.group}</p>
             <IoIosArrowForward />
-            <p>{q.subject}</p>
+            <p>{question.subject}</p>
             <IoIosArrowForward />
-            <p>{q.category}</p>
+            <p>{question.category}</p>
+            <IoIosArrowForward />
+            <p>{question.subcategory}</p>
           </div>
         </div>
 
         {/* Difficulty pills */}
         <div className="bg-white p-1 rounded-lg flex items-center">
-          <div
-            className={`${pillBase} ${level === "Easy" ? active : inactive}`}
-          >
-            Easy
-          </div>
-          <div
-            className={`${pillBase} ${level === "Medium" ? active : inactive}`}
-          >
-            Medium
-          </div>
-          <div
-            className={`${pillBase} ${level === "Advance" ? active : inactive}`}
-          >
-            Advance
-          </div>
+          <div className={`${pillBase} ${level === "Easy" ? active : inactive}`}>Easy</div>
+          <div className={`${pillBase} ${level === "Medium" ? active : inactive}`}>Medium</div>
+          <div className={`${pillBase} ${level === "Advance" ? active : inactive}`}>Advance</div>
         </div>
       </div>
 
       {/* Body */}
-      <div
-        key={q.id}
-        className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white"
-      >
-        {/* Question text */}
+      <div key={serial} className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
         <div className="mb-4 text-lg font-semibold">
-          <h1 className="font-bold">Question {question + 1}</h1>
+          {/* Show serial instead of backend id */}
+          <h1 className="font-bold">Question {serial}</h1>
         </div>
 
         {content}
 
-        {/* Footer actions */}
+        {/* Footer */}
         <div className="flex items-center justify-between mt-6">
           <div>
             <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
@@ -206,8 +171,7 @@ export default function ReadingPage() {
           <div className="space-x-5">
             <Button
               onClick={handleNext}
-              disabled={isLast}
-              className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+              className="rounded-2xl py-7 pr-2 font-bold text-xl"
             >
               Next
               <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
