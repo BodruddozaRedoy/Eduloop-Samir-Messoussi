@@ -76,9 +76,11 @@ export default function ReadingFillBlanks({
   return (
     <div className="w-full bg-[#fdeedc] rounded-xl p-6 shadow-md">
       {/* Passage */}
-      <p className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
-        {description}
-      </p>
+      {
+        description && <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
+        <p className="text-sm md:text-base">{description}</p>
+      </div>
+      }
 
       {/* Question */}
       <h2 className="text-lg font-semibold mb-4">{question}</h2>

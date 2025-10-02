@@ -160,12 +160,12 @@ const CategoryPage: React.FC = () => {
     return (
         <div className=''>
             {/* Back Button */}
-            <Link to="/group" className="inline-block rounded-2xl">
+            <Link to="/subject" className="inline-block rounded-2xl">
                 <Button className="rounded-2xl py-7 pl-2 font-bold text-xl">
                     <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
                         <IoMdArrowRoundBack size={50} className="text-5xl" />
                     </div>
-                    Back Group
+                    Back Subject
                 </Button>
             </Link>
 

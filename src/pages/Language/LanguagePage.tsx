@@ -1,52 +1,62 @@
-import React, { useState, useEffect } from "react";
-import Check from "@/components/common/Check";
-import Hint from "@/components/common/Hint";
-import Controllers from "@/components/common/Controllers";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import {
+  IoIosArrowForward,
   IoMdArrowRoundBack,
   IoMdArrowRoundForward,
   IoMdCheckmarkCircleOutline,
 } from "react-icons/io";
-import { Link } from "react-router";
-import {
-  hasAnyResults,
-  onResultsUpdated,
-  type TrackedResults,
-} from "@/hooks/useResultTracker";
-import useResultTracker from "@/hooks/useResultTracker";
-import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
 import { AxiosPublic } from "@/config/axios";
-
-interface Question {
-  "id": string | number;
-  "type": "mcq" | "fill_blank" | "short";
-  "group"?: string;
-  "subject"?: string;
-  "category"?: string;
-  "subcategory"?: string;
-  "level"?: string;
-  "metadata": {
-    "question": string;
-    "options"?: string[];
-    "correctAnswer": string[];
-    "hint"?: string;
-    "description"?: string;
-  };
-}
+import LoadingScreen from "@/components/common/LoadingScreen";
+import { toast } from "sonner";
+import ReadingShortQuestion from "../Reading/components/ReadingShortQuestion";
+import ReadingFillBlanks from "../Reading/components/ReadingFillBlanks";
+import ReadingMultipleChoice from "../Reading/components/ReadingMultipleChoice";
 
 export default function LanguagePage() {
-  const [data, setData] = useState<Question[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<{ [id: string]: string | string[] }>({});
-  const [status, setStatus] = useState<"match" | "wrong" | "">("");
-  const [showSolution, setShowSolution] = useState(false);
-  const [showHint, setShowHint] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const initialQuestion = location.state?.question; // 👈 first question from CategoryPage
 
-  const { addResult } = useResultTracker();
+  const [question, setQuestion] = useState<any | null>(initialQuestion || null);
+  const [loading, setLoading] = useState(false);
+  const [serial, setSerial] = useState(1); // 👈 track serial number
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
+
+  const subjectId = localStorage.getItem("subjectId");
+  const groupId = localStorage.getItem("groupId");
+  const navigate = useNavigate();
+  const sessionId = localStorage.getItem("sessionId")
+
+
+  // Fetch one new question from API
+  const fetchQuestion = async () => {
+    const payload = {
+      group_id: groupId,
+      subject_id: subjectId,
+      category_ids: JSON.parse(localStorage.getItem("categories")!),
+      subcategory_ids: JSON.parse(localStorage.getItem("subcategories")!)
+    }
+    try {
+      setLoading(true);
+      console.log("api is calling")
+      const res = await AxiosPublic.get("/questions/", {
+        headers: {
+          "X-Session-Id": sessionId
+        }
+      }); // 👈 replace with your GET endpoint
+      console.log("api call end", res)
+      setQuestion(res.data);
+    } catch (err) {
+      console.error("Failed to load question", err);
+      toast.error("No question found");
+      navigate(`/category`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const off = onResultsUpdated((_r: TrackedResults) =>
@@ -55,237 +65,139 @@ export default function LanguagePage() {
     return () => off();
   }, []);
 
-  const {data:qn} = useQuery({
-    queryKey: ["question"],
-    queryFn: async () => {
-      const res = await AxiosPublic.get("/questions/")
-      console.log(res)
-      return res.data
-    }
-  })
-
-  useEffect(() => {
-    const questionData: Question[] = [
-      {
-        "id": 5,
-        "group": "group-5",
-        "subject": "language",
-        "category": "Woordsoorten",
-        "subcategory": "werkwoord",
-        "level": "medium",
-        "type": "mcq",
-        "metadata": {
-            "question": "Welk woord is het werkwoord in de volgende zin: 'Lisa speelt in de tuin.'?",
-            "options": [
-                "Lisa",
-                "speelt",
-                "in",
-                "tuin"
-            ],
-            "correctAnswer": [
-                "speelt"
-            ],
-            "hint": "Een werkwoord is iets wat je doet."
-        }
-    },
-      {
-        "id": 6,
-        "group": "group-5",
-        "subject": "language",
-        "category": "Leestekens",
-        "subcategory": "punt",
-        "level": "easy",
-        "type": "fill_blank",
-        "metadata": {
-            "question": "Vul het juiste leesteken in: Het is vandaag een mooie dag_",
-            "correctAnswer": [
-                "."
-            ],
-            "hint": "Aan het eind van een zin gebruik je dit leesteken."
-        }
-    },
-       {
-        "id": 9,
-        "group": "group-5",
-        "subject": "language",
-        "category": "Grammaticale kennis",
-        "subcategory": "onderwerp",
-        "level": "advanced",
-        "type": "short",
-        "metadata": {
-            "question": "Wat is het onderwerp in de volgende zin: 'De kat jaagt op de muis in de tuin'?",
-            "correctAnswer": [
-                "De kat"
-            ],
-            "hint": "Het onderwerp is degene die de actie uitvoert in de zin."
-        }
-    },
-      
-    ];
-    setData(questionData);
-    setLoading(false);
-  }, []);
-
-  if (loading) return <div className="text-center text-xl mt-10">Loading questions...</div>;
-  if (data.length === 0) return <div className="text-center text-xl mt-10">No questions available</div>;
-
-  const currentQuestion = data[currentIndex];
-  const selected = answers[currentQuestion["id"]] || "";
-
-  const selectOption = (value: string | string[]) => {
-    setAnswers((prev) => ({ ...prev, [currentQuestion["id"]]: value }));
-    setShowSolution(false);
-    setStatus("");
+  const handleNext = async () => {
+    setSerial((prev) => prev + 1); // increment serial
+    await fetchQuestion(); // fetch new question
   };
 
-  const handleCheck = () => {
-    if (!selected) return;
-
-    if (Array.isArray(selected)) {
-      const correct = currentQuestion["metadata"]["correctAnswer"].every((ans) =>
-        selected.some((s) => s.toLowerCase() === ans.toLowerCase())
-      );
-      setStatus(correct ? "match" : "wrong");
-      addResult(
-        { id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] },
-        correct
-      );
-    } else {
-      const ok = currentQuestion["metadata"]["correctAnswer"]
-        .map((a) => a.toLowerCase())
-        .includes((selected as string).toLowerCase());
-      setStatus(ok ? "match" : "wrong");
-      addResult(
-        { id: currentQuestion["id"], title: currentQuestion["metadata"]["question"] },
-        ok
-      );
-    }
+  const handlePrev = () => {
+    // optional: if you want previous question support → you'd need a cache/stack
+    setSerial((prev) => Math.max(prev - 1, 1));
   };
 
-  const handleShowSolution = () => { setShowSolution(true); setStatus(""); };
-  const handleShowHint = () => setShowHint(!showHint);
-  const goNext = () => { if (currentIndex < data.length - 1) setCurrentIndex(currentIndex + 1); setShowSolution(false); setShowHint(false); setStatus(""); };
-  const goPrev = () => { if (currentIndex > 0) setCurrentIndex(currentIndex - 1); setShowSolution(false); setShowHint(false); setStatus(""); };
+  const content = useMemo(() => {
+    if (!question) return null;
+    switch (question.type) {
+      case "mcq":
+        return (
+          <ReadingMultipleChoice
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        );
+      case "short":
+        return (
+          <ReadingShortQuestion
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        );
+      case "fill_blank":
+        return (
+          <ReadingFillBlanks
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        );
+      default:
+        return null;
+    }
+  }, [question, serial]);
 
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === data.length - 1;
+  if (loading || !question) return <LoadingScreen />;
 
-  const summary =
-    status === "match"
-      ? { text: "✅ Correct!", color: "text-green-600", bgColor: "bg-green-100", borderColor: "border-green-600" }
-      : status === "wrong"
-      ? { text: "❌ Wrong answer!", color: "text-red-600", bgColor: "bg-red-100", borderColor: "border-red-600" }
-      : null;
+  const level = question?.level ?? "Easy";
+  const pillBase = "py-2 px-5 rounded-lg font-semibold";
+  const active = "bg-primary text-white";
+  const inactive = "bg-transparent text-black";
 
   return (
-    <div className="p-10">
-      <Button onClick={goPrev} disabled={isFirst} className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
-        <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
-          <IoMdArrowRoundBack size={50} className="text-5xl" />
-        </div>
-        Back
-      </Button>
-
-      <div className="w-full flex flex-col gap-6">
-        <div className="bg-white mt-10 shadow-lg rounded-2xl p-6 flex flex-col gap-6">
-          <p className="text-xl font-semibold text-gray-700">
-            Q{currentIndex + 1}. {currentQuestion["metadata"]["question"]}
-          </p>
-
-          {currentQuestion["type"] === "mcq" && (
-            <div className="grid grid-cols-2 gap-4">
-              {currentQuestion["metadata"]["options"]?.map((opt) => {
-                const isSelected = selected === opt;
-                const isCorrect = showSolution && currentQuestion["metadata"]["correctAnswer"].some(ans => ans.toLowerCase() === opt.toLowerCase());
-                const isWrong = showSolution && !currentQuestion["metadata"]["correctAnswer"].some(ans => ans.toLowerCase() === opt.toLowerCase()) && isSelected;
-                return (
-                  <Button
-                    key={opt}
-                    onClick={() => selectOption(opt)}
-                    className={`w-full px-4 py-4 rounded-lg border text-gray-700 font-medium
-                      ${isSelected ? "bg-blue-100 border-blue-400" : "bg-white border-gray-300"}
-                      ${isCorrect ? "bg-green-100 border-green-500 text-green-700" : ""}
-                      ${isWrong ? "bg-red-100 border-red-500 text-red-700" : ""}`}
-                  >
-                    {opt}
-                  </Button>
-                );
-              })}
+    <>
+      {/* Top bar */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <Link to={"/category"}>
+          <Button
+            // onClick={handlePrev}
+            className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
+              <IoMdArrowRoundBack size={50} className="text-5xl" />
             </div>
-          )}
+            Back
+          </Button>
+          </Link>
 
-          {currentQuestion["type"] === "fill_blank" && (
-            <input
-              type="text"
-              value={selected as string}
-              onChange={(e) => selectOption(e.target.value)}
-              placeholder="Write your answer..."
-              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          )}
-
-          {currentQuestion["type"] === "short" && (
-            <div className="flex flex-col gap-4">
-              {currentQuestion["metadata"]["correctAnswer"].map((_, idx) => (
-                <input
-                  key={idx}
-                  type="text"
-                  value={Array.isArray(selected) ? selected[idx] || "" : ""}
-                  onChange={(e) => {
-                    const updated = Array.isArray(selected) ? [...selected] : [];
-                    updated[idx] = e.target.value;
-                    selectOption(updated);
-                  }}
-                  placeholder={`Answer ${idx + 1}`}
-                  className="w-full border-b-2 border-gray-400 focus:border-blue-500 outline-none px-2 py-2"
-                />
-              ))}
-            </div>
-          )}
-
-          <div className="flex gap-4 justify-start mt-4">
-            <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
+          {/* Breadcrumbs */}
+          <div className="text-primary flex gap-3 items-center">
+            <p>{question.group}</p>
+            <IoIosArrowForward />
+            <p>{question.subject}</p>
+            <IoIosArrowForward />
+            <p>{question.category}</p>
+            <IoIosArrowForward />
+            <p>{question.subcategory}</p>
           </div>
+        </div>
 
-          {summary && <Check summary={summary} />}
-          {showHint && <Hint hint={currentQuestion["metadata"]["hint"] || ""} />}
+        {/* Difficulty pills */}
+        <div className="bg-white p-1 rounded-lg flex items-center">
+          <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
+          <div className={`${pillBase} ${level.includes("medium")  ? active : inactive}`}>Medium</div>
+          <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>Advance</div>
+        </div>
+      </div>
 
-          {showSolution && (
-            <div className="mt-4 p-4 border rounded-lg bg-gray-50 text-gray-800">
-              <p className="font-semibold">✅ Correct Answer:</p>
-              <ul className="list-disc list-inside">
-                {currentQuestion["metadata"]["correctAnswer"].map((ans, idx) => (
-                  <li key={idx}>{ans}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+      {/* Body */}
+      <div key={serial} className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
+        <div className="mb-4 text-lg font-semibold">
+          {/* Show serial instead of backend id */}
+          <h1 className="font-bold">Question {serial}</h1>
+        </div>
 
-          <div className="flex items-center justify-between mt-6">
-            <div>
-              <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
-                <ChevronLeft className="mr-2" /> Switch Category
-              </Button>
-            </div>
-            <div className="space-x-5">
-              <Button onClick={goNext} disabled={isLast} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
-                Next
-                <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
-                  <IoMdArrowRoundForward size={50} className="text-5xl" />
+        {content}
+
+        {/* Footer */}
+        <div className="flex items-center justify-between mt-6">
+          <Link to={"/category"}>
+            <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
+              <ChevronLeft className="mr-2" /> Switch Category
+            </Button>
+          </Link>
+          <div className="space-x-5">
+            <Button
+              onClick={handleNext}
+              className="rounded-2xl py-7 pr-2 font-bold text-xl"
+            >
+              Next
+              <div className="size-10 bg-black rounded-2xl flex items-center justify-center ml-2">
+                <IoMdArrowRoundForward size={50} className="text-5xl" />
+              </div>
+            </Button>
+            <Link to="/result" onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+              <Button disabled={!hasResults} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
+                Result
+                <div className="size-10 bg-white rounded-2xl flex items-center justify-center ml-2">
+                  <IoMdCheckmarkCircleOutline size={60} className="text-green-500" />
                 </div>
               </Button>
-              <Link to={'/result'} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
-                <Button disabled={!hasResults} className='rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed'>
-                  Result
-                  <div className='size-10 bg-white rounded-2xl flex items-center justify-center ml-2'>
-                    <IoMdCheckmarkCircleOutline size={60} className='text-green-500' />
-                  </div>
-                </Button>
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

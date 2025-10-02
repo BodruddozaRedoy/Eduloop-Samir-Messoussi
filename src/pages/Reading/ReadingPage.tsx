@@ -28,7 +28,7 @@ export default function ReadingPage() {
   const subjectId = localStorage.getItem("subjectId");
   const groupId = localStorage.getItem("groupId");
   const navigate = useNavigate();
-    const sessionId = localStorage.getItem("sessionId")
+  const sessionId = localStorage.getItem("sessionId")
 
 
   // Fetch one new question from API
