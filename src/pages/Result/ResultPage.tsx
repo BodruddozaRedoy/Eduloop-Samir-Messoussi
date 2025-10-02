@@ -60,7 +60,7 @@ export default function ResultPage() {
                 <hr className='my-5' />
                 <div className='pt-10 space-x-5 w-full flex items-center justify-center'>
 
-                    <Link to={`/group/subject/category?group=${group}&subject=${subject}`}>
+                    <Link to={`/category`}>
                         <Button onClick={() => reset()} className='bg-orange-300 py-5 px-10'>Try Again</Button>
                     </Link>
                     <Link to={"/group"}>

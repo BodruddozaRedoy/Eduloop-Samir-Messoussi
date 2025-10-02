@@ -1,12 +1,12 @@
 "use client";
+
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import { useState } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
-import type { Summary } from "./ReadingMultipleChoice";
-
-interface FillBlanksProps {
+// import type { Summary } from "./ReadingMultipleChoice";
+interface SpellingShortQuestion {
   question: string;
   correctAnswer: string;
   description: string;
@@ -14,46 +14,51 @@ interface FillBlanksProps {
   qid?: number;
 }
 
-export default function ReadingFillBlanks({
+const SpellingShortQuestion = ({
   question,
   correctAnswer,
   description,
   hint,
   qid,
-}: FillBlanksProps) {
-  const [userAnswer, setUserAnswer] = useState("");
+}: SpellingShortQuestion) => {
+  const [inputValue, setInputValue] = useState("");
+  // const [result, setResult] = useState<null | boolean>(null);
   const [showHint, setShowHint] = useState(false);
-  // const [showSolution, setShowSolution] = useState(false);
 
+// copying state
   // const [answers, setAnswers] = useState<{ [id: number]: string[] }>({})
     const [status, setStatus] = useState<"match" | "wrong" | "">("")
-  //   const [showSolution, setShowSolution] = useState(false)
+    // const [showSolution, setShowSolution] = useState(false)
   //   const [wrongAnswers, setWrongAnswers] = useState<{ [id: number]: string[] }>({})
   //   const [correctAnswers, setCorrectAnswers] = useState<{ [id: number]: string[] }>({})
-  //   const [showHint, setShowHint] = useState(false)
+
 
 
 
   const { addResult } = useResultTracker();
 
   const handleCheck = () => {
-    if (userAnswer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
-      setStatus("match")
-      if (qid != null) addResult({ id: qid, title: question }, true)
-    } else {
-      setStatus("wrong")
-      if (qid != null) addResult({ id: qid, title: question }, false)
-    }
+    if (!inputValue.trim()) return;
+    // setResult(
+    //   inputValue.trim().toLowerCase() === correctAnswer.toLowerCase()
+    // );
+    const ok = inputValue.trim().toLowerCase() === correctAnswer.toLowerCase();
+    setStatus(ok ? "match" : "wrong")
+    if (qid != null) addResult({ id: qid, title: question }, ok)
   };
 
   const handleShowSolution = () => {
-    setUserAnswer(correctAnswer);
+    setInputValue(correctAnswer);
+      // setShowSolution(true);
+    // setResult(true);
     setStatus("")
-  }
-  const handleShowHint = () => {
+  };
+
+    const handleShowHint = () => {
     setShowHint(!showHint);
-  }
-   const summary: Summary | null =
+  };
+
+     const summary =
         status === "match"
             ? {
                 text: "🎉 All Correct! Great job",
@@ -71,68 +76,75 @@ export default function ReadingFillBlanks({
                 : null
 
 
-
-
   return (
     <div className="w-full bg-[#fdeedc] rounded-xl p-6 shadow-md">
-      {/* Passage */}
-      {
-        description && <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
+      {/* Top description */}
+      {/* <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
         <p className="text-sm md:text-base">{description}</p>
-      </div>
-      }
+      </div> */}
 
       {/* Question */}
       <h2 className="text-lg font-semibold mb-4">{question}</h2>
 
-      {/* Input field */}
+      {/* Input */}
       <input
         type="text"
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-        className="border p-2 rounded w-1/2 mb-4"
-        placeholder="Type your answer..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Type your answer here..."
+        className="w-full p-3 rounded-lg border border-gray-300 mb-4"
       />
-
-      {/* Feedback */}
-      {/* {feedback && <p className="mb-2 font-medium">{feedback}</p>}
-      {showHint && <p className="text-blue-600 mb-2">💡 Hint: {hint}</p>}
-      {showSolution && (
-        <p className="text-green-600 mb-2">
-          ✅ Correct Answer: <b>{correctAnswer}</b>
-        </p>
-      )} */}
 
       {/* Buttons */}
       {/* <div className="flex gap-3 mt-4">
         <Button
           onClick={handleCheck}
-          className="bg-[#dbeafe] hover:bg-[#dbeafe]/70 text-black border"
+          className="bg-[#dbeafe] hover:bg-[#dbeafe]/70 text-black border p-2"
         >
           Check
         </Button>
         <Button
-          onClick={() => setShowHint(true)}
+          onClick={() => setShowHint(!showHint)}
           className="bg-[#ffedd5] hover:bg-[#ffedd5]/70 text-black border"
         >
-          Hint
+          {showHint ? "Hide Hint" : "Hint"}
         </Button>
         <Button
-          onClick={() => setShowSolution(true)}
+          onClick={handleShowSolution}
           className="bg-[#f3e8ff] hover:bg-[#f3e8ff]/70 text-black border"
         >
           Show Solution
         </Button>
       </div> */}
 
-        <Controllers
-              handleCheck={handleCheck}
-              handleShowSolution={handleShowSolution}
-              handleShowHint={handleShowHint}
-            />
-             {showHint && <Hint hint={hint} />}
-            <Check summary={summary} />
 
+
+
+
+      {/* ✅ Show Hint */}
+      {/* {showHint && (
+        <p className="text-blue-600 font-medium mb-2">💡 Hint: {hint}</p>
+      )} */}
+
+      {/* Result */}
+      {/* {result !== null && (
+        <p
+          className={`text-base font-medium ${
+            result ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {result ? "✅ Correct!" : "❌ Wrong. Try again or show solution."}
+        </p>
+      )} */}
+      <Controllers
+        handleCheck={handleCheck}
+        handleShowSolution={handleShowSolution}
+        handleShowHint={handleShowHint}
+      />
+       {showHint && <Hint hint={hint} />}
+      <Check summary={summary} />
     </div>
   );
-}
+};
+
+export default SpellingShortQuestion;

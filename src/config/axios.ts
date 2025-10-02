@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const AxiosPublic = axios.create({
-    baseURL: "https://10.10.13.60:8090/api",
+    baseURL: "http://10.10.13.60:8090/api",
     withCredentials: true
 })
 
@@ -11,5 +11,6 @@ AxiosPublic.interceptors.request.use((config) => {
   if (accessKey) {
     config.headers.Authorization = accessKey; // 👈 attach here
   }
+  
   return config;
 });

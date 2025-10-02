@@ -4,7 +4,7 @@ import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
 import { useState } from "react";
 import useResultTracker from "@/hooks/useResultTracker";
-import type { Summary } from "./ReadingMultipleChoice";
+// import type { Summary } from "./ReadingMultipleChoice";
 
 interface FillBlanksProps {
   question: string;
@@ -14,7 +14,7 @@ interface FillBlanksProps {
   qid?: number;
 }
 
-export default function ReadingFillBlanks({
+export default function SpellingFillBlanks({
   question,
   correctAnswer,
   description,
@@ -53,7 +53,7 @@ export default function ReadingFillBlanks({
   const handleShowHint = () => {
     setShowHint(!showHint);
   }
-   const summary: Summary | null =
+   const summary =
         status === "match"
             ? {
                 text: "🎉 All Correct! Great job",
@@ -76,11 +76,9 @@ export default function ReadingFillBlanks({
   return (
     <div className="w-full bg-[#fdeedc] rounded-xl p-6 shadow-md">
       {/* Passage */}
-      {
-        description && <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
-        <p className="text-sm md:text-base">{description}</p>
-      </div>
-      }
+      {/* <p className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
+        {description}
+      </p> */}
 
       {/* Question */}
       <h2 className="text-lg font-semibold mb-4">{question}</h2>
