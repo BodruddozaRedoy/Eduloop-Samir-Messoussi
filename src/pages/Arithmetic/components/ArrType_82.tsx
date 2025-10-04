@@ -225,11 +225,6 @@ const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
         ))}
       </div>
 
-      {showHint && (
-        <div className="p-3 border border-amber-300 bg-amber-50 text-amber-800 text-sm rounded">
-          {help}
-        </div>
-      )}
     </div>
   );
 };

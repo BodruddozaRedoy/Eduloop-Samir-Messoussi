@@ -28,6 +28,8 @@ export default function ReadingPage() {
   const subjectId = localStorage.getItem("subjectId");
   const groupId = localStorage.getItem("groupId");
   const navigate = useNavigate();
+  const sessionId = localStorage.getItem("sessionId")
+
 
   // Fetch one new question from API
   const fetchQuestion = async () => {
@@ -39,7 +41,13 @@ export default function ReadingPage() {
     }
     try {
       setLoading(true);
-      const res = await AxiosPublic.get("/questions/", payload); // 👈 replace with your GET endpoint
+      console.log("api is calling")
+      const res = await AxiosPublic.get("/questions/", {
+        headers: {
+          "X-Session-Id": sessionId
+        }
+      }); // 👈 replace with your GET endpoint
+      console.log("api call end", res)
       setQuestion(res.data);
     } catch (err) {
       console.error("Failed to load question", err);

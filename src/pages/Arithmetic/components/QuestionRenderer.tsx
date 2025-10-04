@@ -121,6 +121,8 @@ const ArrType_117 = lazy(() => import("./ArrType_117"));
 const ArrType_118 = lazy(() => import("./ArrType_118"));
 const ArrType_119 = lazy(() => import("./ArrType_119"));
 const ArrType_120 = lazy(() => import("./ArrType_120"));
+const ArrType_121 = lazy(() => import("./ArrType_121"));
+const ArrType_122 = lazy(() => import("./ArrType_122"));
 
 
 
@@ -1031,6 +1033,20 @@ export default function QuestionRenderer({ q }: { q: any }) {
         return provider(
           <Suspense fallback={<LoadingScreen />}>
             <ArrType_120 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
+      }
+      case "type121": {
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_121 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
+          </Suspense>
+        );
+      }
+      case "type122": {
+        return provider(
+          <Suspense fallback={<LoadingScreen />}>
+            <ArrType_122 key={q.id} hint={q.metadata.hint} data={q.metadata.data ?? []} />
           </Suspense>
         );
       }
