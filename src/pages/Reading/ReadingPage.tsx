@@ -112,6 +112,17 @@ export default function ReadingPage() {
             hint={question.metadata.hint}
           />
         );
+      case "readingStoryQuestion":
+        return (
+          <ReadingFillBlanks
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        );
       default:
         return null;
     }
