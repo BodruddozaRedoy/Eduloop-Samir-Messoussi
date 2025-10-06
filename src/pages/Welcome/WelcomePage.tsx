@@ -6,7 +6,7 @@ const WelcomePage = () => {
   return (
     <div
       className="text-xl text-white h-screen flex items-center justify-center bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: "url('/public/images/front_bg.jpg')" }}
+      style={{ backgroundImage: "url('/images/front_bg.jpg')" }}
     >
       <div className="text-center px-4 z-10 backdrop-blur-2xl w-full h-full flex items-center justify-center flex-col gap-5">
         <img className="w-30" src="/logo.png" alt="" />
