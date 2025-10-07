@@ -2,6 +2,8 @@ import Navbar from '@/components/layout/Navbar'
 import { Outlet, useLocation } from 'react-router'
 import bg from '@/assets/images/bg.jpg'
 import Footer from '@/components/layout/Footer'
+import GoogleTranslateDropdown from '@/components/layout/GoogleTranslateDropdown'
+import GoogleTranslate from '@/components/layout/GoogleTranslate'
 
 export default function MainPageLayout() {
     const location = useLocation()
@@ -15,6 +17,8 @@ export default function MainPageLayout() {
             }}
             className="w-full h-screen p-2 flex flex-col bg-white"
         >
+            <GoogleTranslate/>
+            
             {/* navbar  */}
             {location.pathname !== "/" && <Navbar />}
 

@@ -9,7 +9,6 @@ import useResultTracker from "@/hooks/useResultTracker";
 interface SpellingShortQuestion {
   question: string;
   correctAnswer: string;
-  description: string;
   hint: string;
   qid?: number;
 }
@@ -17,7 +16,6 @@ interface SpellingShortQuestion {
 const SpellingShortQuestion = ({
   question,
   correctAnswer,
-  description,
   hint,
   qid,
 }: SpellingShortQuestion) => {

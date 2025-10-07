@@ -10,7 +10,7 @@ import {
 import ReadingFillBlanks from "./components/ReadingFillBlanks";
 import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
 import ReadingShortQuestion from "./components/ReadingShortQuestion";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
 import { AxiosPublic } from "@/config/axios";
 import LoadingScreen from "@/components/common/LoadingScreen";

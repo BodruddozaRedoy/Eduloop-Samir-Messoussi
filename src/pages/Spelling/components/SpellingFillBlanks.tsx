@@ -9,7 +9,6 @@ import useResultTracker from "@/hooks/useResultTracker";
 interface FillBlanksProps {
   question: string;
   correctAnswer: string;
-  description: string;
   hint: string;
   qid?: number;
 }
@@ -17,7 +16,6 @@ interface FillBlanksProps {
 export default function SpellingFillBlanks({
   question,
   correctAnswer,
-  description,
   hint,
   qid,
 }: FillBlanksProps) {

@@ -102,7 +102,6 @@ export default function ReadingPage() {
             key={q.id}
             question={q.metadata.question}
             correctAnswer={q.metadata.correctAnswer}
-            description={q.metadata.description}
             hint={q.metadata.hint}
           />
         );
@@ -113,7 +112,6 @@ export default function ReadingPage() {
             key={q.id}
             question={q.metadata.question}
             correctAnswer={q.metadata.correctAnswer}
-            description={q.metadata.description}
             hint={q.metadata.hint}
           />
         );

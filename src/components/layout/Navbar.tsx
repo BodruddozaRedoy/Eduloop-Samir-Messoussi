@@ -1,6 +1,7 @@
 import { IoIosArrowDown } from 'react-icons/io'
 import { LuBellDot } from 'react-icons/lu'
 import { Link } from 'react-router'
+import GoogleTranslateDropdown from './GoogleTranslateDropdown'
 
 
 export default function Navbar() {
@@ -12,6 +13,7 @@ export default function Navbar() {
             <img className='w-15 h-15 ' src="https://res.cloudinary.com/dcrs7po93/image/upload/v1756934007/Logo_ajwbhb.png" alt="" /> 
             </Link>
         </div>
+        {/* <GoogleTranslateDropdown/> */}
         <div className='flex items-center gap-3'>
             <div className='size-12 rounded-full bg-primary grid place-items-center'>
                 <LuBellDot className='text-xl'/>

@@ -70,10 +70,6 @@ export default function LanguagePage() {
     await fetchQuestion(); // fetch new question
   };
 
-  const handlePrev = () => {
-    // optional: if you want previous question support → you'd need a cache/stack
-    setSerial((prev) => Math.max(prev - 1, 1));
-  };
 
   const content = useMemo(() => {
     if (!question) return null;
