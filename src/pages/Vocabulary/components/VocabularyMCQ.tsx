@@ -61,7 +61,7 @@ export default function VocabularyMCQ({ qid, question, options, correctAnswer, h
       </div>
 
       <div className="flex gap-2 mt-2">
-        <Button onClick={handleCheck} className="bg-blue-500 text-white">Check</Button>
+        <Button onClick={handleCheck} className="bg-primary text-white">Check</Button>
         <Button onClick={handleShowSolution} className="bg-gray-200">Show Solution</Button>
       </div>
 

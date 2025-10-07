@@ -46,12 +46,12 @@ export default function VocabularyShort({ qid, question, correctAnswer, hint, ad
           value={values[idx]}
           onChange={(e) => handleChange(idx, e.target.value)}
           placeholder={`Answer ${idx + 1}`}
-          className="w-full border-b-2 border-gray-400 focus:border-blue-500 outline-none px-2 py-2"
+          className="w-full border-b-2 border-gray-400 focus:bg-primary outline-none px-2 py-2"
         />
       ))}
 
       <div className="flex gap-2 mt-2">
-        <Button onClick={handleCheck} className="bg-blue-500 text-white">Check</Button>
+        <Button onClick={handleCheck} className="bg-primary text-white">Check</Button>
         <Button onClick={handleShowSolution} className="bg-gray-200">Show Solution</Button>
       </div>
 

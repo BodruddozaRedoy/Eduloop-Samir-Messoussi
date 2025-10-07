@@ -35,11 +35,11 @@ export default function VocabularyFillBlank({ qid, question, correctAnswer, hint
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:bg-primary"
         placeholder="Write your answer..."
       />
       <div className="flex gap-2 mt-2">
-        <Button onClick={handleCheck} className="bg-blue-500 text-white">Check</Button>
+        <Button onClick={handleCheck} className="bg-primary text-white">Check</Button>
         <Button onClick={handleShowSolution} className="bg-gray-200">Show Solution</Button>
       </div>
       {status && (

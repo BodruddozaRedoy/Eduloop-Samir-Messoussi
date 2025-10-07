@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import {
@@ -20,33 +20,19 @@ import { toast } from "sonner";
 
 export default function VocabularyPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const initialQuestion = location.state?.question;
 
   const [question, setQuestion] = useState<any | null>(initialQuestion || null);
   const [loading, setLoading] = useState(false);
   const [serial, setSerial] = useState(1);
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
-  const navigate = useNavigate();
-  const { addResult } = useResultTracker();
+  const [showReloadWarning, setShowReloadWarning] = useState(false);
 
+  const { addResult } = useResultTracker();
   const subjectId = localStorage.getItem("subjectId");
   const groupId = localStorage.getItem("groupId");
   const sessionId = localStorage.getItem("sessionId");
-
-  // Reload / navigation warning
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      toast.warning("If you reload this page, your progress will be lost. Redirecting to category page...");
-      setTimeout(() => {
-        navigate("/category");
-      }, 2000);
-      e.returnValue = "";
-      return "";
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [navigate]);
 
   // Listen for results updates
   useEffect(() => {
@@ -77,54 +63,32 @@ export default function VocabularyPage() {
     }
   };
 
+  // Custom reload warning
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      setShowReloadWarning(true);
+      return (e.returnValue = ""); // standard for Chrome
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  const handleCancelReload = () => {
+    setShowReloadWarning(false);
+    navigate("/category");
+  };
+
+  const handleReload = () => {
+    setShowReloadWarning(false);
+    setQuestion(null); // clear previous question
+    fetchQuestion(); // re-fetch question
+  };
+
   const handleNext = async () => {
     setSerial((prev) => prev + 1);
     await fetchQuestion();
   };
-
-  const content = useMemo(() => {
-    if (!question) return null;
-
-    switch (question.type) {
-      case "mcq":
-        return (
-          <VocabularyMCQ
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            options={question.metadata.options ?? []}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-            addResult={addResult}
-          />
-        );
-      case "fill":
-        return (
-          <VocabularyFillBlank
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-            addResult={addResult}
-          />
-        );
-      case "short":
-      case "short_answer":
-        return (
-          <VocabularyShort
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-            addResult={addResult}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [question, serial, addResult]);
 
   if (loading || !question) return <LoadingScreen />;
 
@@ -135,6 +99,20 @@ export default function VocabularyPage() {
 
   return (
     <>
+      {showReloadWarning && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white p-8 rounded-xl flex flex-col gap-4">
+            <p className="text-lg font-semibold">
+              If you reload this page, your progress will be lost!
+            </p>
+            <div className="flex gap-4 justify-end">
+              <Button onClick={handleReload} className="bg-blue-600 text-white">Stay</Button>
+              <Button onClick={handleCancelReload} className="bg-gray-300">Go Back to Category</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <Link to={"/category"}>
@@ -166,12 +144,44 @@ export default function VocabularyPage() {
       </div>
 
       {/* Question Body */}
-      <div key={serial} className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
+      <div className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
         <div className="mb-4 text-lg font-semibold">
           <h1 className="font-bold">Question {serial}</h1>
         </div>
 
-        {content}
+        {question.type === "mcq" && (
+          <VocabularyMCQ
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+            addResult={addResult}
+          />
+        )}
+
+        {question.type === "fill" && (
+          <VocabularyFillBlank
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+            addResult={addResult}
+          />
+        )}
+
+        {(question.type === "short" || question.type === "short_answer") && (
+          <VocabularyShort
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+            addResult={addResult}
+          />
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between mt-6">
