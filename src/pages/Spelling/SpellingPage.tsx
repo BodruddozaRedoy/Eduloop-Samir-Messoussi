@@ -31,6 +31,8 @@ export default function SpellingPage() {
   const groupId = localStorage.getItem("groupId");
   const sessionId = localStorage.getItem("sessionId");
 
+  // console.log(question)
+
   // Listen for results updates
   useEffect(() => {
     const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
@@ -153,12 +155,31 @@ export default function SpellingPage() {
         </div>
 
         {/* Question component */}
+        {question.type === "spellingMultipleChoi" && (
+          <SpellingMultipleChoice
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+          />
+        )}
         {question.type === "spellingMultipleChoice" && (
           <SpellingMultipleChoice
             key={serial}
             qid={serial}
             question={question.metadata.question}
             options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "spellingShortQuestio" && (
+          <SpellingShortQuestion
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
             correctAnswer={question.metadata.correctAnswer}
             hint={question.metadata.hint}
           />
