@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IoIosArrowForward,
   IoMdArrowRoundBack,
@@ -18,93 +20,74 @@ import SpellingFillBlanks from "./components/SpellingFillBlanks";
 
 export default function SpellingPage() {
   const location = useLocation();
-  const initialQuestion = location.state?.question; // 👈 first question from CategoryPage
+  const navigate = useNavigate();
+  const initialQuestion = location.state?.question;
+
   const [question, setQuestion] = useState<any | null>(initialQuestion || null);
   const [loading, setLoading] = useState(false);
-  const [serial, setSerial] = useState(1); // track question number
+  const [serial, setSerial] = useState(1);
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
+  const [showReloadWarning, setShowReloadWarning] = useState(false);
 
   const subjectId = localStorage.getItem("subjectId");
   const groupId = localStorage.getItem("groupId");
   const sessionId = localStorage.getItem("sessionId");
-  const navigate = useNavigate();
 
-  // Fetch one new question from API
+  // Listen for results updates
+  useEffect(() => {
+    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
+    return () => off();
+  }, []);
+
+  // Fetch question from API
   const fetchQuestion = async () => {
     try {
       setLoading(true);
       const res = await AxiosPublic.get("/questions/", {
-        headers: {
-          "X-Session-Id": sessionId
-        },
+        headers: { "X-Session-Id": sessionId },
         params: {
           group_id: groupId,
           subject_id: subjectId,
           category_ids: JSON.parse(localStorage.getItem("categories") || "[]"),
           subcategory_ids: JSON.parse(localStorage.getItem("subcategories") || "[]"),
-        }
+        },
       });
       setQuestion(res.data);
     } catch (err) {
       console.error("Failed to load question", err);
-      toast.error("No question found");
-      navigate(`/category`);
+      toast.error("Failed to load question. Redirecting to category page...");
+      navigate("/category");
     } finally {
       setLoading(false);
     }
   };
 
+  // Reload warning
   useEffect(() => {
-    console.log("speeling")
-    const off = onResultsUpdated((_r: TrackedResults) => setHasResults(hasAnyResults()));
-    return () => off();
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      setShowReloadWarning(true);
+      return (e.returnValue = "");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
-  const handleNext = async () => {
-    setSerial(prev => prev + 1);
-    await fetchQuestion();
+  const handleCancelReload = () => {
+    setShowReloadWarning(false);
+    navigate("/category");
   };
 
-  // Render question component dynamically
-  const content = useMemo(() => {
-    if (!question) return null;
+  const handleReload = () => {
+    setShowReloadWarning(false);
+    setQuestion(null);
+    fetchQuestion();
+  };
 
-    switch (question.type) {
-      case "spellingMultipleChoice":
-        return (
-          <SpellingMultipleChoice
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            options={question.metadata.options ?? []}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-          />
-        );
-      case "spellingShortQuestion":
-        return (
-          <SpellingShortQuestion
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-          />
-        );
-      case "spellingFillBlanks":
-        return (
-          <SpellingFillBlanks
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            hint={question.metadata.hint}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [question, serial]);
+  const handleNext = async () => {
+    setSerial((prev) => prev + 1);
+    await fetchQuestion();
+  };
 
   if (loading || !question) return <LoadingScreen />;
 
@@ -115,13 +98,29 @@ export default function SpellingPage() {
 
   return (
     <>
+      {showReloadWarning && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white p-8 rounded-xl flex flex-col gap-4">
+            <p className="text-lg font-semibold">
+              If you reload this page, your progress will be lost!
+            </p>
+            <div className="flex gap-4 justify-end">
+              <Button onClick={handleReload} className="bg-blue-600 text-white">
+                Reload
+              </Button>
+              <Button onClick={handleCancelReload} className="bg-gray-300">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <Link to={"/category"}>
-            <Button
-              className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-            >
+            <Button className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
               <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
                 <IoMdArrowRoundBack size={50} className="text-5xl" />
               </div>
@@ -129,7 +128,7 @@ export default function SpellingPage() {
             </Button>
           </Link>
 
-          {/* Breadcrumbs from backend */}
+          {/* Breadcrumbs */}
           <div className="text-primary flex gap-3 items-center">
             <p>{question.group}</p>
             <IoIosArrowForward />
@@ -150,12 +149,40 @@ export default function SpellingPage() {
       </div>
 
       {/* Body */}
-      <div key={serial} className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
+      <div className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
         <div className="mb-4 text-lg font-semibold">
           <h1 className="font-bold">Question {serial}</h1>
         </div>
 
-        {content}
+        {/* Question component */}
+        {question.type === "spellingMultipleChoice" && (
+          <SpellingMultipleChoice
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "spellingShortQuestion" && (
+          <SpellingShortQuestion
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "spellingFillBlanks" && (
+          <SpellingFillBlanks
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            hint={question.metadata.hint}
+          />
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between mt-6">
@@ -175,10 +202,7 @@ export default function SpellingPage() {
               </div>
             </Button>
             <Link to="/result" onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
-              <Button
-                disabled={!hasResults}
-                className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
-              >
+              <Button disabled={!hasResults} className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed">
                 Result
                 <div className="size-10 bg-white rounded-2xl flex items-center justify-center ml-2">
                   <IoMdCheckmarkCircleOutline size={60} className="text-green-500" />
