@@ -1,63 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IoIosArrowForward,
   IoMdArrowRoundBack,
   IoMdArrowRoundForward,
   IoMdCheckmarkCircleOutline,
 } from "react-icons/io";
-import ReadingFillBlanks from "./components/ReadingFillBlanks";
-import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
-import ReadingShortQuestion from "./components/ReadingShortQuestion";
 import { Link, useLocation, useNavigate } from "react-router";
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker";
 import { AxiosPublic } from "@/config/axios";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { toast } from "sonner";
+import ReadingFillBlanks from "./components/ReadingFillBlanks";
+import ReadingMultipleChoice from "./components/ReadingMultipleChoice";
+import ReadingShortQuestion from "./components/ReadingShortQuestion";
+import ReadingStory from "./components/ReadingStory";
 
 export default function ReadingPage() {
   const location = useLocation();
-  const initialQuestion = location.state?.question; // 👈 first question from CategoryPage
+  const navigate = useNavigate();
+  const initialQuestion = location.state?.question;
 
   const [question, setQuestion] = useState<any | null>(initialQuestion || null);
   const [loading, setLoading] = useState(false);
-  const [serial, setSerial] = useState(1); // 👈 track serial number
+  const [serial, setSerial] = useState(1);
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
+  const [showReloadWarning, setShowReloadWarning] = useState(false);
 
   const subjectId = localStorage.getItem("subjectId");
   const groupId = localStorage.getItem("groupId");
-  const navigate = useNavigate();
-  const sessionId = localStorage.getItem("sessionId")
+  const sessionId = localStorage.getItem("sessionId");
 
-
-  // Fetch one new question from API
-  const fetchQuestion = async () => {
-    const payload = {
-      group_id: groupId,
-      subject_id: subjectId,
-      category_ids: JSON.parse(localStorage.getItem("categories")!),
-      subcategory_ids: JSON.parse(localStorage.getItem("subcategories")!)
-    }
-    try {
-      setLoading(true);
-      console.log("api is calling")
-      const res = await AxiosPublic.get("/questions/", {
-        headers: {
-          "X-Session-Id": sessionId
-        }
-      }); // 👈 replace with your GET endpoint
-      console.log("api call end", res)
-      setQuestion(res.data);
-    } catch (err) {
-      console.error("Failed to load question", err);
-      toast.error("No question found");
-      navigate(`/category`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Listen for results updates
   useEffect(() => {
     const off = onResultsUpdated((_r: TrackedResults) =>
       setHasResults(hasAnyResults())
@@ -65,68 +40,59 @@ export default function ReadingPage() {
     return () => off();
   }, []);
 
+  // Fetch question from API
+  const fetchQuestion = async () => {
+    try {
+      setLoading(true);
+      const res = await AxiosPublic.get("/questions/", {
+        headers: { "X-Session-Id": sessionId },
+        params: {
+          group_id: groupId,
+          subject_id: subjectId,
+          category_ids: JSON.parse(localStorage.getItem("categories") || "[]"),
+          subcategory_ids: JSON.parse(localStorage.getItem("subcategories") || "[]"),
+        },
+      });
+      setQuestion(res.data);
+    } catch (err) {
+      console.error("Failed to load question", err);
+      toast.error("Failed to load question. Redirecting to category page...");
+      navigate("/category");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Custom reload warning
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      setShowReloadWarning(true);
+      return (e.returnValue = "");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  const handleCancelReload = () => {
+    setShowReloadWarning(false);
+    navigate("/category");
+  };
+
+  const handleReload = () => {
+    setShowReloadWarning(false);
+    setQuestion(null);
+    fetchQuestion();
+  };
+
   const handleNext = async () => {
-    setSerial((prev) => prev + 1); // increment serial
-    await fetchQuestion(); // fetch new question
+    setSerial((prev) => prev + 1);
+    await fetchQuestion();
   };
 
   const handlePrev = () => {
-    // optional: if you want previous question support → you'd need a cache/stack
     setSerial((prev) => Math.max(prev - 1, 1));
   };
-
-  const content = useMemo(() => {
-    if (!question) return null;
-    switch (question.type) {
-      case "mcq":
-        return (
-          <ReadingMultipleChoice
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            options={question.metadata.options ?? []}
-            correctAnswer={question.metadata.correctAnswer}
-            description={question.metadata.description}
-            hint={question.metadata.hint}
-          />
-        );
-      case "short":
-        return (
-          <ReadingShortQuestion
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            description={question.metadata.description}
-            hint={question.metadata.hint}
-          />
-        );
-      case "fill_blank":
-        return (
-          <ReadingFillBlanks
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            description={question.metadata.description}
-            hint={question.metadata.hint}
-          />
-        );
-      case "readingStoryQuestion":
-        return (
-          <ReadingFillBlanks
-            key={serial}
-            qid={serial}
-            question={question.metadata.question}
-            correctAnswer={question.metadata.correctAnswer}
-            description={question.metadata.description}
-            hint={question.metadata.hint}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [question, serial]);
 
   if (loading || !question) return <LoadingScreen />;
 
@@ -137,6 +103,24 @@ export default function ReadingPage() {
 
   return (
     <>
+      {showReloadWarning && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white p-8 rounded-xl flex flex-col gap-4">
+            <p className="text-lg font-semibold">
+              If you reload this page, your progress will be lost!
+            </p>
+            <div className="flex gap-4 justify-end">
+              <Button onClick={handleReload} className="bg-blue-600 text-white">
+                Reload
+              </Button>
+              <Button onClick={handleCancelReload} className="bg-gray-300">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
@@ -172,20 +156,62 @@ export default function ReadingPage() {
       </div>
 
       {/* Body */}
-      <div key={serial} className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
+      <div className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
         <div className="mb-4 text-lg font-semibold">
-          {/* Show serial instead of backend id */}
           <h1 className="font-bold">Question {serial}</h1>
         </div>
 
-        {content}
+        {/* Render question component */}
+        {question.type === "mcq" && (
+          <ReadingMultipleChoice
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            options={question.metadata.options ?? []}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "short" && (
+          <ReadingShortQuestion
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "fill_blank" && (
+          <ReadingFillBlanks
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        )}
+        {question.type === "readingStoryQuestion" && (
+          <ReadingStory
+            key={serial}
+            qid={serial}
+            question={question.metadata.question}
+            correctAnswer={question.metadata.correctAnswer}
+            description={question.metadata.description}
+            hint={question.metadata.hint}
+          />
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between mt-6">
           <div>
-            <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
-              <ChevronLeft className="mr-2" /> Switch Category
-            </Button>
+            <Link to={"/category"}>
+              <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
+                <ChevronLeft className="mr-2" /> Switch Category
+              </Button>
+            </Link>
           </div>
           <div className="space-x-5">
             <Button
