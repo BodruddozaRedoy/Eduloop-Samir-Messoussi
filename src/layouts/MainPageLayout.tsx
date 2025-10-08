@@ -17,7 +17,7 @@ export default function MainPageLayout() {
             }}
             className="w-full h-screen p-2 flex flex-col bg-white"
         >
-            <GoogleTranslate/>
+            {/* <GoogleTranslate/> */}
             
             {/* navbar  */}
             {location.pathname !== "/" && <Navbar />}
