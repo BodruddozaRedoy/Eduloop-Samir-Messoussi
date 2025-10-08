@@ -90,10 +90,6 @@ export default function ReadingPage() {
     await fetchQuestion();
   };
 
-  const handlePrev = () => {
-    setSerial((prev) => Math.max(prev - 1, 1));
-  };
-
   if (loading || !question) return <LoadingScreen />;
 
   const level = question?.level ?? "Easy";
@@ -125,8 +121,7 @@ export default function ReadingPage() {
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <Button
-            onClick={handlePrev}
-            disabled={serial === 1}
+          onClick={() => navigate("/category")}
             className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
@@ -197,6 +192,7 @@ export default function ReadingPage() {
           <ReadingStory
             key={serial}
             qid={serial}
+            data={question.metadata}
             question={question.metadata.question}
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
