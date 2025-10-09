@@ -17,8 +17,8 @@ import SpellingShortQuestion from "./components/SpellingShortQuestion";
 import SpellingFillBlanks from "./components/SpellingFillBlanks";
 
 export default function SpellingPage() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
   const initialQuestion = location.state?.question;
 
   const [question, setQuestion] = useState<any | null>(initialQuestion || null);

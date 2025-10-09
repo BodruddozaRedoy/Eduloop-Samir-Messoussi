@@ -4,18 +4,26 @@ import { IoIosArrowForward, IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheck
 import { BadgeCheck, ChevronLeft } from "lucide-react"
 import QuestionRenderer from "./components/QuestionRenderer"
 import { QUESTIONS_DATA } from "./components/Questions"
-import { Link, useNavigate, useSearchParams } from "react-router"
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router"
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker"
 import Controllers from "@/components/common/Controllers"
 import Hint from "@/components/common/Hint"
 import Check from "@/components/common/Check"
 import { QuestionControlsProvider, useQuestionControls } from "@/context/QuestionControlsContext"
+import { AxiosPublic } from "@/config/axios"
+import { toast } from "sonner"
+import LoadingScreen from "@/components/common/LoadingScreen"
 // import { QUESTIONS_DATA } from "./Questions
 
 export default function ArithmeticPage() {
 
-    const [question, setQuestion] = useState(JSON.parse(localStorage.getItem("question")) ? JSON.parse(localStorage.getItem("question")) : 0)
-    const q = QUESTIONS_DATA[question]
+    const location = useLocation();
+    const initialQuestion = location.state?.question;
+
+    const [question, setQuestion] = useState<any | null>(initialQuestion || null);
+    const [serial, setSerial] = useState(1);
+    const q = QUESTIONS_DATA[serial]
+    const [loading, setLoading] = useState(false);
     const [trigger, setTrigger] = useState(true)
     const [hasResults, setHasResults] = useState<boolean>(hasAnyResults())
     const [showReloadWarning, setShowReloadWarning] = useState(false);
@@ -23,14 +31,40 @@ export default function ArithmeticPage() {
 
     console.log(question)
 
-    useEffect(() => {
-        localStorage.setItem("question", JSON.stringify(question))
-        const savedData = JSON.parse(localStorage.getItem("question"))
-        console.log(savedData)
-        if (savedData) {
-            setQuestion(savedData)
+    // useEffect(() => {
+    //     localStorage.setItem("question", JSON.stringify(question))
+    //     const savedData = JSON.parse(localStorage.getItem("question"))
+    //     console.log(savedData)
+    //     if (savedData) {
+    //         setQuestion(savedData)
+    //     }
+    // }, [trigger])
+
+    const subjectId = localStorage.getItem("subjectId");
+    const groupId = localStorage.getItem("groupId");
+    const sessionId = localStorage.getItem("sessionId");
+
+    const fetchQuestion = async () => {
+        try {
+            setLoading(true);
+            const res = await AxiosPublic.get("/questions/", {
+                headers: { "X-Session-Id": sessionId },
+                params: {
+                    group_id: groupId,
+                    subject_id: subjectId,
+                    category_ids: JSON.parse(localStorage.getItem("categories") || "[]"),
+                    subcategory_ids: JSON.parse(localStorage.getItem("subcategories") || "[]"),
+                },
+            });
+            setQuestion(res.data);
+        } catch (err) {
+            console.error("Failed to load question", err);
+            toast.error("Failed to load question. Redirecting to category page...");
+            navigate("/category");
+        } finally {
+            setLoading(false);
         }
-    }, [trigger])
+    };
 
     // listen for result updates to enable/disable Result button
     useEffect(() => {
@@ -44,14 +78,17 @@ export default function ArithmeticPage() {
     const isFirst = question === 0
     const isLast = question === QUESTIONS_DATA.length - 1
 
-    const handleNext = () => {
-        setQuestion((prev) => Math.min(prev + 1, QUESTIONS_DATA.length - 1))
-        setTrigger(!trigger)
-    }
+    const handleNext = async () => {
+        setSerial((prev) => prev + 1);
+        await fetchQuestion();
+    };
 
     const handleBackToCategory = async () => {
         localStorage.removeItem("quizResults")
     }
+
+    if (loading || !question) return <LoadingScreen />;
+    if (!loading && !question) return navigate("/category");
 
     // Difficulty pills highlight
     const level = q?.level ?? "Easy"
@@ -59,9 +96,6 @@ export default function ArithmeticPage() {
     const active = "bg-primary text-white"
     const inactive = "bg-transparent text-black"
 
-    const [searchParams] = useSearchParams()
-    const subject = searchParams.get("subjectId")
-    const group = searchParams.get("groupId")
 
 
     return (
@@ -126,8 +160,8 @@ export default function ArithmeticPage() {
                     {/* temporary search bar  */}
                     {/* Search bar to jump to question */}
                     <div className="space-x-4">
-                        <Button onClick={() => { setQuestion(0); setTrigger(!trigger) }}>Go to start</Button>
-                        <input
+                        <Button onClick={() => { setSerial(serial -1); setTrigger(!trigger) }}>Back</Button>
+                        {/* <input
                             type="number"
                             placeholder="Go to question"
                             className="py-2 px-3 mr-2 border bg-white rounded-lg border-primary"
@@ -137,16 +171,16 @@ export default function ArithmeticPage() {
                                     setQuestion(value);
                                 }
                             }}
-                        />
-                        <Button onClick={() => { setQuestion(QUESTIONS_DATA.length - 1); setTrigger(!trigger) }}>Go to Last</Button>
+                        /> */}
+                        <Button onClick={() => { setSerial(serial +1); setTrigger(!trigger) }}>Forward</Button>
                     </div>
 
 
                     {/* Difficulty pills */}
                     <div className="bg-[#e8edff] p-1 rounded-lg flex items-center">
-                        <div className={`${pillBase} ${level === "Easy" ? active : inactive}`}>Easy</div>
-                        <div className={`${pillBase} ${level === "Medium" ? active : inactive}`}>Medium</div>
-                        <div className={`${pillBase} ${level === "Advance" ? active : inactive}`}>Advance</div>
+                        <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
+                        <div className={`${pillBase} ${level === "medium" ? active : inactive}`}>Medium</div>
+                        <div className={`${pillBase} ${level === "advance" ? active : inactive}`}>Advance</div>
                     </div>
                 </div>
 
@@ -154,7 +188,7 @@ export default function ArithmeticPage() {
                 <div key={q.id} className="p-5 rounded-[30px] w-full h-[430px] overflow-y-auto border flex flex-col bg-white">
                     {/* Question text */}
                     <div className="mb-4 text-lg font-semibold">
-                        <h1 className="font-bold">Question: {question + 1}___ id:{q.id}/{q.type}</h1>
+                        <h1 className="font-bold">Question: {serial}___ id:{q.id}/{q.type}</h1>
                         <p>{q.metadata.question}</p>
                     </div>
 
@@ -168,7 +202,7 @@ export default function ArithmeticPage() {
 
 
                     <div className="flex items-center gap-5 mt-5">
-                        <Link to={`/group/subject/category?groupId=${group}&subjectId=${subject}`}>
+                        <Link to={`/category`}>
                             <Button className=" py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
                                 <ChevronLeft className="mr-2" /> Switch Category
                             </Button>
@@ -183,7 +217,7 @@ export default function ArithmeticPage() {
                                 <IoMdArrowRoundForward size={50} className="text-5xl" />
                             </div>
                         </Button>
-                        <Link to={`/result?groupId=${group}&subjectId=${subject}`} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
+                        <Link to={`/result`} onClick={(e) => { if (!hasResults) e.preventDefault(); }}>
                             <Button
                                 disabled={!hasResults}
                                 className="rounded-2xl py-7 pr-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"

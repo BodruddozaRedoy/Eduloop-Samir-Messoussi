@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* --------------------------------
@@ -12,11 +14,11 @@ type Props = {
 };
 
 const DEMO_ROWS: Row[] = [
-  { a: 4,  b: 35 },
-  { a: 6,  b: 25 },
-  { a: 8,  b: 15 },
+  { a: 4, b: 35 },
+  { a: 6, b: 25 },
+  { a: 8, b: 15 },
   { a: 12, b: 45 },
-  { a: 3,  b: 40 },
+  { a: 3, b: 40 },
   { a: 10, b: 17 },
 ];
 
@@ -104,6 +106,9 @@ const ArrType_45: React.FC<Props> = ({ data, hint }) => {
     []
   );
 
+  const { addResult } = useResultTracker()
+  const { id: qId, title: qTitle } = useQuestionMeta()
+
   const handleCheck = useCallback(() => {
     const results = allRows.map((row, i) => {
       const { a2, b2, prod } = oneStep(row.a, row.b);
@@ -120,6 +125,7 @@ const ArrType_45: React.FC<Props> = ({ data, hint }) => {
     setOks(results);
     setChecked(true);
     setStatus(results.every((r) => r.a2 && r.b2 && r.prod) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle }, results.every((r) => r.a2 && r.b2 && r.prod))
   }, [answers, allRows]);
 
   const handleShowSolution = useCallback(() => {
@@ -176,8 +182,8 @@ const ArrType_45: React.FC<Props> = ({ data, hint }) => {
     !checked
       ? "border-slate-400 text-slate-900"
       : ok
-      ? "border-emerald-400 text-emerald-600"
-      : "border-rose-400 text-rose-600";
+        ? "border-emerald-400 text-emerald-600"
+        : "border-rose-400 text-rose-600";
 
   return (
     <div className="space-y-4">
