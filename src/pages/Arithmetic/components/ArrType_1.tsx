@@ -13,7 +13,7 @@ interface RowProps {
 
 export default function ArrType_1({
   rows,
-  inputMaxLength = 3,
+  inputMaxLength = 4,
   onNext,
   hint,
 }: {
@@ -150,7 +150,7 @@ export default function ArrType_1({
         <div className="pt-1 pb-2 pl-5 pr-6 text-center bg-primary text-white text-2xl font-semibold">
           Start
         </div>
-        <h1 className="font-bold text-xl">Continue counting in jumps of 10.</h1>
+        {/* <h1 className="font-bold text-xl">Continue counting in jumps of 10.</h1> */}
       </div>
 
       <div className="space-y-6 pl-25">
@@ -179,7 +179,7 @@ export default function ArrType_1({
                       onChange={(e) => {
                         if (!preset) handleChange(key, e.target.value)
                       }}
-                      className={`border-2 size-15 text-3xl font-bold text-center appearance-none focus:outline-none
+                      className={`border-2 w-25 h-15 text-3xl font-bold text-center appearance-none focus:outline-none
                         ${
                           results[key] === "correct"
                             ? "border-green-500"

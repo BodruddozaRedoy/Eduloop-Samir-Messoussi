@@ -2755,7 +2755,6 @@ export const QUESTIONS_DATA = [
           divisor: 9,
           splits: [30, 24], // 30 ÷ 9 + 24 ÷ 9 = 3 + 2.67 ❌ (not clean)
           // better split → [45, 9]: 45 ÷ 9 + 9 ÷ 9 = 5 + 1 = 6
-          splits: [45, 9],
           answer: 6,
         },
         {
