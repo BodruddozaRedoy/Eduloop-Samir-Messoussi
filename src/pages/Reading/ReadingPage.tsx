@@ -145,7 +145,7 @@ export default function ReadingPage() {
         </div>
 
         {/* Difficulty pills */}
-        <div className="bg-white p-1 rounded-lg flex items-center">
+        <div className="bg-muted p-1 rounded-lg flex items-center">
           <div className={`${pillBase} ${level === "Easy" ? active : inactive}`}>Easy</div>
           <div className={`${pillBase} ${level === "Medium" ? active : inactive}`}>Medium</div>
           <div className={`${pillBase} ${level === "Advance" ? active : inactive}`}>Advance</div>

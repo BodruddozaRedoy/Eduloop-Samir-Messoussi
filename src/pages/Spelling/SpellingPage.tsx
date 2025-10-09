@@ -141,7 +141,7 @@ export default function SpellingPage() {
         </div>
 
         {/* Difficulty pills */}
-        <div className="bg-white p-1 rounded-lg flex items-center">
+        <div className="bg-muted p-1 rounded-lg flex items-center">
           <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
           <div className={`${pillBase} ${level.includes("medium") ? active : inactive}`}>Medium</div>
           <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>Advance</div>
