@@ -92,6 +92,10 @@ export default function ReadingPage() {
     await fetchQuestion();
   };
 
+  const handleBackToCategory = async () => {
+    localStorage.removeItem("quizResults")
+  }
+
   if (loading || !question) return <LoadingScreen />;
 
   const level = question?.level ?? "Easy";
@@ -103,16 +107,27 @@ export default function ReadingPage() {
     <>
       {showReloadWarning && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-          <div className="bg-white p-8 rounded-xl flex flex-col gap-4">
-            <p className="text-lg font-semibold">
-              If you reload this page, your progress will be lost!
+          <div className="bg-white p-8 rounded-2xl flex flex-col gap-5 max-w-sm w-full">
+            <h2 className="text-xl font-bold text-gray-800">Go Back to Category?</h2>
+            <p className="text-gray-600">
+              Your current progress will be lost. Do you still want to go back?
             </p>
-            <div className="flex gap-4 justify-end">
-              <Button onClick={handleReload} className="bg-blue-600 text-white">
-                Stay
+            <div className="flex justify-end gap-4 mt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowReloadWarning(false)}
+              >
+                Cancel
               </Button>
-              <Button onClick={handleCancelReload} className="bg-gray-300">
-                Go back to category
+              <Button
+                className="bg-primary text-white"
+                onClick={() => {
+                  setShowReloadWarning(false);
+                  navigate("/category");
+                  handleBackToCategory()
+                }}
+              >
+                Go to Category
               </Button>
             </div>
           </div>
@@ -122,9 +137,10 @@ export default function ReadingPage() {
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
+          {/* Back button with confirmation modal */}
           <Button
-            onClick={() => navigate("/category", { state: null, replace: true })}
-            className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+            onClick={() => setShowReloadWarning(true)}
+            className="rounded-2xl py-7 pl-2 font-bold text-xl"
           >
             <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
               <IoMdArrowRoundBack size={50} className="text-5xl" />
@@ -146,9 +162,9 @@ export default function ReadingPage() {
 
         {/* Difficulty pills */}
         <div className="bg-muted p-1 rounded-lg flex items-center">
-          <div className={`${pillBase} ${level === "Easy" ? active : inactive}`}>Easy</div>
-          <div className={`${pillBase} ${level === "Medium" ? active : inactive}`}>Medium</div>
-          <div className={`${pillBase} ${level === "Advance" ? active : inactive}`}>Advance</div>
+          <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
+          <div className={`${pillBase} ${level.includes("medium") ? active : inactive}`}>Medium</div>
+          <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>Advance</div>
         </div>
       </div>
 
