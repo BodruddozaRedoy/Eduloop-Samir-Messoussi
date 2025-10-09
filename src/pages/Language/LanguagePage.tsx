@@ -91,6 +91,10 @@ export default function LanguagePage() {
     await fetchQuestion();
   };
 
+  const handleBackToCategory = async () => {
+    localStorage.removeItem("quizResults")
+  }
+
   if (loading || !question) return <LoadingScreen />;
 
   const level = question?.level ?? "Easy";
@@ -102,33 +106,47 @@ export default function LanguagePage() {
     <>
       {showReloadWarning && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-          <div className="bg-white p-8 rounded-xl flex flex-col gap-4">
-            <p className="text-lg font-semibold">
-              If you reload this page, your progress will be lost!
+          <div className="bg-white p-8 rounded-2xl flex flex-col gap-5 max-w-sm w-full">
+            <h2 className="text-xl font-bold text-gray-800">Go Back to Category?</h2>
+            <p className="text-gray-600">
+              Your current progress will be lost. Do you still want to go back?
             </p>
-            <div className="flex gap-4 justify-end">
-              <Button onClick={handleReload} className="bg-blue-600 text-white">
-                Reload
-              </Button>
-              <Button onClick={handleCancelReload} className="bg-gray-300">
+            <div className="flex justify-end gap-4 mt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowReloadWarning(false)}
+              >
                 Cancel
+              </Button>
+              <Button
+                className="bg-primary text-white"
+                onClick={() => {
+                  setShowReloadWarning(false);
+                  navigate("/category");
+                  handleBackToCategory()
+                }}
+              >
+                Go to Category
               </Button>
             </div>
           </div>
         </div>
       )}
 
+
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <Link to={"/category"}>
-            <Button className="rounded-2xl py-7 pl-2 font-bold text-xl">
-              <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
-                <IoMdArrowRoundBack size={50} className="text-5xl" />
-              </div>
-              Back
-            </Button>
-          </Link>
+          {/* Back button with confirmation modal */}
+          <Button
+            onClick={() => setShowReloadWarning(true)}
+            className="rounded-2xl py-7 pl-2 font-bold text-xl"
+          >
+            <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
+              <IoMdArrowRoundBack size={50} className="text-5xl" />
+            </div>
+            Back
+          </Button>
 
           {/* Breadcrumbs */}
           <div className="text-primary flex gap-3 items-center">
