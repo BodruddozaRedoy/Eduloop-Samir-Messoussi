@@ -40,6 +40,8 @@ export default function ReadingPage() {
     return () => off();
   }, []);
 
+
+
   // Fetch question from API
   const fetchQuestion = async () => {
     try {
@@ -107,10 +109,10 @@ export default function ReadingPage() {
             </p>
             <div className="flex gap-4 justify-end">
               <Button onClick={handleReload} className="bg-blue-600 text-white">
-                Reload
+                Stay
               </Button>
               <Button onClick={handleCancelReload} className="bg-gray-300">
-                Cancel
+                Go back to category
               </Button>
             </div>
           </div>
@@ -121,7 +123,7 @@ export default function ReadingPage() {
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
           <Button
-          onClick={() => navigate("/category")}
+            onClick={() => navigate("/category", { state: null, replace: true })}
             className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">

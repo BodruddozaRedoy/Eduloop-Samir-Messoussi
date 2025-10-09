@@ -4,7 +4,7 @@ import LoadingScreen from '@/components/common/LoadingScreen';
 import useCategories from '@/hooks/useCategories';
 import React, { useState, useEffect } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Link, useNavigate, useSearchParams } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import {
     Dialog,
     DialogContent,
@@ -28,10 +28,16 @@ const CategoryPage: React.FC = () => {
     const subjectId = localStorage.getItem("subjectId");
     const groupId = localStorage.getItem("groupId");
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { categories } = useCategories(subjectId);
 
-    // ✅ Keep categories & subcategories synced in localStorage
+    // ✅ Reset quiz state whenever user comes back to this page
+    useEffect(() => {
+        setStartQuiz(false);
+    }, [location.pathname]);
+
+    // ✅ Keep selections synced in localStorage
     useEffect(() => {
         localStorage.setItem("categories", JSON.stringify(selectedCategories));
     }, [selectedCategories]);
@@ -40,7 +46,7 @@ const CategoryPage: React.FC = () => {
         localStorage.setItem("subcategories", JSON.stringify(selectedSubs));
     }, [selectedSubs]);
 
-    // ✅ API fetch with payload
+    // ✅ Fetch questions dynamically
     const { data: question, isLoading } = useQuery({
         queryKey: ['question', { level, selectedCategories, selectedSubs }],
         queryFn: async () => {
@@ -56,49 +62,43 @@ const CategoryPage: React.FC = () => {
             console.log("Request Payload:", payload);
             console.log("Response:", res.data?.question);
             console.log("Session Id:", res.data?.session_id);
-            localStorage.setItem("sessionId", res.data?.session_id)
+            localStorage.setItem("sessionId", res.data?.session_id);
             return res.data?.question;
         },
-        enabled: startQuiz,
+        enabled: startQuiz, // ✅ only runs when quiz starts
     });
 
     // ✅ Toggle category selection
     const handleCategoryToggle = (id: number, subcategories: any[] = []) => {
         if (selectedCategories.includes(id)) {
-            // Remove category + its subcategories
             setSelectedCategories(selectedCategories.filter(c => c !== id));
             setSelectedSubs(selectedSubs.filter(s => !subcategories.some((sub: any) => sub.id === s)));
-            if (activeCategory === id) {
-                setActiveCategory(null);
-            }
+            if (activeCategory === id) setActiveCategory(null);
         } else {
             setSelectedCategories([...selectedCategories, id]);
             setActiveCategory(null);
-            setSelectedSubs([]); // only clear if you want fresh start
+            setSelectedSubs([]);
         }
     };
 
-    // ✅ Toggle subcategory mode
+    // ✅ Toggle subcategory visibility
     const handleSubCategoryMode = (categoryId: number) => {
         if (activeCategory === categoryId) {
-            // Just close without clearing parent
             setActiveCategory(null);
         } else {
             setActiveCategory(categoryId);
             setSelectedSubs([]);
-            setSelectedCategories([categoryId]); // ensure category selected
+            setSelectedCategories([categoryId]);
         }
     };
 
-    // ✅ Toggle individual subcategories
+    // ✅ Handle individual subcategory toggle
     const handleSubToggle = (subId: number, parentCategoryId: number, allSubs: any[]) => {
         let updatedSubs: number[];
 
         if (selectedSubs.includes(subId)) {
-            // remove sub
             updatedSubs = selectedSubs.filter(s => s !== subId);
         } else {
-            // add sub
             updatedSubs = [...selectedSubs, subId];
         }
 
@@ -110,24 +110,19 @@ const CategoryPage: React.FC = () => {
                 setSelectedCategories([...selectedCategories, parentCategoryId]);
             }
         } else {
-            // ✅ If no sub left, parent category is removed
             setSelectedCategories(selectedCategories.filter(c => c !== parentCategoryId));
         }
     };
 
-
-    // ✅ Handle start quiz
-    // ✅ Only start fetching
+    // ✅ Trigger quiz start
     const handleStartQuiz = () => {
         setShowDialog(false);
         setStartQuiz(true);
     };
 
-    // ✅ React to new data
+    // ✅ Handle navigation after fetching questions
     useEffect(() => {
-        if (!isLoading && question) {
-            console.log("Fetched Question:", question);
-
+        if (startQuiz && !isLoading && question) {
             const routeState = {
                 question,
                 level,
@@ -137,28 +132,32 @@ const CategoryPage: React.FC = () => {
                 subcategories: selectedSubs,
             };
 
-            if (categories?.[0].subject === "Begrijpend Lezen" ) {
+            const subject = categories?.[0]?.subject;
+
+            if (subject === "Begrijpend Lezen") {
                 navigate(`/reading`, { state: routeState });
-            } else if (categories?.[0].subject === "Rekenen") {
+            } else if (subject === "Rekenen") {
                 navigate(`/arithmetic`, { state: routeState });
-            } else if (categories?.[0].subject === "Spelling") {
+            } else if (subject === "Spelling") {
                 navigate(`/spelling`, { state: routeState });
-            } else if (categories?.[0].subject === "Woordenschat") {
+            } else if (subject === "Woordenschat") {
                 navigate(`/vocabulary`, { state: routeState });
-            }else if(categories?.[0].subject === "Taal"){
+            } else if (subject === "Taal") {
                 navigate(`/language`, { state: routeState });
             }
+
+            // ✅ Prevent re-triggering when returning
+            setStartQuiz(false);
         }
 
         if (!isLoading && startQuiz && !question) {
             toast.error("No question found");
+            setStartQuiz(false);
         }
     }, [isLoading, question, startQuiz]);
 
-
-
     return (
-        <div className=''>
+        <div>
             {/* Back Button */}
             <Link to="/subject" className="inline-block rounded-2xl">
                 <Button className="rounded-2xl py-7 pl-2 font-bold text-xl">
@@ -179,14 +178,13 @@ const CategoryPage: React.FC = () => {
                     <div
                         key={category.id}
                         className={`flex flex-col p-6 rounded-2xl gap-3 border-2 transition-all duration-200 ${selectedCategories.includes(category.id) || activeCategory === category.id
-                            ? 'border-primary'
-                            : ''
+                                ? 'border-primary'
+                                : ''
                             }`}
                     >
                         <div className="flex items-center gap-3 justify-between">
                             <h3 className="font-bold text-gray-800 text-lg">{category.name}</h3>
                             <div className="flex items-center gap-2">
-                                {/* Subcategory button */}
                                 <Button
                                     onClick={() => handleSubCategoryMode(category.id)}
                                     size="sm"
@@ -196,7 +194,6 @@ const CategoryPage: React.FC = () => {
                                     {activeCategory === category.id ? "Close Subcategories" : "Select Subcategories"}
                                 </Button>
 
-                                {/* Category button */}
                                 <Button
                                     onClick={() => handleCategoryToggle(category.id, category.subcategories)}
                                     size="sm"
@@ -205,14 +202,11 @@ const CategoryPage: React.FC = () => {
                                 >
                                     {selectedCategories.includes(category.id) ? "Deselect" : "Select"}
                                 </Button>
-
-
                             </div>
                         </div>
 
                         <p className="text-gray-500 text-sm">Tap to start a new, non-repeating practice set.</p>
 
-                        {/* Subcategories */}
                         {activeCategory === category.id && (
                             <div className="grid grid-cols-2 mt-2">
                                 {category.subcategories?.map((sub: any) => (
@@ -259,25 +253,36 @@ const CategoryPage: React.FC = () => {
                             Start Now
                         </button>
                     </DialogTrigger>
+                    {/* Select Difficulty Level */}
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>Select Difficulty Level</DialogTitle>
                         </DialogHeader>
+
                         <div className="flex flex-col gap-3 mt-4">
-                            {["easy", "medium", "advance", "none"].map(l => (
-                                <Button
-                                    key={l}
-                                    variant={level === l ? "default" : "outline"}
-                                    onClick={() => setLevel(l === "none" ? null : l)}
-                                >
-                                    {l === "none" ? "No Level" : l.charAt(0).toUpperCase() + l.slice(1)}
-                                </Button>
-                            ))}
+                            {["easy", "medium", "advance", "none"].map((l) => {
+                                const isActive =
+                                    (l === "none" && level === null) || level === l;
+
+                                return (
+                                    <Button
+                                        key={l}
+                                        variant={isActive ? "default" : "outline"}
+                                        onClick={() => setLevel(l === "none" ? null : l)}
+                                    >
+                                        {l === "none"
+                                            ? "All Level"
+                                            : l.charAt(0).toUpperCase() + l.slice(1)}
+                                    </Button>
+                                );
+                            })}
                         </div>
+
                         <DialogFooter>
                             <Button onClick={handleStartQuiz}>Start Quiz</Button>
                         </DialogFooter>
                     </DialogContent>
+
                 </Dialog>
             </div>
         </div>
