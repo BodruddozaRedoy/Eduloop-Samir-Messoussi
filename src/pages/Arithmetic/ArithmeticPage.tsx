@@ -4,7 +4,7 @@ import { IoIosArrowForward, IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheck
 import { BadgeCheck, ChevronLeft } from "lucide-react"
 import QuestionRenderer from "./components/QuestionRenderer"
 import { QUESTIONS_DATA } from "./components/Questions"
-import { Link, useSearchParams } from "react-router"
+import { Link, useNavigate, useSearchParams } from "react-router"
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker"
 import Controllers from "@/components/common/Controllers"
 import Hint from "@/components/common/Hint"
@@ -18,6 +18,8 @@ export default function ArithmeticPage() {
     const q = QUESTIONS_DATA[question]
     const [trigger, setTrigger] = useState(true)
     const [hasResults, setHasResults] = useState<boolean>(hasAnyResults())
+    const [showReloadWarning, setShowReloadWarning] = useState(false);
+    const navigate = useNavigate()
 
     console.log(question)
 
@@ -42,13 +44,13 @@ export default function ArithmeticPage() {
     const isFirst = question === 0
     const isLast = question === QUESTIONS_DATA.length - 1
 
-    const handlePrev = () => {
-        setQuestion((prev) => Math.max(prev - 1, 0))
-        setTrigger(!trigger)
-    }
     const handleNext = () => {
         setQuestion((prev) => Math.min(prev + 1, QUESTIONS_DATA.length - 1))
         setTrigger(!trigger)
+    }
+
+    const handleBackToCategory = async () => {
+        localStorage.removeItem("quizResults")
     }
 
     // Difficulty pills highlight
@@ -65,13 +67,43 @@ export default function ArithmeticPage() {
     return (
         <QuestionControlsProvider>
             <>
+                {showReloadWarning && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+                        <div className="bg-white p-8 rounded-2xl flex flex-col gap-5 max-w-sm w-full">
+                            <h2 className="text-xl font-bold text-gray-800">Go Back to Category?</h2>
+                            <p className="text-gray-600">
+                                Your current progress will be lost. Do you still want to go back?
+                            </p>
+                            <div className="flex justify-end gap-4 mt-4">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setShowReloadWarning(false)}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className="bg-primary text-white"
+                                    onClick={() => {
+                                        setShowReloadWarning(false);
+                                        navigate("/category");
+                                        handleBackToCategory()
+                                    }}
+                                >
+                                    Go to Category
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+
                 {/* Top bar */}
-                <div className="flex flex-col lg:flex-row items-center justify-between mb-5 relative">
+                <div className="flex items-center justify-between mb-5">
                     <div className="flex items-center gap-3">
+                        {/* Back button with confirmation modal */}
                         <Button
-                            onClick={handlePrev}
-                            disabled={isFirst}
-                            className="rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed"
+                            onClick={() => setShowReloadWarning(true)}
+                            className="rounded-2xl py-7 pl-2 font-bold text-xl"
                         >
                             <div className="size-10 bg-white text-black rounded-2xl flex items-center justify-center">
                                 <IoMdArrowRoundBack size={50} className="text-5xl" />
@@ -79,13 +111,15 @@ export default function ArithmeticPage() {
                             Back
                         </Button>
 
-                        {/* Breadcrumbs from data */}
+                        {/* Breadcrumbs */}
                         <div className="text-primary flex gap-3 items-center">
-                            <p>Group {q.group}</p>
+                            <p>{question.group}</p>
                             <IoIosArrowForward />
-                            <p>{q.subject}</p>
+                            <p>{question.subject}</p>
                             <IoIosArrowForward />
-                            <p>{q.category}</p>
+                            <p>{question.category}</p>
+                            <IoIosArrowForward />
+                            <p>{question.subcategory}</p>
                         </div>
                     </div>
 
