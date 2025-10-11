@@ -87,8 +87,14 @@ export default function ArithmeticPage() {
         localStorage.removeItem("quizResults")
     }
 
+    useEffect(() => {
+        if (!loading && !question) {
+            navigate("/category", { replace: true });
+        }
+    }, [loading, question, navigate]);
+
     if (loading && !question) return <LoadingScreen />;
-    if (!loading && !question) return navigate("/category");
+    if (!question) return null;
 
     // Difficulty pills highlight
     const level = q?.level ?? "Easy"
