@@ -87,7 +87,7 @@ export default function ArithmeticPage() {
         localStorage.removeItem("quizResults")
     }
 
-    if (loading || !question) return <LoadingScreen />;
+    if (loading && !question) return <LoadingScreen />;
     if (!loading && !question) return navigate("/category");
 
     // Difficulty pills highlight

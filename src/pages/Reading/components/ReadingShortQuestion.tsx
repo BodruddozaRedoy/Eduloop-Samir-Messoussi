@@ -1,4 +1,3 @@
-"use client";
 
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
