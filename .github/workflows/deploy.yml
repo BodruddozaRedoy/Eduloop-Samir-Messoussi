@@ -3,7 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main  # runs when you push to main branch
+      - main   # Trigger deployment only when pushing to main branch
 
 jobs:
   deploy:
@@ -23,8 +23,26 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            set -e  # stop on first error
+            echo "🔁 Starting deployment..."
+
+            # Move into your project directory
             cd ${{ secrets.VPS_PATH }}/client
-            git pull origin main
-            docker compose down
-            docker compose up -d --build
+
+            # Fetch and replace with latest code from GitHub
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Move up to docker-compose root
+            cd ${{ secrets.VPS_PATH }}
+
+            echo "🧹 Cleaning old containers and images..."
+            docker compose down --remove-orphans
+            docker system prune -af
+
+            echo "🏗️ Rebuilding and deploying containers..."
+            docker compose build --no-cache
+            docker compose up -d
+
+            echo "✅ Deployment complete!"
           EOF
