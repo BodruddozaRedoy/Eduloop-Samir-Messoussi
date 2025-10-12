@@ -18,8 +18,8 @@ const defaultProblems = [
 type Problem = { id: number; question: string; answer: number; type: string };
 
 const ArrType_16 = ({
-  data = defaultProblems,
-  hint,
+  data,
+  hint
 }: {
   data?: Problem[];
   hint: string;

@@ -1,4 +1,3 @@
-"use client";
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
@@ -19,7 +18,7 @@ export interface Summary {
   borderColor: string;
 }
 
-export default function ReadingQuiz(props: any) {
+export default function ReadingMultipleChoice(props: any) {
   const { question, options, correctAnswer, description, hint, qid } = props as {
     question: string;
     options: string[];
@@ -28,12 +27,7 @@ export default function ReadingQuiz(props: any) {
     hint: string;
     qid?: number;
   };
-  // const [answers, setAnswers] = useState<{ [id: number]: string[] }>({})
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
-  // const [showSolution, setShowSolution] = useState(false)
-  // const [wrongAnswers, setWrongAnswers] = useState<{ [id: number]: string[] }>({})
-  // const [correctAnswers, setCorrectAnswers] = useState<{ [id: number]: string[] }>({})
-  // const [showHint, setShowHint] = useState(false)
 
   const [selected, setSelected] = useState<string | null>(null);
   const { addResult } = useResultTracker();
@@ -80,9 +74,11 @@ export default function ReadingQuiz(props: any) {
   return (
     <div className="w-full bg-[#fdeedc] rounded-xl p-6 shadow-md">
       {/* Top description */}
-      <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
+      {
+        description && <div className="bg-[#e9543d] text-white rounded-lg p-4 mb-6">
         <p className="text-sm md:text-base">{description}</p>
       </div>
+      }
 
       {/* Question */}
       <h2 className="text-lg font-semibold mb-4">{question}</h2>
@@ -103,69 +99,6 @@ export default function ReadingQuiz(props: any) {
         ))}
       </div>
 
-      {/* Buttons */}
-      {/* <div className="flex items-center gap-3">
-        <Button
-          onClick={handleCheck}
-          className="bg-[#dbeafe] hover:bg-[#dbeafe]/70 text-black border"
-        >
-          Check
-        </Button>
-        <Button
-          onClick={() => setShowHint(!showHint)}
-          className="bg-[#ffedd5] hover:bg-[#ffedd5]/70 text-black border"
-        >
-          {showHint ? "Hide Hint" : "Hint"}
-        </Button>
-        <Button
-          onClick={handleShowSolution}
-          className="bg-[#f3e8ff] hover:bg-[#f3e8ff]/70 text-black border"
-        >
-          Show Solution
-        </Button>
-      </div> */}
-
-      {/* <div className="flex items-center justify-between mt-10">
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={handleCheck}
-            className="bg-[#dbeafe] hover:bg-[#dbeafe]/70 text-black border"
-          >
-            Check
-          </Button>
-          <Button className="bg-[#ffedd5] hover:bg-[#ffedd5]/70 text-black border">
-            Hint
-          </Button>
-          <Button
-            onClick={handleShowSolution}
-            className="bg-[#f3e8ff] hover:bg-[#f3e8ff]/70 text-black border"
-          >
-            Show Solution
-          </Button>
-        </div>
-      </div> */}
-
-      {/* {showHint && (
-        <p className="text-blue-600 font-medium mb-2">💡 Hint: {hint}</p>
-      )} */}
-
-      {/*
-      {result !== null && (
-        <p
-          className={`text-base font-medium ${
-            result ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {result ? "✅ Correct!" : "❌ Wrong. Try again or show solution."}
-        </p>
-      )} */}
-
-      {/* one controller at bottom */}
-      {/* <Controllers
-                handleCheck={handleCheckAll}
-                handleShowSolution={handleShowSolutionAll}
-                handleShowHint={handleShowHint}
-            /> */}
       <Controllers
         handleCheck={handleCheck}
         handleShowSolution={handleShowSolution}

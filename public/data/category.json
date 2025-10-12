@@ -1,0 +1,3826 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "name": "Groep 4",
+      "slug": "group-4",
+      "subjects": [
+        {
+          "id": 1,
+          "name": "Rekenen",
+          "slug": "Rekenen",
+          "categories": [
+            {
+      "id": 1,
+      "name": "Blok 1",
+      "slug": "blok-1",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 1",
+          "slug": "les-1"
+        },
+        {
+          "id": 2,
+          "name": "Les 3",
+          "slug": "les-3"
+        },
+        {
+          "id": 3,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 4,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 5,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 6,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 7,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 8,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 9,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Blok 2",
+      "slug": "blok-2",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Blok 3",
+      "slug": "blok-3",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Blok 4",
+      "slug": "blok-4",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blok 5",
+      "slug": "blok-5",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Blok 6",
+      "slug": "blok-6",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Blok 7",
+      "slug": "blok-7",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blok 8",
+      "slug": "blok-8",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Blok 9",
+      "slug": "blok-9",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Taal",
+          "slug": "taal",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Leestekens",
+              "slug": "leestekens",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "punt",
+                  "slug": "punt"
+                },
+                {
+                  "id": 2,
+                  "name": "vraagteken en uitroepteken",
+                  "slug": "vraagteken-en-uitroepteken"
+                },
+                {
+                  "id": 3,
+                  "name": "komma",
+                  "slug": "komma"
+                },
+                {
+                  "id": 4,
+                  "name": "hoofdletter/kleine letter Punt",
+                  "slug": "hoofdletter-kleine-letter-punt"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Grammaticale kennis",
+              "slug": "grammaticale-kennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zin",
+                  "slug": "zin"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Woordvorming",
+              "slug": "woordvorming",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "lettergreep",
+                  "slug": "lettergreep"
+                },
+                {
+                  "id": 2,
+                  "name": "enkelvoud",
+                  "slug": "enkelvoud"
+                },
+                {
+                  "id": 3,
+                  "name": "meervoud",
+                  "slug": "meervoud"
+                },
+                {
+                  "id": 4,
+                  "name": "verkleinwoord",
+                  "slug": "verkleinwoord"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Klanken",
+              "slug": "klanken",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "klank (korte/lange)",
+                  "slug": "klank-korte-lange"
+                },
+                {
+                  "id": 2,
+                  "name": "tweetekenklank",
+                  "slug": "tweetekenklank"
+                },
+                {
+                  "id": 3,
+                  "name": "meertekenklank",
+                  "slug": "meertekenklank"
+                },
+                {
+                  "id": 4,
+                  "name": "klankgroep",
+                  "slug": "klankgroep"
+                },
+                {
+                  "id": 5,
+                  "name": "klinker",
+                  "slug": "klinker"
+                },
+                {
+                  "id": 6,
+                  "name": "medeklinker",
+                  "slug": "medeklinker"
+                },
+                {
+                  "id": 7,
+                  "name": "uitspraak",
+                  "slug": "uitspraak"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Spelling",
+          "slug": "spelling",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Spelling",
+              "slug": "spelling",
+              "subcategories": []
+            },
+            {
+              "id": 2,
+              "name": "Werkwoordspelling",
+              "slug": "werkwoordspelling",
+              "subcategories": []
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Woordenschat",
+          "slug": "woordenschat",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Stijl en betekenis",
+              "slug": "stijl-en-betekenis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "letterlijk",
+                  "slug": "letterlijk"
+                },
+                {
+                  "id": 2,
+                  "name": "figuurlijk",
+                  "slug": "figuurlijk"
+                },
+                {
+                  "id": 3,
+                  "name": "uitdrukking",
+                  "slug": "uitdrukking"
+                },
+                {
+                  "id": 4,
+                  "name": "spreekwoord",
+                  "slug": "spreekwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                },
+                {
+                  "id": 6,
+                  "name": "woordenschat",
+                  "slug": "woordenschat"
+                },
+                {
+                  "id": 7,
+                  "name": "tegenstelling/antonym",
+                  "slug": "tegenstelling-antonym"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Begrijpend Lezen",
+          "slug": "begrijpend-lezen",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Tekstkennis",
+              "slug": "tekstkennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "standpunt",
+                  "slug": "standpunt"
+                },
+                {
+                  "id": 2,
+                  "name": "argument",
+                  "slug": "argument"
+                },
+                {
+                  "id": 3,
+                  "name": "feit",
+                  "slug": "feit"
+                },
+                {
+                  "id": 4,
+                  "name": "mening",
+                  "slug": "mening"
+                },
+                {
+                  "id": 5,
+                  "name": "tekst",
+                  "slug": "tekst"
+                },
+                {
+                  "id": 6,
+                  "name": "signaalwoord",
+                  "slug": "signaalwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "inhoudsopgave",
+                  "slug": "inhoudsopgave"
+                },
+                {
+                  "id": 8,
+                  "name": "inleading",
+                  "slug": "inleading"
+                },
+                {
+                  "id": 9,
+                  "name": "kern",
+                  "slug": "kern"
+                },
+                {
+                  "id": 10,
+                  "name": "slot",
+                  "slug": "slot"
+                },
+                {
+                  "id": 11,
+                  "name": "boodschap",
+                  "slug": "boodschap"
+                },
+                {
+                  "id": 12,
+                  "name": "situatie",
+                  "slug": "situatie"
+                },
+                {
+                  "id": 13,
+                  "name": "bedoeling",
+                  "slug": "bedoeling"
+                },
+                {
+                  "id": 14,
+                  "name": "tekstsoort",
+                  "slug": "tekstsoort"
+                },
+                {
+                  "id": 15,
+                  "name": "gespreksvorm",
+                  "slug": "gespreksvorm"
+                },
+                {
+                  "id": 16,
+                  "name": "overleg",
+                  "slug": "overleg"
+                },
+                {
+                  "id": 17,
+                  "name": "discussie",
+                  "slug": "discussie"
+                },
+                {
+                  "id": 18,
+                  "name": "interview/vraaggesprek",
+                  "slug": "interview-vraaggesprek"
+                },
+                {
+                  "id": 19,
+                  "name": "voordracht/presentatie",
+                  "slug": "voordracht-presentatie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Groep 5",
+      "slug": "group-5",
+      "subjects": [
+        {
+          "id": 1,
+          "name": "Rekenen",
+          "slug": "Rekenen",
+          "categories": [
+            {
+      "id": 1,
+      "name": "Blok 1",
+      "slug": "blok-1",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 6",
+          "slug": "les-6"
+        },
+        {
+          "id": 3,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 4,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 5,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 6,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 7,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 8,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Blok 2",
+      "slug": "blok-2",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Blok 3",
+      "slug": "blok-3",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Blok 4",
+      "slug": "blok-4",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blok 5",
+      "slug": "blok-5",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Blok 6",
+      "slug": "blok-6",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Blok 7",
+      "slug": "blok-7",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blok 8",
+      "slug": "blok-8",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Blok 9",
+      "slug": "blok-9",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Taal",
+          "slug": "taal",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Leestekens",
+              "slug": "leestekens",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "punt",
+                  "slug": "punt"
+                },
+                {
+                  "id": 2,
+                  "name": "vraagteken en uitroepteken",
+                  "slug": "vraagteken-en-uitroepteken"
+                },
+                {
+                  "id": 3,
+                  "name": "komma",
+                  "slug": "komma"
+                },
+                {
+                  "id": 4,
+                  "name": "dubbele punt",
+                  "slug": "dubbele-punt"
+                },
+                {
+                  "id": 5,
+                  "name": "hoofdletter/kleine letter",
+                  "slug": "hoofdletter-kleine-letter"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Woordsoorten",
+              "slug": "woordsoorten",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zelfstandig naamwoord",
+                  "slug": "zelfstandig-naamwoord"
+                },
+                {
+                  "id": 2,
+                  "name": "werkwoord",
+                  "slug": "werkwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "lidwoord",
+                  "slug": "lidwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "voegwoord",
+                  "slug": "voegwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "voorzetsel",
+                  "slug": "voorzetsel"
+                },
+                {
+                  "id": 6,
+                  "name": "telwoord",
+                  "slug": "telwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "bijvoeglijk naamwoord",
+                  "slug": "bijvoeglijk-naamwoord"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Grammaticale kennis",
+              "slug": "grammaticale-kennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zin",
+                  "slug": "zin"
+                },
+                {
+                  "id": 2,
+                  "name": "onderwerp",
+                  "slug": "onderwerp"
+                },
+                {
+                  "id": 3,
+                  "name": "persoonsvorm",
+                  "slug": "persoonsvorm"
+                },
+                {
+                  "id": 4,
+                  "name": "hoofdzin/bijzin",
+                  "slug": "hoofdzin-bijzin"
+                },
+                {
+                  "id": 5,
+                  "name": "zinsdeel",
+                  "slug": "zinsdeel"
+                },
+                {
+                  "id": 6,
+                  "name": "vragende vorm",
+                  "slug": "vragende-vorm"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Spelling",
+          "slug": "spelling",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Spelling",
+              "slug": "spelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "lettergreep",
+                  "slug": "lettergreep"
+                },
+                {
+                  "id": 2,
+                  "name": "enkelvoud",
+                  "slug": "enkelvoud"
+                },
+                {
+                  "id": 3,
+                  "name": "meervoud",
+                  "slug": "meervoud"
+                },
+                {
+                  "id": 4,
+                  "name": "verkleinwoord",
+                  "slug": "verkleinwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "woorddeel",
+                  "slug": "woorddeel"
+                },
+                {
+                  "id": 6,
+                  "name": "samenstelling",
+                  "slug": "samenstelling"
+                },
+                {
+                  "id": 7,
+                  "name": "voorvoegsel",
+                  "slug": "voorvoegsel"
+                },
+                {
+                  "id": 8,
+                  "name": "achtervoegsel",
+                  "slug": "achtervoegsel"
+                },
+                {
+                  "id": 9,
+                  "name": "persoon (1e, 2e, 3e)",
+                  "slug": "persoon-1e-2e-3e"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Werkwoordspelling",
+              "slug": "werkwoordspelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "hele werkwoord/infinitief",
+                  "slug": "hele-werkwoord-infinitief"
+                },
+                {
+                  "id": 2,
+                  "name": "stam van het werkwoord",
+                  "slug": "stam-van-het-werkwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "tegenwoordige tijd",
+                  "slug": "tegenwoordige-tijd"
+                },
+                {
+                  "id": 4,
+                  "name": "verleden tijd",
+                  "slug": "verleden-tijd"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenwoordige tijd en verleden tijd (mix)",
+                  "slug": "tegenwoordige-tijd-en-verleden-tijd-mix"
+                },
+                {
+                  "id": 6,
+                  "name": "klankvast (zwak) werkwoord",
+                  "slug": "klankvast-zwak-werkwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "klankveranderend (sterk) werkwoord",
+                  "slug": "klankveranderend-sterk-werkwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "klankvast (zwak) werkwoord en klankveranderend (sterk) werkwoord (mix)",
+                  "slug": "klankvast-zwak-werkwoord-en-klankveranderend-sterk-werkwoord-mix"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Woordenschat",
+          "slug": "woordenschat",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Stijl en betekenis",
+              "slug": "stijl-en-betekenis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "letterlijk",
+                  "slug": "letterlijk"
+                },
+                {
+                  "id": 2,
+                  "name": "figuurlijk",
+                  "slug": "figuurlijk"
+                },
+                {
+                  "id": 3,
+                  "name": "uitdrukking",
+                  "slug": "uitdrukking"
+                },
+                {
+                  "id": 4,
+                  "name": "spreekwoord",
+                  "slug": "spreekwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                },
+                {
+                  "id": 6,
+                  "name": "woordenschat",
+                  "slug": "woordenschat"
+                },
+                {
+                  "id": 7,
+                  "name": "tegenstelling/antoniem",
+                  "slug": "tegenstelling-antoniem"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Begrijpend Lezen",
+          "slug": "begrijpend-lezen",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Tekstkennis",
+              "slug": "tekstkennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "standpunt",
+                  "slug": "standpunt"
+                },
+                {
+                  "id": 2,
+                  "name": "argument",
+                  "slug": "argument"
+                },
+                {
+                  "id": 3,
+                  "name": "feit",
+                  "slug": "feit"
+                },
+                {
+                  "id": 4,
+                  "name": "mening",
+                  "slug": "mening"
+                },
+                {
+                  "id": 5,
+                  "name": "tekst",
+                  "slug": "tekst"
+                },
+                {
+                  "id": 6,
+                  "name": "signaalwoord",
+                  "slug": "signaalwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "inhoudsopgave",
+                  "slug": "inhoudsopgave"
+                },
+                {
+                  "id": 8,
+                  "name": "inleiding",
+                  "slug": "inleiding"
+                },
+                {
+                  "id": 9,
+                  "name": "kern",
+                  "slug": "kern"
+                },
+                {
+                  "id": 10,
+                  "name": "slot",
+                  "slug": "slot"
+                },
+                {
+                  "id": 11,
+                  "name": "boodschap",
+                  "slug": "boodschap"
+                },
+                {
+                  "id": 12,
+                  "name": "situatie",
+                  "slug": "situatie"
+                },
+                {
+                  "id": 13,
+                  "name": "bedoeling",
+                  "slug": "bedoeling"
+                },
+                {
+                  "id": 14,
+                  "name": "tekstsoort",
+                  "slug": "tekstsoort"
+                },
+                {
+                  "id": 15,
+                  "name": "gespreksvorm",
+                  "slug": "gespreksvorm"
+                },
+                {
+                  "id": 16,
+                  "name": "overleg",
+                  "slug": "overleg"
+                },
+                {
+                  "id": 17,
+                  "name": "discussie",
+                  "slug": "discussie"
+                },
+                {
+                  "id": 18,
+                  "name": "interview/vraaggesprek",
+                  "slug": "interview-vraaggesprek"
+                },
+                {
+                  "id": 19,
+                  "name": "voordracht/presentatie",
+                  "slug": "voordracht-presentatie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Groep 6",
+      "slug": "group-6",
+      "subjects": [
+        {
+          "id": 1,
+          "name": "Rekenen",
+          "slug": "Rekenen",
+          "categories": [
+            {
+      "id": 1,
+      "name": "Blok 1",
+      "slug": "blok-1",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 1",
+          "slug": "les-1"
+        },
+        {
+          "id": 2,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 3,
+          "name": "Les 6",
+          "slug": "les-6"
+        },
+        {
+          "id": 4,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 5,
+          "name": "Les 11",
+          "slug": "les-11"
+        },
+        {
+          "id": 6,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 7,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 8,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 9,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 10,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Blok 2",
+      "slug": "blok-2",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Blok 3",
+      "slug": "blok-3",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Blok 4",
+      "slug": "blok-4",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blok 5",
+      "slug": "blok-5",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Blok 6",
+      "slug": "blok-6",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Blok 7",
+      "slug": "blok-7",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blok 8",
+      "slug": "blok-8",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Blok 9",
+      "slug": "blok-9",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Taal",
+          "slug": "taal",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Leestekens",
+              "slug": "leestekens",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "punt",
+                  "slug": "punt"
+                },
+                {
+                  "id": 2,
+                  "name": "vraagteken en uitroepteken",
+                  "slug": "vraagteken-en-uitroepteken"
+                },
+                {
+                  "id": 3,
+                  "name": "komma",
+                  "slug": "komma"
+                },
+                {
+                  "id": 4,
+                  "name": "dubbele punt",
+                  "slug": "dubbele-punt"
+                },
+                {
+                  "id": 5,
+                  "name": "hoofdletter/kleine letter",
+                  "slug": "hoofdletter-kleine-letter"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Woordsoorten",
+              "slug": "woordsoorten",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zelfstandig naamwoord",
+                  "slug": "zelfstandig-naamwoord"
+                },
+                {
+                  "id": 2,
+                  "name": "lidwoord",
+                  "slug": "lidwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "voegwoord",
+                  "slug": "voegwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "voorzetsel",
+                  "slug": "voorzetsel"
+                },
+                {
+                  "id": 5,
+                  "name": "telwoord",
+                  "slug": "telwoord"
+                },
+                {
+                  "id": 6,
+                  "name": "bijvoeglijk naamwoord",
+                  "slug": "bijvoeglijk-naamwoord"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Grammaticale kennis",
+              "slug": "grammaticale-kennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zin",
+                  "slug": "zin"
+                },
+                {
+                  "id": 2,
+                  "name": "onderwerp",
+                  "slug": "onderwerp"
+                },
+                {
+                  "id": 3,
+                  "name": "persoonsvorm",
+                  "slug": "persoonsvorm"
+                },
+                {
+                  "id": 4,
+                  "name": "hoofdzin",
+                  "slug": "hoofdzin"
+                },
+                {
+                  "id": 5,
+                  "name": "bijzin",
+                  "slug": "bijzin"
+                },
+                {
+                  "id": 6,
+                  "name": "zinsdeel",
+                  "slug": "zinsdeel"
+                },
+                {
+                  "id": 7,
+                  "name": "vragende vorm",
+                  "slug": "vragende-vorm"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Spelling",
+          "slug": "spelling",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Spelling",
+              "slug": "spelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "lettergreep",
+                  "slug": "lettergreep"
+                },
+                {
+                  "id": 2,
+                  "name": "enkelvoud",
+                  "slug": "enkelvoud"
+                },
+                {
+                  "id": 3,
+                  "name": "meervoud",
+                  "slug": "meervoud"
+                },
+                {
+                  "id": 4,
+                  "name": "verkleinwoord",
+                  "slug": "verkleinwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "woorddeel",
+                  "slug": "woorddeel"
+                },
+                {
+                  "id": 6,
+                  "name": "samenstelling",
+                  "slug": "samenstelling"
+                },
+                {
+                  "id": 7,
+                  "name": "voorvoegsel",
+                  "slug": "voorvoegsel"
+                },
+                {
+                  "id": 8,
+                  "name": "achtervoegsel",
+                  "slug": "achtervoegsel"
+                },
+                {
+                  "id": 9,
+                  "name": "persoon (1e, 2e, 3e)",
+                  "slug": "persoon-1e-2e-3e"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Werkwoordspelling",
+              "slug": "werkwoordspelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "hele werkwoord/infinitief",
+                  "slug": "hele-werkwoord-infinitief"
+                },
+                {
+                  "id": 2,
+                  "name": "stam van het werkwoord",
+                  "slug": "stam-van-het-werkwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "tegenwoordige tijd",
+                  "slug": "tegenwoordige-tijd"
+                },
+                {
+                  "id": 4,
+                  "name": "verleden tijd",
+                  "slug": "verleden-tijd"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenwoordige tijd en verleden tijd (mix)",
+                  "slug": "tegenwoordige-tijd-en-verleden-tijd-mix"
+                },
+                {
+                  "id": 6,
+                  "name": "klankvast (zwak) werkwoord",
+                  "slug": "klankvast-zwak-werkwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "klankveranderend (sterk) werkwoord",
+                  "slug": "klankveranderend-sterk-werkwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "klankvast (zwak) werkwoord en klankveranderend (sterk) werkwoord (mix)",
+                  "slug": "klankvast-zwak-werkwoord-en-klankveranderend-sterk-werkwoord-mix"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Woordenschat",
+          "slug": "woordenschat",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Stijl en betekenis",
+              "slug": "stijl-en-betekenis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "letterlijk",
+                  "slug": "letterlijk"
+                },
+                {
+                  "id": 2,
+                  "name": "figuurlijk",
+                  "slug": "figuurlijk"
+                },
+                {
+                  "id": 3,
+                  "name": "uitdrukking",
+                  "slug": "uitdrukking"
+                },
+                {
+                  "id": 4,
+                  "name": "spreekwoord",
+                  "slug": "spreekwoord"
+                },
+                {
+                  "id": 5,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                },
+                {
+                  "id": 6,
+                  "name": "woordenschat",
+                  "slug": "woordenschat"
+                },
+                {
+                  "id": 7,
+                  "name": "tegenstelling/antoniem",
+                  "slug": "tegenstelling-antoniem"
+                },
+                {
+                  "id": 8,
+                  "name": "synoniem",
+                  "slug": "synoniem"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Groep 7",
+      "slug": "group-7",
+      "subjects": [
+        {
+          "id": 1,
+          "name": "Rekenen",
+          "slug": "Rekenen",
+          "categories": [
+            {
+      "id": 1,
+      "name": "Blok 1",
+      "slug": "blok-1",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Blok 2",
+      "slug": "blok-2",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Blok 3",
+      "slug": "blok-3",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Blok 4",
+      "slug": "blok-4",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blok 5",
+      "slug": "blok-5",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Blok 6",
+      "slug": "blok-6",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Blok 7",
+      "slug": "blok-7",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blok 8",
+      "slug": "blok-8",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Blok 9",
+      "slug": "blok-9",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Taal",
+          "slug": "taal",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Leestekens",
+              "slug": "leestekens",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "punt",
+                  "slug": "punt"
+                },
+                {
+                  "id": 2,
+                  "name": "vraagteken en uitroepteken",
+                  "slug": "vraagteken-en-uitroepteken"
+                },
+                {
+                  "id": 3,
+                  "name": "komma",
+                  "slug": "komma"
+                },
+                {
+                  "id": 4,
+                  "name": "hoofdletter/kleine letter",
+                  "slug": "hoofdletter-kleine-letter"
+                },
+                {
+                  "id": 5,
+                  "name": "dubbele punt",
+                  "slug": "dubbele-punt"
+                },
+                {
+                  "id": 6,
+                  "name": "puntkomma",
+                  "slug": "puntkomma"
+                },
+                {
+                  "id": 7,
+                  "name": "apostrof",
+                  "slug": "apostrof"
+                },
+                {
+                  "id": 8,
+                  "name": "koppelteken",
+                  "slug": "koppelteken"
+                },
+                {
+                  "id": 9,
+                  "name": "afbreekstreepje",
+                  "slug": "afbreekstreepje"
+                },
+                {
+                  "id": 10,
+                  "name": "trema",
+                  "slug": "trema"
+                },
+                {
+                  "id": 11,
+                  "name": "accent",
+                  "slug": "accent"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Woordsoorten",
+              "slug": "woordsoorten",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zelfstandig naamwoord",
+                  "slug": "zelfstandig-naamwoord"
+                },
+                {
+                  "id": 2,
+                  "name": "lidwoord",
+                  "slug": "lidwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "voegwoord",
+                  "slug": "voegwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "voorzetsel",
+                  "slug": "voorzetsel"
+                },
+                {
+                  "id": 5,
+                  "name": "telwoord",
+                  "slug": "telwoord"
+                },
+                {
+                  "id": 6,
+                  "name": "bijvoeglijk naamwoord",
+                  "slug": "bijvoeglijk-naamwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "stoffelijk bijvoeglijk naamwoord",
+                  "slug": "stoffelijk-bijvoeglijk-naamwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "persoonlijk voornaamwoord",
+                  "slug": "persoonlijk-voornaamwoord"
+                },
+                {
+                  "id": 9,
+                  "name": "bezittelijk voornaamwoord",
+                  "slug": "bezittelijk-voornaamwoord"
+                },
+                {
+                  "id": 10,
+                  "name": "aanwijzend voornaamwoord",
+                  "slug": "aanwijzend-voornaamwoord"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Grammaticale kennis",
+              "slug": "grammaticale-kennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "onderwerp",
+                  "slug": "onderwerp"
+                },
+                {
+                  "id": 2,
+                  "name": "persoonsvorm",
+                  "slug": "persoonsvorm"
+                },
+                {
+                  "id": 3,
+                  "name": "hoofdzin",
+                  "slug": "hoofdzin"
+                },
+                {
+                  "id": 4,
+                  "name": "bijzin",
+                  "slug": "bijzin"
+                },
+                {
+                  "id": 5,
+                  "name": "lijdend voorwerp",
+                  "slug": "lijdend-voorwerp"
+                },
+                {
+                  "id": 6,
+                  "name": "meewerkend voorwerp",
+                  "slug": "meewerkend-voorwerp"
+                },
+                {
+                  "id": 7,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Spelling",
+          "slug": "spelling",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Spelling",
+              "slug": "spelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "enkelvoud",
+                  "slug": "enkelvoud"
+                },
+                {
+                  "id": 2,
+                  "name": "meervoud",
+                  "slug": "meervoud"
+                },
+                {
+                  "id": 3,
+                  "name": "verkleinwoord",
+                  "slug": "verkleinwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "woorddeel",
+                  "slug": "woorddeel"
+                },
+                {
+                  "id": 5,
+                  "name": "samenstelling",
+                  "slug": "samenstelling"
+                },
+                {
+                  "id": 6,
+                  "name": "voorvoegsel",
+                  "slug": "voorvoegsel"
+                },
+                {
+                  "id": 7,
+                  "name": "achtervoegsel",
+                  "slug": "achtervoegsel"
+                },
+                {
+                  "id": 8,
+                  "name": "woordsoort",
+                  "slug": "woordsoort"
+                },
+                {
+                  "id": 9,
+                  "name": "persoon (1e, 2e, 3e)",
+                  "slug": "persoon-1e-2e-3e"
+                },
+                {
+                  "id": 10,
+                  "name": "trappen van vergelijking (stellend/vergrotend/overtreffend)",
+                  "slug": "trappen-van-vergelijking-stellend-vergrotend-overtreffend"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Werkwoordspelling",
+              "slug": "werkwoordspelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "hele werkwoord/infinitief",
+                  "slug": "hele-werkwoord-infinitief"
+                },
+                {
+                  "id": 2,
+                  "name": "stam van het werkwoord",
+                  "slug": "stam-van-het-werkwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "tegenwoordige tijd",
+                  "slug": "tegenwoordige-tijd"
+                },
+                {
+                  "id": 4,
+                  "name": "verleden tijd",
+                  "slug": "verleden-tijd"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenwoordige tijd en verleden tijd (mix)",
+                  "slug": "tegenwoordige-tijd-en-verleden-tijd-mix"
+                },
+                {
+                  "id": 6,
+                  "name": "klankvast (zwak) werkwoord",
+                  "slug": "klankvast-zwak-werkwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "klankveranderend (sterk) werkwoord",
+                  "slug": "klankveranderend-sterk-werkwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "klankvast (zwak) werkwoord en klankveranderend (sterk) werkwoord (mix)",
+                  "slug": "klankvast-zwak-werkwoord-en-klankveranderend-sterk-werkwoord-mix"
+                },
+                {
+                  "id": 9,
+                  "name": "onvoltooide tijd",
+                  "slug": "onvoltooide-tijd"
+                },
+                {
+                  "id": 10,
+                  "name": "voltooid deelwoord",
+                  "slug": "voltooid-deelwoord"
+                },
+                {
+                  "id": 11,
+                  "name": "bijvoeglijk gebruik OVT/VD",
+                  "slug": "bijvoeglijk-gebruik-ovt-vd"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Woordenschat",
+          "slug": "woordenschat",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Stijl en betekenis",
+              "slug": "stijl-en-betekenis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "uitdrukking",
+                  "slug": "uitdrukking"
+                },
+                {
+                  "id": 2,
+                  "name": "spreekwoord",
+                  "slug": "spreekwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                },
+                {
+                  "id": 4,
+                  "name": "woordenschat",
+                  "slug": "woordenschat"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenstelling/antoniem",
+                  "slug": "tegenstelling-antoniem"
+                },
+                {
+                  "id": 6,
+                  "name": "afkorting",
+                  "slug": "afkorting"
+                },
+                {
+                  "id": 7,
+                  "name": "synoniem",
+                  "slug": "synoniem"
+                },
+                {
+                  "id": 8,
+                  "name": "formeel",
+                  "slug": "formeel"
+                },
+                {
+                  "id": 9,
+                  "name": "informeel",
+                  "slug": "informeel"
+                },
+                {
+                  "id": 10,
+                  "name": "leenwoord",
+                  "slug": "leenwoord"
+                },
+                {
+                  "id": 11,
+                  "name": "homoniem",
+                  "slug": "homoniem"
+                },
+                {
+                  "id": 12,
+                  "name": "vaktaal/jargon",
+                  "slug": "vaktaal-jargon"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Begrijpend Lezen",
+          "slug": "begrijpend-lezen",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Tekstkennis",
+              "slug": "tekstkennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "fictie (verhaal, poëzie)",
+                  "slug": "fictie-verhaal-poezie"
+                },
+                {
+                  "id": 2,
+                  "name": "zakelijk (informatief, instructief, betogend)",
+                  "slug": "zakelijk-informatief-instructief-betogend"
+                },
+                {
+                  "id": 3,
+                  "name": "debat",
+                  "slug": "debat"
+                },
+                {
+                  "id": 4,
+                  "name": "monoloog",
+                  "slug": "monoloog"
+                },
+                {
+                  "id": 5,
+                  "name": "dialoog",
+                  "slug": "dialoog"
+                },
+                {
+                  "id": 6,
+                  "name": "metatalige vorm (prospectief/retrospectief element, slotzin)",
+                  "slug": "metatalige-vorm-prospectief-retrospectief-element-slotzin"
+                },
+                {
+                  "id": 7,
+                  "name": "hoofdgedachte",
+                  "slug": "hoofdgedachte"
+                },
+                {
+                  "id": 8,
+                  "name": "tekstthema",
+                  "slug": "tekstthema"
+                },
+                {
+                  "id": 9,
+                  "name": "paragraaf",
+                  "slug": "paragraaf"
+                },
+                {
+                  "id": 10,
+                  "name": "zender",
+                  "slug": "zender"
+                },
+                {
+                  "id": 11,
+                  "name": "ontvanger",
+                  "slug": "ontvanger"
+                },
+                {
+                  "id": 12,
+                  "name": "illustratie",
+                  "slug": "illustratie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Groep 8",
+      "slug": "group-8",
+      "subjects": [
+        {
+          "id": 1,
+          "name": "Rekenen",
+          "slug": "Rekenen",
+          "categories": [
+            {
+      "id": 1,
+      "name": "Blok 1",
+      "slug": "blok-1",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Blok 2",
+      "slug": "blok-2",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Blok 3",
+      "slug": "blok-3",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Blok 4",
+      "slug": "blok-4",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blok 5",
+      "slug": "blok-5",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Blok 6",
+      "slug": "blok-6",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Blok 7",
+      "slug": "blok-7",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blok 8",
+      "slug": "blok-8",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Blok 9",
+      "slug": "blok-9",
+      "subcategories": [
+        {
+          "id": 1,
+          "name": "Les 5",
+          "slug": "les-5"
+        },
+        {
+          "id": 2,
+          "name": "Les 10",
+          "slug": "les-10"
+        },
+        {
+          "id": 3,
+          "name": "Les 15",
+          "slug": "les-15"
+        },
+        {
+          "id": 4,
+          "name": "Les 16",
+          "slug": "les-16"
+        },
+        {
+          "id": 5,
+          "name": "Les 17",
+          "slug": "les-17"
+        },
+        {
+          "id": 6,
+          "name": "Les 18",
+          "slug": "les-18"
+        },
+        {
+          "id": 7,
+          "name": "Les 19",
+          "slug": "les-19"
+        }
+      ]
+    }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Taal",
+          "slug": "taal",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Leestekens",
+              "slug": "leestekens",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "punt",
+                  "slug": "punt"
+                },
+                {
+                  "id": 2,
+                  "name": "vraagteken en uitroepteken",
+                  "slug": "vraagteken-en-uitroepteken"
+                },
+                {
+                  "id": 3,
+                  "name": "komma",
+                  "slug": "komma"
+                },
+                {
+                  "id": 4,
+                  "name": "hoofdletter/kleine letter",
+                  "slug": "hoofdletter-kleine-letter"
+                },
+                {
+                  "id": 5,
+                  "name": "dubbele punt",
+                  "slug": "dubbele-punt"
+                },
+                {
+                  "id": 6,
+                  "name": "puntkomma",
+                  "slug": "puntkomma"
+                },
+                {
+                  "id": 7,
+                  "name": "apostrof",
+                  "slug": "apostrof"
+                },
+                {
+                  "id": 8,
+                  "name": "koppelteken",
+                  "slug": "koppelteken"
+                },
+                {
+                  "id": 9,
+                  "name": "afbreekstreepje",
+                  "slug": "afbreekstreepje"
+                },
+                {
+                  "id": 10,
+                  "name": "trema",
+                  "slug": "trema"
+                },
+                {
+                  "id": 11,
+                  "name": "accent",
+                  "slug": "accent"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Woordsoorten",
+              "slug": "woordsoorten",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "zelfstandig naamwoord",
+                  "slug": "zelfstandig-naamwoord"
+                },
+                {
+                  "id": 2,
+                  "name": "lidwoord",
+                  "slug": "lidwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "voegwoord",
+                  "slug": "voegwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "voorzetsel",
+                  "slug": "voorzetsel"
+                },
+                {
+                  "id": 5,
+                  "name": "telwoord",
+                  "slug": "telwoord"
+                },
+                {
+                  "id": 6,
+                  "name": "bijvoeglijk naamwoord",
+                  "slug": "bijvoeglijk-naamwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "stoffelijk bijvoeglijk naamwoord",
+                  "slug": "stoffelijk-bijvoeglijk-naamwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "persoonlijk voornaamwoord",
+                  "slug": "persoonlijk-voornaamwoord"
+                },
+                {
+                  "id": 9,
+                  "name": "bezittelijk voornaamwoord",
+                  "slug": "bezittelijk-voornaamwoord"
+                },
+                {
+                  "id": 10,
+                  "name": "aanwijzend voornaamwoord",
+                  "slug": "aanwijzend-voornaamwoord"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "Grammaticale kennis",
+              "slug": "grammaticale-kennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "onderwerp",
+                  "slug": "onderwerp"
+                },
+                {
+                  "id": 2,
+                  "name": "persoonsvorm",
+                  "slug": "persoonsvorm"
+                },
+                {
+                  "id": 3,
+                  "name": "hoofdzin",
+                  "slug": "hoofdzin"
+                },
+                {
+                  "id": 4,
+                  "name": "bijzin",
+                  "slug": "bijzin"
+                },
+                {
+                  "id": 5,
+                  "name": "lijdend voorwerp",
+                  "slug": "lijdend-voorwerp"
+                },
+                {
+                  "id": 6,
+                  "name": "meewerkend voorwerp",
+                  "slug": "meewerkend-voorwerp"
+                },
+                {
+                  "id": 7,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Spelling",
+          "slug": "spelling",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Spelling",
+              "slug": "spelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "enkelvoud",
+                  "slug": "enkelvoud"
+                },
+                {
+                  "id": 2,
+                  "name": "meervoud",
+                  "slug": "meervoud"
+                },
+                {
+                  "id": 3,
+                  "name": "verkleinwoord",
+                  "slug": "verkleinwoord"
+                },
+                {
+                  "id": 4,
+                  "name": "woorddeel",
+                  "slug": "woorddeel"
+                },
+                {
+                  "id": 5,
+                  "name": "samenstelling",
+                  "slug": "samenstelling"
+                },
+                {
+                  "id": 6,
+                  "name": "voorvoegsel",
+                  "slug": "voorvoegsel"
+                },
+                {
+                  "id": 7,
+                  "name": "achtervoegsel",
+                  "slug": "achtervoegsel"
+                },
+                {
+                  "id": 8,
+                  "name": "woordsoort",
+                  "slug": "woordsoort"
+                },
+                {
+                  "id": 9,
+                  "name": "persoon (1e, 2e, 3e)",
+                  "slug": "persoon-1e-2e-3e"
+                },
+                {
+                  "id": 10,
+                  "name": "trappen van vergelijking (stellend/vergrotend/overtreffend)",
+                  "slug": "trappen-van-vergelijking-stellend-vergrotend-overtreffend"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "Werkwoordspelling",
+              "slug": "werkwoordspelling",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "hele werkwoord/infinitief",
+                  "slug": "hele-werkwoord-infinitief"
+                },
+                {
+                  "id": 2,
+                  "name": "stam van het werkwoord",
+                  "slug": "stam-van-het-werkwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "tegenwoordige tijd",
+                  "slug": "tegenwoordige-tijd"
+                },
+                {
+                  "id": 4,
+                  "name": "verleden tijd",
+                  "slug": "verleden-tijd"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenwoordige tijd en verleden tijd (mix)",
+                  "slug": "tegenwoordige-tijd-en-verleden-tijd-mix"
+                },
+                {
+                  "id": 6,
+                  "name": "klankvast (zwak) werkwoord",
+                  "slug": "klankvast-zwak-werkwoord"
+                },
+                {
+                  "id": 7,
+                  "name": "klankveranderend (sterk) werkwoord",
+                  "slug": "klankveranderend-sterk-werkwoord"
+                },
+                {
+                  "id": 8,
+                  "name": "klankvast (zwak) werkwoord en klankveranderend (sterk) werkwoord (mix)",
+                  "slug": "klankvast-zwak-werkwoord-en-klankveranderend-sterk-werkwoord-mix"
+                },
+                {
+                  "id": 9,
+                  "name": "onvoltooide tijd",
+                  "slug": "onvoltooide-tijd"
+                },
+                {
+                  "id": 10,
+                  "name": "voltooid deelwoord",
+                  "slug": "voltooid-deelwoord"
+                },
+                {
+                  "id": 11,
+                  "name": "bijvoeglijk gebruik OVT/VD",
+                  "slug": "bijvoeglijk-gebruik-ovt-vd"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Woordenschat",
+          "slug": "woordenschat",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Stijl en betekenis",
+              "slug": "stijl-en-betekenis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "uitdrukking",
+                  "slug": "uitdrukking"
+                },
+                {
+                  "id": 2,
+                  "name": "spreekwoord",
+                  "slug": "spreekwoord"
+                },
+                {
+                  "id": 3,
+                  "name": "gezegde",
+                  "slug": "gezegde"
+                },
+                {
+                  "id": 4,
+                  "name": "woordenschat",
+                  "slug": "woordenschat"
+                },
+                {
+                  "id": 5,
+                  "name": "tegenstelling",
+                  "slug": "tegenstelling"
+                },
+                {
+                  "id": 6,
+                  "name": "afkorting",
+                  "slug": "afkorting"
+                },
+                {
+                  "id": 7,
+                  "name": "synoniem",
+                  "slug": "synoniem"
+                },
+                {
+                  "id": 8,
+                  "name": "formeel en informeel",
+                  "slug": "formeel-en-informeel"
+                },
+                {
+                  "id": 9,
+                  "name": "leenwoord",
+                  "slug": "leenwoord"
+                },
+                {
+                  "id": 10,
+                  "name": "homoniem",
+                  "slug": "homoniem"
+                },
+                {
+                  "id": 11,
+                  "name": "vaktaal/jargon",
+                  "slug": "vaktaal-jargon"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Begrijpend Lezen",
+          "slug": "begrijpend-lezen",
+          "categories": [
+            {
+              "id": 1,
+              "name": "Tekstkennis",
+              "slug": "tekstkennis",
+              "subcategories": [
+                {
+                  "id": 1,
+                  "name": "fictie (verhaal, poëzie)",
+                  "slug": "fictie-verhaal-poezie"
+                },
+                {
+                  "id": 2,
+                  "name": "zakelijk (informatief, instructief, betogend)",
+                  "slug": "zakelijk-informatief-instructief-betogend"
+                },
+                {
+                  "id": 3,
+                  "name": "debat",
+                  "slug": "debat"
+                },
+                {
+                  "id": 4,
+                  "name": "monoloog",
+                  "slug": "monoloog"
+                },
+                {
+                  "id": 5,
+                  "name": "dialoog",
+                  "slug": "dialoog"
+                },
+                {
+                  "id": 6,
+                  "name": "metatalige vorm (prospectief/retrospectief element, slotzin)",
+                  "slug": "metatalige-vorm-prospectief-retrospectief-element-slotzin"
+                },
+                {
+                  "id": 7,
+                  "name": "hoofdgedachte",
+                  "slug": "hoofdgedachte"
+                },
+                {
+                  "id": 8,
+                  "name": "tekstthema",
+                  "slug": "tekstthema"
+                },
+                {
+                  "id": 9,
+                  "name": "paragraaf",
+                  "slug": "paragraaf"
+                },
+                {
+                  "id": 10,
+                  "name": "zender",
+                  "slug": "zender"
+                },
+                {
+                  "id": 11,
+                  "name": "ontvanger",
+                  "slug": "ontvanger"
+                },
+                {
+                  "id": 12,
+                  "name": "illustratie",
+                  "slug": "illustratie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

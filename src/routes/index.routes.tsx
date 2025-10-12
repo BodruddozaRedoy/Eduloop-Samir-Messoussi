@@ -7,10 +7,11 @@ import ReadingPage from '@/pages/Reading/ReadingPage'
 import ResultPage from '@/pages/Result/ResultPage'
 import SpellingPage from '@/pages/Spelling/SpellingPage'
 import SubjectPage from '@/pages/Subject/SubjectPage'
-import SubjectCategoryPage from '@/pages/SubjectCategory/SubjectCategoryPage'
 import VocabularyPage from '@/pages/Vocabulary/VocabularyPage'
 import WelcomePage from '@/pages/Welcome/WelcomePage'
 import { createBrowserRouter } from 'react-router'
+import CategoryPage from '@/pages/Category/CategoryPage'
+import SubCategoryPage from '@/pages/SubCategory/SubCategoryPage'
 
 export const router = createBrowserRouter([
     {
@@ -30,12 +31,16 @@ export const router = createBrowserRouter([
                 Component: GroupPage,
             },
             {
-                path: "/group/:groupId/subject",
+                path: "/subject",
                 Component: SubjectPage
             },
             {
-                path: "/group/:id/subject/:subjectName",
-                Component: SubjectCategoryPage
+                path: "/category",
+                Component: CategoryPage
+            },
+            {
+                path: "/group/subject/category/subcategory",
+                Component: SubCategoryPage
             },
             {
                 path: "/arithmetic",

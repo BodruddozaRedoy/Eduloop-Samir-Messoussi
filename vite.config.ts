@@ -1,9 +1,9 @@
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import fs from "fs";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -13,7 +13,12 @@ export default defineConfig({
   },
   server: {
     port: 6868,
-    host: true,                 // 👈 allow external connections (needed for ngrok/local network)
-    allowedHosts: ['*'],        // 👈 allow any host (so you don’t have to whitelist ngrok each time)
+    host: true,
+    allowedHosts: ["*"],
   },
-})
+  build: {
+    outDir: "dist",
+  },
+  base: "/",
+  
+});

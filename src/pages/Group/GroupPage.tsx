@@ -1,34 +1,30 @@
 import { Button } from "@/components/ui/button";
+import useCategories from "@/hooks/useCategories";
+import useGroup from "@/hooks/useGroup";
 import React, { useState, useEffect } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface Group {
     id: number;
-    ageRange: string;
-    name?: string;
+    name: string;
+    description?: string;
 }
 
 const GroupPage: React.FC = () => {
     const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
-    const [cardData, setCardData] = useState<Group[]>([]);
+    // const { group } = useCategories()
+    const { data: group, groupLoading } = useGroup()
+    console.log("groups", group)
+    const navigate = useNavigate()
+    const access_key = localStorage.getItem("access-key")
 
-    const dummyData: Group[] = [
-        { id: 4, ageRange: "0-4" },
-        { id: 5, ageRange: "5-6" },
-        { id: 6, ageRange: "7-8" },
-        { id: 7, ageRange: "9-10" },
-        { id: 8, ageRange: "11-12" },
-    ];
 
-    useEffect(() => {
-        setCardData(dummyData);
-    }, []);
-
+    // console.log(group)
     return (
         <div className="relative   flex flex-col justify-start pt-10 px-4 md:px-10">
             {/* Header Section */}
-            <Link to="/login" className=" w-36">
+            <Link to={access_key ? "/" : "/login"} className=" w-36">
                 <Button
                     className='rounded-2xl py-7 pl-2 font-bold text-xl disabled:opacity-60 disabled:cursor-not-allowed'
                 >
@@ -44,11 +40,10 @@ const GroupPage: React.FC = () => {
 
             {/* Cards Section */}
             <div className="grid grid-cols-1  md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {cardData.map((card) => (
-                    <Link
-                        to={`/group/${card.id}/subject`}
+                {group?.map((card) => (
+                    <div
                         key={card.id}
-                        onClick={() => setSelectedGroup(card.id)}
+                        onClick={() => { setSelectedGroup(card.id); navigate(`/subject`); localStorage.setItem("groupId", card.id) }}
                         className={`
               flex flex-col bg-white   p-6 rounded-2xl border-2   cursor-pointer transition-all duration-300
               hover:shadow-xl hover:-translate-y-1 hover:bg-[#FFF0ED]
@@ -59,13 +54,13 @@ const GroupPage: React.FC = () => {
             `}
                     >
                         <div className="inline-block bg-[#D95B43] w-26 text-white text-sm font-bold px-4 py-1 rounded-full mb-2">
-                            Group {card.id}
+                            {card.name.replace("-", " ").replace(/^./, c => c.toUpperCase())}
                         </div>
                         <p className="text-gray-800 font-semibold text-base mb-1">
-                            Best for {card.ageRange} years learners
+                            {card.description}
                         </p>
                         <p className="text-slate-400 text-sm">Tap to continue</p>
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>

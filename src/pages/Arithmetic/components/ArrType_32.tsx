@@ -34,7 +34,7 @@ const problemsJSON = [
   },
 ];
 
-export default function ArrType_32({ hint }: { hint: string }) {
+export default function ArrType_32({ hint,data:problemsJSON }: {data:any, hint: string }) {
   const [answers, setAnswers] = useState(Array(problemsJSON.length).fill(""));
   const [validation, setValidation] = useState<(boolean | null)[]>(
     Array(problemsJSON.length).fill(null)
@@ -127,13 +127,7 @@ export default function ArrType_32({ hint }: { hint: string }) {
         ))}
       </div>
 
-      <Controllers
-        handleCheck={handleCheck}
-        handleShowSolution={handleShowSolution}
-        handleShowHint={handleShowHint}
-      />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />
+    
     </div>
   );
 }

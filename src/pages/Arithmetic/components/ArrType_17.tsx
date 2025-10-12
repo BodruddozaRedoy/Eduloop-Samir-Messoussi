@@ -60,13 +60,13 @@ export const demoItems: Arr17Item[] = [
    PARENT COMPONENT
 ============================================================================ */
 export default function ArrType_17({
-  items = demoItems,
-  hint = demoHint,
+  data,
+  hint,
 }: {
-  items?: Arr17Item[];
+  data?: Arr17Item[];
   hint?: string;
 }) {
-  const item = items[0];
+  const item = data[0];
   if (!item) return null;
 
   if (item.method === 1) {

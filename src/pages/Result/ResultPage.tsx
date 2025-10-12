@@ -1,13 +1,18 @@
 import React, { useMemo } from 'react'
 import useResultTracker, { getStoredResults, type TrackedItem } from '@/hooks/useResultTracker'
 import { Button } from '@/components/ui/button'
-import { Link } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 
 export default function ResultPage() {
     const results = useMemo(() => getStoredResults(), [])
     const { reset } = useResultTracker()
     const total = results.right.length + results.wrong.length
     const scoreText = `${results.right.length}/${total || 0}`
+
+    const [searchParams] = useSearchParams()
+
+    const group = searchParams.get("group")
+    const subject = searchParams.get("subject")
 
 
     const handleFinish = () => {
@@ -55,10 +60,10 @@ export default function ResultPage() {
                 <hr className='my-5' />
                 <div className='pt-10 space-x-5 w-full flex items-center justify-center'>
 
-                    <Link to={"/arithmetic"}>
+                    <Link to={`/category`}>
                         <Button onClick={() => reset()} className='bg-orange-300 py-5 px-10'>Try Again</Button>
                     </Link>
-                    <Link to={"/"}>
+                    <Link to={"/group"}>
                         <Button onClick={handleFinish} className='bg-green-300 py-5 px-10'>Finish</Button>
                     </Link>
                 </div>
