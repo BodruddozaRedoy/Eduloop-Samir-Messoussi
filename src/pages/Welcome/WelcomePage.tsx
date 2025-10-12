@@ -12,7 +12,7 @@ const WelcomePage = () => {
         <img className="w-30" src="/logo.png" alt="" />
         <p className="text-3xl md:text-5xl lg:text-7xl font-bold lg:w-[1025px] mx-auto">
           Welcome to Extra Handen’s <br />
-          <span>AI tool</span>
+          <span>AI tool Tedst</span>
         </p>
 
         {/* Responsive Button */}
