@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 /* -----------------------------
@@ -79,6 +81,9 @@ const ArrType_34: React.FC = ({data,hint}:any) => {
     return Number.isFinite(n) ? n : NaN;
   }, []);
 
+    const { addResult } = useResultTracker();
+    const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const current = answersRef.current;
 
@@ -99,6 +104,7 @@ const ArrType_34: React.FC = ({data,hint}:any) => {
     setResults(next);
     setChecked(true);
     setStatus(next.every((r) => r.discountOk && r.percentOk) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },next.every((r) => r.discountOk && r.percentOk));
   }, [parseNum]);
 
   const handleShowSolution = useCallback(() => {
@@ -155,8 +161,8 @@ const ArrType_34: React.FC = ({data,hint}:any) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">What percentage discount do you get?</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">What percentage discount do you get?</p> */}
       </div>
 
       {/* two problems side by side */}
@@ -234,17 +240,6 @@ const ArrType_34: React.FC = ({data,hint}:any) => {
           );
         })}
       </div>
-
-      {/*
-      // If you prefer rendering controls locally instead of via context, uncomment:
-      <Controllers
-        handleCheck={handleCheck}
-        handleShowSolution={handleShowSolution}
-        handleShowHint={handleShowHint}
-      />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />
-      */}
     </div>
   );
 };

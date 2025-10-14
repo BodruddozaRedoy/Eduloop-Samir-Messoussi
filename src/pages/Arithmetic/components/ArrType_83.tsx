@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -80,12 +82,15 @@ const ArrType_83: React.FC = () => {
   }, []);
 
   /* -------- Handlers -------- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map(
       (c, i) => answers[i].trim() === `1/${c.denominator}`
     );
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [answers]);
 
   const handleShowSolution = useCallback(() => {
@@ -140,10 +145,11 @@ const ArrType_83: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
-          Divide into equal pieces. <span className="text-orange-500">For example:</span>
-        </p>
+          Divide into equal pieces.{" "}
+          <span className="text-orange-500">For example:</span>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

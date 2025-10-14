@@ -76,15 +76,15 @@ const ArrType_121: React.FC<Props> = ({ data, hint }) => {
     setShowHint(false);
   }, [data]);
 
-  const { addResult } = useResultTracker()
-  const { id: qId, title: qTitle } = useQuestionMeta()
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
 
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const res = DATA.map((row, i) => values[i] === String(row.amount));
     setOk(res);
     setStatus(res.every(Boolean) ? "match" : "wrong");
-    addResult({ id: qId, title: qTitle }, res.every(Boolean))
+    addResult({ id: qId, title: qTitle }, res.every(Boolean));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -139,10 +139,10 @@ const ArrType_121: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Question 1</h2>
+      {/* <h2 className="text-lg font-semibold">Question 1</h2>
       <p className="text-sm text-slate-600">
         How many 100 euro and 10 euro notes and 1 euro coins?
-      </p>
+      </p> */}
 
       {showHint && (
         <div className="p-2 bg-yellow-50 border border-yellow-300 rounded text-sm">

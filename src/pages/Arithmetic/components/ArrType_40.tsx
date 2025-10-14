@@ -2,6 +2,8 @@ import bedImg from "@/assets/images/arrtype40bed.png";
 import bikeImg from "@/assets/images/arrtype40bycicle.png";
 import lampostImg from "@/assets/images/arrtype40lampost.png";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* -----------------------------
@@ -63,6 +65,10 @@ const ArrType_40: React.FC = () => {
     setShowHint((prev) => !prev);
   }, []);
 
+
+
+     const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     let allCorrect = true;
     const results = answers.map((a, i) => {
@@ -74,6 +80,7 @@ const ArrType_40: React.FC = () => {
     setOk(results);
     setChecked(true);
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [answers, parseAllowed]);
 
   const handleShowSolution = useCallback(() => {
@@ -125,12 +132,12 @@ const ArrType_40: React.FC = () => {
     <div className="space-y-6">
       {/* Heading */}
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           How many metres approximately?
           <br />
           1, 2, 5 or 10?
-        </p>
+        </p> */}
       </div>
 
       {/* Cards */}

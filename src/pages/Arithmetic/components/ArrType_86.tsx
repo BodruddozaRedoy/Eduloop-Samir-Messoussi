@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -45,7 +47,7 @@ const DEFAULT_HINT =
   "Write the subtraction equation and the correct answer based on the story.";
 
 /* ---------------- Component ---------------- */
-const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
+const ArrType_86: React.FC<Props> = ({ data: DEFAULT_DATA, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_DATA),
   //   [data]
@@ -57,12 +59,8 @@ const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   const [equations, setEquations] = useState<string[]>(() =>
     DATA.map(() => "")
   );
-  const [answers, setAnswers] = useState<string[]>(() =>
-    DATA.map(() => "")
-  );
-  const [ok, setOk] = useState<(boolean | null)[]>(() =>
-    DATA.map(() => null)
-  );
+  const [answers, setAnswers] = useState<string[]>(() => DATA.map(() => ""));
+  const [ok, setOk] = useState<(boolean | null)[]>(() => DATA.map(() => null));
   const [status, setStatus] = useState<Status>("idle");
   const [showHint, setShowHint] = useState(false);
 
@@ -76,6 +74,8 @@ const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   }, [DATA]);
 
   /* -------- Handlers -------- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) => {
       const expectedEq = `${p.total} - ${p.subtract} = ${p.total - p.subtract}`;
@@ -88,6 +88,7 @@ const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
     });
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, equations, answers]);
 
   const handleShowSolution = useCallback(() => {
@@ -131,16 +132,24 @@ const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
       showHint,
       summary,
     });
-  }, [setControls, handleCheck, handleShowSolution, handleShowHint, help, showHint, summary]);
+  }, [
+    setControls,
+    handleCheck,
+    handleShowSolution,
+    handleShowHint,
+    help,
+    showHint,
+    summary,
+  ]);
 
   /* -------- Render -------- */
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 5</h2>
+        {/* <h2 className="text-lg font-semibold">Question 5</h2>
         <p className="text-sm text-slate-600">
           Which sum corresponds to this? Calculate on the number line.
-        </p>
+        </p> */}
       </div>
 
       <div className="flex flex-col gap-8">
@@ -211,8 +220,6 @@ const ArrType_86: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
           </div>
         ))}
       </div>
-
-
     </div>
   );
 };

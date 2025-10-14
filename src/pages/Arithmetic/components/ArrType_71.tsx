@@ -1,5 +1,7 @@
 
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -101,6 +103,9 @@ const ArrType: React.FC<Props> = ({ data, hint = DEFAULT_HINT }) =>{
   }, [ROWS.length]);
 
   /* ------------ Handlers ------------ */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const verdicts = ROWS.map((r, i) => {
       const given = parseNum(collectionData[i]);
@@ -109,6 +114,7 @@ const ArrType: React.FC<Props> = ({ data, hint = DEFAULT_HINT }) =>{
     });
     setStyleBolean(verdicts);
     setStatus(verdicts.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },verdicts.every(Boolean));
   }, [ROWS, collectionData]);
 
   const handleShowSolution = useCallback(() => {
@@ -154,8 +160,8 @@ const ArrType: React.FC<Props> = ({ data, hint = DEFAULT_HINT }) =>{
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 2</h2>
-        <p className="text-sm text-slate-600">How much do I have now?</p>
+        {/* <h2 className="text-lg font-semibold">Question 2</h2>
+        <p className="text-sm text-slate-600">How much do I have now?</p> */}
       </div>
 
       <div>

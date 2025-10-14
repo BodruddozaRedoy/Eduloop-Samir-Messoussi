@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* -----------------------------
@@ -73,6 +75,8 @@ const ArrType_64: React.FC<Props> = ({ data:rows, hint }:any) => {
     });
   }, []);
 
+    const { addResult } = useResultTracker();
+    const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const res = data.map((r, i) => {
       const want = +(r.a + r.b).toFixed(2);
@@ -82,6 +86,7 @@ const ArrType_64: React.FC<Props> = ({ data:rows, hint }:any) => {
     setOks(res);
     setChecked(true);
     setStatus(res.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },res.every(Boolean));
   }, [answers, data]);
 
   const handleShowSolution = useCallback(() => {
@@ -148,10 +153,10 @@ const ArrType_64: React.FC<Props> = ({ data:rows, hint }:any) => {
 
   return (
     <div className="space-y-5">
-      <div>
+      {/* <div>
         <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">Calculate using mental arithmetic.</p>
-      </div>
+      </div> */}
 
       {/* 2 columns / 5 rows layout */}
       <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">

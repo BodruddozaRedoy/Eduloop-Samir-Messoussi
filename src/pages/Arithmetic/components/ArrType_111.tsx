@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -92,6 +94,11 @@ const ArrType_111: React.FC<Props> = ({ data, hint }) => {
   /* -------- Handlers -------- */
   const normalize = (str: string) => str.replace(/\s+/g, "").replace(":", "÷").replace("/", "÷");
 
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+
   const handleCheck = useCallback(() => {
     const res = DATA.map((row, i) => ({
       total: values[i].total === String(row.total),
@@ -117,6 +124,7 @@ const ArrType_111: React.FC<Props> = ({ data, hint }) => {
       answer === String(correctAnswer);
 
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, values, working1, working2, answer]);
 
   const handleShowSolution = useCallback(() => {
@@ -174,10 +182,10 @@ const ArrType_111: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-6">
-      <div>
+      {/* <div>
         <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">Calculate the average.</p>
-      </div>
+      </div> */}
       <div>
         <img src="/images/arrtype111dice.png" alt="" />
       </div>

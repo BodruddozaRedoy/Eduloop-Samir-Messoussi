@@ -1,8 +1,5 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 // Assuming these are correctly configured external components/hooks
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
@@ -66,7 +63,7 @@ const quizConfigJSON = {
 
 
 export default function ArrType_59({ hint }: { hint: string }) {
-  
+
 
   const { numbers: unsortedNumbers, ranges: problemsJSON } = useMemo(
     () => quizConfigJSON,
@@ -81,7 +78,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
     },
     [problemsJSON]
   );
-  
+
 
 
   const [answers, setAnswers] = useState<(number | null)[]>(
@@ -104,7 +101,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
       if (
         selectedNumberIndex !== null &&
         answers[selectedNumberIndex] === null &&
-        !showSolution 
+        !showSolution
       ) {
         setAnswers((prev) => {
           const newAnswers = [...prev];
@@ -114,7 +111,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
         setSelectedNumberIndex(null);
         setStatus(null);
       } else if (showSolution) {
-  
+
       }
     },
     [selectedNumberIndex, answers, showSolution]
@@ -139,15 +136,16 @@ export default function ArrType_59({ hint }: { hint: string }) {
     [answers, showSolution]
   );
 
+
   const handleCheck = useCallback(() => {
-    let allCorrect = true;
-    
-   
+    const allCorrect = true;
+
+
     let finalCorrect = true;
     for(let i = 0; i < unsortedNumbers.length; i++) {
         const selectedRangeIndex = answers[i];
         if (selectedRangeIndex === null) {
-            finalCorrect = false; 
+            finalCorrect = false;
             break;
         }
         const correctRangeIndex = findCorrectRangeIndex(unsortedNumbers[i]);
@@ -156,7 +154,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
             break;
         }
     }
-    
+
     setStatus(finalCorrect ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, finalCorrect);
   }, [answers, addResult, qId, qTitle, findCorrectRangeIndex, unsortedNumbers]);
@@ -216,7 +214,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
     if (showSolution) {
       const solutionRange = problemsJSON[correctRangeIndex];
       classes += ` ${solutionRange.color} ${solutionRange.borderColor} ${solutionRange.textColor} border-4`;
-  
+
       if (selectedRangeIndex !== null && selectedRangeIndex !== correctRangeIndex) {
          classes = classes.replace('border-4', 'border-8 border-dashed border-red-600 shadow-xl');
       }
@@ -232,7 +230,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
         classes += " bg-red-200 border-red-500 text-red-800 border-2";
       }
     } else if (currentRange) {
-      
+
         classes += ` ${currentRange.color} ${currentRange.borderColor} ${currentRange.textColor} border-2`;
     }
 
@@ -240,7 +238,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
     if (selectedNumberIndex === numberIndex && !showSolution) {
       classes += " ring-4 ring-blue-500 ring-opacity-50 border-blue-500 shadow-lg"; // highlight selected
     }
-    
+
 
     if (selectedRangeIndex === null) {
         classes += " text-gray-800";
@@ -252,8 +250,8 @@ export default function ArrType_59({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8 p-6">
-      <div className="text-xl font-bold text-gray-800">Question 1: Number Sorting</div>
-      <div className="text-gray-600">Click a number below, then click the correct color range box above to sort it.</div>
+      {/* <div className="text-xl font-bold text-gray-800">Question 1: Number Sorting</div>
+      <div className="text-gray-600">Click a number below, then click the correct color range box above to sort it.</div> */}
 
 
       <div className="grid grid-cols-3 md:grid-cols-6 gap-4 p-4 bg-gray-50 rounded-lg shadow-inner border border-gray-200">
@@ -281,7 +279,7 @@ export default function ArrType_59({ hint }: { hint: string }) {
           </div>
         ))}
       </div>
-      
+
       {showHint && (
          <div className="mt-4 p-3 bg-yellow-50 text-yellow-500 rounded-lg border border-yellow-300">
              <span className="font-semibold">Hint:</span> {hint}

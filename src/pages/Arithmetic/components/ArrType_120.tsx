@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -55,6 +57,9 @@ const ArrType_120: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const results = DATA.map((item, i) => {
       const volOk = values[i].volume === String(item.volume);
@@ -67,6 +72,7 @@ const ArrType_120: React.FC<Props> = ({ data, hint }) => {
       (r) => r.volume === true && r.liters === true
     );
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [values, DATA]);
 
   const handleShowSolution = useCallback(() => {
@@ -117,8 +123,8 @@ const ArrType_120: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Question 1</h2>
-      <p className="text-sm text-slate-600">Wat is de inhoud?</p>
+      {/* <h2 className="text-lg font-semibold">Question 1</h2>
+      <p className="text-sm text-slate-600">Wat is de inhoud?</p> */}
 
       <div className="grid grid-cols-3 gap-6">
         {DATA.map((item, i) => (

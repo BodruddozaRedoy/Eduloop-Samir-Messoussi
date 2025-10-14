@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
@@ -104,8 +104,8 @@ export default function ArrType_75({ hint,data:problemsJSON }: {data:any, hint: 
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Calculate.</div>
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Calculate.</div> */}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {Array(3).fill(null).map((_, colIdx) => (
@@ -130,7 +130,7 @@ export default function ArrType_75({ hint,data:problemsJSON }: {data:any, hint: 
         ))}
       </div>
 
-    
+
     </div>
   );
 }

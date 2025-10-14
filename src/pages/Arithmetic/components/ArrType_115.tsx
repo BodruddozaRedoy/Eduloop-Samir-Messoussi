@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -84,6 +86,9 @@ const ArrType_115: React.FC<Props> = ({ data, hint }) => {
     setStatus("idle");
   }, [DATA]);
 
+
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const rowResults = DATA.map(
@@ -96,6 +101,7 @@ const ArrType_115: React.FC<Props> = ({ data, hint }) => {
 
     const allCorrect = rowResults.every(Boolean) && finalCorrect;
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [rowValues, finalValue, rowAverages, groupAverage, DATA]);
 
   const handleShowSolution = useCallback(() => {
@@ -152,8 +158,8 @@ const ArrType_115: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Question 1</h2>
-      <p className="text-sm text-slate-600">Distances in long jump</p>
+      {/* <h2 className="text-lg font-semibold">Question 1</h2>
+      <p className="text-sm text-slate-600">Distances in long jump</p> */}
 
 
 

@@ -1,5 +1,7 @@
 
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -63,7 +65,6 @@ const NumberInput: React.FC<{
 
 /* ---------------- Main Component ---------------- */
 const ArrType_91: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data?.length ? data : DEFAULT_DATA;
   const help = hint ?? DEFAULT_HINT;
   const DATA = DEFAULT_DATA;
 
@@ -78,12 +79,14 @@ const ArrType_91: React.FC<Props> = ({ data, hint }) => {
     setStatus("idle");
     setShowHint(false);
   }, [DATA]);
-
   /* -------- Handlers -------- */
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) => values[i].trim() === p.answer);
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -129,8 +132,8 @@ const ArrType_91: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Convert to the other measurement.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">Convert to the other measurement.</p> */}
       </div>
       <div className="grid grid-cols-2 gap-8">
         {DATA.map((p, i) => (
