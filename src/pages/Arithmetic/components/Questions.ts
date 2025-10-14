@@ -3338,7 +3338,24 @@ export const QUESTIONS_DATA = [
       mode: "preFilledBoxes",
       question:
         "Which numbers are there in this boxes? Connect with the scale line.",
+      options: [120, 500, 340, 430, 630, 890],
+      range: [100, 500, 1000],
+      hint: "Just count 1 by 1 of the scale line and connect with the scale line",
+    },
+  },
+  {
+    id: 3,
+    type: "type2_2",
+    group: "4",
+    subject: "Arithmetic",
+    category: "Basic",
+    level: "Advance",
+    metadata: {
+      mode: "preFilledBoxes",
+      question:
+        "Which numbers are there in this boxes? Connect with the scale line.",
       options: [12, 50, 34, 43, 63, 89],
+      range: [1, 50, 100],
       hint: "Just count 1 by 1 of the scale line and connect with the scale line",
     },
   },

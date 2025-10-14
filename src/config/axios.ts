@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const AxiosPublic = axios.create({
-    baseURL: "http://10.10.13.60:8090/api",
+    baseURL: "http://api.extrahanden.ai:8000/api",
     withCredentials: true
 })
 

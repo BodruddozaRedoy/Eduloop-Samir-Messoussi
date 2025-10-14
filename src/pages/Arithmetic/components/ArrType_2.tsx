@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Controllers from "@/components/common/Controllers";
 import Check from "@/components/common/Check";
@@ -16,6 +15,7 @@ type Props = {
   presetLineNums?: PresetPair[];
   presetBoxNumbers?: number[];
   dotCount?: number;
+  range?: number[]; // now used
   hint?: string;
 };
 
@@ -34,6 +34,7 @@ export default function ArrType_2({
   mode,
   presetLineNums = [],
   presetBoxNumbers = [12, 50, 97, 3, 88],
+  range = [1, 50, 100], // default 1–100
   dotCount = 5,
   hint,
 }: Props) {
@@ -44,11 +45,16 @@ export default function ArrType_2({
   const [results, setResults] = useState<Record<number, "correct" | "wrong" | null>>({});
   const [checked, setChecked] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [hoveredLine, setHoveredLine] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [hoveredLine, setHoveredLine] = useState<number | null>(null);
+  // 🔹 safely get the three labels from range
+  const [labelStart, labelMid, labelEnd] = useMemo(() => {
+    if (!Array.isArray(range) || range.length < 3) return [1, 50, 100];
+    return range.slice(0, 3);
+  }, [range]);
 
   const connectDotToTick = (dotIndex: number, lineNum: number, tickEl: HTMLDivElement) => {
     const container = containerRef.current?.getBoundingClientRect();
@@ -67,7 +73,7 @@ export default function ArrType_2({
   const handleDotClick = (dotIndex: number) => {
     if (mode === "preConnected") return;
     setActiveDot(dotIndex);
-    if (checked) setChecked(false); // reset feedback when editing
+    if (checked) setChecked(false);
   };
 
   const handleScaleClick = (lineNum: number) => {
@@ -124,7 +130,7 @@ export default function ArrType_2({
     setChecked(true);
   }, [mode, presetBoxNumbers, dotCount, connections, typed, addResult, qId, qTitle]);
 
-  // Preset connections for preConnected mode
+  // --- Preset connections for preConnected ---
   useEffect(() => {
     if (mode !== "preConnected" || !presetLineNums.length) return;
     const compute = () => {
@@ -171,24 +177,10 @@ export default function ArrType_2({
       const solved: Record<number, "correct" | "wrong" | null> = {};
       for (let i = 0; i < dotCount; i++) solved[i] = "correct";
       setResults(solved);
-    } else {
-      const nextTyped: Record<number, string> = {};
-      for (let dotIndex = 0; dotIndex < dotCount; dotIndex++) {
-        const conn = connections.find((c) => c.dotIndex === dotIndex);
-        if (conn) nextTyped[dotIndex] = String(conn.lineNum);
-      }
-      setTyped(nextTyped);
-      const solved: Record<number, "correct" | "wrong" | null> = {};
-      for (let i = 0; i < dotCount; i++) {
-        const has = connections.find((c) => c.dotIndex === i);
-        solved[i] = has ? "correct" : "wrong";
-      }
-      setResults(solved);
     }
-    setChecked(false); // 👈 no summary after solution
-  }, [mode, dotCount, presetBoxNumbers, connections]);
+    setChecked(false);
+  }, [mode, dotCount, presetBoxNumbers]);
 
-  // ✅ Summary (only after Check)
   const summary = useMemo(() => {
     if (!checked) return null;
     const vals = Object.values(results);
@@ -198,34 +190,27 @@ export default function ArrType_2({
     const anyWrong = vals.some((r) => r === "wrong");
 
     if (allCorrect) {
-      return {
-        text: "🎉 Correct! Good Job",
-        color: "text-green-600",
-        bgColor: "bg-green-100",
-        borderColor: "border-green-600",
-      };
+      return { text: "🎉 Correct! Good Job", color: "text-green-600" };
     }
     if (anyWrong) {
-      return {
-        text: "❌ Oops! Some answers are wrong",
-        color: "text-red-600",
-        bgColor: "bg-red-100",
-        borderColor: "border-red-600",
-      };
+      return { text: "❌ Oops! Some answers are wrong", color: "text-red-600" };
     }
     return null;
   }, [results, checked]);
 
   const { setControls } = useQuestionControls();
 
-  const controls = useMemo(() => ({
-    handleCheck,
-    handleShowHint,
-    handleShowSolution,
-    hint,
-    showHint,
-    summary,
-  }), [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
+  const controls = useMemo(
+    () => ({
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hint,
+      showHint,
+      summary,
+    }),
+    [handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]
+  );
 
   useEffect(() => {
     setControls(controls);
@@ -252,12 +237,18 @@ export default function ArrType_2({
             const isConnectedLine = connections.some((c) => c.lineNum === num);
             const isSnapped = hoveredLine === num;
 
+            // 🔹 Show custom labels instead of fixed 1, 50, 100
+            const label =
+              isFirst ? labelStart : isMiddle ? labelMid : isLast ? labelEnd : null;
+
             return (
               <div
                 key={num}
                 id={`tick-${num}`}
                 onClick={() => handleScaleClick(num)}
-                className={`absolute bottom-6 ${mode === "preConnected" ? "cursor-default" : "cursor-pointer"}`}
+                className={`absolute bottom-6 ${
+                  mode === "preConnected" ? "cursor-default" : "cursor-pointer"
+                }`}
                 style={{
                   left: `${num * TICK_GAP}px`,
                   width: isLarge ? "3px" : isMedium ? "2px" : "1px",
@@ -266,9 +257,9 @@ export default function ArrType_2({
                   boxShadow: isSnapped && !isConnectedLine ? `0 0 0 2px ${BRAND}33` : "none",
                 }}
               >
-                {(isFirst || isMiddle || isLast) && (
+                {label && (
                   <span className="absolute top-full mt-1 font-semibold text-lg text-black">
-                    {num}
+                    {label}
                   </span>
                 )}
               </div>
@@ -276,7 +267,7 @@ export default function ArrType_2({
           })}
         </div>
 
-        {/* Dots + Inputs */}
+        {/* Dots + Inputs (unchanged) */}
         <div className="mt-[100px] flex items-center gap-2 justify-center">
           {Array.from({ length: dotCount }).map((_, dotIndex) => {
             const isConnectedDot = connections.some((c) => c.dotIndex === dotIndex);
@@ -286,25 +277,24 @@ export default function ArrType_2({
 
             return (
               <div key={dotIndex} className="flex flex-col items-center">
-                {/* Dot */}
                 <div
                   id={`dot-${dotIndex}`}
                   onClick={() => handleDotClick(dotIndex)}
                   className="size-4 mb-3 rounded-full"
                   style={{
                     backgroundColor:
-                      isActive || isConnectedDot || mode === "preConnected" ? BRAND : "black",
+                      isActive || isConnectedDot || mode === "preConnected"
+                        ? BRAND
+                        : "black",
                     cursor: mode === "preConnected" ? "default" : "pointer",
                   }}
                 />
-
-                {/* Input */}
                 <input
                   id={`input-${dotIndex}`}
                   type="text"
                   inputMode="numeric"
-                  maxLength={3}
-                  value={isReadOnly ? String(presetValue) : (typed[dotIndex] ?? "")}
+                  maxLength={4}
+                  value={isReadOnly ? String(presetValue) : typed[dotIndex] ?? ""}
                   readOnly={isReadOnly}
                   onChange={(e) => {
                     if (isReadOnly) return;
@@ -312,23 +302,25 @@ export default function ArrType_2({
                     setTyped((prev) => ({ ...prev, [dotIndex]: onlyDigits }));
                     setResults((prev) => ({ ...prev, [dotIndex]: null }));
                   }}
-                  className={`border-2 size-15 text-3xl font-bold text-center appearance-none focus:outline-none
-                    ${results[dotIndex] === "correct" && checked
+                  className={`border-2 h-15 w-30 text-3xl font-bold text-center appearance-none focus:outline-none ${
+                    results[dotIndex] === "correct" && checked
                       ? "border-green-500"
                       : results[dotIndex] === "wrong" && checked
-                        ? "border-red-500"
-                        : "border-primary"
-                    }`}
+                      ? "border-red-500"
+                      : "border-primary"
+                  }`}
                 />
               </div>
             );
           })}
         </div>
 
-        {/* SVG connectors */}
+        {/* SVG connectors (same) */}
         <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
           {connections.map((c, i) => {
-            const dotRect = document.getElementById(`dot-${c.dotIndex}`)?.getBoundingClientRect();
+            const dotRect = document
+              .getElementById(`dot-${c.dotIndex}`)
+              ?.getBoundingClientRect();
             const containerRect = containerRef.current?.getBoundingClientRect();
             if (!dotRect || !containerRect) return null;
 
@@ -349,11 +341,6 @@ export default function ArrType_2({
           })}
         </svg>
       </div>
-
-      {/* Controls */}
-      {/* <Controllers handleCheck={handleCheck} handleShowSolution={handleShowSolution} handleShowHint={handleShowHint} />
-      {showHint && <Hint hint={hint} />}
-      <Check summary={summary} />  */}
     </>
   );
 }
