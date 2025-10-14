@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -67,12 +69,8 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
   const [equations, setEquations] = useState<string[]>(
     DATA.items.map(() => "")
   );
-  const [answers, setAnswers] = useState<string[]>(
-    DATA.items.map(() => "")
-  );
-  const [ok, setOk] = useState<(boolean | null)[]>(
-    DATA.items.map(() => null)
-  );
+  const [answers, setAnswers] = useState<string[]>(DATA.items.map(() => ""));
+  const [ok, setOk] = useState<(boolean | null)[]>(DATA.items.map(() => null));
   const [status, setStatus] = useState<Status>("idle");
   const [showHint, setShowHint] = useState(false);
 
@@ -86,6 +84,8 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
   }, [DATA]);
 
   /* -------- Handlers -------- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.items.map((c, i) => {
       const totalCost = c.items.reduce((sum, it) => sum + it.cost, 0);
@@ -100,6 +100,7 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
     });
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, equations, answers]);
 
   const handleShowSolution = useCallback(() => {
@@ -112,8 +113,8 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
       )
     );
     setAnswers(
-      DATA.items.map(
-        (c) => String(c.total - c.items.reduce((s, it) => s + it.cost, 0))
+      DATA.items.map((c) =>
+        String(c.total - c.items.reduce((s, it) => s + it.cost, 0))
       )
     );
     setOk(DATA.items.map(() => true));
@@ -152,7 +153,15 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
       showHint,
       summary,
     });
-  }, [setControls, handleCheck, handleShowSolution, handleShowHint, help, showHint, summary]);
+  }, [
+    setControls,
+    handleCheck,
+    handleShowSolution,
+    handleShowHint,
+    help,
+    showHint,
+    summary,
+  ]);
 
   /* -------- Input style -------- */
   const inputStyle =
@@ -162,10 +171,10 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 5</h2>
+        {/* <h2 className="text-lg font-semibold">Question 5</h2>
         <p className="text-sm text-slate-600">
           Which sum corresponds to this? How many euros do they have left?
-        </p>
+        </p> */}
       </div>
 
       {/* 3-column layout */}
@@ -321,7 +330,6 @@ const ArrType_85: React.FC<Props> = ({ data, hint }) => {
           })}
         </div>
       </div>
-
     </div>
   );
 };

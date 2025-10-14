@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -63,6 +65,9 @@ const ArrType_110: React.FC<Props> = ({ data, hint }) => {
     });
   };
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const allCorrect = DATA.every((p) => {
       const chosen = selected[p.id] ?? [];
@@ -72,6 +77,7 @@ const ArrType_110: React.FC<Props> = ({ data, hint }) => {
       );
     });
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, selected]);
 
   const handleShowSolution = useCallback(() => {
@@ -131,10 +137,10 @@ const ArrType_110: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           Is the number divisible by 2, by 10, by 5, by 4? Tick the boxes.
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-3 gap-8">

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
@@ -103,7 +103,7 @@ export default function ArrType_76({ hint, data:problemsJSON }: {data:any, hint:
   };
 
   const isInputReadOnly = showSolution;
-  
+
   const renderFraction = (fraction: string) => {
     const parts = fraction.split(" ");
     if (parts.length > 1) { // Mixed fraction
@@ -131,9 +131,9 @@ export default function ArrType_76({ hint, data:problemsJSON }: {data:any, hint:
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Write as a decimal. Use a calculator.</div>
-      
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Write as a decimal. Use a calculator.</div> */}
+
       <div className="grid grid-cols-5 gap-12 px-6 py-8">
         {problemsJSON.slice(0, 5).map((p, idx) => (
           <div key={p.id} className="flex flex-col items-center">
@@ -173,7 +173,7 @@ export default function ArrType_76({ hint, data:problemsJSON }: {data:any, hint:
         })}
       </div>
 
-    
+
     </div>
   );
 }

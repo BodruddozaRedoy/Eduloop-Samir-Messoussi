@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* -----------------------------
@@ -96,6 +98,10 @@ const ArrType_36: React.FC<Props> = ({ data, hint }) => {
     []
   );
 
+
+    const { addResult } = useResultTracker();
+    const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const next = items.map((it, i) => {
       const benefit = +(it.price * (it.discountPct / 100)).toFixed(2);
@@ -115,6 +121,7 @@ const ArrType_36: React.FC<Props> = ({ data, hint }) => {
     setResults(next);
     setChecked(true);
     setStatus(next.every((r) => r.benefitOk && r.newPriceOk) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },next.every((r) => r.benefitOk && r.newPriceOk));
   }, [answers, items]);
 
   const handleShowSolution = useCallback(() => {
@@ -171,8 +178,8 @@ const ArrType_36: React.FC<Props> = ({ data, hint }) => {
     <div className="space-y-6">
       {/* Heading */}
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">calculate in your notebook</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">calculate in your notebook</p> */}
       </div>
 
       {/* Cards */}

@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -136,6 +138,8 @@ const ArrType_94: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const resTens = DATA.tens.map((p, i) => valuesTens[i] === String(p.rounded));
     const resHundreds = DATA.hundreds.map(
@@ -144,6 +148,7 @@ const ArrType_94: React.FC<Props> = ({ data, hint }) => {
     setOkTens(resTens);
     setOkHundreds(resHundreds);
     setStatus([...resTens, ...resHundreds].every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },[...resTens, ...resHundreds].every(Boolean));
   }, [DATA, valuesTens, valuesHundreds]);
 
   const handleShowSolution = useCallback(() => {
@@ -193,8 +198,8 @@ const ArrType_94: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Round off.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">Round off.</p> */}
       </div>
 
       <div className="grid grid-cols-2 gap-10">

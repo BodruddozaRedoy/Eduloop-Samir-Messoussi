@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -86,10 +88,13 @@ const ArrType_106: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) => values[i] === String(p.answer));
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -135,10 +140,10 @@ const ArrType_106: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           Calculate. Mark with a cross the sums you calculate using 1%.
-        </p>
+        </p> */}
       </div>
 
 

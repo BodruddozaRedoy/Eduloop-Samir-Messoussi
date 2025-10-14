@@ -1,8 +1,5 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 // Assuming these are correctly configured external components/hooks
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
@@ -16,7 +13,7 @@ const quizConfigJSON = {
     { id: "minus1_plus1", count: 4, minus: -1, plus: 1 },
     { id: "minus10_plus10", count: 4, minus: -10, plus: 10 },
     { id: "minus100_plus100", count: 4, minus: -100, plus: 100 },
-  
+
   ],
 };
 
@@ -29,7 +26,7 @@ export default function ArrType_63({ hint }: { hint: string }) {
   );
 
   const problemsJSON = useMemo(() => {
-    let finalProblems = [];
+    const finalProblems = [];
     problemSets.forEach((set) => {
 
       for (let i = 0; i < set.count; i++) {
@@ -42,7 +39,7 @@ export default function ArrType_63({ hint }: { hint: string }) {
       }
     });
     return finalProblems;
-  }, [problemSets, baseCenterNumber]); 
+  }, [problemSets, baseCenterNumber]);
 
 
   const [answers, setAnswers] = useState(
@@ -72,17 +69,20 @@ export default function ArrType_63({ hint }: { hint: string }) {
     []
   );
 
+
+
+
   const handleCheck = useCallback(() => {
     let allCorrect = true;
     const newValidation: (boolean | null)[] = []; // Explicitly type
-    
-   
+
+
     problemsJSON.forEach((p, problemIdx) => {
 
       const minusAnswer = p.center + p.minus;
       const plusAnswer = p.center + p.plus;
 
- 
+
       const isMinusCorrect = parseInt(answers[problemIdx].minus) === minusAnswer;
       const isPlusCorrect = parseInt(answers[problemIdx].plus) === plusAnswer;
 
@@ -97,7 +97,7 @@ export default function ArrType_63({ hint }: { hint: string }) {
     setValidation(newValidation);
     setStatus(allCorrect ? "match" : "wrong");
     addResult({ id: qId, title: qTitle }, allCorrect);
-  }, [answers, addResult, qId, qTitle, problemsJSON]); 
+  }, [answers, addResult, qId, qTitle, problemsJSON]);
 
   const handleShowSolution = useCallback(() => {
 
@@ -109,7 +109,7 @@ export default function ArrType_63({ hint }: { hint: string }) {
     setValidation(Array(problemsJSON.length * 2).fill(true));
     setShowSolution(true);
     setStatus("match");
-  }, [problemsJSON]); 
+  }, [problemsJSON]);
 
   const handleShowHint = useCallback(() => setShowHint((v) => !v), []);
 
@@ -131,7 +131,7 @@ export default function ArrType_63({ hint }: { hint: string }) {
     });
   }, [setControls, handleCheck, handleShowHint, handleShowSolution, hint, showHint, summary]);
 
- 
+
   const getInputValidation = (problemIdx: number, field: "minus" | "plus") => {
       const index = field === "minus" ? problemIdx * 2 : problemIdx * 2 + 1;
       return validation[index];
@@ -202,34 +202,34 @@ export default function ArrType_63({ hint }: { hint: string }) {
 
   return (
     <div className="flex flex-col space-y-8 p-6 bg-white rounded-xl shadow-lg">
-      <div className="text-2xl  text-gray-900 border-b pb-2">Question 1: Number Manipulation</div>
-      <div className="text-gray-600 font-medium">{questionTitle} Fill in the missing numbers by calculating the offset shown above each box.</div>
+      {/* <div className="text-2xl  text-gray-900 border-b pb-2">Question 1: Number Manipulation</div>
+      <div className="text-gray-600 font-medium">{questionTitle} Fill in the missing numbers by calculating the offset shown above each box.</div> */}
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 px-2 py-4 border border-dashed border-gray-300 rounded-lg bg-gray-50">
-        
+
         {/* Column 1 */}
         <div className="flex flex-col space-y-6">
           {column1.map((p, idx) => renderProblem(p, idx))}
         </div>
-        
+
         {/* Column 2 */}
         <div className="flex flex-col space-y-6">
           {column2.map((p, idx) => renderProblem(p, idx + column1.length))}
         </div>
-        
+
         {/* Column 3 */}
         <div className="flex flex-col space-y-6">
           {column3.map((p, idx) => renderProblem(p, idx + column1.length + column2.length))}
         </div>
-        
+
         {/* Column 4 */}
         <div className="flex flex-col space-y-6">
           {column4.map((p, idx) => renderProblem(p, idx + column1.length + column2.length + column3.length))}
         </div>
 
       </div>
-      
+
       {showHint && (
          <div className="mt-4 p-3 bg-yellow-50 text-yellow-700 rounded-lg border border-yellow-300">
              <span className="font-semibold">Hint:</span> {hint}

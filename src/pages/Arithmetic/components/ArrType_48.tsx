@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* -----------------------------
@@ -119,6 +121,8 @@ const ArrType_48: React.FC<Props> = ({ data, hint }) => {
     []
   );
 
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const res: Record<string, boolean> = {};
     let correct = 0;
@@ -137,6 +141,7 @@ const ArrType_48: React.FC<Props> = ({ data, hint }) => {
     setOk(res);
     setChecked(true);
     setStatus(correct === totalRows && totalRows > 0 ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },correct === totalRows && totalRows > 0);
   }, [inputs, tables, totalRows]);
 
   const handleShowSolution = useCallback(() => {
@@ -197,10 +202,10 @@ const ArrType_48: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           Enter the <span className="font-medium">old price</span> for each row.
-        </p>
+        </p> */}
       </div>
 
       {/* Exactly two tables */}

@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* --------------------------------
@@ -131,6 +133,10 @@ const ArrType_50: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     });
   }, []);
 
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const results: boolean[] = Array(total).fill(false);
 
@@ -152,6 +158,7 @@ const ArrType_50: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     setOk(results);
     setChecked(true);
     setStatus(results.every(Boolean) && results.length === total ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean) && results.length === total);
   }, [answers, L, R, spec.left, spec.right, total]);
 
   const handleShowSolution = useCallback(() => {
@@ -225,7 +232,7 @@ const ArrType_50: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2> */}
       </div>
 
       <div className="grid grid-cols-1 gap-x-12 gap-y-4 md:grid-cols-2">

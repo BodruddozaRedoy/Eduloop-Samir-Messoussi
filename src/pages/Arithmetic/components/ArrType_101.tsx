@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -77,10 +79,14 @@ const ArrType_101: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) => Number(values[i]) === p.answer);
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -136,10 +142,10 @@ const ArrType_101: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           How much is there approximately in the measuring jug?
-        </p>
+        </p> */}
       </div>
 
       <div className="flex gap-8 justify-center">

@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, {
   useCallback,
   useEffect,
@@ -55,6 +57,8 @@ const ArrType_60: React.FC<Props> = ({ data, hint }) => {
     });
 
   /* -------- memoized handlers (avoid update-depth loop) -------- */
+    const { addResult } = useResultTracker();
+    const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const res = kgValues.map((kg, i) => {
       const userKg = parseNum(inputs[i]);
@@ -64,6 +68,7 @@ const ArrType_60: React.FC<Props> = ({ data, hint }) => {
     setOk(res);
     setChecked(true);
     setStatus(res.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },res.every(Boolean));
   }, [kgValues, inputs]);
 
   const handleShowSolution = useCallback(() => {

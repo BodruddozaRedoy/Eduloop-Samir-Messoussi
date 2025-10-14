@@ -1,5 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Table data
 const DATA = [
@@ -28,10 +30,14 @@ const ArrType_96 = () => {
   const { setControls } = useQuestionControls();
 
   // Check answers
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const verdicts = inputs.map((inp, idx) => Math.abs(parseFloat(inp) - answers[idx]) < 0.01);
     setOk(verdicts);
     setStatus(verdicts.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },verdicts.every(Boolean));
   }, [inputs]);
 
   // Show solution
@@ -93,7 +99,7 @@ const ArrType_96 = () => {
 
   return (
     <div className="w-full mx-auto mt-10 max-w-4xl">
-   
+
       <div className="overflow-x-auto">
         <table
           className="min-w-full border rounded-xl overflow-hidden"
@@ -162,7 +168,7 @@ const ArrType_96 = () => {
           </tbody>
         </table>
       </div>
-  
+
     </div>
   );
 };
