@@ -89,7 +89,7 @@ export default function ArithmeticPage() {
 
     useEffect(() => {
         if (!loading && !question) {
-            // navigate("/category", { replace: true });
+            navigate("/category", { replace: true });
         }
     }, [loading, question, navigate]);
 
@@ -194,7 +194,7 @@ export default function ArithmeticPage() {
                 <div key={q.id} className="p-5 rounded-[30px] w-full h-[430px] overflow-y-auto border flex flex-col bg-white">
                     {/* Question text */}
                     <div className="mb-4 text-lg font-semibold">
-                        <h1 className="font-bold">Question: {serial}___ id:{q.id}/{q.type}</h1>
+                        <h1 className="font-bold">Question: {serial}___ id:{q?.id}/{q?.type}</h1>
                         <p>{q.metadata.question}</p>
                     </div>
 
@@ -204,7 +204,7 @@ export default function ArithmeticPage() {
                 {/* Global Controllers/Hints/Check from question components */}
                 {/* Footer actions */}
                 <div className="flex flex-col lg:flex-row items-center justify-between mt-1 ">
-                    <ArithmeticControllersSlot />
+                    <ArithmeticControllersSlot id={q?.id}/>
 
 
                     <div className="flex items-center gap-5 mt-5">
@@ -242,7 +242,7 @@ export default function ArithmeticPage() {
     )
 }
 
-function ArithmeticControllersSlot() {
+function ArithmeticControllersSlot({id}:any) {
     const { controls } = useQuestionControls()
     const noop = () => { }
     const hasAny = controls.handleCheck || controls.handleShowHint || controls.handleShowSolution || controls.summary
@@ -253,6 +253,7 @@ function ArithmeticControllersSlot() {
                 handleCheck={controls.handleCheck || noop}
                 handleShowSolution={controls.handleShowSolution || noop}
                 handleShowHint={controls.handleShowHint || noop}
+                id={id}
             />
             {controls.showHint && controls.hint && <Hint hint={controls.hint} />}
             <Check summary={controls.summary || null} />
