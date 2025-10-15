@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { IoIosArrowForward, IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheckmarkCircleOutline } from "react-icons/io"
 import { BadgeCheck, ChevronLeft } from "lucide-react"
-import QuestionRenderer from "./components/QuestionRenderer"
 import { QUESTIONS_DATA } from "./components/Questions"
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router"
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker"
@@ -13,6 +12,7 @@ import { QuestionControlsProvider, useQuestionControls } from "@/context/Questio
 import { AxiosPublic } from "@/config/axios"
 import { toast } from "sonner"
 import LoadingScreen from "@/components/common/LoadingScreen"
+import QuestionRenderer from "./components/QuestionRenderer"
 // import { QUESTIONS_DATA } from "./Questions
 
 export default function ArithmeticPage() {
@@ -29,7 +29,7 @@ export default function ArithmeticPage() {
     const [showReloadWarning, setShowReloadWarning] = useState(false);
     const navigate = useNavigate()
 
-    console.log(question)
+    console.log(q)
 
     // useEffect(() => {
     //     localStorage.setItem("question", JSON.stringify(question))
@@ -60,7 +60,7 @@ export default function ArithmeticPage() {
         } catch (err) {
             console.error("Failed to load question", err);
             toast.error("Failed to load question. Redirecting to category page...");
-            navigate("/category");
+            // navigate("/category");
         } finally {
             setLoading(false);
         }
@@ -89,7 +89,7 @@ export default function ArithmeticPage() {
 
     useEffect(() => {
         if (!loading && !question) {
-            navigate("/category", { replace: true });
+            // navigate("/category", { replace: true });
         }
     }, [loading, question, navigate]);
 

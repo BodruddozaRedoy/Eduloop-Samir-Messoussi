@@ -127,6 +127,7 @@ const ArrType_122 = lazy(() => import("./ArrType_122"));
 
 
 export default function QuestionRenderer({ q }: { q: any }) {
+  console.log(q, "1")
   return useMemo(() => {
     if (!q) return null
 
