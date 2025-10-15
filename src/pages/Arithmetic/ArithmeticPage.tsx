@@ -22,7 +22,7 @@ export default function ArithmeticPage() {
 
     const [question, setQuestion] = useState<any | null>(initialQuestion || null);
     const [serial, setSerial] = useState(1);
-    const q = QUESTIONS_DATA[serial]
+    const q = question;
     const [loading, setLoading] = useState(false);
     const [trigger, setTrigger] = useState(true)
     const [hasResults, setHasResults] = useState<boolean>(hasAnyResults())
@@ -60,7 +60,7 @@ export default function ArithmeticPage() {
         } catch (err) {
             console.error("Failed to load question", err);
             toast.error("Failed to load question. Redirecting to category page...");
-            // navigate("/category");
+            navigate("/category");
         } finally {
             setLoading(false);
         }
