@@ -166,7 +166,7 @@ export default function ArithmeticPage() {
                     {/* temporary search bar  */}
                     {/* Search bar to jump to question */}
                     <div className="space-x-4">
-                        <Button onClick={() => { setSerial(serial -1); setTrigger(!trigger) }}>Back</Button>
+                        {/* <Button onClick={() => { setSerial(serial -1); setTrigger(!trigger) }}>Back</Button> */}
                         {/* <input
                             type="number"
                             placeholder="Go to question"
@@ -178,7 +178,7 @@ export default function ArithmeticPage() {
                                 }
                             }}
                         /> */}
-                        <Button onClick={() => { setSerial(serial +1); setTrigger(!trigger) }}>Forward</Button>
+                        {/* <Button onClick={() => { setSerial(serial +1); setTrigger(!trigger) }}>Forward</Button> */}
                     </div>
 
 

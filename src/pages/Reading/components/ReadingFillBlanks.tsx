@@ -11,6 +11,7 @@ interface FillBlanksProps {
   description: string;
   hint: string;
   qid?: number;
+  id:any
 }
 
 export default function ReadingFillBlanks({
@@ -19,6 +20,7 @@ export default function ReadingFillBlanks({
   description,
   hint,
   qid,
+  id
 }: FillBlanksProps) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showHint, setShowHint] = useState(false);
@@ -128,6 +130,7 @@ export default function ReadingFillBlanks({
               handleCheck={handleCheck}
               handleShowSolution={handleShowSolution}
               handleShowHint={handleShowHint}
+              id={id}
             />
              {showHint && <Hint hint={hint} />}
             <Check summary={summary} />

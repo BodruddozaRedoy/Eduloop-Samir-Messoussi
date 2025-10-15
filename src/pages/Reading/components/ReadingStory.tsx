@@ -118,7 +118,7 @@ const stories = [
   },
 ];
 
-export default function ReadingStory({ data, hint }: any) {
+export default function ReadingStory({ data, hint, id }: any) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hasResults, setHasResults] = useState<boolean>(hasAnyResults());
   const q = stories[currentIndex];
