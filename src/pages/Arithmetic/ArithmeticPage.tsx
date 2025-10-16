@@ -184,9 +184,9 @@ export default function ArithmeticPage() {
 
                     {/* Difficulty pills */}
                     <div className="bg-[#e8edff] p-1 rounded-lg flex items-center">
-                        <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Fs</div>
-                        <div className={`${pillBase} ${level === "medium" ? active : inactive}`}>Medium</div>
-                        <div className={`${pillBase} ${level === "advance" ? active : inactive}`}>S+</div>
+                        <div className={`${pillBase} ${level.includes("easy")  ? active : inactive}`}>Fs</div>
+                        <div className={`${pillBase} ${level.includes("medium") ? active : inactive}`}>Medium</div>
+                        <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>S+</div>
                     </div>
                 </div>
 
