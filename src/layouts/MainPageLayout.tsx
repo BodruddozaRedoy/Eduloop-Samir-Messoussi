@@ -10,7 +10,7 @@ export default function MainPageLayout() {
 
     useEffect(() => {
         const accessKey = localStorage.getItem("access-key")
-        if (!accessKey && location.pathname !== "/login") {
+        if (!accessKey && location.pathname !== "/") {
             navigate("/login", { replace: true })
         }
     }, [location.pathname, navigate])

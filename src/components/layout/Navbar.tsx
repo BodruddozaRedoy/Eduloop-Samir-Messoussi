@@ -7,10 +7,11 @@ import { Button } from '../ui/button'
 
 export default function Navbar() {
   const navigate = useNavigate()
+  const accessKey = localStorage.getItem("access-key")
 
   const handleLogout = () => {
     localStorage.removeItem("access-key")
-    navigate("/login", { replace: true })
+    navigate("/", { replace: true })
   }
 
   return (
@@ -35,7 +36,9 @@ export default function Navbar() {
                     <p className='text-sm text-muted-foreground'>bodruddozaredoy@gmail.com</p>
                 </div>
                 <IoIosArrowDown/> */}
-                <Button onClick={handleLogout}>Log out</Button>
+                {
+                    accessKey && <Button onClick={handleLogout}>Log out</Button>
+                }
             </div>
         </div>
     </div>
