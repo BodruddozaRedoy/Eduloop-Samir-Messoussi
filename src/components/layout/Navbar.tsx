@@ -1,11 +1,18 @@
 import { IoIosArrowDown } from 'react-icons/io'
 import { LuBellDot } from 'react-icons/lu'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import GoogleTranslateDropdown from './GoogleTranslateDropdown'
 import { Button } from '../ui/button'
 
 
 export default function Navbar() {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem("access-key")
+    navigate("/login", { replace: true })
+  }
+
   return (
     <div className='flex items-center justify-between py-2 bg-white border-b border-white/20 rounded-[30px] mb-3 text-white px-10'>
         {/* logo  */}
@@ -28,7 +35,7 @@ export default function Navbar() {
                     <p className='text-sm text-muted-foreground'>bodruddozaredoy@gmail.com</p>
                 </div>
                 <IoIosArrowDown/> */}
-                <Button onClick={(e) => localStorage.removeItem("access-key")}>Log out</Button>
+                <Button onClick={handleLogout}>Log out</Button>
             </div>
         </div>
     </div>
