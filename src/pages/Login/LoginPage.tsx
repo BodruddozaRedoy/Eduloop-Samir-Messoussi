@@ -23,6 +23,9 @@ const LoginPage: React.FC = () => {
             if (error.status === 400) {
                 toast.error("Access code invalid!")
             }
+            if (error.status === 403) {
+                toast.error("Access code invalid!")
+            }
             console.log(error)
         }
         // ✅ Save access key in localStorage
