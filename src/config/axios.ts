@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const AxiosPublic = axios.create({
-  baseURL: "https://api.extrahanden.ai/api",
+  baseURL: window.location.hostname === "localhost" ? "http://10.10.13.60:8090/api" : "https://api.extrahanden.ai/api",
   withCredentials: true,
 });
 
