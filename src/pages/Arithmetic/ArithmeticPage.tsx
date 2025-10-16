@@ -194,7 +194,7 @@ export default function ArithmeticPage() {
                 <div key={q.id} className="p-5 rounded-[30px] w-full h-[430px] overflow-y-auto border flex flex-col bg-white">
                     {/* Question text */}
                     <div className="mb-4 text-lg font-semibold">
-                        <h1 className="font-bold">Question: {serial}___ id:{q?.id}/{q?.type}</h1>
+                        <h1 className="font-bold">Question: {serial}</h1>
                         <p>{q.metadata.question}</p>
                     </div>
 
