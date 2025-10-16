@@ -1,4 +1,3 @@
-"use client";
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
@@ -9,7 +8,6 @@ import useResultTracker from "@/hooks/useResultTracker";
 interface FillBlanksProps {
   question: string;
   correctAnswer: string;
-  description: string;
   hint: string;
   qid?: number;
 }
@@ -17,7 +15,6 @@ interface FillBlanksProps {
 export default function SpellingFillBlanks({
   question,
   correctAnswer,
-  description,
   hint,
   qid,
 }: FillBlanksProps) {

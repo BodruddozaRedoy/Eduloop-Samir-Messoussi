@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 // Data for the division problems
 const problemsJSON = [
@@ -82,7 +79,7 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
         newValidation.push(null, null, null, null);
         return;
       }
-      
+
       const isPartialSumCorrect = answers[problemIdx].partialSum.trim() === p.partialSum;
       const isHelpSum1Correct = answers[problemIdx].helpSum1.trim() === p.helpSum1.answer;
       const isHelpSum2Correct = answers[problemIdx].helpSum2.trim() === p.helpSum2.answer;
@@ -141,7 +138,7 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
     if (isCorrect === false) return "text-red-600";
     return "text-gray-700";
   };
-  
+
   const getAnswerValue = (problemIdx: number, field: string) => {
     if (showSolution) {
       const p = problemsJSON[problemIdx];
@@ -160,11 +157,11 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
     const helpSum2ValidationIndex = problemIdx * 4 + 2;
 
     const isSolved = showSolution || status === "match";
-    
+
     // Check if the overall row is correct to apply green coloring
     const isRowCorrect = isSolved && validation[problemIdx * 4 + 1] && validation[problemIdx * 4 + 2];
     const textColor = isRowCorrect ? "text-green-600" : "text-gray-700";
-    
+
     return (
       <div className="flex flex-col space-y-1">
         <div className="flex items-center justify-center space-x-1">
@@ -206,13 +203,13 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
       </div>
     );
   };
-  
+
   const renderPartialSum = (p, problemIdx) => {
     const partialSumValidationIndex = problemIdx * 4;
     const isSolved = showSolution || status === "match";
     const isCorrect = isSolved && validation[partialSumValidationIndex];
     const textColor = isCorrect ? "text-green-600" : "text-gray-700";
-    
+
     return (
       <div className="p-2 bg-white text-center border-r border-orange-300 border-t border-orange-300">
         {isSolved ? (
@@ -235,7 +232,7 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
     const isSolved = showSolution || status === "match";
     const isCorrect = isSolved && validation[weeksValidationIndex];
     const textColor = isCorrect ? "text-green-600" : "text-gray-700";
-    
+
     return (
       <div className="p-2 bg-white text-center border-t border-orange-300">
         {isSolved ? (
@@ -256,8 +253,8 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Which sum corresponds? Fill in the table. There are 7 days in 1 week. How many weeks are there?</div>
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Which sum corresponds? Fill in the table. There are 7 days in 1 week. How many weeks are there?</div> */}
 
       <div className="w-full">
         <div className="grid grid-cols-4 border-2 border-orange-300 rounded-lg overflow-hidden">
@@ -266,7 +263,7 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
           <div className="p-2 bg-orange-100 text-sm font-semibold text-center border-r border-orange-300">partial sum</div>
           <div className="p-2 bg-orange-100 text-sm font-semibold text-center border-r border-orange-300">help sums</div>
           <div className="p-2 bg-orange-100 text-sm font-semibold text-center">number of weeks</div>
-          
+
           {/* Problem rows */}
           {problemsJSON.map((p, problemIdx) => (
             <React.Fragment key={p.id}>
@@ -274,10 +271,10 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
               <div className={`p-2 ${p.isExample ? 'bg-orange-50' : 'bg-white'} text-sm text-left border-r border-orange-300 border-t border-orange-300`}>
                 <span className="font-medium">{p.days}</span>
               </div>
-              
+
               {/* Partial Sum */}
               {renderPartialSum(p, problemIdx)}
-              
+
 
               {/* Help Sums */}
               <div className="p-2 bg-white text-sm text-center border-r border-orange-300 border-t border-orange-300">
@@ -297,7 +294,7 @@ export default function ArrType_72({ hint, data:problemsJSON }: {data:any, hint:
         </div>
       </div>
 
-   
+
     </div>
   );
 }

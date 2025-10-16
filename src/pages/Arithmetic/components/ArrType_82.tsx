@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -30,8 +32,7 @@ const DEFAULT_ITEMS: Item[] = [
   { id: "c4", numerator: 3, denominator: 4, label: "part" },
 ];
 
-const DEFAULT_HINT =
-  "Write the fraction that matches the shaded orange part.";
+const DEFAULT_HINT = "Write the fraction that matches the shaded orange part.";
 
 /* ---------------- Tiny Circle ---------------- */
 const Circle: React.FC<{ numerator: number; denominator: number }> = ({
@@ -113,7 +114,7 @@ const FractionInput: React.FC<{
 };
 
 /* ---------------- Component ---------------- */
-const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
+const ArrType_82: React.FC<Props> = ({ data: DEFAULT_ITEMS, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_ITEMS),
   //   [data]
@@ -122,9 +123,7 @@ const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
   const help = hint ?? DEFAULT_HINT;
 
   const [answers, setAnswers] = useState<string[]>(() => DATA.map(() => ""));
-  const [ok, setOk] = useState<(boolean | null)[]>(() =>
-    DATA.map(() => null)
-  );
+  const [ok, setOk] = useState<(boolean | null)[]>(() => DATA.map(() => null));
   const [status, setStatus] = useState<Status>("idle");
   const [showHint, setShowHint] = useState(false);
 
@@ -137,12 +136,15 @@ const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
   }, [DATA]);
 
   /* -------- Handlers -------- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map(
       (c, i) => answers[i].trim() === `${c.numerator}/${c.denominator}`
     );
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, answers]);
 
   const handleShowSolution = useCallback(() => {
@@ -197,8 +199,8 @@ const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">which part is coloured?</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">which part is coloured?</p> */}
       </div>
 
       <div className="flex justify-center gap-10">
@@ -224,7 +226,6 @@ const ArrType_82: React.FC<Props> = ({ data:DEFAULT_ITEMS, hint }) => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };

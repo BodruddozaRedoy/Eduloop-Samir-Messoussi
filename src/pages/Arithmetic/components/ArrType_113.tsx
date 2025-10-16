@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -89,6 +91,8 @@ const ArrType_113: React.FC<Props> = ({ data, hint }) => {
     setStatus("idle");
   }, [DATA]);
 
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const newOk: Record<string, any> = {};
@@ -116,6 +120,7 @@ const ArrType_113: React.FC<Props> = ({ data, hint }) => {
       Object.values(row).every((val) => val === true || val === null)
     );
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -184,10 +189,10 @@ const ArrType_113: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           Calculate the area of the square.
-        </p>
+        </p> */}
       </div>
 
 

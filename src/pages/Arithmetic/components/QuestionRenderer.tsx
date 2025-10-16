@@ -151,7 +151,7 @@ export default function QuestionRenderer({ q }: { q: any }) {
                   step: steps ?? 10,
                   maxLength: count ?? 10,
                   prefilledCount: defaultValue ?? 2,
-                  inputMaxLength: 3,
+                  inputMaxLength: 4,
                 },
               ]}
             />

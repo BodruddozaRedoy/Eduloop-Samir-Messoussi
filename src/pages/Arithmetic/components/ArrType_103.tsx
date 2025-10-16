@@ -6,8 +6,10 @@
 
 
 
-import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Dynamic JSON data (from database)
 const DATA = [
@@ -68,6 +70,8 @@ const ArrType_103 = () => {
   const { setControls } = useQuestionControls();
 
   // Check answers
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const verdicts = inputs.map((inp, idx) => {
       const label = labels[idx];
@@ -82,6 +86,7 @@ const ArrType_103 = () => {
     });
     setOk(verdicts);
     setStatus(verdicts.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },verdicts.every(Boolean));
   }, [inputs]);
 
   // Show solution
@@ -144,8 +149,8 @@ const ArrType_103 = () => {
   return (
     <div className="w-full mx-auto max-w-4xl">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-gray-600">Question 5</h2>
-        <span className="text-sm text-slate-600">-----</span>
+        {/* <h2 className="text-lg font-semibold text-gray-600">Question 5</h2>
+        <span className="text-sm text-slate-600">-----</span> */}
       </div>
       <div className="grid grid-cols-2 gap-8">
         {DATA.map((item, groupIdx) => {

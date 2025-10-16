@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { AxiosPublic } from '@/config/axios';
 import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router';
@@ -8,12 +9,26 @@ const LoginPage: React.FC = () => {
     const [passcode, setPasscode] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!passcode) return toast.error("Please provide the access key");
+        try {
+            const res = await AxiosPublic.post("/token-verify/", { key: passcode })
+            if (res.status === 200) {
+                toast.success("User verified!")
+                // navigate("/group")
+                localStorage.setItem("access-key", `AccessKey ${passcode}`);
+                navigate("/group")
+            }
+        } catch (error: any) {
+            if (error.status === 400) {
+                toast.error("Access code invalid!")
+            }
+            console.log(error)
+        }
         // ✅ Save access key in localStorage
-        localStorage.setItem("access-key", passcode);
+        // localStorage.setItem("access-key", passcode);
         // Redirect to group page
-        navigate("/group");
+        // navigate("/group");
     };
 
     return (
@@ -50,7 +65,7 @@ const LoginPage: React.FC = () => {
                             htmlFor="passcode"
                             className="block text-gray-700 text-sm font-semibold mb-2"
                         >
-                            Passcode
+                            Passcode (86764739)
                         </label>
                         <input
                             type="password"
@@ -69,12 +84,12 @@ const LoginPage: React.FC = () => {
                     >
                         Log In
                     </button>
-                    <button
+                    {/* <button
                         onClick={() => navigate("/group")}
                         className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 mt-2"
                     >
                         Development
-                    </button>
+                    </button> */}
 
                     <p className="text-gray-500 text-xs mt-6 mb-4">
                         No personal accounts. School-safe. No tracking.

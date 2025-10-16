@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Data for the grid problems (simplified, no pre-defined correct cells)
 const problemsData = [
@@ -37,7 +34,7 @@ const findCorrectPath = (grid) => {
   const startValue = 456;
   const targetValue = 516;
   const correctPath = [];
-  
+
   const findPathRecursive = (row, col) => {
     if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
       return false;
@@ -52,7 +49,7 @@ const findCorrectPath = (grid) => {
     }
 
     correctPath.push({ row, col });
-    
+
     // Check neighbors for a jump of 10
     const neighbors = [
       { r: row - 1, c: col },
@@ -60,7 +57,7 @@ const findCorrectPath = (grid) => {
       { r: row, c: col - 1 },
       { r: row, c: col + 1 },
     ];
-    
+
     for (const neighbor of neighbors) {
       const { r, c } = neighbor;
       if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length) {
@@ -74,7 +71,7 @@ const findCorrectPath = (grid) => {
     correctPath.pop(); // Backtrack
     return false;
   };
-  
+
   let startRow, startCol;
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[r].length; c++) {
@@ -86,7 +83,7 @@ const findCorrectPath = (grid) => {
     }
     if (startRow !== undefined) break;
   }
-  
+
   if (startRow === undefined) return [];
   findPathRecursive(startRow, startCol);
   return correctPath;
@@ -100,7 +97,7 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
   const [status, setStatus] = useState<"match" | "wrong" | null>(null);
   const [showSolution, setShowSolution] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  
+
   const [correctPaths, setCorrectPaths] = useState([]);
 
   useEffect(() => {
@@ -120,10 +117,10 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
     const lastCell = path[path.length - 1];
     const lastValue = grid[lastCell.row][lastCell.col];
     const newValue = grid[newRow][newCol];
-    
+
     const isAdjacent = Math.abs(lastCell.row - newRow) + Math.abs(lastCell.col - newCol) === 1;
     const isJumpOf10 = Math.abs(newValue - lastValue) === 10;
-    
+
     return isAdjacent && isJumpOf10;
   };
 
@@ -133,7 +130,7 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
         const newSelectedCells = [...prev];
         const currentPath = newSelectedCells[problemIdx];
         const isAlreadyInPath = currentPath.some(c => c.row === rowIdx && c.col === colIdx);
-        
+
         if (isAlreadyInPath) {
           // Deselecting: remove this cell and all subsequent cells from the path
           const cellIndex = currentPath.findIndex(c => c.row === rowIdx && c.col === colIdx);
@@ -153,17 +150,17 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
     },
     []
   );
-  
+
   const handleCheck = useCallback(() => {
     let allCorrect = true;
     problemsData.forEach((problem, problemIdx) => {
       const userPath = selectedCells[problemIdx];
       const correctPath = correctPaths[problemIdx];
-      
-      const isPathCorrect = userPath.length === correctPath.length && userPath.every((cell, index) => 
+
+      const isPathCorrect = userPath.length === correctPath.length && userPath.every((cell, index) =>
         cell.row === correctPath[index].row && cell.col === correctPath[index].col
       );
-      
+
       if (!isPathCorrect) {
         allCorrect = false;
       }
@@ -201,8 +198,8 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Find the way in jumps of 10.</div>
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Find the way in jumps of 10.</div> */}
 
       <div className="flex flex-wrap justify-center gap-8">
         {problemsData.map((problem, problemIdx) => (
@@ -241,7 +238,7 @@ export default function ArrType_41({ hint,data:problemsData }: {data:any, hint: 
         ))}
       </div>
 
-     
+
     </div>
   );
 }

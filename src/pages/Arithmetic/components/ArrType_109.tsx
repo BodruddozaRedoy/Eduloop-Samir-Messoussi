@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -82,6 +84,8 @@ const ArrType_109: React.FC<Props> = ({ data, hint }) => {
     });
   };
 
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((col, ci) =>
       col.numbers.map((n, ni) => {
@@ -92,6 +96,7 @@ const ArrType_109: React.FC<Props> = ({ data, hint }) => {
     setOk(results);
     const allCorrect = results.every((col) => col.every((r) => r));
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, checked]);
 
   const handleShowSolution = useCallback(() => {
@@ -147,10 +152,10 @@ const ArrType_109: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           Which numbers leave no remainder? Cross off.
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-4 gap-6">

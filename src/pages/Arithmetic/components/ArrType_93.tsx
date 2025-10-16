@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, {
   useCallback,
   useEffect,
@@ -146,11 +148,14 @@ const ArrType_93: React.FC<Props> = ({ data, hint }) => {
   };
 
   /* -------- Controls -------- */
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const ok =
       connections.length === ITEMS.length &&
       connections.every((c) => c.to === ITEMS[c.from].correctShape);
     setStatus(ok ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },ok);
   }, [connections, ITEMS]);
 
   const handleShowSolution = useCallback(() => {
@@ -197,8 +202,8 @@ const ArrType_93: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-6" ref={wrapRef} onMouseMove={onMouseMove}>
-      <h2 className="text-lg font-semibold">Question 2</h2>
-      <p className="text-sm text-slate-600">Which box corresponds to the result?</p>
+      {/* <h2 className="text-lg font-semibold">Question 2</h2>
+      <p className="text-sm text-slate-600">Which box corresponds to the result?</p> */}
 
       <div className="relative w-full">
         <div className="flex flex-col items-center justify-between gap-24">

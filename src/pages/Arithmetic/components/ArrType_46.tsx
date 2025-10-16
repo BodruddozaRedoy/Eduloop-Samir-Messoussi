@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* --------------------------------
@@ -77,6 +79,8 @@ const ArrType_46: React.FC = ({data, hint}:any) => {
     });
   }, []);
 
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const res = items.map((it, i) => {
       const given = parseNum(answers[i]);
@@ -86,6 +90,7 @@ const ArrType_46: React.FC = ({data, hint}:any) => {
     setOks(res);
     setChecked(true);
     setStatus(res.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },res.every(Boolean));
   }, [answers, items]);
 
   const handleShowSolution = useCallback(() => {
@@ -147,8 +152,8 @@ const ArrType_46: React.FC = ({data, hint}:any) => {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Calculate.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">Calculate.</p> */}
       </div>
 
       {/* Exactly two columns × three rows */}

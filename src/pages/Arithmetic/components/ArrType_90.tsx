@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Assuming these context/hook imports are provided by the environment
 import { useQuestionControls } from "@/context/QuestionControlsContext";
@@ -235,8 +235,8 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
         const isQ4BCorrect = correctOptions.includes(userAnsB);
         const isDifferent =
           userAnsA !== userAnsB && userAnsA.length > 0 && userAnsB.length > 0;
-        
-        const isQ4Correct = isQ4ACorrect && isQ4BCorrect && isDifferent; 
+
+        const isQ4Correct = isQ4ACorrect && isQ4BCorrect && isDifferent;
 
         newValidation[fieldA] = isQ4Correct;
         newValidation[fieldB] = isQ4Correct;
@@ -278,7 +278,7 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
     });
 
     setAnswers(solutionAnswers);
-    
+
     const solutionValidation = Object.keys(initialAnswers).reduce(
       (acc, key) => ({ ...acc, [key]: true }),
       {}
@@ -326,7 +326,7 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
     summary,
   ]);
 
-  
+
   const getValidationStatus = (field: string): boolean | null =>
     validation[field];
 
@@ -367,13 +367,13 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
         <BarChart data={chartData} />
       </div>
 
-      
+
       <div className="flex flex-col space-y-4 pt-6">
         {questions.map((q) => {
           let displayQuestion;
 
           switch (q.id) {
-            case "q1": 
+            case "q1":
               displayQuestion = (
                 <div className="flex items-center space-x-2">
                   <span>How many children swim?</span>{" "}
@@ -389,7 +389,7 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
                 </div>
               );
               break;
-            case "q3": 
+            case "q3":
               displayQuestion = (
                 <div className="flex items-center space-x-2">
                   <span>How many children are in judo?</span>{" "}
@@ -397,7 +397,7 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
                 </div>
               );
               break;
-            case "q4": 
+            case "q4":
               displayQuestion = (
                 <div className="flex flex-wrap items-center space-x-2">
                   <span>Which 2 sports have the same number of children?</span>
@@ -407,7 +407,7 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
                 </div>
               );
               break;
-            case "q5": 
+            case "q5":
               displayQuestion = (
                 <div className="flex items-center space-x-2">
                   <span>Which sport do 10 children do?</span>{" "}
@@ -427,11 +427,11 @@ export default function BarChartQuiz({ hint }: { hint: string }) {
         })}
       </div>
 
-      {showHint && (
+      {/* {showHint && (
         <div className="mt-4 p-3 bg-yellow-50 text-yellow-700 rounded-lg border border-yellow-300">
           <span className="font-semibold">Hint:</span> {hint}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

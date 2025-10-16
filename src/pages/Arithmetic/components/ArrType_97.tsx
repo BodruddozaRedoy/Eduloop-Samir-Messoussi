@@ -1,5 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Table data
 const DATA = [
@@ -43,6 +45,8 @@ const ArrType_97 = () => {
   const { setControls } = useQuestionControls();
 
   // Check answers
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const verdicts = inputs.map((inp, idx) => {
       const parsed = parseFloat(inp.replace(/,/g, ""));
@@ -50,6 +54,7 @@ const ArrType_97 = () => {
     });
     setOk(verdicts);
     setStatus(verdicts.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },verdicts.every(Boolean));
   }, [inputs]);
 
   // Show solution
@@ -142,7 +147,7 @@ const ArrType_97 = () => {
                             <input
                               type="text"
                               inputMode="decimal"
-                            
+
                               value={inputs[idx]}
                               onChange={(e) => {
                                 const val = e.target.value;
@@ -173,12 +178,8 @@ const ArrType_97 = () => {
           );
         })}
       </div>
-      {/* Hint display */}
-      {showHint && (
-        <div className="mt-3 px-4 py-2 bg-yellow-50 border-l-4 border-yellow-300 text-yellow-800">
-          {HINT_TEXT}
-        </div>
-      )}
+
+
     </div>
   );
 };
