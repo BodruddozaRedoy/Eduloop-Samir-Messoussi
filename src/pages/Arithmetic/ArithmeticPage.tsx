@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { IoIosArrowForward, IoMdArrowRoundBack, IoMdArrowRoundForward, IoMdCheckmarkCircleOutline } from "react-icons/io"
 import { BadgeCheck, ChevronLeft } from "lucide-react"
-import QuestionRenderer from "./components/QuestionRenderer"
 import { QUESTIONS_DATA } from "./components/Questions"
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router"
 import { hasAnyResults, onResultsUpdated, type TrackedResults } from "@/hooks/useResultTracker"
@@ -13,6 +12,7 @@ import { QuestionControlsProvider, useQuestionControls } from "@/context/Questio
 import { AxiosPublic } from "@/config/axios"
 import { toast } from "sonner"
 import LoadingScreen from "@/components/common/LoadingScreen"
+import QuestionRenderer from "./components/QuestionRenderer"
 // import { QUESTIONS_DATA } from "./Questions
 
 export default function ArithmeticPage() {
@@ -22,14 +22,14 @@ export default function ArithmeticPage() {
 
     const [question, setQuestion] = useState<any | null>(initialQuestion || null);
     const [serial, setSerial] = useState(1);
-    const q = QUESTIONS_DATA[serial]
+    const q = question;
     const [loading, setLoading] = useState(false);
     const [trigger, setTrigger] = useState(true)
     const [hasResults, setHasResults] = useState<boolean>(hasAnyResults())
     const [showReloadWarning, setShowReloadWarning] = useState(false);
     const navigate = useNavigate()
 
-    console.log(question)
+    console.log(q)
 
     // useEffect(() => {
     //     localStorage.setItem("question", JSON.stringify(question))
@@ -166,7 +166,7 @@ export default function ArithmeticPage() {
                     {/* temporary search bar  */}
                     {/* Search bar to jump to question */}
                     <div className="space-x-4">
-                        <Button onClick={() => { setSerial(serial -1); setTrigger(!trigger) }}>Back</Button>
+                        {/* <Button onClick={() => { setSerial(serial -1); setTrigger(!trigger) }}>Back</Button> */}
                         {/* <input
                             type="number"
                             placeholder="Go to question"
@@ -178,15 +178,15 @@ export default function ArithmeticPage() {
                                 }
                             }}
                         /> */}
-                        <Button onClick={() => { setSerial(serial +1); setTrigger(!trigger) }}>Forward</Button>
+                        {/* <Button onClick={() => { setSerial(serial +1); setTrigger(!trigger) }}>Forward</Button> */}
                     </div>
 
 
                     {/* Difficulty pills */}
                     <div className="bg-[#e8edff] p-1 rounded-lg flex items-center">
-                        <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
-                        <div className={`${pillBase} ${level === "medium" ? active : inactive}`}>Medium</div>
-                        <div className={`${pillBase} ${level === "advance" ? active : inactive}`}>Advance</div>
+                        <div className={`${pillBase} ${level.includes("easy")  ? active : inactive}`}>Fs</div>
+                        <div className={`${pillBase} ${level.includes("medium") ? active : inactive}`}>Medium</div>
+                        <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>S+</div>
                     </div>
                 </div>
 
@@ -194,7 +194,7 @@ export default function ArithmeticPage() {
                 <div key={q.id} className="p-5 rounded-[30px] w-full h-[430px] overflow-y-auto border flex flex-col bg-white">
                     {/* Question text */}
                     <div className="mb-4 text-lg font-semibold">
-                        <h1 className="font-bold">Question: {serial}___ id:{q.id}/{q.type}</h1>
+                        <h1 className="font-bold">Question: {serial}</h1>
                         <p>{q.metadata.question}</p>
                     </div>
 
@@ -204,7 +204,7 @@ export default function ArithmeticPage() {
                 {/* Global Controllers/Hints/Check from question components */}
                 {/* Footer actions */}
                 <div className="flex flex-col lg:flex-row items-center justify-between mt-1 ">
-                    <ArithmeticControllersSlot />
+                    <ArithmeticControllersSlot id={q?.id}/>
 
 
                     <div className="flex items-center gap-5 mt-5">
@@ -242,7 +242,7 @@ export default function ArithmeticPage() {
     )
 }
 
-function ArithmeticControllersSlot() {
+function ArithmeticControllersSlot({id}:any) {
     const { controls } = useQuestionControls()
     const noop = () => { }
     const hasAny = controls.handleCheck || controls.handleShowHint || controls.handleShowSolution || controls.summary
@@ -253,6 +253,7 @@ function ArithmeticControllersSlot() {
                 handleCheck={controls.handleCheck || noop}
                 handleShowSolution={controls.handleShowSolution || noop}
                 handleShowHint={controls.handleShowHint || noop}
+                id={id}
             />
             {controls.showHint && controls.hint && <Hint hint={controls.hint} />}
             <Check summary={controls.summary || null} />

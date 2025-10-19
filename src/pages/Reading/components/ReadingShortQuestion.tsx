@@ -11,6 +11,7 @@ interface ReadingShortQuestionProps {
   description: string;
   hint: string;
   qid?: number;
+  id:any;
 }
 
 const ReadingShortQuestion = ({
@@ -19,6 +20,7 @@ const ReadingShortQuestion = ({
   description,
   hint,
   qid,
+  id
 }: ReadingShortQuestionProps) => {
   const [inputValue, setInputValue] = useState("");
   // const [result, setResult] = useState<null | boolean>(null);
@@ -141,6 +143,7 @@ const ReadingShortQuestion = ({
         handleCheck={handleCheck}
         handleShowSolution={handleShowSolution}
         handleShowHint={handleShowHint}
+        id={id}
       />
        {showHint && <Hint hint={hint} />}
       <Check summary={summary} />

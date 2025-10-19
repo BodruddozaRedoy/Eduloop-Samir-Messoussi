@@ -23,6 +23,9 @@ const LoginPage: React.FC = () => {
             if (error.status === 400) {
                 toast.error("Access code invalid!")
             }
+            if (error.status === 403) {
+                toast.error("Access code invalid!")
+            }
             console.log(error)
         }
         // ✅ Save access key in localStorage
@@ -65,7 +68,7 @@ const LoginPage: React.FC = () => {
                             htmlFor="passcode"
                             className="block text-gray-700 text-sm font-semibold mb-2"
                         >
-                            Passcode (86764739)
+                            Passcode (93388781)
                         </label>
                         <input
                             type="password"
@@ -80,7 +83,7 @@ const LoginPage: React.FC = () => {
                     {/* Log In Button */}
                     <button
                         onClick={handleLogin}
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+                        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 cursor-pointer"
                     >
                         Log In
                     </button>
