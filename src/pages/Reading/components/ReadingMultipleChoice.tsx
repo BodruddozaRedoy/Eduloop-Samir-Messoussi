@@ -1,4 +1,3 @@
-"use client";
 import Check from "@/components/common/Check";
 import Controllers from "@/components/common/Controllers";
 import Hint from "@/components/common/Hint";
@@ -9,7 +8,8 @@ interface ReadingQuizProps {
   options: string[];
   correctAnswer: string;
   description: string;
-  hint: string; // ✅ added
+  hint: string; // ✅ added 
+  id: any
 }
 
 export interface Summary {
@@ -20,13 +20,14 @@ export interface Summary {
 }
 
 export default function ReadingMultipleChoice(props: any) {
-  const { question, options, correctAnswer, description, hint, qid } = props as {
+  const { question, options, correctAnswer, description, hint, qid, id } = props as {
     question: string;
     options: string[];
     correctAnswer: string;
     description: string;
     hint: string;
     qid?: number;
+    id: any
   };
   const [status, setStatus] = useState<"match" | "wrong" | "">("");
 
@@ -104,6 +105,7 @@ export default function ReadingMultipleChoice(props: any) {
         handleCheck={handleCheck}
         handleShowSolution={handleShowSolution}
         handleShowHint={handleShowHint}
+        id={id}
       />
       {showHint && <Hint hint={hint} />}
       <Check summary={summary} />

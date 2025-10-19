@@ -1,0 +1,44 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            set -e
+            echo "🔁 Starting deployment..."
+
+            cd ${{ secrets.VPS_PATH }}/client
+            sudo chown -R $(whoami):$(whoami) .git || true
+            git fetch origin main
+            git reset --hard origin/main
+
+            cd ${{ secrets.VPS_PATH }}
+            echo "🧹 Cleaning old containers and images..."
+            docker compose down --remove-orphans
+            docker system prune -af
+
+            echo "🏗️ Rebuilding and deploying containers..."
+            docker compose build --no-cache
+            docker compose up -d
+
+            echo "✅ Deployment complete!"
+          EOF

@@ -1,4 +1,3 @@
-"use client";
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -184,6 +183,7 @@ export default function LanguagePage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
         {question.type === "short" && (
@@ -194,6 +194,7 @@ export default function LanguagePage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
         {question.type === "fill_blank" && (
@@ -204,6 +205,7 @@ export default function LanguagePage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
 

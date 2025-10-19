@@ -15,16 +15,10 @@ export default defineConfig({
     port: 6868,
     host: true,
     allowedHosts: ["*"],
-    // Optional HTTPS for local development
-    // https: {
-    //   key: fs.readFileSync("./localhost-key.pem"),
-    //   cert: fs.readFileSync("./localhost.pem"),
-    // },
   },
-  // 👇 Add this for production deploys (important for Vercel + React Router)
   build: {
     outDir: "dist",
   },
-  // 👇 Ensures correct routing and asset paths on Vercel
   base: "/",
+  
 });
