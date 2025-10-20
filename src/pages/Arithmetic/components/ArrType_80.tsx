@@ -1,11 +1,13 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
 type Row = {
   id?: string;
-  words?: string;      // the phrase (“two hundred and fifty thousand”)
-  value?: number;      // expected numeric value (e.g., 250000)
+  words?: string; // the phrase (“two hundred and fifty thousand”)
+  value?: number; // expected numeric value (e.g., 250000)
 };
 type Props = {
   data?: Row[];
@@ -14,23 +16,23 @@ type Props = {
 
 /* ---------------- Defaults ---------------- */
 const DEFAULT_DATA: Required<Row>[] = [
-  { id: "r1", words: "two hundred and fifty thousand",        value: 250000 },
-  { id: "r2", words: "nine hundred and ten thousand",         value: 910000 },
-  { id: "r3", words: "eighty-six thousand",                   value: 86000  },
-  { id: "r4", words: "two hundred and fifty-six thousand",    value: 256000 },
-  { id: "r5", words: "five hundred and forty thousand",       value: 540000 },
-  { id: "r6", words: "seven hundred and thirty-four thousand",value: 734000 },
+  { id: "r1", words: "two hundred and fifty thousand", value: 250000 },
+  { id: "r2", words: "nine hundred and ten thousand", value: 910000 },
+  { id: "r3", words: "eighty-six thousand", value: 86000 },
+  { id: "r4", words: "two hundred and fifty-six thousand", value: 256000 },
+  { id: "r5", words: "five hundred and forty thousand", value: 540000 },
+  { id: "r6", words: "seven hundred and thirty-four thousand", value: 734000 },
 ];
 
 const DEFAULT_HINT =
   "Write each amount in figures. Use digits and optional commas (e.g., 250,000).";
 
-
-
-
-  const ArrType_80: React.FC<Props> = ({data:DEFAULT_DATA, hint:DEFAULT_HINT}) => {
-    return <ArrType data={DEFAULT_DATA} hint={DEFAULT_HINT} />;
-  };
+const ArrType_80: React.FC<Props> = ({
+  data: DEFAULT_DATA,
+  hint: DEFAULT_HINT,
+}) => {
+  return <ArrType data={DEFAULT_DATA} hint={DEFAULT_HINT} />;
+};
 /* ---------------- Helpers ---------------- */
 const parseUserNumber = (s: string): number => {
   const t = String(s ?? "")
@@ -78,6 +80,9 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
   }, [ROWS.length]);
 
   /* handlers */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const verdicts = ROWS.map((r, i) => {
       const g = parseUserNumber(inputs[i]);
@@ -85,6 +90,7 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
     });
     setOk(verdicts);
     setStatus(verdicts.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },verdicts.every(Boolean));
   }, [ROWS, inputs]);
 
   const handleShowSolution = useCallback(() => {
@@ -124,7 +130,15 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
       showHint,
       summary,
     });
-  }, [setControls, handleCheck, handleShowSolution, handleShowHint, hint, showHint, summary]);
+  }, [
+    setControls,
+    handleCheck,
+    handleShowSolution,
+    handleShowHint,
+    hint,
+    showHint,
+    summary,
+  ]);
 
   const inputTone = (flag: boolean | null) =>
     flag === null
@@ -137,8 +151,8 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Write in figures.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">Write in figures.</p> */}
       </div>
 
       {/* 6 items; responsive like your layout */}
@@ -171,8 +185,6 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
           </div>
         ))}
       </div>
-
-
     </div>
   );
 };

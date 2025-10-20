@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------------------
@@ -87,10 +89,12 @@ const ArrType_35: React.FC<Props> = ({ data, hint }) => {
     setInputs((prev) => ({ ...prev, [keyOf(tableId, i)]: v }));
   }, []);
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const results: Record<string, boolean> = {};
     let correct = 0;
-
     tables.forEach((t) =>
       (t.values ?? []).forEach((row, i) => {
         const k = keyOf(t.id, i);
@@ -108,6 +112,7 @@ const ArrType_35: React.FC<Props> = ({ data, hint }) => {
     setRowOK(results);
     setChecked(true);
     setStatus(correct === totalRows && totalRows > 0 ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },correct === totalRows && totalRows > 0);
   }, [inputs, tables, totalRows]);
 
   const handleShowSolution = useCallback(() => {
@@ -170,10 +175,10 @@ const ArrType_35: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-sm font-semibold">Question 1</h2>
+        {/* <h2 className="text-sm font-semibold">Question 1</h2>
         <p className="text-xs text-slate-500">
           Calculate. You may use a strip or ratio table.
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

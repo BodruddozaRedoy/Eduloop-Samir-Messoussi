@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ----------------------------
@@ -99,6 +101,9 @@ const ArrType_62: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     []
   );
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const results = answers.map((a, i) => {
       const want = expected[i];
@@ -113,6 +118,7 @@ const ArrType_62: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     setOk(results);
     setChecked(true);
     setStatus(results.every((r) => r.before && r.after) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every((r) => r.before && r.after));
   }, [answers, expected]);
 
   const handleShowSolution = useCallback(() => {
@@ -152,8 +158,8 @@ const ArrType_62: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">Count on and back. Make jumps of 1, 10, 100 or 1000.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">Count on and back. Make jumps of 1, 10, 100 or 1000.</p> */}
       </div>
 
       {/* columns */}

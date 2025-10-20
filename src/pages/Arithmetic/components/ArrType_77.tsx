@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 // Data for the time calculation problems
 const problemsJSON = [
@@ -99,7 +96,7 @@ export default function ArrType_77({ hint, data:problemsJSON }: {data:any, hint:
         default:
           break;
       }
-      
+
       if (!isCorrect) {
         allCorrect = false;
       }
@@ -171,8 +168,8 @@ export default function ArrType_77({ hint, data:problemsJSON }: {data:any, hint:
 
   return (
     <div className="flex flex-col space-y-8 mb-10">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Fill in the times.</div>
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Fill in the times.</div> */}
 
       <div className="w-full max-w-2xl mx-auto">
         <div className="grid grid-cols-3 border-2 border-orange-300 rounded-lg overflow-hidden">
@@ -253,7 +250,7 @@ export default function ArrType_77({ hint, data:problemsJSON }: {data:any, hint:
         </div>
       </div>
 
-   
+
     </div>
   );
 }

@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -127,6 +129,10 @@ const ArrType_117: React.FC<Props> = ({ data, hint }) => {
     setShowHint(false);
   }, [data]);
 
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const newOk = DATA.map((table, ti) =>
@@ -150,6 +156,7 @@ const ArrType_117: React.FC<Props> = ({ data, hint }) => {
       newOkAnswers.every(Boolean);
 
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, values, answers]);
 
   const handleShowSolution = useCallback(() => {
@@ -212,10 +219,10 @@ const ArrType_117: React.FC<Props> = ({ data, hint }) => {
   /* -------- Render -------- */
   return (
     <div className="space-y-8">
-      <h2 className="text-lg font-semibold">Question 1</h2>
+      {/* <h2 className="text-lg font-semibold">Question 1</h2>
       <p className="text-sm text-slate-600">
         How much? Calculate using the ratio table.
-      </p>
+      </p> */}
 
       <div className="grid grid-cols-2 gap-8">
         {DATA.map((table, ti) => (

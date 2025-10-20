@@ -2,13 +2,25 @@ import euro100 from "@/assets/images/arritype42100euro.png";
 import euro10 from "@/assets/images/arritype4210euro.png";
 import euro1 from "@/assets/images/arritype421euro.png";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* -----------------------------
    Demo data & hint
 ------------------------------ */
-type SplitRow = { amount: number; hundreds: number; tens: number; ones: number };
-type CombineRow = { hundreds: number; tens: number; ones: number; amount: number };
+type SplitRow = {
+  amount: number;
+  hundreds: number;
+  tens: number;
+  ones: number;
+};
+type CombineRow = {
+  hundreds: number;
+  tens: number;
+  ones: number;
+  amount: number;
+};
 
 // classic example 749 = 7×100 + 4×10 + 9×1
 const SPLIT_ROWS: SplitRow[] = [
@@ -42,24 +54,30 @@ const onlyNum = (s: string) => s.replace(/[^\d]/g, "");
 /* -----------------------------
    Component
 ------------------------------ */
-const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
+const ArrType_42: React.FC = ({ data: SPLIT_ROWS, hint }: any) => {
   const [showHint, setShowHint] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [checked, setChecked] = useState(false);
 
   // Inputs for "Splits." (counts per denomination)
-  const [splitAns, setSplitAns] = useState<{ hundreds: string; tens: string; ones: string }[]>(
-    () => SPLIT_ROWS.map(() => ({ hundreds: "", tens: "", ones: "" }))
-  );
+  const [splitAns, setSplitAns] = useState<
+    { hundreds: string; tens: string; ones: string }[]
+  >(() => SPLIT_ROWS.map(() => ({ hundreds: "", tens: "", ones: "" })));
 
   // Inputs for "Voeg samen." (amount)
-  const [combineAns, setCombineAns] = useState<string[]>(() => COMBINE_ROWS.map(() => ""));
+  const [combineAns, setCombineAns] = useState<string[]>(() =>
+    COMBINE_ROWS.map(() => "")
+  );
 
   // Per-cell correctness
-  const [splitOK, setSplitOK] = useState<{ hundreds: boolean; tens: boolean; ones: boolean }[]>(
-    () => SPLIT_ROWS.map(() => ({ hundreds: false, tens: false, ones: false }))
+  const [splitOK, setSplitOK] = useState<
+    { hundreds: boolean; tens: boolean; ones: boolean }[]
+  >(() =>
+    SPLIT_ROWS.map(() => ({ hundreds: false, tens: false, ones: false }))
   );
-  const [combineOK, setCombineOK] = useState<boolean[]>(() => COMBINE_ROWS.map(() => false));
+  const [combineOK, setCombineOK] = useState<boolean[]>(() =>
+    COMBINE_ROWS.map(() => false)
+  );
 
   // setters
   const setSplit = useCallback(
@@ -81,6 +99,9 @@ const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
     });
   }, []);
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   // actions
   const handleCheck = useCallback(() => {
     // Validate split table
@@ -92,14 +113,18 @@ const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
     setSplitOK(splitRes);
 
     // Validate combine table
-    const combRes = COMBINE_ROWS.map((row, i) => Number(combineAns[i]) === row.amount);
+    const combRes = COMBINE_ROWS.map(
+      (row, i) => Number(combineAns[i]) === row.amount
+    );
     setCombineOK(combRes);
 
     setChecked(true);
 
     const allGood =
-      splitRes.every((r) => r.hundreds && r.tens && r.ones) && combRes.every(Boolean);
+      splitRes.every((r) => r.hundreds && r.tens && r.ones) &&
+      combRes.every(Boolean);
     setStatus(allGood ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allGood);
   }, [splitAns, combineAns]);
 
   const handleShowSolution = useCallback(() => {
@@ -111,7 +136,9 @@ const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
       }))
     );
     setCombineAns(COMBINE_ROWS.map((r) => String(r.amount)));
-    setSplitOK(SPLIT_ROWS.map(() => ({ hundreds: true, tens: true, ones: true })));
+    setSplitOK(
+      SPLIT_ROWS.map(() => ({ hundreds: true, tens: true, ones: true }))
+    );
     setCombineOK(COMBINE_ROWS.map(() => true));
     setChecked(true);
     setStatus("match");
@@ -212,10 +239,14 @@ const ArrType_42: React.FC = ({data:SPLIT_ROWS, hint}:any) => {
                         )}
                       </td>
                       <td className="border border-orange-200 px-3 py-2 text-center">
-                        {cell(c.tens, splitAns[i].tens, (v) => setSplit(i, "tens", v))}
+                        {cell(c.tens, splitAns[i].tens, (v) =>
+                          setSplit(i, "tens", v)
+                        )}
                       </td>
                       <td className="border border-orange-200 px-3 py-2 text-center">
-                        {cell(c.ones, splitAns[i].ones, (v) => setSplit(i, "ones", v))}
+                        {cell(c.ones, splitAns[i].ones, (v) =>
+                          setSplit(i, "ones", v)
+                        )}
                       </td>
                     </tr>
                   );

@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -106,6 +108,10 @@ const ArrType_119: React.FC<Props> = ({ data, hint }) => {
     setShowHint(false);
   }, [data]);
 
+
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const newOk: typeof ok = {};
@@ -126,6 +132,7 @@ const ArrType_119: React.FC<Props> = ({ data, hint }) => {
       Object.values(row).every((val) => val === true)
     );
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -201,11 +208,11 @@ const ArrType_119: React.FC<Props> = ({ data, hint }) => {
   return (
     <div>
       <div>
-        <h2 className="text-lg font-semibold mb-2">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold mb-2">Question 1</h2>
         <p>
           Calculate the perimeter and the area. You may use a calculator. First,
           enter the length of the radius.
-        </p>
+        </p> */}
       </div>
       <div className="grid grid-cols-3 gap-6 mt-4">
         {DATA.map((item) => {

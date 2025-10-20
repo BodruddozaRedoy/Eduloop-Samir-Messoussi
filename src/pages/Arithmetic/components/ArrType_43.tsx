@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* --------------------------------
@@ -61,11 +63,16 @@ const ArrType_43: React.FC = ({data,hint}:any) => {
     });
   }, []);
 
+
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = choices.map((c, i) => c !== null && c === correctAnswers[i]);
     setOk(results);
     setChecked(true);
     setStatus(results.every(Boolean) && results.length === data.length ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean) && results.length === data.length);
   }, [choices, correctAnswers]);
 
   const handleShowSolution = useCallback(() => {

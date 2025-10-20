@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -93,12 +95,16 @@ const ArrType_100: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) =>
       p.inputs.map((inp, j) => values[i][j] === inp.answer)
     );
     setOk(results);
     setStatus(results.every((row) => row.every(Boolean)) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every((row) => row.every(Boolean)));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -146,10 +152,10 @@ const ArrType_100: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           What is the content? How many flower boxes fit in the large container?
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-2 gap-10">

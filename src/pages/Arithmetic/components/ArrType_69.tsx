@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ------------------------------- */
@@ -196,6 +198,10 @@ const ArrType_69: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   }, []);
 
   /** Core rule: the strategy value must match the picked option's value */
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const wOK: boolean[] = [];
     const pOK: boolean[] = [];
@@ -214,6 +220,7 @@ const ArrType_69: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     setPickOk(pOK);
     setChecked(true);
     setStatus(wOK.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },wOK.every(Boolean));
   }, [problems, work, picked]);
 
   /** Show solution: fill expected work & pick the option whose numeric value matches it */
@@ -285,11 +292,11 @@ const ArrType_69: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           How much is it approximately? <br />
           Write down the calculation you are using. Then tick the correct answer.
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-3">

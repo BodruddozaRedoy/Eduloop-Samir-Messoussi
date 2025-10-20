@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -38,7 +40,7 @@ const DEFAULT_HINT =
   "Think of a number that lies between the given two numbers.";
 
 /* ---------------- Component ---------------- */
-const ArrType_84: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
+const ArrType_84: React.FC<Props> = ({ data: DEFAULT_DATA, hint }) => {
   // const DATA = useMemo(
   //   () => (Array.isArray(data) && data.length ? data : DEFAULT_DATA),
   //   [data]
@@ -61,22 +63,25 @@ const ArrType_84: React.FC<Props> = ({ data:DEFAULT_DATA, hint }) => {
   }, [DATA]);
 
   /* -------- Handlers -------- */
- const handleCheck = useCallback(() => {
-  const results = DATA.map((c, i) => {
-    const val = Number(answers[i]);
-    // Accept any number strictly between min and max
-    return !isNaN(val) && val > c.min && val < c.max;
-  });
-  setOk(results);
-  setStatus(results.every(Boolean) ? "match" : "wrong");
-}, [DATA, answers]);
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+  const handleCheck = useCallback(() => {
+    const results = DATA.map((c, i) => {
+      const val = Number(answers[i]);
+      // Accept any number strictly between min and max
+      return !isNaN(val) && val > c.min && val < c.max;
+    });
+    setOk(results);
+    setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
+  }, [DATA, answers]);
 
-const handleShowSolution = useCallback(() => {
-  // Just show one valid example (the midpoint)
-  setAnswers(DATA.map((c) => String(Math.floor((c.min + c.max) / 2))));
-  setOk(DATA.map(() => true));
-  setStatus("match");
-}, [DATA]);
+  const handleShowSolution = useCallback(() => {
+    // Just show one valid example (the midpoint)
+    setAnswers(DATA.map((c) => String(Math.floor((c.min + c.max) / 2))));
+    setOk(DATA.map(() => true));
+    setStatus("match");
+  }, [DATA]);
 
   const handleShowHint = useCallback(() => setShowHint((s) => !s), []);
 
@@ -128,8 +133,8 @@ const handleShowSolution = useCallback(() => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 5</h2>
-        <p className="text-sm text-slate-600">What number could it be?</p>
+        {/* <h2 className="text-lg font-semibold">Question 5</h2>
+        <p className="text-sm text-slate-600">What number could it be?</p> */}
       </div>
 
       <div className="grid grid-cols-2 gap-x-12 gap-y-4">
@@ -171,7 +176,6 @@ const handleShowSolution = useCallback(() => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };

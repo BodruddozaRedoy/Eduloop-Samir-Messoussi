@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -92,6 +94,10 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
   }, [CARDS.length]);
 
   /* -------- Handlers -------- */
+    const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+
   const handleCheck = useCallback(() => {
     const res = CARDS.map((c, i) => {
       const val = parseEuro(exact[i] ?? "");
@@ -99,6 +105,7 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
     });
     setOk(res);
     setStatus(res.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },res.every(Boolean));
   }, [CARDS, exact]);
 
   const handleShowSolution = useCallback(() => {
@@ -152,8 +159,8 @@ const ArrType: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">First, estimate; then calculate with the calculator.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">First, estimate; then calculate with the calculator.</p> */}
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">

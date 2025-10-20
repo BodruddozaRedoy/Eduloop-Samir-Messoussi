@@ -1,5 +1,7 @@
 
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -79,6 +81,9 @@ const ArrType_98: React.FC<Props> = ({ data, hint }) => {
   }, [data]);
 
   /* -------- Handlers -------- */
+
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const res = DATA.map((p, i) => {
       const v = values[i];
@@ -90,6 +95,7 @@ const ArrType_98: React.FC<Props> = ({ data, hint }) => {
     });
     setOk(res);
     setStatus(res.every((r) => r.photo && r.realCm && r.realM) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },res.every((r) => r.photo && r.realCm && r.realM));
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -143,8 +149,8 @@ const ArrType_98: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">How big is it in reality? Measure with a ruler.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">How big is it in reality? Measure with a ruler.</p> */}
       </div>
 
       <div className="grid grid-cols-2 gap-10">

@@ -1,6 +1,6 @@
-
-
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -72,6 +72,8 @@ const ArrType_87: React.FC<Props> = ({
   }, [data, price]);
 
   /* -------- Handlers -------- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = data.map((it, i) => {
       const correctEq = `${it.quantity}×${price}=${it.quantity * price}`;
@@ -83,6 +85,7 @@ const ArrType_87: React.FC<Props> = ({
     });
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [data, equations, answers, price]);
 
   const handleShowSolution = useCallback(() => {
@@ -140,10 +143,10 @@ const ArrType_87: React.FC<Props> = ({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Question</h2>
+        {/* <h2 className="text-lg font-semibold">Question</h2>
         <p className="text-sm text-slate-600">
           Which sum corresponds to this? Calculate it in your notebook.
-        </p>
+        </p> */}
       </div>
 
       {/* Price Card */}

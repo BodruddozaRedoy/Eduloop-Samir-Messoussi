@@ -1,11 +1,8 @@
 
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Data for the fraction comparison problems
 const problemsJSON = [
@@ -46,7 +43,7 @@ const problemsJSON = [
 const renderFractionText = (fractionText: string) => {
   const [fraction, rest] = fractionText.split(' part of ');
   const [numerator, denominator] = fraction.split('/');
-  
+
   return (
     <div className="flex items-center">
       <div className="flex flex-col items-center mr-2 text-xl font-medium">
@@ -87,6 +84,7 @@ export default function ArrType_47({ hint, data:problemsJSON }: {data:any, hint:
     },
     []
   );
+
 
   const handleCheck = useCallback(() => {
     let allCorrect = true;
@@ -193,7 +191,7 @@ export default function ArrType_47({ hint, data:problemsJSON }: {data:any, hint:
         ))}
       </div>
 
-   
+
     </div>
   );
 }

@@ -1,6 +1,8 @@
 // import manImage from "/images/arrtype39man.png";
 // import rabbitImage from "/images/arrtype39rabbit.png";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------------------
@@ -14,8 +16,18 @@ type Item = {
 };
 
 export const DEMO_ITEMS: Item[] = [
-  { id: "left", label: "rabbit", imgSrc: "@/assets/ images/arrtype39rabbit.png", isCorrect: false },
-  { id: "right", label: "man", imgSrc: "@/assets/images/arrtype39man.png", isCorrect: true },
+  {
+    id: "left",
+    label: "rabbit",
+    imgSrc: "@/assets/ images/arrtype39rabbit.png",
+    isCorrect: false,
+  },
+  {
+    id: "right",
+    label: "man",
+    imgSrc: "@/assets/images/arrtype39man.png",
+    isCorrect: true,
+  },
 ];
 
 const DEFAULT_HINT =
@@ -26,19 +38,23 @@ const DEFAULT_HINT =
 --------------------------- */
 function normalizeItems(input: unknown): Item[] {
   if (!Array.isArray(input)) return [];
-  return input
-    .map((x) => {
-      const raw = x as any;
-      const id: "left" | "right" =
-        raw?.id === "left" || raw?.id === "right" ? raw.id : "left";
-      const label: "rabbit" | "man" =
-        raw?.label === "rabbit" || raw?.label === "man" ? raw.label : "rabbit";
-      const imgSrc = typeof raw?.imgSrc === "string" ? raw.imgSrc : "";
-      const isCorrect = Boolean(raw?.isCorrect);
-      return { id, label, imgSrc, isCorrect } as Item;
-    })
-    // keep only the two positions we render
-    .filter((it) => it.id === "left" || it.id === "right");
+  return (
+    input
+      .map((x) => {
+        const raw = x as any;
+        const id: "left" | "right" =
+          raw?.id === "left" || raw?.id === "right" ? raw.id : "left";
+        const label: "rabbit" | "man" =
+          raw?.label === "rabbit" || raw?.label === "man"
+            ? raw.label
+            : "rabbit";
+        const imgSrc = typeof raw?.imgSrc === "string" ? raw.imgSrc : "";
+        const isCorrect = Boolean(raw?.isCorrect);
+        return { id, label, imgSrc, isCorrect } as Item;
+      })
+      // keep only the two positions we render
+      .filter((it) => it.id === "left" || it.id === "right")
+  );
 }
 
 /* ---------------------------
@@ -85,10 +101,14 @@ const ArrType_39: React.FC<Props> = ({ data, hint }) => {
     setSelected((prev) => (prev === id ? null : id));
   }, []);
 
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
   const handleCheck = useCallback(() => {
     const chosen = items.find((d) => d.id === selected);
     setChecked(true);
     setStatus(chosen?.isCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },chosen?.isCorrect || false);
   }, [items, selected]);
 
   const handleShowSolution = useCallback(() => {
@@ -147,7 +167,14 @@ const ArrType_39: React.FC<Props> = ({ data, hint }) => {
       showHint,
       summary,
     }),
-    [handleCheck, handleShowHint, handleShowSolution, hintText, showHint, summary]
+    [
+      handleCheck,
+      handleShowHint,
+      handleShowSolution,
+      hintText,
+      showHint,
+      summary,
+    ]
   );
   useEffect(() => {
     setControls(controls);

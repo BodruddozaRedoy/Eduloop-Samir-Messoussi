@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import Check from "@/components/common/Check";
-import Controllers from "@/components/common/Controllers";
-import Hint from "@/components/common/Hint";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import useResultTracker from "@/hooks/useResultTracker";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // Data for the area calculation problems with corrected image paths
 const problemsJSON = [
@@ -178,13 +175,13 @@ export default function ArrType_57({ hint,data:problemsJSON }: {data:any, hint: 
     }
     return answers[problemId]?.[field] || '';
   };
-  
+
   const isInputReadOnly = showSolution;
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="text-xl font-semibold text-gray-800">Question 1</div>
-      <div className="text-gray-600">Calculate the area</div>
+      {/* <div className="text-xl font-semibold text-gray-800">Question 1</div>
+      <div className="text-gray-600">Calculate the area</div> */}
 
       {/* Top row of problems */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 py-8">
@@ -288,7 +285,7 @@ export default function ArrType_57({ hint,data:problemsJSON }: {data:any, hint: 
         })}
       </div>
 
-   
+
     </div>
   );
 }

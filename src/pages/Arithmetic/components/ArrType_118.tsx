@@ -1,4 +1,6 @@
 ﻿import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -78,6 +80,10 @@ const ArrType_118: React.FC<Props> = ({ data, hint }) => {
   const [status, setStatus] = useState<Status>("idle");
   const [showHint, setShowHint] = useState(false);
 
+
+
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   /* -------- Handlers -------- */
   const handleCheck = useCallback(() => {
     const res = DATA.map((row, rIdx) =>
@@ -87,6 +93,7 @@ const ArrType_118: React.FC<Props> = ({ data, hint }) => {
 
     const allCorrect = res.every((row) => row.every((cell) => cell));
     setStatus(allCorrect ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },allCorrect);
   }, [DATA, values]);
 
   const handleShowSolution = useCallback(() => {
@@ -130,10 +137,10 @@ const ArrType_118: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
         <p className="text-sm text-slate-600">
           How much? Think for yourself. <span className="text-orange-500">For example:</span>
-        </p>
+        </p> */}
       </div>
 
       <div className="grid grid-cols-2 gap-12">

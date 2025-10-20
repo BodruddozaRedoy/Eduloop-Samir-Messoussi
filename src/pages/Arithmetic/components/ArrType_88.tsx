@@ -1,4 +1,6 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ---------------- Types ---------------- */
@@ -86,6 +88,8 @@ const ArrType_88: React.FC<Props> = ({ data, hint }) => {
   }, [DATA]);
 
   /* -------- Handlers -------- */
+      const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
     const results = DATA.map((p, i) => {
       const correctSum = p.sum.replace(/\s+/g, "").toLowerCase();
@@ -93,11 +97,11 @@ const ArrType_88: React.FC<Props> = ({ data, hint }) => {
 
       const correctAnsNum = extractNumber(p.answer);
       const userAnsNum = extractNumber(ansInputs[i]);
-
       return correctSum === userSum && correctAnsNum === userAnsNum;
     });
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },results.every(Boolean));
   }, [DATA, sumInputs, ansInputs]);
 
   const handleShowSolution = useCallback(() => {
@@ -145,10 +149,10 @@ const ArrType_88: React.FC<Props> = ({ data, hint }) => {
   return (
     <div className="space-y-10">
       <div>
-        <h2 className="text-lg font-semibold">Question 5</h2>
+        {/* <h2 className="text-lg font-semibold">Question 5</h2>
         <p className="text-sm text-slate-600">
           Which sum corresponds to this? Calculate it in your notebook.
-        </p>
+        </p> */}
       </div>
 
       {DATA.map((p, i) => (

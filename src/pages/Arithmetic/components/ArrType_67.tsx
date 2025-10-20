@@ -1,5 +1,7 @@
 import { useQuestionControls } from "@/context/QuestionControlsContext";
-import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { useQuestionMeta } from "@/context/QuestionMetaContext";
+import useResultTracker from "@/hooks/useResultTracker";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 /* ---------- Types ---------- */
 type Kind = "digitWorth";
@@ -165,6 +167,10 @@ const ArrType_67: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   }, []);
 
   /* ----- Validate ----- */
+  const { addResult } = useResultTracker();
+  const { id: qId, title: qTitle } = useQuestionMeta();
+
+
   const handleCheck = useCallback(() => {
     const iOK: boolean[][] = problems.map((p, pIdx) =>
       p.digits.map((_, dIdx) => approxOk(userInputs[pIdx][dIdx], p.answers[dIdx]))
@@ -173,6 +179,7 @@ const ArrType_67: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
     setInputOk(iOK);
     setChecked(true);
     setStatus(iOK.every((row) => row.every(Boolean)) ? "match" : "wrong");
+    addResult({ id: qId, title: qTitle },iOK.every((row) => row.every(Boolean)));
   }, [problems, userInputs]);
 
   const handleShowSolution = useCallback(() => {
@@ -240,8 +247,8 @@ const ArrType_67: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
   return (
     <div className="space-y-6" ref={containerRef}>
       <div>
-        <h2 className="text-lg font-semibold">Question 1</h2>
-        <p className="text-sm text-slate-600">What is each digit worth? Fill in.</p>
+        {/* <h2 className="text-lg font-semibold">Question 1</h2>
+        <p className="text-sm text-slate-600">What is each digit worth? Fill in.</p> */}
       </div>
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
@@ -274,7 +281,7 @@ const ArrType_67: React.FC<Props> = ({ data: incoming, hint: incomingHint }) => 
                       )}`}
                     />
                     <span className="text-slate-700">{p.unitSuffix}</span>
-                   
+
                   </div>
                 ))}
               </div>
