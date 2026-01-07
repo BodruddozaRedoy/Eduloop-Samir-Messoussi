@@ -258,5 +258,5 @@ function ArithmeticControllersSlot({id}:any) {
             {controls.showHint && controls.hint && <Hint hint={controls.hint} />}
             <Check summary={controls.summary || null} />
         </div>
-    )
+    );
 }
