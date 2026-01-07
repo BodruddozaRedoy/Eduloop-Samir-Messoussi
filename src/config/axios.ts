@@ -1,8 +1,13 @@
 import axios from "axios";
 
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "https://api.extrahanden.ai/api"
+    : "https://api.extrahanden.ai/api";
+
 export const AxiosPublic = axios.create({
-  baseURL: window.location.hostname === "localhost" ? "http://10.10.13.60:8090/api" : "https://api.extrahanden.ai/api",
-  withCredentials: true,
+  baseURL: API_BASE_URL,
+  // withCredentials: true,
 });
 
 AxiosPublic.defaults.xsrfCookieName = "csrftoken";
@@ -15,6 +20,24 @@ AxiosPublic.interceptors.request.use((config) => {
   const accessKey = localStorage.getItem("access-key");
   if (accessKey) {
     config.headers.Authorization = accessKey;
+  }
+  return config;
+});
+
+export const AxiosAdmin = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+AxiosAdmin.defaults.xsrfCookieName = "csrftoken";
+AxiosAdmin.defaults.xsrfHeaderName = "X-CSRFToken";
+AxiosAdmin.defaults.headers.common["Content-Type"] = "application/json";
+
+AxiosAdmin.interceptors.request.use((config) => {
+  const adminToken = localStorage.getItem("admin-token");
+  if (adminToken) {
+    config.headers.Authorization = adminToken.startsWith("Token ")
+      ? adminToken
+      : `Token ${adminToken}`;
   }
   return config;
 });
