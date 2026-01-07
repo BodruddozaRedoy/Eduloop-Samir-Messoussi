@@ -1,55 +1,33 @@
 import { AxiosAdmin } from "@/config/axios";
 import { Eye, Pencil, Plus } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { AdminSelect } from "../components/AdminControls";
+import type { ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import AdminHeader from "../components/AdminHeader";
 import AdminTable from "../components/AdminTable";
 
-type ApiListResponse<T> = {
-  results?: T[];
-};
-
-type Id = number | string;
-type Group = { id: Id; name?: string; title?: string; group?: string };
-type Subject = { id: Id; name?: string; title?: string; subject?: string };
-type Category = { id: Id; name?: string; title?: string; category?: string };
-type Subcategory = { id: Id; name?: string; title?: string; subcategory?: string };
-
-const uniqueById = <T extends { id?: Id }>(items: T[]) => {
-  const seen = new Set<string>();
-  return items.filter((item) => {
-    if (item?.id === undefined || item?.id === null) return true;
-    const key = String(item.id);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-};
-
-const uniqueOptionsByLabel = (options: Array<{ value: string; label: string }>) => {
-  const seen = new Set<string>();
-  return options.filter((o) => {
-    const key = o.label.trim().toLowerCase();
-    if (!key) return false;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-};
-
-const getName = (item: { name?: string }) => (item.name ?? "").toString().trim();
-
-type Question = {
+type Group = {
   id: number;
-  group?: string;
-  subject?: string;
-  category?: string;
-  subcategory?: string;
-  level?: string;
-  type?: string;
-  created_at?: string;
-  metadata?: { question?: string };
+  name: string;
 };
+type Subject = {
+  id: number;
+  name: string;
+};
+type Category = {
+  id: number;
+  name: string;
+};
+
+type Subcategory = {
+  id: number;
+  name: string;
+};
+
+type ApiResponse = {
+  results?: Group[];
+};
+
+const GROUP_STORAGE_KEY = "admin-selected-group-id";
 
 const AdminQeustions = () => {
   const columns = [
@@ -63,149 +41,179 @@ const AdminQeustions = () => {
     { key: "question", header: "Question" },
     { key: "action", header: "Action", className: "w-32" },
   ];
+  const levelOptions = [
+    { value: "easy", label: "Easy" },
+    { value: "medium", label: "Medium" },
+    { value: "hard", label: "Hard" },
+  ];
 
+  // state variables for selects
   const [groups, setGroups] = useState<Group[]>([]);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
-  const [questions, setQuestions] = useState<Question[]>([]);
-
   const [groupId, setGroupId] = useState<string>("");
+  const [subjects, setSubjects] = useState<Subject[]>([]);
   const [subjectId, setSubjectId] = useState<string>("");
+  const [categories, setCategories] = useState<Category[]>([]);
   const [categoryId, setCategoryId] = useState<string>("");
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [subcategoryId, setSubcategoryId] = useState<string>("");
+  const [tableData, setTableData] = useState<any[]>([]);
   const [level, setLevel] = useState<string>("");
 
-  const [loadingQuestions, setLoadingQuestions] = useState(false);
-  const [subcategoryRequestId, setSubcategoryRequestId] = useState(0);
+  // const [level, setLevel] = useState<string>("");
+  const [type, setType] = useState<string>("");
 
   useEffect(() => {
-    const loadGroups = async () => {
+    const fetchGroups = async () => {
       try {
-        const res = await AxiosAdmin.get<ApiListResponse<Group>>("/groups/");
-        setGroups(uniqueById(res.data?.results ?? []));
-      } catch {
+        const response = await AxiosAdmin.get<ApiResponse>("/groups/");
+        setGroups(response.data?.results ?? []);
+      } catch (error) {
+        console.error("Failed to fetch groups:", error);
         setGroups([]);
       }
     };
 
-    loadGroups();
+    fetchGroups();
   }, []);
 
-  useEffect(() => {
-    const loadSubjects = async () => {
-      if (!groupId) {
-        setSubjects([]);
-        return;
-      }
 
+
+
+
+
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
       try {
-        const res = await AxiosAdmin.get<ApiListResponse<Subject>>(
-          "/subjects/",
-          { params: { group_id: Number(groupId) } }
-        );
-        setSubjects(uniqueById(res.data?.results ?? []));
-      } catch {
+        const response = await AxiosAdmin.get<ApiResponse>(`/subjects/${groupParam}`);
+        setSubjects(response.data?.results ?? []);
+      } catch (error) {
+        console.error("Failed to fetch subjects:", error);
         setSubjects([]);
       }
     };
 
-    setSubjectId("");
-    setCategoryId("");
-    setSubcategoryId("");
-    setCategories([]);
-    setSubcategories([]);
-    loadSubjects();
+    fetchSubjects();
   }, [groupId]);
 
+
   useEffect(() => {
-    const loadCategories = async () => {
-      if (!groupId || !subjectId) {
-        setCategories([]);
-        return;
-      }
+    const fetchCategory = async () => {
+      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
+      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
 
       try {
-        const res = await AxiosAdmin.get<ApiListResponse<Category>>("/categories/list", {
-          params: {
-            group_id: Number(groupId),
-            subject__id: Number(subjectId),
-            subject_id: Number(subjectId),
-          },
-        });
-        setCategories(uniqueById(res.data?.results ?? []));
-      } catch {
+        const response = await AxiosAdmin.get<ApiResponse>(`/categories/list/?${groupParam}&${subjectParam}`);
+        setCategories(response.data?.results ?? []);
+      } catch (error) {
+        console.error("Failed to fetch subjects:", error);
         setCategories([]);
       }
     };
 
-    setCategoryId("");
-    setSubcategoryId("");
-    setSubcategories([]);
-    loadCategories();
+    fetchCategory();
   }, [groupId, subjectId]);
 
+
+
+
+
   useEffect(() => {
-    const currentRequestId = Date.now();
-    setSubcategoryRequestId(currentRequestId);
-    setSubcategoryId("");
-    setSubcategories([]);
-
-    if (!groupId || !subjectId || !categoryId) {
-      return;
-    }
-
-    const loadSubcategories = async () => {
-      const params = {
-        group_id: Number(groupId),
-        subject_id: Number(subjectId),
-        category_id: Number(categoryId),
-      };
-
-      console.log("📡 Fetching subcategories with params:", params);
+    const fetchSubCategory = async () => {
+      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
+      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
+      const categoryParam = categoryId ? `category__id=${categoryId}` : "category__id=1";
 
       try {
-        const res = await AxiosAdmin.get<ApiListResponse<Subcategory>>("/subcategories/", {
-          params,
-        });
-
-        console.log("📥 Subcategory API response:", res.data);
-
-        const items = uniqueById(res.data?.results ?? []);
-        console.log("✅ Setting subcategories:", items.map((i) => ({ id: i.id, name: i.name })));
-        setSubcategories(items);
-        setSubcategoryRequestId(currentRequestId);
-      } catch (err) {
-        console.error("❌ Subcategory fetch error:", err);
+        const response = await AxiosAdmin.get<ApiResponse>(`/subcategories/?${groupParam}&${subjectParam}&${categoryParam}`);
+        setSubcategories(response.data?.results ?? []);
+      } catch (error) {
+        console.error("Failed to fetch subjects:", error);
         setSubcategories([]);
       }
     };
 
-    loadSubcategories();
+    fetchSubCategory();
   }, [groupId, subjectId, categoryId]);
 
-  const onSubmit = async () => {
-    setLoadingQuestions(true);
-    try {
-      const res = await AxiosAdmin.get<ApiListResponse<Question>>(
-        "/dashboard/recent-questions/",
-        {
-          params: {
-            created_at: 0,
-            ...(level ? { level } : {}),
-            ...(groupId ? { group_id: groupId } : {}),
-            ...(subjectId ? { subject_id: subjectId } : {}),
-            ...(categoryId ? { category_id: categoryId } : {}),
-            ...(subcategoryId ? { subcategory_id: subcategoryId } : {}),
-          },
-        }
-      );
-      setQuestions(res.data?.results ?? []);
-    } catch {
-      setQuestions([]);
-    } finally {
-      setLoadingQuestions(false);
+
+
+
+
+  useEffect(() => {
+    const fetchTableData = async () => {
+      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
+      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
+      const categoryParam = categoryId ? `category__id=${categoryId}` : "category__id=1";
+      const subcategoryParam = subcategoryId ? `subcategory__id=${subcategoryId}` : "subcategory__id=1";
+      const levelParam = level ? `level=${level}` : "level=easy";
+
+
+      try {
+        const response = await AxiosAdmin.get<ApiResponse>(`/dashboard/recent-questions/?${levelParam}&${groupParam}&${subjectParam}&${categoryParam}&${subcategoryParam}`);
+        setTableData(response.data?.results ?? []);
+      } catch (error) {
+        console.error("Failed to fetch subjects:", error);
+        setTableData([]);
+      }
+    };
+
+    fetchTableData();
+  }, [groupId, subjectId, categoryId,subcategoryId, level]);
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
     }
+
+    const storedGroupId = localStorage.getItem(GROUP_STORAGE_KEY);
+    if (storedGroupId) {
+      setGroupId(storedGroupId);
+    }
+  }, []);
+
+
+
+  // handle changes for selects below
+  const handleGroupChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    setGroupId(selectedId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(GROUP_STORAGE_KEY, selectedId);
+    }
+  };
+
+  const handleSubjectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    setSubjectId(selectedId);
+  };
+
+const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    setCategoryId(selectedId);
+  };
+
+  const handleSubcategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    setSubcategoryId(selectedId);
+  };
+  const handleLevelChange= (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    setLevel(selectedId);
+  };
+
+
+
+
+  const onSubmit = () => {
+    // Functionality removed - UI only
   };
 
   const onReset = () => {
@@ -214,39 +222,56 @@ const AdminQeustions = () => {
     setCategoryId("");
     setSubcategoryId("");
     setLevel("");
-    setSubjects([]);
-    setCategories([]);
-    setSubcategories([]);
-    setQuestions([]);
+    setType("");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(GROUP_STORAGE_KEY);
+      localStorage.removeItem("admin-selected-subject-id");
+      localStorage.removeItem("admin-selected-category-id");
+      localStorage.removeItem("admin-selected-subcategory-id");
+      localStorage.removeItem("admin-selected-level");
+      localStorage.removeItem("admin-selected-type");
+    }
   };
 
-  const rows = useMemo(() => {
-    const actionCell = (
-      <div className="flex items-center gap-3 text-gray-700">
-        <button type="button" className="hover:text-gray-900" aria-label="View">
-          <Eye className="h-4 w-4" />
-        </button>
-        <button type="button" className="hover:text-gray-900" aria-label="Edit">
-          <Pencil className="h-4 w-4" />
-        </button>
-        <button type="button" className="hover:text-gray-900" aria-label="Add">
-          <Plus className="h-4 w-4" />
-        </button>
-      </div>
-    );
+  const actionCell = (
+    <div className="flex items-center gap-3 text-gray-700">
+      <button type="button" className="hover:text-gray-900" aria-label="View">
+        <Eye className="h-4 w-4" />
+      </button>
+      <button type="button" className="hover:text-gray-900" aria-label="Edit">
+        <Pencil className="h-4 w-4" />
+      </button>
+      <button type="button" className="hover:text-gray-900" aria-label="Add">
+        <Plus className="h-4 w-4" />
+      </button>
+    </div>
+  );
 
-    return questions.map((q) => ({
-      id: q.id,
-      group: q.group ?? "",
-      subject: q.subject ?? "",
-      category: q.category ?? "",
-      level: q.level ?? "",
-      type: q.type ?? "",
-      created_at: q.created_at ? q.created_at.slice(0, 10) : "",
-      question: q.metadata?.question ?? "",
-      action: actionCell,
-    }));
-  }, [questions]);
+  const rows = tableData.length
+    ? tableData.map((item) => ({
+        id: item?.id ?? "",
+        group: item?.group ?? "",
+        subject: item?.subject ?? "",
+        category: item?.category ?? "",
+        level: item?.level ?? "",
+        type: item?.type ?? "",
+        created_at: item?.created_at ? String(item.created_at).slice(0, 10) : "",
+        question: item?.metadata?.question ?? "",
+        action: actionCell,
+      }))
+    : [
+        {
+          id: "",
+          group: "",
+          subject: "",
+          category: "",
+          level: "",
+          type: "",
+          created_at: "",
+          question: "",
+          action: actionCell,
+        },
+      ];
 
   return (
     <div className="min-w-0">
@@ -257,67 +282,108 @@ const AdminQeustions = () => {
 
       <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
         <div className="flex flex-wrap items-center gap-3">
-          <AdminSelect
-            placeholder="Group"
+          <select
             value={groupId}
-            onChange={setGroupId}
-            options={uniqueOptionsByLabel(
-              groups
-                .map((g) => ({ value: String(g.id), label: getName(g) }))
-                .filter((o) => o.label)
-            )}
-          />
-          <AdminSelect
-            placeholder="Subject"
+            onChange={handleGroupChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="" disabled hidden>
+              Select group
+            </option>
+            {groups.map((group) => (
+              <option key={group.id} value={String(group.id)}>
+                {/* {group.name} */}
+                {group.id}
+              </option>
+            ))}
+          </select>
+
+
+           <select
             value={subjectId}
-            onChange={setSubjectId}
-            disabled={!groupId}
-            options={uniqueOptionsByLabel(
-              subjects
-                .map((s) => ({ value: String(s.id), label: getName(s) }))
-                .filter((o) => o.label)
-            )}
-          />
-          <AdminSelect
-            placeholder="Category"
+            onChange={handleSubjectChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="" disabled hidden>
+              Select subject
+            </option>
+            {subjects.map((subject) => (
+              <option key={subject.id} value={String(subject.id)}>
+                {/* {subject.name} */}
+                {subject.id}
+              </option>
+            ))}
+          </select>
+
+
+
+           <select
             value={categoryId}
-            onChange={setCategoryId}
-            disabled={!groupId || !subjectId}
-            options={uniqueOptionsByLabel(
-              categories
-                .map((c) => ({ value: String(c.id), label: getName(c) }))
-                .filter((o) => o.label)
-            )}
-          />
-          <AdminSelect
-            placeholder="Sub-category"
+            onChange={handleCategoryChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="" disabled hidden>
+              Select subject
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={String(category.id)}>
+                {/* {category.name} */}
+                {category.id}
+              </option>
+            ))}
+          </select>
+
+
+
+
+
+
+           <select
             value={subcategoryId}
-            onChange={setSubcategoryId}
-            disabled={!groupId || !subjectId || !categoryId}
-            options={uniqueOptionsByLabel(
-              subcategories
-                .map((sc) => ({ value: String(sc.id), label: getName(sc) }))
-                .filter((o) => o.label)
-            )}
-          />
-          <AdminSelect
-            placeholder="Level"
+            onChange={handleSubcategoryChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="" disabled hidden>
+              Select subcategory
+            </option>
+            {subcategories.map((subcategory) => (
+              <option key={subcategory.id} value={String(subcategory.id)}>
+                {/* {subcategory.name} */}
+                {subcategory.id}
+              </option>
+            ))}
+          </select>
+
+
+
+
+       <select
             value={level}
-            onChange={setLevel}
-            options={[
-              { value: "easy", label: "easy" },
-              { value: "medium", label: "medium" },
-              { value: "hard", label: "hard" },
-            ]}
-          />
+            onChange={handleLevelChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="" disabled hidden>
+              Select subcategory
+            </option>
+            {levelOptions.map((levelOption) => (
+              <option key={levelOption.value} value={String(levelOption.value)}>
+                {/* {levelOption.label} */}
+                {levelOption.label}
+              </option>
+            ))}
+          </select>
+
+
+
+
+
 
           <button
             type="button"
             onClick={onSubmit}
-            disabled={loadingQuestions}
             className="ml-2 h-9 rounded-lg bg-orange-600 px-5 text-xs font-semibold text-white hover:bg-orange-700"
           >
-            {loadingQuestions ? "Loading..." : "Submit"}
+            Submit
           </button>
           <button
             type="button"
@@ -331,7 +397,7 @@ const AdminQeustions = () => {
         <div className="mt-6">
           <AdminTable
             columns={columns}
-            rows={rows.length ? rows : [{ id: "", group: "", subject: "", category: "", level: "", type: "", created_at: "", question: "", action: "" }]}
+            rows={rows}
           />
         </div>
       </div>

@@ -1,9 +1,9 @@
 import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { AxiosAdmin } from "@/config/axios";
 import { Pencil, Plus, Trash2 } from "lucide-react";
@@ -154,6 +154,11 @@ const AdminAddUsers = () => {
   const handleCreateUser = useCallback(async () => {
     if (!createForm.email.trim() || !createForm.username.trim() || !createForm.password) {
       alert("Email, username, and password are required");
+      return;
+    }
+
+    if (createForm.password.length < 8) {
+      alert("Password must be at least 8 characters long");
       return;
     }
 
