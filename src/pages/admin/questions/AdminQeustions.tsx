@@ -2,6 +2,7 @@ import { AxiosAdmin } from "@/config/axios";
 import { Eye, Pencil, Plus } from "lucide-react";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import AdminHeader from "../components/AdminHeader";
 import AdminTable from "../components/AdminTable";
 
@@ -27,9 +28,30 @@ type ApiResponse = {
   results?: Group[];
 };
 
+type RecentQuestion = {
+  id?: number;
+  group?: string;
+  subject?: string;
+  category?: string;
+  subcategory?: string;
+  level?: string;
+  type?: string;
+  created_at?: string;
+  metadata?: {
+    question?: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+};
+
 const GROUP_STORAGE_KEY = "admin-selected-group-id";
+const SUBJECT_STORAGE_KEY = "admin-selected-subject-id";
+const CATEGORY_STORAGE_KEY = "admin-selected-category-id";
+const SUBCATEGORY_STORAGE_KEY = "admin-selected-subcategory-id";
+const LEVEL_STORAGE_KEY = "admin-selected-level";
 
 const AdminQeustions = () => {
+  const navigate = useNavigate();
   const columns = [
     { key: "id", header: "ID", className: "w-16" },
     { key: "group", header: "Group" },
@@ -44,7 +66,7 @@ const AdminQeustions = () => {
   const levelOptions = [
     { value: "easy", label: "Easy" },
     { value: "medium", label: "Medium" },
-    { value: "hard", label: "Hard" },
+    { value: "advanced", label: "Advanced" },
   ];
 
   // state variables for selects
@@ -56,11 +78,8 @@ const AdminQeustions = () => {
   const [categoryId, setCategoryId] = useState<string>("");
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [subcategoryId, setSubcategoryId] = useState<string>("");
-  const [tableData, setTableData] = useState<any[]>([]);
+  const [tableData, setTableData] = useState<RecentQuestion[]>([]);
   const [level, setLevel] = useState<string>("");
-
-  // const [level, setLevel] = useState<string>("");
-  const [type, setType] = useState<string>("");
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -177,6 +196,26 @@ const AdminQeustions = () => {
     if (storedGroupId) {
       setGroupId(storedGroupId);
     }
+
+    const storedSubjectId = localStorage.getItem(SUBJECT_STORAGE_KEY);
+    if (storedSubjectId) {
+      setSubjectId(storedSubjectId);
+    }
+
+    const storedCategoryId = localStorage.getItem(CATEGORY_STORAGE_KEY);
+    if (storedCategoryId) {
+      setCategoryId(storedCategoryId);
+    }
+
+    const storedSubcategoryId = localStorage.getItem(SUBCATEGORY_STORAGE_KEY);
+    if (storedSubcategoryId) {
+      setSubcategoryId(storedSubcategoryId);
+    }
+
+    const storedLevel = localStorage.getItem(LEVEL_STORAGE_KEY);
+    if (storedLevel) {
+      setLevel(storedLevel);
+    }
   }, []);
 
 
@@ -193,20 +232,32 @@ const AdminQeustions = () => {
   const handleSubjectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setSubjectId(selectedId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(SUBJECT_STORAGE_KEY, selectedId);
+    }
   };
 
 const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setCategoryId(selectedId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(CATEGORY_STORAGE_KEY, selectedId);
+    }
   };
 
   const handleSubcategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setSubcategoryId(selectedId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(SUBCATEGORY_STORAGE_KEY, selectedId);
+    }
   };
   const handleLevelChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setLevel(selectedId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(LEVEL_STORAGE_KEY, selectedId);
+    }
   };
 
 
@@ -222,7 +273,6 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     setCategoryId("");
     setSubcategoryId("");
     setLevel("");
-    setType("");
     if (typeof window !== "undefined") {
       localStorage.removeItem(GROUP_STORAGE_KEY);
       localStorage.removeItem("admin-selected-subject-id");
@@ -232,20 +282,6 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
       localStorage.removeItem("admin-selected-type");
     }
   };
-
-  const actionCell = (
-    <div className="flex items-center gap-3 text-gray-700">
-      <button type="button" className="hover:text-gray-900" aria-label="View">
-        <Eye className="h-4 w-4" />
-      </button>
-      <button type="button" className="hover:text-gray-900" aria-label="Edit">
-        <Pencil className="h-4 w-4" />
-      </button>
-      <button type="button" className="hover:text-gray-900" aria-label="Add">
-        <Plus className="h-4 w-4" />
-      </button>
-    </div>
-  );
 
   const rows = tableData.length
     ? tableData.map((item) => ({
@@ -257,7 +293,46 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
         type: item?.type ?? "",
         created_at: item?.created_at ? String(item.created_at).slice(0, 10) : "",
         question: item?.metadata?.question ?? "",
-        action: actionCell,
+        action: (
+          <div className="flex items-center gap-3 text-gray-700">
+            <button
+              type="button"
+              className="hover:text-gray-900"
+              aria-label="View"
+              onClick={() =>
+                navigate(`/admin/questions/${item?.id}`, {
+                  state: { question: item },
+                })
+              }
+            >
+              <Eye className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              className="hover:text-gray-900"
+              aria-label="Edit"
+              onClick={() =>
+                navigate(`/admin/questions/${item?.id}`, {
+                  state: { question: item },
+                })
+              }
+            >
+              <Pencil className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              className="hover:text-gray-900"
+              aria-label="Add"
+              onClick={() =>
+                navigate(`/admin/questions/${item?.id}`, {
+                  state: { question: item },
+                })
+              }
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        ),
       }))
     : [
         {
@@ -269,7 +344,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
           type: "",
           created_at: "",
           question: "",
-          action: actionCell,
+          action: null,
         },
       ];
 
@@ -293,7 +368,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             {groups.map((group) => (
               <option key={group.id} value={String(group.id)}>
                 {/* {group.name} */}
-                {group.id}
+                {group.name}
               </option>
             ))}
           </select>
@@ -310,7 +385,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             {subjects.map((subject) => (
               <option key={subject.id} value={String(subject.id)}>
                 {/* {subject.name} */}
-                {subject.id}
+                {subject.name}
               </option>
             ))}
           </select>
@@ -328,7 +403,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             {categories.map((category) => (
               <option key={category.id} value={String(category.id)}>
                 {/* {category.name} */}
-                {category.id}
+                {category.name}
               </option>
             ))}
           </select>
@@ -349,7 +424,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             {subcategories.map((subcategory) => (
               <option key={subcategory.id} value={String(subcategory.id)}>
                 {/* {subcategory.name} */}
-                {subcategory.id}
+                {subcategory.name}
               </option>
             ))}
           </select>

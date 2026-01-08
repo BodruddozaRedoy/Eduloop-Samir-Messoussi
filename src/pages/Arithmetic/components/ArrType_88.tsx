@@ -68,8 +68,9 @@ const UnderlineInput: React.FC<{
 
 /* ---------------- Component ---------------- */
 const ArrType_88: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data?.length ? data : DEFAULT_DATA;
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    return Array.isArray(data) && data.length ? data : DEFAULT_DATA;
+  }, [data]);
   const help = hint ?? DEFAULT_HINT;
 
   const [sumInputs, setSumInputs] = useState<string[]>(() => DATA.map(() => ""));
