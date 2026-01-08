@@ -109,8 +109,17 @@ const Section: React.FC<{
 
 /* ---------------- Main Component ---------------- */
 const ArrType_94: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data ?? DEFAULT_DATA;
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    if (
+      data &&
+      typeof data === "object" &&
+      Array.isArray((data as DataProp).tens) &&
+      Array.isArray((data as DataProp).hundreds)
+    ) {
+      return data as DataProp;
+    }
+    return DEFAULT_DATA;
+  }, [data]);
   const help = hint ?? DEFAULT_HINT;
 
   const [valuesTens, setValuesTens] = useState<string[]>(() =>
@@ -135,7 +144,7 @@ const ArrType_94: React.FC<Props> = ({ data, hint }) => {
     setOkHundreds(DATA.hundreds.map(() => null));
     setStatus("idle");
     setShowHint(false);
-  }, [data]);
+  }, [DATA]);
 
   /* -------- Handlers -------- */
       const { addResult } = useResultTracker();

@@ -17,6 +17,7 @@ type Item = {
 
 type Props = {
   items?: Item;
+  data?: unknown;
   hint?: string;
 };
 
@@ -40,6 +41,47 @@ const DEFAULT_ITEMS: Item = {
 
 const DEFAULT_HINT = "Multiply the number of shirts with the price per shirt.";
 
+function normalizeItems(input: unknown, fallback: Item): Item {
+  if (!input || typeof input !== "object") return fallback;
+
+  // Shape A: { data: ItemData[], price: number }
+  const maybe = input as { data?: unknown; price?: unknown; rows?: unknown };
+  const rawList = Array.isArray(maybe.data)
+    ? maybe.data
+    : Array.isArray(maybe.rows)
+    ? maybe.rows
+    : null;
+
+  if (!rawList) return fallback;
+
+  const list: ItemData[] = rawList
+    .map((r) => {
+      const row = r as { id?: unknown; name?: unknown; quantity?: unknown };
+      const id = typeof row.id === "string" ? row.id : "";
+      const name = typeof row.name === "string" ? row.name : "";
+      const quantity =
+        typeof row.quantity === "number"
+          ? row.quantity
+          : Number(String(row.quantity ?? ""));
+
+      if (!id || !name || !Number.isFinite(quantity)) return null;
+      return { id, name, quantity };
+    })
+    .filter((x): x is ItemData => Boolean(x));
+
+  if (!list.length) return fallback;
+
+  const price =
+    typeof maybe.price === "number"
+      ? maybe.price
+      : Number(String(maybe.price ?? fallback.price));
+
+  return {
+    data: list,
+    price: Number.isFinite(price) ? price : fallback.price,
+  };
+}
+
 /* ---------------- Helpers ---------------- */
 const normalizeEquation = (eq: string) =>
   eq
@@ -49,33 +91,36 @@ const normalizeEquation = (eq: string) =>
 
 /* ---------------- Component ---------------- */
 const ArrType_87: React.FC<Props> = ({
-  items = DEFAULT_ITEMS,
+  items,
+  data,
   hint = DEFAULT_HINT,
 }) => {
-  const { data, price } = items;
-
-  const [equations, setEquations] = useState<string[]>(() =>
-    data.map(() => "")
+  const resolvedItems = useMemo(
+    () => normalizeItems(items ?? data, DEFAULT_ITEMS),
+    [items, data]
   );
-  const [answers, setAnswers] = useState<string[]>(() => data.map(() => ""));
-  const [ok, setOk] = useState<(boolean | null)[]>(() => data.map(() => null));
+  const { data: list, price } = resolvedItems;
+
+  const [equations, setEquations] = useState<string[]>(() => list.map(() => ""));
+  const [answers, setAnswers] = useState<string[]>(() => list.map(() => ""));
+  const [ok, setOk] = useState<(boolean | null)[]>(() => list.map(() => null));
   const [status, setStatus] = useState<Status>("idle");
   const [showHint, setShowHint] = useState(false);
 
   // reset when data or price changes
   useEffect(() => {
-    setEquations(data.map(() => ""));
-    setAnswers(data.map(() => ""));
-    setOk(data.map(() => null));
+    setEquations(list.map(() => ""));
+    setAnswers(list.map(() => ""));
+    setOk(list.map(() => null));
     setStatus("idle");
     setShowHint(false);
-  }, [data, price]);
+  }, [list, price]);
 
   /* -------- Handlers -------- */
   const { addResult } = useResultTracker();
   const { id: qId, title: qTitle } = useQuestionMeta();
   const handleCheck = useCallback(() => {
-    const results = data.map((it, i) => {
+    const results = list.map((it, i) => {
       const correctEq = `${it.quantity}×${price}=${it.quantity * price}`;
       const correctAns = String(it.quantity * price);
       return (
@@ -86,16 +131,16 @@ const ArrType_87: React.FC<Props> = ({
     setOk(results);
     setStatus(results.every(Boolean) ? "match" : "wrong");
     addResult({ id: qId, title: qTitle },results.every(Boolean));
-  }, [data, equations, answers, price]);
+  }, [list, equations, answers, price]);
 
   const handleShowSolution = useCallback(() => {
     setEquations(
-      data.map((it) => `${it.quantity} × ${price} = ${it.quantity * price}`)
+      list.map((it) => `${it.quantity} × ${price} = ${it.quantity * price}`)
     );
-    setAnswers(data.map((it) => String(it.quantity * price)));
-    setOk(data.map(() => true));
+    setAnswers(list.map((it) => String(it.quantity * price)));
+    setOk(list.map(() => true));
     setStatus("match");
-  }, [data, price]);
+  }, [list, price]);
 
   const handleShowHint = useCallback(() => setShowHint((s) => !s), []);
 
@@ -157,7 +202,7 @@ const ArrType_87: React.FC<Props> = ({
       </div>
 
       <div className="flex flex-col gap-6">
-        {data.map((it, i) => {
+        {list.map((it, i) => {
           const isCorrect = ok[i] && status !== "idle";
           const isWrong = ok[i] === false && status !== "idle";
 
