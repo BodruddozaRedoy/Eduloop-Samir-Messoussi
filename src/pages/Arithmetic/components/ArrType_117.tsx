@@ -85,7 +85,9 @@ const NumberInput: React.FC<{
 
 /* ---------------- Main ---------------- */
 const ArrType_117: React.FC<Props> = ({ data, hint }) => {
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    return Array.isArray(data) && data.length ? data : DEFAULT_DATA;
+  }, [data]);
   const help = hint ?? DEFAULT_HINT;
 
   const [values, setValues] = useState<string[][]>(() =>
@@ -127,7 +129,7 @@ const ArrType_117: React.FC<Props> = ({ data, hint }) => {
     setOkAnswers(DATA.map(() => null));
     setStatus("idle");
     setShowHint(false);
-  }, [data]);
+  }, [DATA]);
 
 
   const { addResult } = useResultTracker();

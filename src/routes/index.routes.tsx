@@ -4,6 +4,7 @@ import { AdminIndexRedirect, AdminProtectedLayout, AdminPublicOnlyLayout } from 
 import AdminDashboard from '@/pages/admin/dashboard/AdminDashboard';
 import AdminLogin from '@/pages/admin/login/AdminLogin';
 import AdminQeustions from '@/pages/admin/questions/AdminQeustions';
+import AdminQuestionPreview from '@/pages/admin/questions/AdminQuestionPreview.tsx';
 import AdminCreateToken from '@/pages/admin/tokens/AdminCreateToken';
 import AdminAddUsers from '@/pages/admin/users/AdminAddUsers';
 import ArithmeticPage from '@/pages/Arithmetic/ArithmeticPage';
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
                 {
                     path: 'questions',
                     Component: AdminQeustions
+                },
+                {
+                    path: 'questions/:id',
+                    Component: AdminQuestionPreview
                 },
                 {
                     path: 'tokens',

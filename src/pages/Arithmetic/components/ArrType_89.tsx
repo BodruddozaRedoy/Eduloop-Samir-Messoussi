@@ -172,9 +172,10 @@ const MixedFractionInput: React.FC<{
 
 /* ---------------- Main Component ---------------- */
 const ArrType_89: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data?.length ? data : DEFAULT_DATA;
   const help = hint ?? DEFAULT_HINT;
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    return Array.isArray(data) && data.length ? data : DEFAULT_DATA;
+  }, [data]);
 
   const [improper, setImproper] = useState<string[]>(() => DATA.map(() => ""));
   const [simplified, setSimplified] = useState<string[]>(() =>

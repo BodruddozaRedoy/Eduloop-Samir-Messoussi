@@ -109,9 +109,10 @@ const NumberInput: React.FC<{
 
 /* ---------------- Main Component ---------------- */
 const ArrType_92: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data?.length ? data : DEFAULT_DATA;
   const help = hint ?? DEFAULT_HINT;
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    return Array.isArray(data) && data.length ? data : DEFAULT_DATA;
+  }, [data]);
 
   const [values, setValues] = useState<string[][]>(() =>
     DATA.map((p) => p.steps.map(() => ""))
