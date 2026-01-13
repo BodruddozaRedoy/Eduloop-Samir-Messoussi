@@ -65,11 +65,7 @@ export default function AdminLogin() {
         </h2>
 
         {/* Subtitle */}
-        <p className="mb-8 text-sm text-gray-500 leading-relaxed">
-          Log in to continue your IELTS practice and track
-          <br />
-          your progress anytime, anywhere.
-        </p>
+
 
         {error ? (
           <p className="mb-4 rounded-md bg-red-50 px-3 py-2 text-left text-sm text-red-700">
