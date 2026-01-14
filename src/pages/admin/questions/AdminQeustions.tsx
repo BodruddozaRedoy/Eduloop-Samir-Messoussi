@@ -1,4 +1,5 @@
 import { AxiosAdmin } from "@/config/axios";
+import axios from "axios";
 import { Eye, Pencil, Plus } from "lucide-react";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
@@ -28,6 +29,17 @@ type ApiResponse = {
   results?: Group[];
 };
 
+type ListResponse<T> = {
+  results?: T[];
+};
+
+type RecentQuestionsResponse = {
+  count?: number;
+  next?: string | null;
+  previous?: string | null;
+  results?: RecentQuestion[];
+};
+
 type RecentQuestion = {
   id?: number;
   group?: string;
@@ -43,12 +55,6 @@ type RecentQuestion = {
   };
   [key: string]: unknown;
 };
-
-const GROUP_STORAGE_KEY = "admin-selected-group-id";
-const SUBJECT_STORAGE_KEY = "admin-selected-subject-id";
-const CATEGORY_STORAGE_KEY = "admin-selected-category-id";
-const SUBCATEGORY_STORAGE_KEY = "admin-selected-subcategory-id";
-const LEVEL_STORAGE_KEY = "admin-selected-level";
 
 const AdminQeustions = () => {
   const navigate = useNavigate();
@@ -80,13 +86,27 @@ const AdminQeustions = () => {
   const [subcategoryId, setSubcategoryId] = useState<string>("");
   const [tableData, setTableData] = useState<RecentQuestion[]>([]);
   const [level, setLevel] = useState<string>("");
+  const [createdAt, setCreatedAt] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false);
+  const [hasPrevPage, setHasPrevPage] = useState<boolean>(false);
+  const [loadingSubjects, setLoadingSubjects] = useState<boolean>(false);
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(false);
+  const [loadingSubcategories, setLoadingSubcategories] = useState<boolean>(false);
+  const [loadingTable, setLoadingTable] = useState<boolean>(false);
+  const [lastRequestUrl, setLastRequestUrl] = useState<string>("");
 
   useEffect(() => {
     const fetchGroups = async () => {
+      const controller = new AbortController();
       try {
-        const response = await AxiosAdmin.get<ApiResponse>("/groups/");
+        const response = await AxiosAdmin.get<ApiResponse>("/groups/", {
+          signal: controller.signal,
+        });
         setGroups(response.data?.results ?? []);
       } catch (error) {
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
         console.error("Failed to fetch groups:", error);
         setGroups([]);
       }
@@ -102,36 +122,61 @@ const AdminQeustions = () => {
 
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchSubjects = async () => {
-      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
+      if (!groupId) {
+        setSubjects([]);
+        return;
+      }
+      setLoadingSubjects(true);
       try {
-        const response = await AxiosAdmin.get<ApiResponse>(`/subjects/${groupParam}`);
+        const response = await AxiosAdmin.get<ListResponse<Subject>>(
+          `/subjects/?group__id=${encodeURIComponent(groupId)}`,
+          { signal: controller.signal }
+        );
         setSubjects(response.data?.results ?? []);
       } catch (error) {
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
         console.error("Failed to fetch subjects:", error);
         setSubjects([]);
+      } finally {
+        setLoadingSubjects(false);
       }
     };
 
     fetchSubjects();
+    return () => controller.abort();
   }, [groupId]);
 
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchCategory = async () => {
-      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
-      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
+      if (!groupId || !subjectId) {
+        setCategories([]);
+        return;
+      }
+      setLoadingCategories(true);
 
       try {
-        const response = await AxiosAdmin.get<ApiResponse>(`/categories/list/?${groupParam}&${subjectParam}`);
+        const response = await AxiosAdmin.get<ListResponse<Category>>(
+          `/categories/list/?group__id=${encodeURIComponent(groupId)}&subject__id=${encodeURIComponent(
+            subjectId
+          )}`,
+          { signal: controller.signal }
+        );
         setCategories(response.data?.results ?? []);
       } catch (error) {
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
         console.error("Failed to fetch subjects:", error);
         setCategories([]);
+      } finally {
+        setLoadingCategories(false);
       }
     };
 
     fetchCategory();
+    return () => controller.abort();
   }, [groupId, subjectId]);
 
 
@@ -139,21 +184,33 @@ const AdminQeustions = () => {
 
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchSubCategory = async () => {
-      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
-      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
-      const categoryParam = categoryId ? `category__id=${categoryId}` : "category__id=1";
+      if (!groupId || !subjectId || !categoryId) {
+        setSubcategories([]);
+        return;
+      }
+      setLoadingSubcategories(true);
 
       try {
-        const response = await AxiosAdmin.get<ApiResponse>(`/subcategories/?${groupParam}&${subjectParam}&${categoryParam}`);
+        const response = await AxiosAdmin.get<ListResponse<Subcategory>>(
+          `/subcategories/?group__id=${encodeURIComponent(groupId)}&subject__id=${encodeURIComponent(
+            subjectId
+          )}&category__id=${encodeURIComponent(categoryId)}`,
+          { signal: controller.signal }
+        );
         setSubcategories(response.data?.results ?? []);
       } catch (error) {
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
         console.error("Failed to fetch subjects:", error);
         setSubcategories([]);
+      } finally {
+        setLoadingSubcategories(false);
       }
     };
 
     fetchSubCategory();
+    return () => controller.abort();
   }, [groupId, subjectId, categoryId]);
 
 
@@ -161,103 +218,101 @@ const AdminQeustions = () => {
 
 
   useEffect(() => {
+    const controller = new AbortController();
+    const debounceMs = 200;
     const fetchTableData = async () => {
-      const groupParam = groupId ? `?group__id=${groupId}` : "?group__id=1";
-      const subjectParam = subjectId ? `subject__id=${subjectId}` : "subject__id=1";
-      const categoryParam = categoryId ? `category__id=${categoryId}` : "category__id=1";
-      const subcategoryParam = subcategoryId ? `subcategory__id=${subcategoryId}` : "subcategory__id=1";
-      const levelParam = level ? `level=${level}` : "level=easy";
-
-
       try {
-        const response = await AxiosAdmin.get<ApiResponse>(`/dashboard/recent-questions/?${levelParam}&${groupParam}&${subjectParam}&${categoryParam}&${subcategoryParam}`);
+        setLoadingTable(true);
+        const params = new URLSearchParams();
+        if (page > 1) params.set("page", String(page));
+        if (createdAt) params.set("created_at", createdAt);
+        if (level) params.set("level", level);
+        // Backend appears to use Django-style filter keys (seen in `next` URLs)
+        if (groupId) params.set("group__id", groupId);
+        if (subjectId) params.set("subject__id", subjectId);
+        if (categoryId) params.set("category__id", categoryId);
+        if (subcategoryId) params.set("subcategory__id", subcategoryId);
+
+        const query = params.toString();
+        const url = query
+          ? `/dashboard/recent-questions/?${query}`
+          : "/dashboard/recent-questions/";
+
+        setLastRequestUrl(url);
+
+        const response = await AxiosAdmin.get<RecentQuestionsResponse>(url, {
+          signal: controller.signal,
+        });
         setTableData(response.data?.results ?? []);
+        setTotalCount(response.data?.count ?? 0);
+        setHasNextPage(Boolean(response.data?.next));
+        setHasPrevPage(Boolean(response.data?.previous));
       } catch (error) {
-        console.error("Failed to fetch subjects:", error);
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
+        console.error("Failed to fetch questions:", error);
         setTableData([]);
+        setTotalCount(0);
+        setHasNextPage(false);
+        setHasPrevPage(false);
+      } finally {
+        setLoadingTable(false);
       }
     };
 
-    fetchTableData();
-  }, [groupId, subjectId, categoryId,subcategoryId, level]);
-
-
-
-
-
-
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const storedGroupId = localStorage.getItem(GROUP_STORAGE_KEY);
-    if (storedGroupId) {
-      setGroupId(storedGroupId);
-    }
-
-    const storedSubjectId = localStorage.getItem(SUBJECT_STORAGE_KEY);
-    if (storedSubjectId) {
-      setSubjectId(storedSubjectId);
-    }
-
-    const storedCategoryId = localStorage.getItem(CATEGORY_STORAGE_KEY);
-    if (storedCategoryId) {
-      setCategoryId(storedCategoryId);
-    }
-
-    const storedSubcategoryId = localStorage.getItem(SUBCATEGORY_STORAGE_KEY);
-    if (storedSubcategoryId) {
-      setSubcategoryId(storedSubcategoryId);
-    }
-
-    const storedLevel = localStorage.getItem(LEVEL_STORAGE_KEY);
-    if (storedLevel) {
-      setLevel(storedLevel);
-    }
-  }, []);
-
+    const t = setTimeout(fetchTableData, debounceMs);
+    return () => {
+      clearTimeout(t);
+      controller.abort();
+    };
+  }, [groupId, subjectId, categoryId, subcategoryId, level, createdAt, page]);
 
 
   // handle changes for selects below
   const handleGroupChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setGroupId(selectedId);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(GROUP_STORAGE_KEY, selectedId);
-    }
+    setSubjectId("");
+    setCategoryId("");
+    setSubcategoryId("");
+    setSubjects([]);
+    setCategories([]);
+    setSubcategories([]);
+    setPage(1);
   };
 
   const handleSubjectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setSubjectId(selectedId);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(SUBJECT_STORAGE_KEY, selectedId);
-    }
+    setCategoryId("");
+    setSubcategoryId("");
+    setCategories([]);
+    setSubcategories([]);
+    setPage(1);
   };
 
 const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setCategoryId(selectedId);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(CATEGORY_STORAGE_KEY, selectedId);
-    }
+    setSubcategoryId("");
+  setSubcategories([]);
+    setPage(1);
   };
 
   const handleSubcategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setSubcategoryId(selectedId);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(SUBCATEGORY_STORAGE_KEY, selectedId);
-    }
+    setPage(1);
   };
   const handleLevelChange= (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     setLevel(selectedId);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LEVEL_STORAGE_KEY, selectedId);
-    }
+    setPage(1);
+  };
+
+  const handleCreatedAtChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    setCreatedAt(selectedValue);
+    setPage(1);
   };
 
 
@@ -273,14 +328,8 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
     setCategoryId("");
     setSubcategoryId("");
     setLevel("");
-    if (typeof window !== "undefined") {
-      localStorage.removeItem(GROUP_STORAGE_KEY);
-      localStorage.removeItem("admin-selected-subject-id");
-      localStorage.removeItem("admin-selected-category-id");
-      localStorage.removeItem("admin-selected-subcategory-id");
-      localStorage.removeItem("admin-selected-level");
-      localStorage.removeItem("admin-selected-type");
-    }
+    setCreatedAt("");
+    setPage(1);
   };
 
   const rows = tableData.length
@@ -362,9 +411,7 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             onChange={handleGroupChange}
             className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
-            <option value="" disabled hidden>
-              Select group
-            </option>
+            <option value="">All groups</option>
             {groups.map((group) => (
               <option key={group.id} value={String(group.id)}>
                 {/* {group.name} */}
@@ -377,11 +424,10 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
            <select
             value={subjectId}
             onChange={handleSubjectChange}
+            disabled={!groupId || loadingSubjects}
             className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
-            <option value="" disabled hidden>
-              Select subject
-            </option>
+            <option value="">All subjects</option>
             {subjects.map((subject) => (
               <option key={subject.id} value={String(subject.id)}>
                 {/* {subject.name} */}
@@ -395,11 +441,10 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
            <select
             value={categoryId}
             onChange={handleCategoryChange}
+            disabled={!groupId || !subjectId || loadingCategories}
             className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
-            <option value="" disabled hidden>
-              Select subject
-            </option>
+            <option value="">All categories</option>
             {categories.map((category) => (
               <option key={category.id} value={String(category.id)}>
                 {/* {category.name} */}
@@ -416,11 +461,10 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
            <select
             value={subcategoryId}
             onChange={handleSubcategoryChange}
+            disabled={!groupId || !subjectId || !categoryId || loadingSubcategories}
             className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
-            <option value="" disabled hidden>
-              Select subcategory
-            </option>
+            <option value="">All subcategories</option>
             {subcategories.map((subcategory) => (
               <option key={subcategory.id} value={String(subcategory.id)}>
                 {/* {subcategory.name} */}
@@ -437,15 +481,23 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
             onChange={handleLevelChange}
             className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
-            <option value="" disabled hidden>
-              Select subcategory
-            </option>
+            <option value="">All levels</option>
             {levelOptions.map((levelOption) => (
               <option key={levelOption.value} value={String(levelOption.value)}>
                 {/* {levelOption.label} */}
                 {levelOption.label}
               </option>
             ))}
+          </select>
+
+          <select
+            value={createdAt}
+            onChange={handleCreatedAtChange}
+            className="h-9 min-w-[160px] rounded-lg border border-gray-300 px-3 text-sm text-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="">Created at (default)</option>
+            <option value="0">created_at=0</option>
+            <option value="1">created_at=1</option>
           </select>
 
 
@@ -470,10 +522,42 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
         </div>
 
         <div className="mt-6">
+          {loadingTable ? (
+            <div className="mb-3 text-xs text-gray-500">Loading questions…</div>
+          ) : null}
+          {lastRequestUrl ? (
+            <div className="mb-3 text-[11px] text-gray-400 break-all">
+              Request: {lastRequestUrl}
+            </div>
+          ) : null}
           <AdminTable
             columns={columns}
             rows={rows}
           />
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="text-sm text-gray-600">
+              Total: {totalCount} • Page: {page}
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page <= 1 || !hasPrevPage}
+                className="h-9 rounded-lg border border-gray-400 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => setPage((p) => p + 1)}
+                disabled={!hasNextPage}
+                className="h-9 rounded-lg bg-orange-600 px-4 text-xs font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
