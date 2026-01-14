@@ -104,8 +104,17 @@ const Section: React.FC<{
 
 /* ---------------- Main Component ---------------- */
 const ArrType_95: React.FC<Props> = ({ data, hint }) => {
-  // const DATA = data ?? DEFAULT_DATA;
-  const DATA = DEFAULT_DATA;
+  const DATA = useMemo(() => {
+    if (
+      data &&
+      typeof data === "object" &&
+      Array.isArray((data as DataProp).left) &&
+      Array.isArray((data as DataProp).right)
+    ) {
+      return data as DataProp;
+    }
+    return DEFAULT_DATA;
+  }, [data]);
   const help = hint ?? DEFAULT_HINT;
 
   const [valuesLeft, setValuesLeft] = useState<string[][]>(

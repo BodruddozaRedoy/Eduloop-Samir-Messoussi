@@ -8,6 +8,40 @@ import useResultTracker from "@/hooks/useResultTracker";
 import { useQuestionMeta } from "@/context/QuestionMetaContext";
 import { useQuestionControls } from "@/context/QuestionControlsContext";
 
+// {
+//     id: 3,
+//     type: "type2_2",
+//     group: "4",
+//     subject: "Arithmetic",
+//     category: "Basic",
+//     level: "Advance",
+//     metadata: {
+//       mode: "preFilledBoxes",
+//       question:
+//         "Which numbers are there in this boxes? Connect with the scale line.",
+//       options: [12, 50, 34, 43, 63, 89],
+//       range: [1, 50, 100],
+//       hint: "Just count 1 by 1 of the scale line and connect with the scale line",
+//     },
+//   },
+
+// {
+//     id: 3,
+//     type: "type2_2",
+//     group: "4",
+//     subject: "Arithmetic",
+//     category: "Basic",
+//     level: "Advance",
+//     metadata: {
+//       mode: "preFilledBoxes",
+//       question:
+//         "Which numbers are there in this boxes? Connect with the scale line.",
+//       options: [120, 500, 340, 430, 630, 890],
+//       range: [100, 500, 1000],
+//       hint: "Just count 1 by 1 of the scale line and connect with the scale line",
+//     },
+//   },
+
 type Mode = "connectThenType" | "preConnected" | "preFilledBoxes";
 type PresetPair = { dotIndex: number; lineNum: number };
 
@@ -16,6 +50,7 @@ type Props = {
   presetLineNums?: PresetPair[];
   presetBoxNumbers?: number[];
   dotCount?: number;
+  range?:number[]
   hint?: string;
 };
 
@@ -34,6 +69,7 @@ export default function ArrType_2({
   mode,
   presetLineNums = [],
   presetBoxNumbers = [12, 50, 97, 3, 88],
+  range,
   dotCount = 5,
   hint,
 }: Props) {
@@ -303,7 +339,7 @@ export default function ArrType_2({
                   id={`input-${dotIndex}`}
                   type="text"
                   inputMode="numeric"
-                  maxLength={3}
+                  maxLength={4}
                   value={isReadOnly ? String(presetValue) : (typed[dotIndex] ?? "")}
                   readOnly={isReadOnly}
                   onChange={(e) => {
@@ -312,7 +348,7 @@ export default function ArrType_2({
                     setTyped((prev) => ({ ...prev, [dotIndex]: onlyDigits }));
                     setResults((prev) => ({ ...prev, [dotIndex]: null }));
                   }}
-                  className={`border-2 size-15 text-3xl font-bold text-center appearance-none focus:outline-none
+                  className={`border-2 h-15 w-30 text-3xl font-bold text-center appearance-none focus:outline-none
                     ${results[dotIndex] === "correct" && checked
                       ? "border-green-500"
                       : results[dotIndex] === "wrong" && checked

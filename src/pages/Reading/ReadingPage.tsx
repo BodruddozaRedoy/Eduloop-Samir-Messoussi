@@ -107,7 +107,7 @@ export default function ReadingPage() {
     <>
       {showReloadWarning && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-          <div className="bg-white p-8 rounded-2xl flex flex-col gap-5 max-w-sm w-full">
+          <div className="bg-white p-5 rounded-2xl flex flex-col gap-5 max-w-sm w-full">
             <h2 className="text-xl font-bold text-gray-800">Go Back to Category?</h2>
             <p className="text-gray-600">
               Your current progress will be lost. Do you still want to go back?
@@ -162,14 +162,14 @@ export default function ReadingPage() {
 
         {/* Difficulty pills */}
         <div className="bg-muted p-1 rounded-lg flex items-center">
-          <div className={`${pillBase} ${level === "easy" ? active : inactive}`}>Easy</div>
+          <div className={`${pillBase} ${level.includes("easy")  ? active : inactive}`}>Easy</div>
           <div className={`${pillBase} ${level.includes("medium") ? active : inactive}`}>Medium</div>
           <div className={`${pillBase} ${level.includes("advance") ? active : inactive}`}>Advance</div>
         </div>
       </div>
 
       {/* Body */}
-      <div className="p-10 rounded-[30px] w-full h-full border flex flex-col bg-white">
+      <div className="p-5 rounded-[20px] w-full h-full border flex flex-col bg-white">
         <div className="mb-4 text-lg font-semibold">
           <h1 className="font-bold">Question {serial}</h1>
         </div>
@@ -184,6 +184,7 @@ export default function ReadingPage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
         {question.type === "short" && (
@@ -194,6 +195,7 @@ export default function ReadingPage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
         {question.type === "fill_blank" && (
@@ -204,6 +206,7 @@ export default function ReadingPage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
         {question.type === "readingStoryQuestion" && (
@@ -215,11 +218,12 @@ export default function ReadingPage() {
             correctAnswer={question.metadata.correctAnswer}
             description={question.metadata.description}
             hint={question.metadata.hint}
+            id={question.id}
           />
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center justify-between mt-5">
           <div>
             <Link to={"/category"}>
               <Button className="mt-5 py-6 bg-[#e8edff] hover:bg-[#e8edff]/70 text-black border">
