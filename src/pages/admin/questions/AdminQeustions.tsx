@@ -4,8 +4,8 @@ import { Eye, Pencil, Plus } from "lucide-react";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import AdminHeader from "../components/AdminHeader";
 import { AdminSearch } from "../components/AdminControls";
+import AdminHeader from "../components/AdminHeader";
 import AdminTable from "../components/AdminTable";
 
 type Group = {

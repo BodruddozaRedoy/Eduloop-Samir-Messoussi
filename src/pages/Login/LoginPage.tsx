@@ -68,7 +68,7 @@ const LoginPage: React.FC = () => {
                             htmlFor="passcode"
                             className="block text-gray-700 text-sm font-semibold mb-2"
                         >
-                            Passcode (93388781)
+                            {/* Passcode (93388781) */}
                         </label>
                         <input
                             type="password"

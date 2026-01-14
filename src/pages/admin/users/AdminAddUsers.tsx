@@ -1,9 +1,9 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { AxiosAdmin } from "@/config/axios";
 import { Pencil, Plus, Trash2 } from "lucide-react";
