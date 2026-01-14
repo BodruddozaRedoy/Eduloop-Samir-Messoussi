@@ -4,6 +4,7 @@ import { Eye, Pencil, Plus } from "lucide-react";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { AdminSearch } from "../components/AdminControls";
 import AdminHeader from "../components/AdminHeader";
 import AdminTable from "../components/AdminTable";
 
@@ -72,7 +73,7 @@ const AdminQeustions = () => {
   const levelOptions = [
     { value: "easy", label: "Easy" },
     { value: "medium", label: "Medium" },
-    { value: "advanced", label: "Advanced" },
+    { value: "advance", label: "Advance" },
   ];
 
   // state variables for selects
@@ -96,6 +97,7 @@ const AdminQeustions = () => {
   const [loadingSubcategories, setLoadingSubcategories] = useState<boolean>(false);
   const [loadingTable, setLoadingTable] = useState<boolean>(false);
   const [lastRequestUrl, setLastRequestUrl] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -232,6 +234,8 @@ const AdminQeustions = () => {
         if (subjectId) params.set("subject__id", subjectId);
         if (categoryId) params.set("category__id", categoryId);
         if (subcategoryId) params.set("subcategory__id", subcategoryId);
+        const trimmedSearch = search.trim();
+        if (trimmedSearch) params.set("search", trimmedSearch);
 
         const query = params.toString();
         const url = query
@@ -264,7 +268,7 @@ const AdminQeustions = () => {
       clearTimeout(t);
       controller.abort();
     };
-  }, [groupId, subjectId, categoryId, subcategoryId, level, createdAt, page]);
+  }, [groupId, subjectId, categoryId, subcategoryId, level, createdAt, page, search]);
 
 
   // handle changes for selects below
@@ -312,6 +316,11 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
   const handleCreatedAtChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     setCreatedAt(selectedValue);
+    setPage(1);
+  };
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
     setPage(1);
   };
 
@@ -406,6 +415,11 @@ const handleCategoryChange= (event: ChangeEvent<HTMLSelectElement>) => {
 
       <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
         <div className="flex flex-wrap items-center gap-3">
+          <AdminSearch
+            placeholder="Search questions"
+            value={search}
+            onChange={handleSearchChange}
+          />
           <select
             value={groupId}
             onChange={handleGroupChange}
