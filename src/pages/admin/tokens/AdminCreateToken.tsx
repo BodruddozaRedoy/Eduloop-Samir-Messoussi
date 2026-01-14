@@ -8,7 +8,6 @@ import {
 import { AxiosAdmin } from "@/config/axios";
 import { Pencil, Plus, RefreshCcw, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AdminSearch } from "../components/AdminControls";
 import AdminHeader from "../components/AdminHeader";
 import AdminTable from "../components/AdminTable";
 
@@ -253,7 +252,6 @@ const AdminCreateToken = () => {
         </div>
 
         <div className="mt-5">
-          <AdminSearch />
         </div>
 
         <div className="mt-6">
