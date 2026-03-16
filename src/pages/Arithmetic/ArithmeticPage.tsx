@@ -31,14 +31,7 @@ export default function ArithmeticPage() {
 
     console.log(q)
 
-    // useEffect(() => {
-    //     localStorage.setItem("question", JSON.stringify(question))
-    //     const savedData = JSON.parse(localStorage.getItem("question"))
-    //     console.log(savedData)
-    //     if (savedData) {
-    //         setQuestion(savedData)
-    //     }
-    // }, [trigger])
+
 
     const subjectId = localStorage.getItem("subjectId");
     const groupId = localStorage.getItem("groupId");

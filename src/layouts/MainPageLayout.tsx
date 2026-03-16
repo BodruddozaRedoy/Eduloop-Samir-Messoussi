@@ -29,10 +29,10 @@ export default function MainPageLayout() {
             {location.pathname !== "/" && <Navbar />}
 
             <main
-                className={`bg-white border-white/20 rounded-[30px] border h-full flex-1 
+                className={`bg-white border-white/20 rounded-[30px] border flex flex-col flex-1 
                     ${location.pathname !== "/" ? "p-10" : "overflow-hidden"}`}
             >
-                <div className="">
+                <div className="flex-1">
                     <Outlet />
                 </div>
 
