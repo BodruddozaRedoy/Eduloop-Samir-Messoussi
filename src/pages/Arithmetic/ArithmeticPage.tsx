@@ -29,7 +29,7 @@ export default function ArithmeticPage() {
     const [showReloadWarning, setShowReloadWarning] = useState(false);
     const navigate = useNavigate()
 
-    console.log(q)
+    console.log("q ans:",q)
 
     // useEffect(() => {
     //     localStorage.setItem("question", JSON.stringify(question))
