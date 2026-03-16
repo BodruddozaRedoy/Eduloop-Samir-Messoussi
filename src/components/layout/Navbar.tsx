@@ -37,7 +37,7 @@ export default function Navbar() {
                 </div>
                 <IoIosArrowDown/> */}
                 {
-                    accessKey && <Button onClick={handleLogout}>log out</Button>
+                    accessKey && <Button onClick={handleLogout}>Log out</Button>
                 }
             </div>
         </div>
